@@ -30,7 +30,7 @@ and [`japanese_operation_boundary_worklist_20261023.tsv`](japanese_operation_bou
 The bounded Bank 53/frame evidence and limits are in
 [`bank53_names_frames_assets_audit_20261023.md`](bank53_names_frames_assets_audit_20261023.md).
 
-## Current Japanese verification at `9a44ec66` (2026-10-24)
+## Japanese verification snapshot at `9a44ec66` (2026-10-24)
 
 At canonical checkout `/home/rafael/_PROJETOS/Mobile Trainer`, commit
 `9a44ec66c0003d6ead80420b76c0ad545a0f3fb7`, the Japanese source still builds
@@ -58,6 +58,38 @@ questions, the 25 Bank 53 name-to-window associations, natural frame selection
 or universal used/unused status into confirmed results. Those remain
 UNKNOWN/HYPOTHESIS until positive evidence is available. English/ZIP remain
 paused.
+
+## Revalidation at `e6119102` (2026-10-24)
+
+At the canonical checkout `/home/rafael/_PROJETOS/Mobile Trainer`, commit
+`e6119102b820fd54bbda007bcba98604a9a3785a` refines the Bank 51 GFX boundary:
+`51:5EE1..70D1` is the 4,592-byte candidate tile source, `51:70D1..70E0` is
+fifteen zero bytes, and confirmed code `Bmp_Validate` starts at `51:70E0`.
+The alignment-padding role is **PROBABLE**; the exact reader/use and global
+non-use remain unknown. The current bounded GFX plan therefore has seven
+short spans (six Bank 42 fragments and `1A:4A85`), not the eight listed in the
+earlier checkpoint table. The residual audit found no complete-tile PNG
+candidate for those remaining spans; it does not prove global asset or use
+completeness.
+
+The isolated build command
+`make BUILD=/tmp/mobile-trainer-bank51-tail-check-20261024/BUILD ROM=/tmp/mobile-trainer-bank51-tail-check-20261024/mobile_trainer.gbc`
+returned `SHA-256 OK` and `RESULT: IDENTICAL` against the protected original
+ROM SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
+`make sym-check` passed with 335 source files, 12,215 labels and 51 constants;
+`make png-check`, `gfx_export.py check` (988 assets), and `png_rules.py
+mk-check` (987 rules) also passed. The change did not touch the Bank 53 name
+table, frame-window binaries or PNG assets, so their previous finite inventory
+remains a scoped result rather than a newly repeated test.
+
+Japanese semantic review remains incomplete. The five bounded natural-entry
+questions, Bank 53 name-to-window associations, natural frame selection, and
+universal used/unused status remain UNKNOWN/HYPOTHESIS absent distinct positive
+evidence. No missing referenced asset or PNG was found in the previously
+audited finite inventory; that result does not establish global ROM asset
+completeness. English/ZIP remains paused pending Japanese closure and explicit
+Operator approval.
 
 ## Validation records
 
