@@ -4,14 +4,14 @@ bank	file	line	owner	target	transfer	contract_group
 4C	engine/browser/history_cache.asm	123	Sram_CopyLongBlock	BankSwitch_H	call	cache ring and chunk domain
 4C	engine/browser/history_cache.asm	131	Sram_CopyLongBlock	BankSwitch_D	call	cache ring and chunk domain
 4C	engine/browser/history_cache.asm	300	PageCache_Pop	BankSwitch_H	call	cache ring and chunk domain
-51	engine/browser/inline_image_blit.asm	445	Bmp_ConvertToTiles	BankSwitch_H	call	HTML/browser pointer invariant required
+51	engine/browser/inline_image_blit.asm	445	Bmp_ConvertToTiles	BankSwitch_H	call	initialized layout records D020..DFF0/W4; count <=253
 4C	engine/browser/inline_images.asm	61	Browser_FetchInlineImages	BankSwitch_H	call	HTML/browser pointer invariant required
 4C	engine/browser/inline_images.asm	90	Browser_FetchInlineImages	BankSwitch_H	call	HTML/browser pointer invariant required
 4C	engine/browser/inline_images.asm	308	Browser_FetchInlineImages	BankSwitch_D	call	HTML/browser pointer invariant required
 4C	engine/browser/inline_images.asm	397	Browser_FetchInlineImages	BankSwitch_D	call	HTML/browser pointer invariant required
 4C	engine/browser/page_loader.asm	516	Browser_LoadPage_Request	BankSwitch_H	call	fixed RAM producer
 4C	engine/browser/page_loader.asm	556	Browser_LoadPage_Request	BankSwitch_H	call	fixed RAM producer
-4E	engine/browser/page_render.asm	18	Browser_DrawTitleBar	BankSwitch_H	call	HTML/browser pointer invariant required
+4E	engine/browser/page_render.asm	18	Browser_DrawTitleBar	BankSwitch_H	call	initialized parser header D000/W4
 4E	engine/browser/page_render.asm	27	Browser_DrawTitleBar	BankSwitch_H	call	fixed RAM producer
 4E	engine/browser/page_render.asm	1473	Browser_DrawElement_Text	BankSwitch_H	call	HTML/browser pointer invariant required
 4E	engine/browser/page_render.asm	1515	Browser_DrawElement_Text	BankSwitch_H	call	HTML/browser pointer invariant required
@@ -34,20 +34,20 @@ bank	file	line	owner	target	transfer	contract_group
 74	engine/html/layout.asm	394	Html_Layout_WrapRun	BankSwitch_H	call	HTML/browser pointer invariant required
 74	engine/html/layout.asm	528	Html_Layout_WrapRun	BankSwitch_D	call	HTML/browser pointer invariant required
 74	engine/html/layout.asm	559	Html_Layout_CloseRunRecord	BankSwitch_H	call	HTML/browser pointer invariant required
-74	engine/html/layout.asm	604	Html_Layout_AppendRecord	BankSwitch_H	call	HTML/browser pointer invariant required
-74	engine/html/layout.asm	865	Html_Layout_PlaceLine	BankSwitch_H	call	HTML/browser pointer invariant required
-74	engine/html/layout.asm	1050	Html_Layout_BeginLineAndPlaceFloats	BankSwitch_H	call	HTML/browser pointer invariant required
-74	engine/html/layout.asm	1204	Html_Layout_GetLimitsAtY	BankSwitch_H	call	HTML/browser pointer invariant required
+74	engine/html/layout.asm	604	Html_Layout_AppendRecord	BankSwitch_H	call	initialized layout records D020..DFF0/W4; count <=253
+74	engine/html/layout.asm	865	Html_Layout_PlaceLine	BankSwitch_H	call	initialized layout records D020..DFF0/W4; count <=253
+74	engine/html/layout.asm	1050	Html_Layout_BeginLineAndPlaceFloats	BankSwitch_H	call	initialized layout records D020..DFF0/W4; count <=253
+74	engine/html/layout.asm	1204	Html_Layout_GetLimitsAtY	BankSwitch_H	call	initialized layout records D020..DFF0/W4; count <=253
 74	engine/html/link_tables.asm	207	Html_NextResourceRecord	BankSwitch_H	call	HTML/browser pointer invariant required
-74	engine/html/parser.asm	189	Html_ParseSource	BankSwitch_H	call	HTML/browser pointer invariant required
+74	engine/html/parser.asm	189	Html_ParseSource	BankSwitch_H	call	initialized parser header D000/W4
 74	engine/html/parser.asm	200	Html_ParseSource	BankSwitch_D	call	HTML/browser pointer invariant required
 74	engine/html/parser.asm	217	Html_ParseSource	BankSwitch_D	call	HTML/browser pointer invariant required
-74	engine/html/parser.asm	379	Html_ParseSource_End	BankSwitch_H	call	HTML/browser pointer invariant required
+74	engine/html/parser.asm	379	Html_ParseSource_End	BankSwitch_H	call	initialized parser header D000/W4
 74	engine/html/parser.asm	447	Html_ParseSource_Tag_Done	BankSwitch_H	call	HTML/browser pointer invariant required
 74	engine/html/parser.asm	449	Html_ParseSource_Tag_Done	BankSwitch_D	call	HTML/browser pointer invariant required
-74	engine/html/tags.asm	109	Html_StoreTitle	BankSwitch_H	call	HTML/browser pointer invariant required
+74	engine/html/tags.asm	109	Html_StoreTitle	BankSwitch_H	call	initialized parser header D000/W4
 74	engine/html/tags.asm	118	Html_StoreTitle	BankSwitch_H	call	HTML/browser pointer invariant required
-74	engine/html/tags.asm	234	Html_StoreTitle	BankSwitch_D	call	HTML/browser pointer invariant required
+74	engine/html/tags.asm	234	Html_StoreTitle	BankSwitch_D	call	initialized parser header D000/W4
 74	engine/html/tags.asm	1457	Html_Tag_Hr	BankSwitch_D	call	HTML/browser pointer invariant required
 74	engine/html/tags.asm	1674	Html_Tag_Img	BankSwitch_H	call	HTML/browser pointer invariant required
 74	engine/html/tags.asm	1676	Html_Tag_Img	BankSwitch_D	call	HTML/browser pointer invariant required

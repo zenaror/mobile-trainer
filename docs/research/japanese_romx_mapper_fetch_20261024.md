@@ -282,3 +282,51 @@ Reproduction: `.tmp/jp-http-initial-body-20261024/check.py`, RESULT.json and
 INPUTS.json. This closes the local zero-window/zero-count ambiguity and narrows
 future work to real producer alternatives; do not rerun the same branch census.
 No source changes, emulator execution or new natural scenario are claimed.
+
+
+## Header and record consumers: ten more region contracts
+
+The helper matrix now resolves ten further rows under the ordinary initialized
+ParsePage/ScanPage domain with intact live HRAM state and balanced callees.
+Five header accesses are Browser_DrawTitleBar, ParseSource's clear, ParseSource_End's
+count store, and the two header accesses of StoreTitle. Their producers explicitly
+install D000/bank4; the count store adds15hex, still in WRAM. This is a producer
+contract, not a claim about arbitrary direct calls or reused HRAM in another phase.
+
+Five record accesses are AppendRecord, PlaceLine, BeginLineAndPlaceFloats,
+GetLimitsAtY, and the record-reference update loop inside Bmp_ConvertToTiles.
+Init sets next/list=D020 and count0. AppendRecord advances by10hex; when the next
+high byte would becomeE0 it rolls back without incrementing the count. The exact
+finite recurrence has254 reachable (pointer,count) states and saturates at
+next=DFF0,count253. Therefore DFF0 is still a writable append slot, but **not a
+counted254th record**. Counted walks cover at most D020..DFE0, using bounded
+record-relative offsets. The model checks all32,131 counted record positions over
+those states. Bitmap data-pointer validity is a separate question; the helper
+inside Bmp_ConvertToTiles at this matrix row accesses the layout-record list,
+not the bitmap payload. The header/count/list roles already documented in the
+HRAM aliases were reused, rather than rediscovered as unknown state.
+
+Two Html_LoadPageImages helper rows deliberately remain open. Its kind4 path
+pushes the record+0B pointer in addition to the loop's saved count and record.
+A successful conversion pops that extra pointer before patching the record.
+A zero return from Bmp_ConvertToTiles jumps directly to the common .l53D1 pops,
+so the extra word is not removed first. With balanced converter/farcall returns,
+the common pops consume record+0B as HL and record as BC; then HL+=10hex and BC--.
+For example, saved count1 and recordD020 give next HL=D03B, BC=D01F and one extra
+saved word1 on the stack. This immediately violates the normal record-walk
+invariant. It is not valid to infer a bounded walk for that branch merely from
+the original record count.
+
+This is CONFIRMED conditional stack arithmetic, not observed natural failure.
+The converter has zero-return paths (initial validation failure and .return_failure),
+but the earlier image-tag validation and intervening resource transformations
+must be examined before asserting that a normal page can trigger them here.
+No general return-into-code, mapper change, or global unused-code result follows
+from this example. The next substantive question is whether an originally valid
+image can reach a converter rejection, particularly its expanded-output capacity
+check. Do not replace this exact producer question with another label census.
+
+The matrix now has30 unresolved HTML/browser rows; the two dictionary rows and
+these ten have explicit domains. Reproduction is
+`.tmp/jp-html-record-domain-20261024/check.py`, RESULT.json and INPUTS.json.
+Only1715bytes of task artifacts retained; no source/ROM changes or new runtime.
