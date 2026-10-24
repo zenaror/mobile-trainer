@@ -73,3 +73,42 @@ The configured joypad vector CBFD=RETI exists too, but is not among those14 obse
 This reconciles **the observed RAM-execution domain** with known producers. It does not prove that no arbitrary write can corrupt a stub or that other RAM locations can never execute. Investigation should continue on concrete pointer/producer obligations, not repeat the14-start inventory.
 
 Second-pass verification after adding the Bank6B label: `make` RESULT: IDENTICAL; `make sym-check` OK (12,224 labels,51 exported constants); `make palette-check` zero errors. Retained task evidence is about67KB, with no source clone or emulator build.
+
+## TextTiles producer bounds (third pass)
+
+This pass reuses the established consumer, CR/LF and bank evidence in `typing_73_ticker_text.md`, `crlf_text_consumers_20261023.md`, and `naming2_verify_ramop9.md`. It does not reopen the glyph inventory or claim new natural debug-screen execution. The added question is whether the destination arithmetic of the declared grid producers can select ROM in `Font_BlitGlyph8x16`.
+
+### Row-limited ticker
+
+The only two textual `farcall TextTiles_RenderGridRows` sites are the ticker's title/body calls. Both set base D000, width64, row0/end1 and destination bank2. Title column is `(uint8 titleX >>3)+1`, hence1..32; body column is21. Before any wrap, the largest glyph starts are D3F0 and D7F0; their two16-byte halves end at D7FF. The first CR or completion of column63 increments row to1 and returns before another row is written. NUL can only shorten this path. Thus the bounded row destination domain holds independently of text length, assuming intact scratch state and normal callee returns. The existing Bank73 published-text proof remains valid and is not counted as new evidence.
+
+### All 18 named grid callsites
+
+The current tracked engine source has18 textual `farcall TextTiles_RenderGrid` sites. Eleven directly select immutable ROM strings; seven use the inspected dynamic/table producers below. Every row is a **conditional static contract**, not a guarantee for corrupted state or an assertion that a debug entry is naturally reachable. The byte model follows the inspected column/wrap/CR advance: CR skips one following byte, and two-byte glyphs advance destination by16. The font operation is conservatively summarized as two16-byte destination writes even when a missing glyph would return without writing.
+
+| Source site | Producer domain | Maximum destination byte |
+| --- | --- | --- |
+| `engine/comm/connect_dialog_screen.asm:123` | immutable direct ROM string | $D5BF |
+| `engine/comm/connect_dialog_screen.asm:273` | immutable direct ROM string | $D37F |
+| `engine/comm/connect_dialog_screen.asm:408` | immutable direct ROM string | $D37F |
+| `engine/comm/connect_dialog_screen.asm:506` | immutable direct ROM string | $D5EF |
+| `engine/comm/connect_dialog_screen.asm:637` | immutable direct ROM string | $D5CF |
+| `engine/comm/connect_dialog_screen.asm:740` | immutable direct ROM string | $D5CF |
+| `engine/comm/connect_dialog_screen.asm:830` | immutable direct ROM string | $D37F |
+| `engine/comm/connect_dialog_screen.asm:1459` | bounded inspected dynamic producer | $D0FF |
+| `engine/debug/debug_flags.asm:510` | immutable direct ROM string | $DBFF |
+| `engine/debug/debug_flags.asm:535` | immutable direct ROM string | $D10F |
+| `engine/debug/debug_flags.asm:596` | initialized debug index0 only | $D1EF |
+| `engine/debug/debug_flags.asm:757` | bounded inspected dynamic producer | $D1CF |
+| `engine/debug/debug_flags.asm:867` | bounded inspected dynamic producer | $D1FF |
+| `engine/debug/debug_flags.asm:931` | bounded inspected dynamic producer | $D1CF |
+| `engine/debug/error_screen_test.asm:275` | immutable direct ROM string | $D5DF |
+| `engine/debug/error_screen_test.asm:445` | bounded inspected dynamic producer | $D17F |
+| `engine/debug/sound_test.asm:312` | immutable direct ROM string | $D5DF |
+| `engine/debug/sound_test.asm:449` | bounded inspected dynamic producer | $D15F |
+
+All these destinations remain in the WRAM region, so their two font helper calls cannot select ROM within the stated domains. The range claim is about address regions, not intended allocation size or visual correctness.
+
+The dynamic contracts are: typed password buffer with0..8 valid full-width glyphs and terminator; debug hex builders with fixed prefix/suffix and masked digit indexes (7glyphs for flags,8for error,6for sound); flags bit builder16glyphs; flags decimal builder copies a15-byte,7glyph template and overwrites at most five digit cells. The relevant16-pair hexadecimal alphabets and decimal template were checked against original bytes for leading CR/NUL and termination. For the name-pointer site, `DebugFlags_Run` clears C0E5 to0, the increment branch rejects1 and decrement rejects0; under this initialized-state path the sole selected pointer is19:4912→4914. This does not prove entry into DebugFlags_Run or close the table under arbitrary index values.
+
+The finite script checks all32title start columns and the11direct ROM strings; dynamic bounds encode the source-inspected constructor limits and are not independent CPU execution. Reproducible inputs, original source-byte hashes and per-site output are retained in `.tmp/jp-texttiles-producer-bounds-20261024/check.py` and `RESULT.json`. No source/ROM/build output changed in this documentation-only pass; the preceding byte-identical build remains the source baseline. The remaining TextTiles branch is `TextTiles_RenderLine`, whose unbounded loop needs actual source lengths and destination producers; the grid results must not be generalized to it.
