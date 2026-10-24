@@ -133,6 +133,40 @@ The complete natural value domains and the Bank 70 candidate's natural entry
 therefore remain UNKNOWN/HYPOTHESIS as stated above. No ROM, source instruction,
 asset, or runtime trace changed in this review.
 
+### Mobile SDK and mail-library pointer writers (2026-10-24)
+
+The two direct callers of `MobileAPI_ReadConfig` in the maintained sources are
+`SettingsPhone_ReadAdapterConfig_State_ReadConfig` and
+`AdapterCheck_State_ReadConfig`. Both enable SRAM, select bank 2, set
+`DE=sConfigImage` (`$A000`) and `BC=$00C0`, then dispatch API byte offset
+`$38`. The SDK stores that caller pointer in `wMobileSDK_DestPointer`; its
+read-config receive path copies the reply bytes through the stored pointer.
+This natural route is SRAM2:`$A000-$A0BF`, not SRAM1:`$A9ED-$A9EE`.
+
+The mail-library dispatcher has 12 maintained application callsites in
+`engine/mobile/`: selectors 1, 2, 4, 6, and 8. Reviewing every internal
+`Mail_CopyToSram` callsite and the descriptors used by those selectors gives
+three natural output contracts: selector 4 writes the parsed body to SRAM3
+`$B000` with `$0800` capacity (`Data_Pop3Retr_ParseBodyArgs`); selector 6
+writes decoded headers to WRAM5 `$C480` (`Data_Pop3Retr_DecodeFromHeaderArgs`
+and `Data_Pop3Top_DecodeHeaderArgs`); selector 8 writes composed mail headers
+to SRAM3 `$A100` with `$0F00` capacity (`Data_Smtp_HeaderComposeArgs`).
+Selectors 1 and 2 are the app's scan/check calls; neither supplies the
+`Mail_CopyToSram` output descriptor. The other `Mail_CopyToSram` callsites
+belong to selectors with no maintained application dispatch callsite in this
+inventory.
+
+These caller-rooted routes do not target SRAM1:`$A9ED-$A9EE`. This closes only
+the stated MobileSDK read-config and application mail-selector routes. It does
+not close generic string/XOR writers, arbitrary API arguments, computed or
+corrupt descriptors, unrecognized indirect dispatch, or every source-level
+pointer writer; those remain in the source-complete census. It also does not
+establish a natural caller for the Bank 70 candidate or the complete value
+domain of either SRAM field. Static sources checked: `home/mobile.asm`,
+`lib/mobile/main.asm`, `lib/mobile/mail.asm`, `engine/settings/adapter_config.asm`,
+`engine/settings/adapter_check.asm`, `engine/mobile/pop3_retr.asm`,
+`engine/mobile/pop3_top.asm`, and `engine/mobile/smtp.asm`.
+
 The minimal proposal changes exactly25 existing whole-comment rows in engine/comm/comm_scene.asm and adds this note. Physical source rows, all instructions/data, blanks, labels, local scopes and confidence levels remain unchanged. This source-only static proposal does not change the accepted queue, integrate a parent or authorize validation. Existing scope6 preparation helpers are untouched.
 
 
