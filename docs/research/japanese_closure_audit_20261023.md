@@ -30,6 +30,35 @@ and [`japanese_operation_boundary_worklist_20261023.tsv`](japanese_operation_bou
 The bounded Bank 53/frame evidence and limits are in
 [`bank53_names_frames_assets_audit_20261023.md`](bank53_names_frames_assets_audit_20261023.md).
 
+## Current Japanese verification at `9a44ec66` (2026-10-24)
+
+At canonical checkout `/home/rafael/_PROJETOS/Mobile Trainer`, commit
+`9a44ec66c0003d6ead80420b76c0ad545a0f3fb7`, the Japanese source still builds
+byte-for-byte to the protected 2 MiB original (SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`).
+`make sym-check` passes with 335 source files, 12,214 labels and 51 constants;
+`make palette-check` passes with 162 loads, 116 arrays, two documented
+over-reads and zero errors; `make png-check` checks 418 tile sheets, four raw
+byte views, 37 unique font PNGs and 95 screens. `gfx_export.py check` accepts
+988 assets, including 39 font-binary rows using those 37 unique sheets, and
+`png_rules.py mk-check` accepts 987 rules.
+
+The current Japanese name census matches all 15 coverage families with zero
+open families: 2,764/2,764 local anchors, 106/106 strict bank/address-suffix
+rows, 540/540 broad name dispositions and 786/786 RAM equates. It reports zero
+strict address-shaped globals, zero generic function prefixes, zero
+unreviewed generic markers and zero generic `gfx/bankNN/` paths. `make test`
+passes all suites (including 48 CFG, 24 palette-read and six retype-parts
+tests); it emits the existing non-fatal `ResourceWarning` at
+`tools/test_cfg.py:398`.
+
+This checkpoint verifies the current build, audited naming families, declared
+asset catalogs and tests. It does not turn the five bounded natural-entry
+questions, the 25 Bank 53 name-to-window associations, natural frame selection
+or universal used/unused status into confirmed results. Those remain
+UNKNOWN/HYPOTHESIS until positive evidence is available. English/ZIP remain
+paused.
+
 ## Validation records
 
 ### Revalidation at `9f077cd0` (2026-10-24)
