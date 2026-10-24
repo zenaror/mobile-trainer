@@ -132,6 +132,7 @@ sSram_A9E9	SRAM	ram/sram.asm:90	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No d
 sSram_A9EA	SRAM	ram/sram.asm:91	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
 sSram_A9EB	SRAM	ram/sram.asm:92	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
 sSram_A9EC	SRAM	ram/sram.asm:93	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sSaveCheckValidFlag	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
+sSram_A9ED	SRAM	ram/sram.asm:94	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sSaveCheckStateBlockFlags	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
 sSram_A9EE	SRAM	ram/sram.asm:95	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.
 sSram_A9EF	SRAM	ram/sram.asm:96	KEEP_NEUTRAL_EXACT_BANK_OVERLAY	sBrowserFrameStyle	0	CONFIRMED	Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent.
 sSram_A9F0	SRAM	ram/sram.asm:97	KEEP_NEUTRAL_CONTAINER_INTERIOR		0	PROBABLE	No direct operand remains in maintained ASM/INC; address falls within an existing banked container, which does not prove a unique byte role.

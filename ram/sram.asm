@@ -91,7 +91,7 @@ DEF sSram_A9E9 EQU $A9E9 ; size 1 byte HYPOTHESIS usage r=0 w=2 l=0 ptr-uses=0 b
 DEF sSram_A9EA EQU $A9EA ; size 1 byte HYPOTHESIS usage r=1 w=2 l=0 ptr-uses=0 banks=1 (t1: r=1 w=2 l=0); SRAM bank(s) tracked: unknown; const stores 00 x1
 DEF sSram_A9EB EQU $A9EB ; size 1 byte HYPOTHESIS usage r=1 w=2 l=0 ptr-uses=0 banks=1 (t1: r=1 w=2 l=0); SRAM bank(s) tracked: unknown; const stores 00 x1
 DEF sSram_A9EC EQU $A9EC ; size 1 byte HYPOTHESIS usage r=2 w=1 l=0 ptr-uses=0 banks=1 (t1: r=1 w=1 l=0); SRAM bank(s) tracked: 1; const stores 01 x1
-DEF sSaveCheckStateBlockFlags EQU $A9ED ; size 1 byte CONFIRMED [ram12s] SRAM bank 1 offset +$05 in sSaveCheckStateBlock; static readers test bits 6/7 and mask $30 (70:46C2-4710, 70:475C, 4E:6185, 73:62E4); full value domain and application meaning remain unknown
+DEF sSram_A9ED EQU $A9ED ; size 1 byte HYPOTHESIS usage r=4 w=0 l=1 ptr-uses=0 banks=3 (t1: r=0 w=0 l=1); SRAM bank(s) tracked: 1; loaded before call 1620 x1
 DEF sSram_A9EE EQU $A9EE ; size 1 byte HYPOTHESIS usage r=1 w=2 l=0 ptr-uses=0 banks=1 (t1: r=0 w=0 l=0); SRAM bank(s) tracked: 1
 DEF sSram_A9EF EQU $A9EF ; size 1 byte HYPOTHESIS usage r=4 w=4 l=0 ptr-uses=0 banks=1 (t1: r=3 w=3 l=0); SRAM bank(s) tracked: 1; const stores 01 x3 | sram_layout.md: SRAM bank 1: bits 0-6 must be 1..$1A, bit 7 not examined (4E:4716-471E, 4E:46B1-46BA) [CONFIRMED]
 DEF sSram_A9F0 EQU $A9F0 ; size 1 byte HYPOTHESIS usage r=3 w=0 l=0 ptr-uses=0 banks=1 (t1: r=1 w=0 l=0); SRAM bank(s) tracked: 1

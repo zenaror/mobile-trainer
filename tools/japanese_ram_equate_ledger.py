@@ -125,13 +125,13 @@ def build_rows() -> list[dict[str, str]]:
         "HRAM": sum(row["region"] == "HRAM" for row in rows),
         "WRAMX": sum(row["region"] == "WRAMX" for row in rows),
     }
-    if counts != {"SRAM": 160, "WRAM0": 102, "HRAM": 42, "WRAMX": 481}:
+    if counts != {"SRAM": 161, "WRAM0": 102, "HRAM": 42, "WRAMX": 481}:
         raise AssertionError(f"RAM census changed: {counts}")
     decisions: dict[str, int] = {}
     for row in rows:
         decisions[row["decision"]] = decisions.get(row["decision"], 0) + 1
     expected_decisions = {
-        "KEEP_NEUTRAL_EXACT_BANK_OVERLAY": 88,
+        "KEEP_NEUTRAL_EXACT_BANK_OVERLAY": 89,
         "KEEP_NEUTRAL_CONTAINER_INTERIOR": 71,
         "KEEP_NEUTRAL_CONTEXTUAL_CONTAINER": 1,
         "KEEP_NEUTRAL_SCOPED_OVERLAY": 104,
@@ -141,7 +141,7 @@ def build_rows() -> list[dict[str, str]]:
     }
     if decisions != expected_decisions:
         raise AssertionError(f"RAM disposition partition changed: {decisions}")
-    if len(sram_aliases) != 88:
+    if len(sram_aliases) != 89:
         raise AssertionError(f"exact-base SRAM alias coverage changed: {len(sram_aliases)}")
     if sum(bool(overlay_aliases.get(name.upper(), [])) for name in definitions if name.startswith("hRam_")) != 42:
         raise AssertionError("HRAM overlay alias coverage no longer covers all 42 neutral bases")
@@ -178,7 +178,7 @@ def main() -> int:
         if actual != expected:
             print("ram_equate_ledger: FAIL: tracked RAM equates or dispositions differ from the ledger", file=sys.stderr)
             return 1
-        print("ram_equate_ledger: OK: 785/785 current neutral RAM equates reconciled")
+        print("ram_equate_ledger: OK: 786/786 current neutral RAM equates reconciled")
         return 0
     LEDGER.write_text(expected, encoding="utf-8")
     print(f"ram_equate_ledger: wrote {len(build_rows())} rows to {LEDGER}")
