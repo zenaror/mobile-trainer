@@ -30,6 +30,18 @@ four callback addresses is one of the five candidates. Therefore the audited
 sprite-hook producer/dispatch path does not establish a caller or natural root
 for those candidates.
 
+Three other indexed `JP HL` dispatches in the same subsystem neighborhoods
+were checked against their complete maintained tables:
+
+| Dispatcher | Table and scope | Result for candidates |
+|---|---|---|
+| `TextEngine_NextByte` (`00:0EEF`) | 32 command words in `Table_TextEngine_CmdHandlers`, bank `00` | All targets are bank-00 command handlers; no switchable-bank candidate can be selected by this table. |
+| `Mail_Dispatch` (`0F:425F`) | 13 selector words in `Mail_SelectorTable`; `Mail_DispatchFar` selects bank `0F` before dispatch | Every target is one of the 13 bank-0F handlers listed in `lib/mobile/mail.asm`; this route does not dispatch to `2B:6CF5`. |
+| `CommScene_RunState` (`70:40AC`) | Three kind tables with 10, 9, and 5 state words (24 handlers total), all in bank `70` | The complete table does not contain `70:4740`; this state machine does not establish its entry. |
+
+These results bound those specific producers. They do not imply that other
+indirect transfers, code-pointer tables, or direct writes have been exhausted.
+
 ## Limits
 
 This is a bounded result over the maintained assembly's direct
