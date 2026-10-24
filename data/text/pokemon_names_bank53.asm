@@ -1,6 +1,6 @@
 ; data/text/pokemon_names_bank53.asm
 ; bank 53, $4000-$4171 (369 bytes); pinned by layout.link
-; 25 katakana names (pointer table + strings); no reader found
+; 25 katakana names (pointer table + strings); no reader confirmed in the bounded reviews; name-to-frame associations remain HYPOTHESIS
 
 SECTION "data/text/pokemon_names_bank53", ROMX
 
