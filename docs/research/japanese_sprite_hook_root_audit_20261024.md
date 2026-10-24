@@ -124,6 +124,32 @@ The bank-3 save/restore pair copies the 256-byte slot page to and from its
 backup; it preserves slot state and is not itself a separate callback
 initializer.
 
+## Original-ROM immediate-pointer cross-check (2026-10-24)
+
+A second pass scanned the immutable 2 MiB ROM for the 42 WRAM7 addresses
+corresponding to the callback bytes of the 14 sprite slots. It checked seven
+instruction forms with 16-bit immediate operands: `LD BC,d16`, `LD DE,d16`,
+`LD HL,d16`, `LD SP,d16`, `LD [a16],SP`, `LD [a16],A`, and `LD A,[a16]`.
+There are 21 matching instruction patterns: 15 `LD HL,d16` address loads and
+six `LD [a16],A` stores; none matched the other five forms. All 21 sites match
+the maintained source references: `4E:605D` and seven sites in `57` load
+`wSpriteSlot2+$0B` or `wSpriteSlot8+$0B` for `Sprite_SetHook`; seven sites in
+`72` load `wSpriteSlot12+$0B` for the same setter. The six `2B` stores at
+`40D2`, `40D5`, `40D8`, `4105`, `4108`, and `410B` are the direct `$FF` slot
+initialization in `MailDraft_Menu` for slots 1 and 2. The complete list is in
+the result receipt.
+
+Both the protected original and current `mobile_trainer.gbc` have SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`; each
+of the 21 three-byte instruction slices is identical between them. The
+reproducible script is
+`.tmp/jp-sprite-hook-raw-literal-audit-20261024/scan.py` (SHA-256
+`370adc5c693fb23a6116f06c6e9d2baea403e53f37da11d9ae53caddcff2cd3e`); its
+result is `RESULT.json` (SHA-256
+`3bc12317084dd4f015102faf7b3855998950dc08aab970b26a4f20deafe1cbfe`). This
+closes only these literal immediate forms. It does not analyze non-immediate
+pointer arithmetic, runtime-computed pointers, or all possible WRAM writes.
+
 This narrows the bypass-setter question only for explicit symbol-plus-offset
 and literal-address writes plus the generic engine helpers described above. It
 does not cover other writes through dynamically computed pointers, raw aliases
@@ -139,6 +165,7 @@ rg -n 'call Sprite_SetHook|farcall Sprite_SetHook' engine home lib data --glob '
 rg -n '^(Sprite_HookAddSlideOffset|ConnIcon_UpdateState|ConnectDialog_ObjHook_Caret|ConnectDialog_ObjHook_FollowRaster)::' home engine lib data --glob '*.asm'
 rg -n 'wSpriteSlot[0-9]+ \+ \$0(B|C|D)\b|wSpriteSlots \+' home engine lib data gfx audio ram --glob '*.asm' --glob '*.inc'
 rg -n '\$DA(0B|0C|0D|1B|1C|1D|2B|2C|2D|3B|3C|3D|4B|4C|4D|5B|5C|5D|6B|6C|6D|7B|7C|7D|8B|8C|8D|9B|9C|9D|AB|AC|AD|BB|BC|BD|CB|CC|CD|DB|DC|DD)\b' home engine lib data gfx audio ram --glob '*.asm' --glob '*.inc'
+python3 .tmp/jp-sprite-hook-raw-literal-audit-20261024/scan.py
 ```
 
 The callback bank/address labels are in `home/sprites.asm`,
