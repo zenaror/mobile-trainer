@@ -8,6 +8,29 @@ A read-only decode of the original bank at physical bank `53` confirms the range
 
 These facts confirm the complete encoded name table and its byte placement. They do not establish a reader, natural selection, or association between any name ordinal and a frame image.
 
+### Exact Bank-53 far-pointer byte patterns (2026-10-24)
+
+The preserved ROM was searched for literal three-byte pointer encodings to the
+table address `$4000` and all 25 string starts `$4032-$4164`, in both
+`address16 LE, bank $53` and `bank $53, address16 LE` order. It was also
+searched for the text interpreter's nested-string record `[ $01, address16 LE,
+$53 ]` at each target. Across 52 far-pointer patterns and 26 nested-text
+records, the original ROM has zero matches. The scan revalidated the original
+2 MiB ROM SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`; its
+maintained Bank 53 source SHA-256 is
+`ca00c038309628db8a948a5895071a4a2ae336f40f1d54e190c0f8dd6eeec2dd`.
+
+This closes only those exact literal pointer forms. It does not detect
+register/arithmetic-built addresses, split bank/address fields, computed bank
+selection, copied records, or an external pointer passed to a generic text or
+far-read API. Therefore it adds no confirmed Pokémon-name/frame association
+and does not prove the table or any frame globally unused. Reproduction:
+`.tmp/jp-bank53-pointer-pattern-census-20261024/audit.py` (SHA-256
+`8c5e184743ee40c491a3bdb54beb37ddb7430f574178fc1c79583c7258bb2aa7`);
+`RESULT.json` SHA-256
+`101afdd5ba841392cc4071b28bddc645befee9ce22a7278bb492ebe8a34aef20`.
+
 ## Bank 41–47 assets and PNGs
 
 At the original audit snapshot, `gfx/assets.tsv` had 137 rows across eight owner directories for physical banks `41–47`, totaling 93,264 bytes: 49 tile assets, 28 palettes, 28 tilemaps, 28 attribute maps, and four raw-byte views. Every file in that snapshot reconstructed the corresponding original-ROM slice. The audit interprets the catalog bank column as hexadecimal and uses file offset `bank * 0x4000 + address - 0x4000`; palette text is decoded with the project's `tools.gfx_export.palette_bytes` implementation.
