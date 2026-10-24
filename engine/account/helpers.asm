@@ -420,6 +420,10 @@ BankSwitch_H_Local:: ; 68:4239
 	ret
 
 .select_rom_bank ; 68:424C
+	; [CONFIRMED] The write at $424E can remap the next fetch at $4251; the RET
+	; below is only the Bank68 byte, not a guaranteed return for arbitrary A.
+	; The declared Profile_Edit caller supplies A=0, HL=$AF50 and selects SRAM
+	; through the other branch when those saved arguments remain intact.
 	; [PROBABLE] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 1;
 	; entered by jrcc from 68:423B (executed)
 	ldh [hROMBankLo], a

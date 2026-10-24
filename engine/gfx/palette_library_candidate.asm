@@ -144,7 +144,10 @@ PalLibCandidate_DivideABy10ToFfb1QuotientFfb0Remainder:: ; 29:50FC
 	ret
 
 PalLibCandidate_WriteRomBankLowAAndZeroHigh:: ; 29:510F
-	; [CONFIRMED] write A to $2000 and zero to $3000; mapper-level purpose and entry are unproved.
+	; [CONFIRMED] Decoded bytes write A to $2000, then XOR A and write zero to $3000.
+	; The first write may remap the next fetch at $5112: the high-bank clear/RET require
+	; continued mapping of these Bank29 bytes. Entry, selector domain and live sequence
+	; remain unproved; this is not an unconditional two-write runtime contract.
 	ld [rROMB0], a
 	xor a, a
 	ld [rROMB1], a
