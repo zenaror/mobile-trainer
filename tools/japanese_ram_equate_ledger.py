@@ -23,10 +23,16 @@ NEW_ALIASES = {
 }
 SRAM_ALIAS_EVIDENCE = {
     "sBrowserStartAutoSelectMarker": "PROBABLE",
+    "sCommTimeTotalFrames": "PROBABLE",
+    "sCommTimeTotalSeconds": "PROBABLE",
+    "sCommTimeTotalMinutes": "PROBABLE",
     "sSaveCheckStateBlockRandomizedByte": "PROBABLE",
 }
 SRAM_ALIAS_RATIONALE = {
     "sBrowserStartAutoSelectMarker": " The A8C1 alias records a single conditional store; marker purpose and natural execution remain unproved.",
+    "sCommTimeTotalFrames": " The A9F8 byte role follows its copy from hCommTime_TotalFrames and static carry handling; the SRAM mirror's reader is unreferenced.",
+    "sCommTimeTotalSeconds": " The A9F9 byte role follows its copy from hCommTime_TotalSeconds and static carry handling; the SRAM mirror's reader is unreferenced.",
+    "sCommTimeTotalMinutes": " The A9FA byte role follows its copy from hCommTime_TotalMinutes and static accumulation; the SRAM mirror's reader is unreferenced.",
     "sSaveCheckStateBlockRandomizedByte": " The A9EE alias is based on conditional Random16-derived stores in a candidate operation; its entry, caller and application meaning remain unproved.",
 }
 
@@ -143,8 +149,8 @@ def build_rows() -> list[dict[str, str]]:
     for row in rows:
         decisions[row["decision"]] = decisions.get(row["decision"], 0) + 1
     expected_decisions = {
-        "KEEP_NEUTRAL_EXACT_BANK_OVERLAY": 102,
-        "KEEP_NEUTRAL_CONTAINER_INTERIOR": 58,
+        "KEEP_NEUTRAL_EXACT_BANK_OVERLAY": 104,
+        "KEEP_NEUTRAL_CONTAINER_INTERIOR": 56,
         "KEEP_NEUTRAL_CONTEXTUAL_CONTAINER": 1,
         "KEEP_NEUTRAL_SCOPED_OVERLAY": 104,
         "KEEP_NEUTRAL_NO_UNIQUE_ROLE": 37,
@@ -153,7 +159,7 @@ def build_rows() -> list[dict[str, str]]:
     }
     if decisions != expected_decisions:
         raise AssertionError(f"RAM disposition partition changed: {decisions}")
-    if len(sram_aliases) != 102:
+    if len(sram_aliases) != 104:
         raise AssertionError(f"exact-base SRAM alias coverage changed: {len(sram_aliases)}")
     if sum(bool(overlay_aliases.get(name.upper(), [])) for name in definitions if name.startswith("hRam_")) != 42:
         raise AssertionError("HRAM overlay alias coverage no longer covers all 42 neutral bases")
