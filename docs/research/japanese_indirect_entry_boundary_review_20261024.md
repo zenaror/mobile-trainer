@@ -26,6 +26,12 @@ Relevant original-ROM slices, end-exclusive: `00:0B36–0B54`, SHA-256 `0a02ef21
 - `26:5344–537B`: adjacent RETs do not enter this span; the fragment conditionally performs repeated writes to VRAM1 and WRAM7, but no natural caller or purpose was established. The interaction with stack in switched WRAM makes execution conditional on stack placement/bank discipline.
 - `28:4BA6–4BC1`: the preceding sprite script at `28:4BA3` declares one frame, and the examined sprite loader/stepper contract reads only the script bytes through `4BA5`. As code, the span would clear WRAM and fill another WRAM window, but its code/data identity and entry remain unknown. The sprite-hook route is not filled by this script under the examined initializer.
 
+### Structural comparison for `28:4BA6` (2026-10-24)
+
+A separate byte-level comparison found that `28:4BA8–4BAF` is byte-identical to the active OAM-clear loop body at `00:0A0E–0A15` (`21 00 C0 AF 22 05 20 FC`). The candidate sets `B=$90` before that body, clearing `$C000–$C08F`; `Sprite_ClearShadowOAM` sets `B=$A0` and clears `$C000–$C09F` (`home/sprites.asm:129–138`). The candidate then selects WRAM bank 7 and fills `$DA00–$DAFF` with `$FF`, while `Sprite_ResetAll` clears the 14 live slots `$DA00–$DADF` and restores the WRAM selector (`home/sprites.asm:72–99`; slot extent `ram/wram.asm:791`).
+
+This corroborates only a **HYPOTHESIS** that the span is reset-like code or a related fragment. Different OAM lengths, WRAM extents, register preservation, and bank-restoration behavior prevent identifying it as `Sprite_ResetAll`, an older implementation, or dead code. No entry, consumer, or purpose is established; retain the current neutral candidate label and bytes.
+
 The three spans were absent from the retained 70-scenario instruction/call/read corpus; that finite result remains bounded and does not imply global unreachability. Keep their current candidate/neutral classification unless new positive evidence appears.
 
 ## Bank 4B zero record
@@ -33,6 +39,14 @@ The three spans were absent from the retained 70-scenario instruction/call/read 
 `4B:76CC–76CF` is four zero bytes following three four-byte records. The table at `67:53D6` contains exactly three words (`76C0,76C4,76C8`); the loader computes `53D6+2*slot` and reads the selected word. Its ordinary valid slots consume only those three records. Index 3 would read the following bytes `CD 02` as pointer `$02CD`, not select `76CC`; subsequent mapper behavior does not establish a read from bank 4B at that pointer. The bounded loader therefore does not select the zero record. This says nothing about other readers, writes, copies or aliases: global use and purpose remain unknown, and the record is not classified globally unused.
 
 Original bytes: `67:53D6–53DE`, SHA-256 `ec8ad03ae0a31d9feed83b1f808053da4a4025ffa5fe9201677af759978d53b8`; `4B:76C0–76D0`, SHA-256 `f40dfea8a32358cc4ce504942126e52290f7bdda123c80d8d23173462d575c47`.
+
+## Whole-source bank-42 consumer census (2026-10-24)
+
+A read-only census at canonical revision `ad728afea3e7c30861da34c15d64081e86e4f182` covered the 336 object-source files listed by the Makefile (166,597 lines), plus `consts.asm` and `zero_labels.asm`. With comments excluded, 1,504 explicit `BANK(...)` operands resolved against maintained source symbols; none selected bank 42. No references from another source file to labels owned by `metal_flame_and_creature_borders_42.asm` were found. The existing `gfx/previews/screen_ops.tsv` inventory has 917 rows, no bank-42 row, and 99 `UNRESOLVED` rows (file SHA-256 `888f78456d6d82544727d405487f9e5744902ced904e4d3823497dc3c80000aa`).
+
+Additional bounded indirect tables were checked: result-page banners use bank 4B (`engine/account/result_page.asm:186–261`); startup notice headers use banks 58/4B/71 (`engine/startup/notice_pages.asm:196–250`); declared help-picture records use banks 60/61/5B (`engine/help/help_script.asm:644–766`); valid glyph rows use banks 76–7E or FF (`engine/text/glyph.asm:27–68,169–226`); examined canvas/scroll GDMA inputs come from WRAM (`engine/text/canvas.asm:2029–2063`, `engine/gfx/scroll_split.asm:62–84`). These paths yield no positive bank-42 consumer for the six residual spans.
+
+This is a finite source/declared-table negative, not a proof of global non-use. `BankSwitch_H/D/B`, `ReadByteFar`, and `Gfx_StartHDMA*` accept dynamic bank inputs (`home/bank_switch.asm:7–66`, `home/far_read.asm:7–69`, `home/gfx_upload.asm:7–92`); sprite hooks restore a bank from a WRAM slot (`home/sprites.asm:32–43`); and `PalLibCandidate_WriteRomBankLowAAndZeroHigh` writes a caller-provided A (`engine/gfx/palette_library_candidate.asm:146–151`). The producers/domains for those inputs and the 99 unresolved operation rows remain open. Preserve the six tails without new assets or global `unused` labels until a consumer or a source-complete selector census resolves them.
 
 ## Effect on closure status
 
