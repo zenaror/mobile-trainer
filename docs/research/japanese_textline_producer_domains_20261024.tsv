@@ -1,0 +1,85 @@
+file	line	owner	status	max_destination
+engine/address_book/address_picker.asm	2444	AddrPick_LoadCaption	bounded declared table domain	DDBF
+engine/address_book/list.asm	1602	AbookList_DrawHelpText	bounded declared table domain	DDBF
+engine/address_book/save_sender_address.asm	1257	SaveSenderAddr_LoadCaption	bounded ROM producer	D3FF
+engine/address_book/save_sender_address.asm	1265	SaveSenderAddr_LoadCaption	bounded ROM producer	D67F
+engine/address_book/save_sender_address.asm	1273	SaveSenderAddr_LoadCaption	bounded ROM producer	D8FF
+engine/address_book/save_sender_address.asm	1281	SaveSenderAddr_LoadCaption	bounded ROM producer	DB7F
+engine/address_book/save_sender_address.asm	1289	SaveSenderAddr_LoadCaption	bounded ROM producer	DDFF
+engine/browser/menus.asm	395	BrowserMenu_DrawItemTwo	producer unresolved by conservative local scan	-
+engine/browser/menus.asm	806	BrowserMenu_DrawItemThree	producer unresolved by conservative local scan	-
+engine/browser/page_list.asm	1431	PageList_ShowMessage	bounded declared table domain	D17F
+engine/browser/page_list.asm	1442	PageList_ShowMessage	bounded declared table domain	D3FF
+engine/browser/page_list.asm	1453	PageList_ShowMessage	bounded declared table domain	D67F
+engine/browser/page_list.asm	1464	PageList_ShowMessage	bounded declared table domain	D8FF
+engine/browser/page_list.asm	1475	PageList_ShowMessage	bounded declared table domain	DB7F
+engine/dialog/dialog.asm	130	Dialog_Open	producer unresolved by conservative local scan	-
+engine/dialog/dialog.asm	136	Dialog_Open	producer unresolved by conservative local scan	-
+engine/dialog/dialog.asm	273	Dialog_OpenTall	producer unresolved by conservative local scan	-
+engine/dialog/dialog.asm	279	Dialog_OpenTall	producer unresolved by conservative local scan	-
+engine/dialog/dialog.asm	301	Dialog_OpenTall	producer unresolved by conservative local scan	-
+engine/help/help_script.asm	566	HelpScript_RenderCaption	producer unresolved by conservative local scan	-
+engine/mail/draft_menu.asm	1003	MailDraft_Menu_SetCaption	bounded declared table domain	DDBF
+engine/mail/mail_session_screen.asm	486	MailSession_DrawMailCounts	producer unresolved by conservative local scan	-
+engine/mail/mail_session_screen.asm	529	MailSession_DrawMailCounts	producer unresolved by conservative local scan	-
+engine/mail/mail_session_screen.asm	563	MailSession_DrawMailCounts	producer unresolved by conservative local scan	-
+engine/mail/mail_session_screen.asm	786	MailSession_DrawNumber	producer unresolved by conservative local scan	-
+engine/mail/mail_session_screen.asm	984	MailSession_ShowMsgSending	bounded ROM producer	D73F
+engine/mail/mail_session_screen.asm	1007	MailSession_ShowMsgReceiving	bounded ROM producer	D73F
+engine/mail/mail_session_screen.asm	1034	MailSession_ShowMsgSent	bounded ROM producer	D73F
+engine/mail/mail_session_screen.asm	1060	MailSession_ShowMsgReceiveDone	bounded ROM producer	D73F
+engine/mail/mail_session_screen.asm	1083	MailSession_ShowMsgNoMail	bounded ROM producer	D73F
+engine/mail/mail_session_screen.asm	1105	MailSession_ShowMsgCannotReceive	bounded ROM producer	D73F
+engine/mail/mail_session_screen.asm	1127	MailSession_ShowMsgReceived	bounded ROM producer	D73F
+engine/mail/mail_session_screen.asm	1150	MailSession_ClearMsg	bounded ROM producer	D73F
+engine/mail/mailbox_screen.asm	1298	Mailbox_ShowHint	bounded declared table domain	DC7F
+engine/mail/result_screens.asm	226	MailResult_ShowSentMessage	producer unresolved by conservative local scan	-
+engine/mail/result_screens.asm	321	MailResult_ShowReceivedMessage	producer unresolved by conservative local scan	-
+engine/mail/result_screens.asm	888	MailServerStatus_DrawCounts_Mode0_QuestionMarks	bounded ROM producer	D09F
+engine/mail/result_screens.asm	895	MailServerStatus_DrawCounts_Mode0_QuestionMarks	bounded ROM producer	D13F
+engine/mail/result_screens.asm	902	MailServerStatus_DrawCounts_Mode0_QuestionMarks	bounded ROM producer	D1DF
+engine/mail/result_screens.asm	954	MailServerStatus_DrawCounts_Mode0_Numbers	bounded existing decimal producer contract	D0DF
+engine/mail/result_screens.asm	1009	MailServerStatus_DrawCounts_Mode0_Numbers	bounded existing decimal producer contract	D17F
+engine/mail/result_screens.asm	1082	MailServerStatus_DrawCounts_Mode0_Numbers	bounded existing decimal producer contract	D21F
+engine/mail/result_screens.asm	1421	MailServerStatus_DrawCounts_Mode1_QuestionMarks	bounded ROM producer	D09F
+engine/mail/result_screens.asm	1428	MailServerStatus_DrawCounts_Mode1_QuestionMarks	bounded ROM producer	D13F
+engine/mail/result_screens.asm	1435	MailServerStatus_DrawCounts_Mode1_QuestionMarks	bounded ROM producer	D1DF
+engine/mail/result_screens.asm	1472	MailServerStatus_DrawCounts_Mode1_Numbers	bounded existing decimal producer contract	D0DF
+engine/mail/result_screens.asm	1510	MailServerStatus_DrawCounts_Mode1_Numbers	bounded existing decimal producer contract	D17F
+engine/mail/result_screens.asm	1555	MailServerStatus_DrawCounts_Mode1_Numbers	bounded existing decimal producer contract	D21F
+engine/mail/result_screens.asm	1903	MailServerStatus_DrawCounts_Mode2_QuestionMarks	bounded ROM producer	D09F
+engine/mail/result_screens.asm	1910	MailServerStatus_DrawCounts_Mode2_QuestionMarks	bounded ROM producer	D13F
+engine/mail/result_screens.asm	1917	MailServerStatus_DrawCounts_Mode2_QuestionMarks	bounded ROM producer	D1DF
+engine/mail/result_screens.asm	1969	MailServerStatus_DrawCounts_Mode2_Numbers	bounded existing decimal producer contract	D0DF
+engine/mail/result_screens.asm	1997	MailServerStatus_DrawCounts_Mode2_Numbers	bounded existing decimal producer contract	D17F
+engine/mail/result_screens.asm	2051	MailServerStatus_DrawCounts_Mode2_Numbers	bounded existing decimal producer contract	D21F
+engine/mail_server/delete_hidden.asm	441	MailSrvDelHidden_ShowDescDeleteAll	bounded ROM producer	D6BF
+engine/mail_server/delete_hidden.asm	462	MailSrvDelHidden_ShowDescCheck	bounded ROM producer	D6BF
+engine/mail_server/delete_hidden.asm	490	MailSrvDelHidden_ShowDescDeleteCompletely	bounded ROM producer	D6BF
+engine/mail_server/delete_hidden.asm	593	MailSrvDelHidden_Confirm	bounded ROM producer	D1FF
+engine/mail_server/delete_hidden.asm	602	MailSrvDelHidden_Confirm	bounded ROM producer	D3FF
+engine/mail_server/delete_hidden.asm	611	MailSrvDelHidden_Confirm	bounded ROM producer	D5FF
+engine/mail_server/delete_hidden.asm	620	MailSrvDelHidden_Confirm	bounded ROM producer	D7FF
+engine/mail_server/delete_hidden.asm	858	MailSrvDelHidden_DrawTimerNumbers	producer unresolved by conservative local scan	-
+engine/mail_server/delete_hidden.asm	887	MailSrvDelHidden_DrawTimerNumbers	producer unresolved by conservative local scan	-
+engine/mail_server/delete_hidden.asm	916	MailSrvDelHidden_DrawTimerNumbers	producer unresolved by conservative local scan	-
+engine/mail_server/delete_menu.asm	397	MailSrvDel_ShowDescDeleteAll	bounded ROM producer	D6BF
+engine/mail_server/delete_menu.asm	419	MailSrvDel_ShowDescCheck	bounded ROM producer	D6BF
+engine/mail_server/delete_menu.asm	528	MailSrvDel_Confirm	bounded ROM producer	D1FF
+engine/mail_server/delete_menu.asm	537	MailSrvDel_Confirm	bounded ROM producer	D3FF
+engine/mail_server/delete_menu.asm	546	MailSrvDel_Confirm	bounded ROM producer	D5FF
+engine/mail_server/delete_menu.asm	555	MailSrvDel_Confirm	bounded ROM producer	D7FF
+engine/mail_server/delete_menu.asm	780	MailSrvDel_DrawTimerNumbers	producer unresolved by conservative local scan	-
+engine/mail_server/delete_menu.asm	809	MailSrvDel_DrawTimerNumbers	producer unresolved by conservative local scan	-
+engine/mail_server/delete_menu.asm	838	MailSrvDel_DrawTimerNumbers	producer unresolved by conservative local scan	-
+engine/mail_server/delete_messages.asm	52	MailSrvDel_MsgNoMail	bounded ROM producer	D27F
+engine/mail_server/delete_messages.asm	74	MailSrvDel_MsgAllDeleted	bounded ROM producer	D27F
+engine/mail_server/delete_messages.asm	96	MailSrvDel_MsgBlank	bounded ROM producer	D27F
+engine/mail_server/delete_messages.asm	125	MailSrvDel_MsgCancelled	bounded ROM producer	D27F
+engine/mail_server/delete_messages.asm	147	MailSrvDel_MsgReading	bounded ROM producer	D27F
+engine/mail_server/delete_progress.asm	130	MailSrvDel_DrawProgressText	producer unresolved by conservative local scan	-
+engine/mail_server/delete_progress.asm	356	MailSrvDel_FormatNumber	producer unresolved by conservative local scan	-
+engine/mail_server/tidy_screen.asm	1179	MailServerMgr_ShowLoadingMsg	bounded ROM producer	D17F
+engine/mail_server/tidy_screen.asm	1215	MailServerMgr_ShowNoMailMsg	bounded ROM producer	D17F
+engine/mail_server/tidy_screen.asm	1246	MailServerMgr_ShowDeletingMsg	bounded ROM producer	D17F
+engine/mail_server/tidy_screen.asm	1306	MailServerMgr_ShowChoiceHelp	bounded declared table domain	DA7F
