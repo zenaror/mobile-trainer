@@ -8,7 +8,7 @@ The starting save has SRAM bank 1 `$A684-$A68B = 89 01 01 00 00 00 00 00`, `sTut
 
 Two complete replays produced 14 screenshots each: captures `page_00` through `page_12` show the tutorial sequence, and `page_13` shows return to the Mail submenu. All 14 captures match byte-for-byte between runs. The macro uses normal A inputs and passive captures; no `force`, `ramset`, SRAM poke, or ROM patch was used.
 
-This is a bounded emulator observation using the existing registered adapter save and fake Internet. It is not hardware evidence. First-use HelpScript variants `$81`, `$91`, and `$92` remain open.
+This is a bounded emulator observation using the existing registered adapter save and fake Internet. It is not hardware evidence. Separate natural-route reports confirm first-use HelpScript `$81` and `$91/$92` for their recorded saves ([`$81`](help_script_id81_natural_route_20261023.md), [`$91/$92`](help_script_homepage_first_use_ids91_92_natural_routes_20261023.md)); this report remains scoped to `$8A` and does not establish every conditional branch or hardware behavior.
 
 ## Reproduction and evidence
 

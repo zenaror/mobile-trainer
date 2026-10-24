@@ -16,6 +16,20 @@ The eight owner directories contain 71 PNGs. The asset catalog resolves 53 sourc
 
 At this HEAD, `make png-check` accepts 418 tile sheets, four raw byte views, 37 font sheets, and 95 screen PNGs; `python3 tools/gfx_export.py check` accepts 988 assets; `python3 tools/png_rules.py mk-check` accepts 987 rules.
 
+## Independent frame-style descriptor lookup
+
+A read-only cross-check of the maintained source and original-ROM bytes confirms that `Browser_LoadFrameGraphics` indexes the 27-word table at `4E:654B` with `wBrowserFrameStyle & $7F`; the chooser uses the same descriptor table. The table resolves to five descriptor records, whose tile payload roots are all in physical bank `47`:
+
+| style index | descriptor | bank-47 tile root |
+|---:|---:|---:|
+| 0 | `4E:6581` (`Data_Browser_FrameDesc0`) | `47:4100` |
+| 1 | `4E:65A0` (`Data_Browser_FrameDesc1`) | `47:4E50` |
+| 2 | `4E:65BF` (`Data_Browser_FrameDesc2`) | `47:5BA0` |
+| 3–22 | `4E:65DE` (`Data_Browser_FrameDesc3`) | `47:5BA0` |
+| 23–26 | `4E:65FD` (`Data_Browser_FrameDesc23`) | `47:4E50` |
+
+The descriptor records select bank-47 graphics, palette, and tilemap resources; they do not read `Table_PokemonNamePointers` at `53:4000` or the 25 candidate frame windows audited separately. The equal count of 25 names and 25 candidate windows therefore supplies no association evidence. The mask permits style values 27–127 to index beyond the 27 entries; this static audit does not establish whether such values occur naturally or what follows them. It also does not prove global frame usage, unused status, or an on-screen rendering. Sources: `engine/browser/frame_graphics.asm` (`4E:6196`, `4E:654B–661C`), `engine/browser/frame_style_chooser.asm`, `gfx/browser/frames_0_1.asm`, `gfx/browser/frames_2_3.asm`, and `data/text/pokemon_names_bank53.asm`. The original Japanese ROM hash is the one stated above; this is static source/byte analysis, not new runtime evidence.
+
 ## Remaining frame questions
 
 Visual inspection identifies species-like artwork for 23 of the 25 names (PROBABLE visual identities); both Porygon entries remain unassigned. All 25 ordinal-to-window links remain HYPOTHESIS. Eight windows remain KEEP as editable compositions because their complete VRAM placement is not justified; their original bytes and backing assets exist. No frame is classified globally unused, and natural frame selection remains unknown. Do not assign the two geometric windows to Porygon/Porygon2 by elimination, synthesize unresolved VRAM keys, or treat a missing editable composition as a missing ROM asset.
