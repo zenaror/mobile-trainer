@@ -174,7 +174,7 @@ FrameDesignCandidate_OrangeDoubleLineBorder_Tiles_70F0:: ; 42:70F0
 	INCBIN "gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_0900.2bpp"
 	db $00, $00, $00, $00, $18, $04, $14, $0C, $14, $0C, $1C, $1C
 
-; ---- zero $719C-$71F0 (84 bytes) [HYPOTHESIS] padding? run of 86 x $00 in unclassified bytes
+; ---- zero $719C-$71F0 (84 bytes) [HYPOTHESIS] padding? run of 84 x $00 in unclassified bytes
 	ds $54, $00
 
 ; ---- data $71F0-$74C0 (720 bytes) [PROBABLE] tilemap+attr block of screen 4: 20x18 tile indices (360 B) then 20x18 CGB attribute bytes (360 B, all values < $10 as bank/palette attributes) = the 2x$168-byte layout that copy_tilemap_rect_pair (00:08EA, b=18 rows c=20 cols) loads for the CONFIRMED screens of banks 24/4B/5F/71; followed by a 128-byte palette block; no direct reference found (bank 42 is not named by any ld hl/ld a,bank site), so structural PROBABLE only

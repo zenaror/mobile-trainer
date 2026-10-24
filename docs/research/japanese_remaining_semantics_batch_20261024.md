@@ -20,7 +20,7 @@ This section merges three independent, disjoint-scope reviews completed against 
 
 The audit reconciled routine/callsite identity against the current ASM instead of trusting stale TSV line locators. Counts below are inventory rows, not runtime observations; `36+37+9+17=99` (49 tile transfers, 39 tilemaps, 11 palettes).
 
-The seven GFX tails were also rechecked against original-ROM bytes and current owners; none gained a confirmed natural consumer or tile phase. Offsets use `bank*0x4000 + address - 0x4000`; all intervals are end-exclusive.
+The seven GFX tails were rechecked against original-ROM bytes and current owners. No natural consumer was confirmed. For the six Bank 42 spans, adjacent catalogued tile blobs end exactly at each start and have lengths divisible by 16; this establishes candidate 16-byte boundary alignment only, not that the following bytes are tile data. Offsets use `bank*0x4000 + address - 0x4000`; all intervals are end-exclusive.
 
 | Original slice | Size | Current owner / interpretation level | SHA-256 |
 |---|---:|---|---|
@@ -32,7 +32,23 @@ The seven GFX tails were also rechecked against original-ROM bytes and current o
 | `42:7190–719C` (`0x10B190`) | 12 | Orange double line; graphic HYPOTHESIS | `fd95f7100477f5f83ee6e19e364788dd33699dcf4790bf7f2d1fd06659905dc2` |
 | `1A:4A85–4A90` (`0x68A85`) | 11 | Zero run confirmed; graphic interpretation PROBABLE only by prior heuristic | `71b6c1d53832f789a7f2435a7c629245fa3761ad8487775ebf4957330213a706` |
 
-For the six bank42 spans, adjacent-zero inclusion and tile phase remain unproved. The two `fd95…` hashes are identical because the two orange-double-line spans contain identical bytes, not because they are one established asset.
+
+### Candidate 16-byte windows at Bank 42 residuals
+
+Independent static review checked all six boundaries against `gfx/assets.tsv` and the protected ROM (2,097,152 bytes; SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`). Each predecessor is a catalogued `type=tiles` blob whose end equals the residual start and whose byte length is a multiple of 16. The hash column covers the 16-byte window beginning at the residual start, not just the shorter span in the preceding table.
+
+| Start | Preceding catalogued blob | Size / phase | Bytes after documented span that are zero | 16-byte window SHA-256 |
+|---|---|---:|---:|---|
+| `42:48A2` | `FrameDesignCandidate_MetalScrewBorder_Tiles_4802` ends at `48A2` | 160 / 10 tiles | 7 | `c1a3355d504d4b33fe2d423ada7a58024f1fafdde9aa30113f6f80418b1119cc` |
+| `42:5E50` | `FrameDesignCandidate_BlueBubbleCreatureBorder_Tiles_5AA0` ends at `5E50` | 944 / 59 tiles | 2 | `69cf7f184c25979490ec4815b15f6e15da676a3e8884f8879a96e6925df29e13` |
+| `42:6132` | `FrameDesignCandidate_BlueBubbleCreatureBorder_Tiles_5F92` ends at `6132` | 416 / 26 tiles | 2 | `dac44363a9b557685e6de28c63c5e740d4c1ae48702a043335ad1a88642885cb` |
+| `42:6340` | `FrameDesignCandidate_BlueBubbleCreatureBorder_Tiles_62A0` ends at `6340` | 160 / 10 tiles | 6 | `812160a38fdfa9b7a6a4a13c0f1ce3a840fdf1e792e5bd1d2118e8248c6a6457` |
+| `42:7092` | `FrameDesignCandidate_OrangeDoubleLineBorder_Tiles_6FF2` ends at `7092` | 160 / 10 tiles | 4 | `b09948e8b065b7103236e5482a60ac83a63c39377032e84f8b93e4670000bac6` |
+| `42:7190` | `FrameDesignCandidate_OrangeDoubleLineBorder_Tiles_70F0` ends at `7190` | 160 / 10 tiles | 4 | `b09948e8b065b7103236e5482a60ac83a63c39377032e84f8b93e4670000bac6` |
+
+The six Bank 42 starts align arithmetically with the 16-byte phase of the immediately preceding catalogued tile fragment. A 16-byte ROM window from each start is recorded as a candidate window, without promoting the following bytes to a tile, asset, or consumed payload. In each window, the bytes after the currently documented span are zero (7, 2, 2, 6, 4, and 4 bytes respectively), but adjacent-zero inclusion in those spans remains unproved.
+
+The window at `42:6340` is byte-identical to tile index 9 at `42:6440` in the existing `FrameDesignCandidate_BlueBubbleCreatureBorder_Tiles_63B0` asset (`gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_0910.2bpp`, file offset `0x90`; full asset SHA-256 `ef5a16234c6f4bf74e03d666305cf0d81280fe4344f51cb1d06be5ba66d56170`). The 16-byte candidate windows at `42:7092` and `42:7190` also match each other; shared bytes do not establish a shared owner or use. These checks confirm the boundary arithmetic, listed bytes, and exact duplicate, but do not establish natural consumption, semantic identity, aliasing, or global used/unused status. No PNG or asset was added. The same review found a pre-existing source-comment count error at `gfx/frame_designs/metal_flame_and_creature_borders_42.asm:177`: `[719C,71F0)` and `ds $54` are 84 bytes, not 86. The comment was corrected; emitted bytes are unchanged.
 
 | Unresolved operand | Rows | Bounded source/domain result |
 |---|---:|---|
