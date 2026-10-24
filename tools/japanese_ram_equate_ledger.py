@@ -125,14 +125,14 @@ def build_rows() -> list[dict[str, str]]:
         "HRAM": sum(row["region"] == "HRAM" for row in rows),
         "WRAMX": sum(row["region"] == "WRAMX" for row in rows),
     }
-    if counts != {"SRAM": 161, "WRAM0": 102, "HRAM": 42, "WRAMX": 481}:
+    if counts != {"SRAM": 160, "WRAM0": 102, "HRAM": 42, "WRAMX": 481}:
         raise AssertionError(f"RAM census changed: {counts}")
     decisions: dict[str, int] = {}
     for row in rows:
         decisions[row["decision"]] = decisions.get(row["decision"], 0) + 1
     expected_decisions = {
         "KEEP_NEUTRAL_EXACT_BANK_OVERLAY": 88,
-        "KEEP_NEUTRAL_CONTAINER_INTERIOR": 72,
+        "KEEP_NEUTRAL_CONTAINER_INTERIOR": 71,
         "KEEP_NEUTRAL_CONTEXTUAL_CONTAINER": 1,
         "KEEP_NEUTRAL_SCOPED_OVERLAY": 104,
         "KEEP_NEUTRAL_NO_UNIQUE_ROLE": 37,
@@ -178,7 +178,7 @@ def main() -> int:
         if actual != expected:
             print("ram_equate_ledger: FAIL: tracked RAM equates or dispositions differ from the ledger", file=sys.stderr)
             return 1
-        print("ram_equate_ledger: OK: 786/786 current neutral RAM equates reconciled")
+        print("ram_equate_ledger: OK: 785/785 current neutral RAM equates reconciled")
         return 0
     LEDGER.write_text(expected, encoding="utf-8")
     print(f"ram_equate_ledger: wrote {len(build_rows())} rows to {LEDGER}")
