@@ -134,3 +134,18 @@ For the fragment at physical `26:5344–537C`, the examined caller `engine/mail/
 ## Bounded Bank 53 symbol-consumer route pass
 
 The read-only pass over 349 source files counted 25 name-pointer operands, all internal `dw` entries, with zero external references to the pointer table or the 25 name labels. Across eight frame-owner files, 62 external symbol occurrences resolve to the documented Browser graph (50 in `engine/browser/frame_graphics.asm`) and six scrollbar sources at `47:4000–4100`, before the candidate frame windows (12 in `engine/browser/scrollbar.asm`). The one additional literal `$53` found in `Canvas_UploadToVram` at `7F:4BBC` flows to `rHDMA5` as the masked HDMA transfer length; the source is `wTileStage3` in WRAM3, not ROM bank 53. No producer linking a name ordinal to a candidate frame bank/address was found outside the already documented graph. The 25 associations remain HYPOTHESIS; computed arithmetic, indirect tables, stack/RAM values, runtime copies, and unrecognized control flow were not exhaustively excluded. Receipt: `.tmp/jp-bank53-consumer-route-20261024/RESULT.json`, SHA-256 `d9297f37869e1c3c3c47ea7bffc1f8b2c0be15d00c55b09941d9d02172bc3474`; its source-manifest digest is `c3adfda9dd24f22d71f5f0c1f812d4eb9be2c7ef64bdf88c1899cb44e8bedc6d`.
+
+## Result-page kind producer closure (2026-10-24; Japanese HEAD `244cf2ae`)
+
+A targeted scan of maintained ASM/INC sources found one write through the named overlay field `wResultPage_Kind`: `Account_ResultPage` stores argument A at `68:766E`. All 11 declared farcall sites supply kind/variant pairs in the finite domain 0–4 / 0–2:
+
+| Physical site | Kind, variant | Physical site | Kind, variant |
+|---|---:|---|---:|
+| `65:46B0` | `0,0` | `65:46D7` | `4,1` |
+| `67:599E` | `1,0` | `67:59D8` | `1,1` |
+| `67:5A06` | `1,2` | `67:60D6` | `2,0` |
+| `67:60EA` | `2,1` | `67:6115` | `2,2` |
+| `67:628F` | `3,0` | `67:62A3` | `3,1` |
+| `67:62CE` | `3,2` |  |  |
+
+The two sites at `67:6115` and `67:62CE` are isolated after a return and have no declared predecessor in their owners; the table records their static arguments, not natural execution. For kinds 0–4, all selected first and secondary banner descriptors use bank `$4B`, so none of these declared calls selects the conditional Bank 42 source route previously found for an out-of-domain kind. This closes that one result-page producer domain only. The shared overlay address `$C27C`, indirect entries, corrupted state and writes not expressed through this alias remain outside the proof; no global unreachability or unused claim follows. Sources: `ram/overlays.asm:179`, `engine/account/result_page.asm:7–11,184–263`, and the 11 call sites in `engine/startup/registration.asm`, `engine/settings/password_change.asm`, `engine/settings/usage_time.asm`, and `engine/settings/usage_fee.asm`.

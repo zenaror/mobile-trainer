@@ -22,6 +22,28 @@ A row-level comparison of `gfx/assets.tsv` at the original baseline `25501d4b` a
 
 The current bounded totals are therefore 143 catalogued assets / 93,360 bytes (55 tile assets, 28 palettes, 28 tilemaps, 28 attribute maps, and four raw-byte views) and 77 PNG files across the same eight owner directories (59 asset-source PNGs plus 18 screen compositions). A direct manifest-to-files comparison found all 77 referenced PNGs present and zero orphan PNGs. The inherited byte/PNG checks for the original 137-row snapshot remain valid because none of those rows changed; current aggregate `png-check`, GFX catalog, and PNG-rule gate counts are stated in `REVERSE_ENGINEERING.md`. These six fragments complete candidate tile boundaries only; natural loading, consumption, and semantic ownership remain unconfirmed.
 
+### Current candidate-window and source accounting (2026-10-24; Japanese HEAD `244cf2ae`)
+
+An independent read-only reconciliation covers the 25 physical candidate windows. All have a PNG representation: 17 editable screen compositions plus 24 legacy previews, with eight views retained as `KEEP` because their full VRAM placement is not established. The grouped window coverage is:
+
+| Physical windows | Editable composition | Legacy preview |
+|---|---:|---:|
+| `41:4000`, `41:4D50` | 1 each | 1 each |
+| `41:5AA0`, `41:67F0` | none (`KEEP`) | 1 each |
+| `42:4000`, `42:4D50`, `42:67F0` | 1 each | 1 each |
+| `42:5AA0` | none (`KEEP`) | 1 |
+| `43:4000`, `43:5AA0` | 1 each | 1 each |
+| `43:4D50`, `43:67F0` | none (`KEEP`) | 1 each |
+| `44:4000`, `44:5AA0`, `44:67F0` | 1 each | 1 each |
+| `44:4D50` | none (`KEEP`) | 1 |
+| `45:4000`, `45:5AA0`, `45:67F0` | 1 each | 1 each |
+| `45:4D50` | none (`KEEP`) | 1 |
+| `46:4000`, `46:4D50`, `46:5AA0` | 1 each | 1 each |
+| `46:67F0` | none (`KEEP`) | 1 |
+| `47:68F0` | composition at `47:72F0` | none |
+
+The current inventory intersecting those windows contains 124 assets (45 tile, four raw-byte, 25 tilemap, 25 attribute-map and 25 palette rows), totaling 82,880 bytes. The seven owner sources re-emit all 85,200 bytes in the 25 windows. Outside the tile/raw rows, the remaining 2,320 bytes are zero-filled `ds` spans: 832 bytes in `42:4000`, 528 in `42:5AA0`, and 960 in `42:67F0`; these are not omitted graphics payloads. Across the eight Bank 41–47 owner directories, all 143 assets / 93,360 bytes match the ROM. All 77 PNGs referenced by the current asset and screen manifests exist in scope, with no missing or orphan PNG; all 77 pass PNG signature and chunk-CRC checks. This verifies file and manifest integrity, not rendered-pixel identity. Current inputs: `gfx/assets.tsv` SHA-256 `ab4e9d903187fc038213d17ae98923d7b99ec2be4949492ac0d4b2780a4991b5`; `gfx/screens.tsv` SHA-256 `99d6856d1ba7358332e09f8c2e21a68329a5fd876f963a4e701eb1f78d17359d`; Bank 53 ROM name block SHA-256 `20a909ec6fcf6726d2b2b3cc2540bc4d897916a18cab24d5892d09600b18d629`. None of this supplies a Pokémon-name/frame link or a natural frame-selection route.
+
 ## Independent frame-style descriptor lookup
 
 A read-only cross-check of the maintained source and original-ROM bytes confirms that `Browser_LoadFrameGraphics` indexes the 27-word table at `4E:654B` with `wBrowserFrameStyle & $7F`; the chooser uses the same descriptor table. The table resolves to five descriptor records, whose tile payload roots are all in physical bank `47`:
@@ -54,8 +76,10 @@ The broader Japanese source review remains separate from this finite frame inven
 
 ## Reproduction and validation
 
-The focused source-to-ROM and PNG inventory receipt is `.tmp/jp-bank53-frame-reconcile-20261024/RESULT.json` (SHA-256 `4679a38fbfb7d8d651d9b0d1f56d432f839ba559d9cace1c0065e7a8bcd8184a`); its read-only script is `.tmp/jp-bank53-frame-reconcile-20261024/audit.py` (SHA-256 `2fbd8d7a38085495ef29d2702b45fecec8958fcb2ff7cd246f957a72306126f5`). Run from the canonical checkout with `python3 .tmp/jp-bank53-frame-reconcile-20261024/audit.py`.
+The original receipt `.tmp/jp-bank53-frame-reconcile-20261024/RESULT.json` (SHA-256 `4679a38fbfb7d8d651d9b0d1f56d432f839ba559d9cace1c0065e7a8bcd8184a`) and `audit.py` (SHA-256 `2fbd8d7a38085495ef29d2702b45fecec8958fcb2ff7cd246f957a72306126f5`) are a **historical snapshot** pinned to source baseline `25501d4b` / HEAD `8dd8d59d`. They assert 137 assets / 93,264 bytes and must not be presented as reproducing the later six-asset delta or current counts.
 
-On this same HEAD, `make` reports `SHA-256 OK` and `RESULT: IDENTICAL`; `make sym-check` passes with 335 source files, 12,214 labels, and 51 constants; `make palette-check` reports 162 loads, 116 arrays, two documented over-reads, and zero errors; the Japanese name census passes all 15 families with zero open rows; the graphics catalog and PNG-rule checks pass. `make test` passes the generator, SM83, CFG (48 tests), PNG, palette-read (24 tests), and retype-parts (6 tests) suites. It emits the existing non-fatal `ResourceWarning` for the `baserom.gbc` reader at `tools/test_cfg.py:398`.
+The current read-only replay is `.tmp/jp-bank53-current-window-reconcile-20261024/audit.py` (SHA-256 `a2869b6fd9c944e381a59e740ca342166a5c51f93a60840be274b9f5a797a94d`) and `.tmp/jp-bank53-current-window-reconcile-20261024/RESULT_FINAL.json` (SHA-256 `fc85d3360d726f915e39f3742d669cbcf6af72b97f7757ea6b08203c8c139e81`), pinned to Japanese source HEAD `244cf2ae`. It verifies the 25-window coverage, contiguous asset/zero-fill emission, Bank 53 pointer/string block, all 143 current asset payloads against the original, and the 77 scoped PNG references/CRCs. Run it from the canonical checkout with `python3 .tmp/jp-bank53-current-window-reconcile-20261024/audit.py`; a repeat only accepts a byte-identical existing receipt.
+
+Current gates were run against the same Japanese source HEAD: `make` reports `SHA-256 OK` and `RESULT: IDENTICAL`; `make sym-check` passes 335 source files, 12,221 labels, and 51 constants; `make palette-check` reports 162 loads, 116 arrays, two documented over-reads, and zero errors. `make png-check` passes 424 tile sheets, four raw-byte views, 37 font sheets, and 95 screen PNGs; `gfx_export.py check` accepts 994 assets; `png_rules.py mk-check` passes 993 rules. `make test` passes the generator, SM83 (1,786 instructions), CFG (48 tests), PNG, palette-read (24 tests), and retype-parts (6 tests) suites. It emits the existing non-fatal `ResourceWarning` for the `baserom.gbc` reader at `tools/test_cfg.py:398`.
 
 No ROM, Japanese source, image, or translation file changed in this audit. The English overlay and Operator ZIP remain paused pending the Operator's explicit approval.
