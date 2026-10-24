@@ -388,3 +388,26 @@ computed dispatch or other indirect control flow, and it does not prove global
 unreachability; the wrapper and its enclosing palette-library span remain
 HYPOTHESIS as natural-entry candidates. The source, ROM, trace corpus and
 language overlay were not modified in this pass.
+
+## Bank 41:5520 mapper code-like candidate reconciled to an existing tile asset (2026-10-24)
+
+The generated mapper candidate `41:5520–5600` is not an unrepresented function
+or a missing graphics asset. Its 224 bytes are exactly the subrange at offset
+`$7D0` within the existing 2,560-byte tile payload
+`FrameDesignCandidate_LavenderRibbonBorder_Tiles_4D50` (`41:4D50–5750`). The
+subrange SHA-256 is `844278df709517fca1096e2e168027edef421add633e41589cbeeaa65486c8ce`;
+it matches the original ROM at file offset `0x105520` byte for byte. The owner
+asset's SHA-256 is `3020f164a483e77052f3c10067d04096c5f96c8f8875ce8a9cf2e486189a044b`.
+The subrange covers tiles 125–138 of the 160-tile owner; decoding those tiles
+against the existing indexed PNG produced 896 checked pixels with zero
+mismatches. `gfx/assets.tsv` has one matching asset row and
+`gfx/png_rules.tsv` pins the same payload hash; `make png-check` passed (418
+tile sheets, 4 raw byte views, 37 font sheets, 95 screen PNGs).
+
+The mapper's linear SM83 heuristic can decode this graphics subrange as legal
+instructions, which explains its `code-like` hint; the bytes' maintained owner
+and pixel reconstruction support the existing PROBABLE tile classification.
+This does not prove that the candidate frame is naturally loaded or used, and
+does not promote its screen role beyond the existing evidence. Do not reopen
+this mapper hint as an unidentified-function lead unless the source extent,
+asset bytes, or consumer evidence changes.
