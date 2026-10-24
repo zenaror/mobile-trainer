@@ -1,3 +1,5 @@
+**Japanese delivery integrated on main (`b49d725c`, 2026-10-24).** The eleven delivery checks passed; the reconciled inventory has no outstanding concrete correction. See the [delivery scope and retained limits](docs/research/japanese_closure_audit_20261023.md#delivery-on-main-2026-10-24). The [reuse contract](docs/TRANSLATION.md#japanese-baseline-and-reuse-contract-2026-10-24) routes future authorized ZIP parity to the existing Japanese maps and codecs. English remains paused.
+
 **Reading this status page.** The dated entries below are historical evidence,
 not a cumulative backlog. Start with the [reconciled Japanese status matrix](docs/research/japanese_closure_audit_20261023.md#reading-the-status-correctly-review-of-2026-10-24-baseline-979fc0a5).
 Completed audits with UNKNOWN results must not be reopened merely because the

@@ -1,5 +1,33 @@
 # Japanese ROM closure audit (2026-10-23)
 
+## Delivery on main (2026-10-24)
+
+The audited Japanese work is integrated and published on `main` at
+`b49d725ca042d2006d04ee4e41977f857da4397e`. The 197-commit fast-forward
+from `f186820f` is complete; it is not an outstanding integration task.
+Eleven delivery commands passed at that exact revision: `make`, `make sym-check`,
+`make palette-check`, `make png-check`, `gfx_export.py check`,
+`png_rules.py mk-check`, `make test`, `test_mapper.py`,
+`japanese_name_census.py`, `mapper.py --check`, and `sprite_chain_check.py`.
+The ROM is byte-identical with the SHA-256 recorded below. The known nonfatal
+`test_cfg.py:398` ResourceWarning remains documented; raw adapter logs retain
+their original whitespace. These are build/static/tool-test results, not new
+natural-ROM or hardware observations.
+
+There is no outstanding concrete correction in the reconciled Japanese task
+inventory. This closes the **verifiable delivery scope**, including naming,
+frame/PNG inventories, integration and cleanup. It does not resolve the retained
+semantic questions listed below. In particular, no universal natural-entry or
+unused classification, executable Pokémon-name/frame association, or complete
+VRAM placement for the eight KEEP compositions has been established. Do not
+rename those findings as proven facts or count them as unperformed inventories.
+
+The Japanese deliverables for later ZIP parity are indexed in
+[the reuse contract](../TRANSLATION.md#japanese-baseline-and-reuse-contract-2026-10-24).
+That contract requires explicit authorization before English work resumes;
+this closure does not itself grant that authorization. Later documentation-only
+commits do not invalidate these source checks.
+
 ## Reading the status correctly (review of 2026-10-24, baseline `979fc0a5`)
 
 This is the entry point for the Japanese review. Dated sections below are

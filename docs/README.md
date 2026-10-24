@@ -4,6 +4,11 @@ Documentation of the *Mobile Trainer (Japan)* disassembly.  The source is the ha
 [`../REVERSE_ENGINEERING.md`](../REVERSE_ENGINEERING.md).  This directory holds the reference documents and the research notes that carry the evidence behind the statuses (`CONFIRMED` / `PROBABLE` / `HYPOTHESIS`)
 written in the source comments.
 
+Current Japanese delivery: [integrated on main, with scope and limits](research/japanese_closure_audit_20261023.md#delivery-on-main-2026-10-24).
+For future authorized ZIP parity, start with the [Japanese reuse contract](TRANSLATION.md#japanese-baseline-and-reuse-contract-2026-10-24).
+Dated checkpoint paragraphs below preserve historical results; their old next-step
+statements do not reopen completed Japanese work. English remains paused.
+
 Evidence lives in these places, from the source outwards:
 
 | where | what |

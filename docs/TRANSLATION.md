@@ -11,6 +11,42 @@ Companion documents:
 * [`gfx/previews/README.md`](../gfx/previews/README.md): composed screens and sprite sheets, with the numbers that check them against an emulator.
 * [`docs/research/text_encoding.md`](research/text_encoding.md): the text encoding and the font banks; [`STYLE.md`](../STYLE.md) section 7: how strings are written in the source.
 
+## Japanese baseline and reuse contract (2026-10-24)
+
+The Japanese review and delivery are integrated on `main` at `b49d725c`.
+See [the closure audit](research/japanese_closure_audit_20261023.md#delivery-on-main-2026-10-24)
+for verified scope and retained semantic limits. English/ZIP work is paused
+until the operator explicitly authorizes it. All dated English checkpoints
+below describe their own snapshots; their "next original pass" and
+"pending integration" wording is historical, not the current Japanese queue.
+No English overlay was inspected, changed or built for this handover.
+
+The completed Japanese work supplies the following reusable inputs. Use them
+before attempting another disassembly of a donor difference:
+
+| Difference to reconcile | Existing Japanese authority / reusable artifact | Work still specific to the donor after authorization |
+|---|---|---|
+| Source paths, renamed symbols, RAM fields | Maintained ASM/INC and `ram/`; [name coverage](research/japanese_name_audit_coverage_20261023.tsv), [symbol dispositions](research/japanese_name_candidate_dispositions_20261023.tsv), [bank/path dispositions](research/japanese_bank_path_name_dispositions_20261023.tsv), [RAM dispositions](research/japanese_ram_equate_dispositions_20261023.tsv) | Map old donor/source locators to current owners; preserve localized content rather than overwriting it during a rename |
+| Text and font bytes | [Encoding and renderer contracts](research/text_encoding.md), [image-text inventory](research/image_text_inventory.md), maintained text/font owners | Compare donor bytes and controls, check renderer capacity/length, and validate the selected English payload |
+| Tiles, sprites, boxes and screen layouts | [`gfx/assets.tsv`](../gfx/assets.tsv) physical bank/address, type, size and owner; [`gfx/png_rules.tsv`](../gfx/png_rules.tsv); [editing pipeline](EDITING_IMAGES.md); [sprite format](research/sprite_format.md) | Reuse compatible donor assets, palettes and maps under the known codecs; verify changed transfer windows/layouts rather than rediscovering the format |
+| Help text and pictures | [Stream map](research/help_script_stream_map_20261020.md), [picture-resource map](research/help_script_picture_resource_map.tsv), [picture-label map](research/help_script_picture_label_map.tsv), [picture assets](research/help_script_picture_assets.md) | Apply only the donor's changed script/picture payloads; preserve controls, branch edges and bounded slots; do not infer full Help adoption from a partial page |
+| Candidate frame artwork | [Bank 53/frame inventory](research/japanese_frame_bank53_revalidation_20261024.md) and current asset catalog | Reuse exact assets when the donor proves a delta; do not invent species links or VRAM keys to force an unresolved composition |
+| Language build and Japanese fallback | Existing `make english` / `make english-check`, `tools/build_english.py`, [language-build contract](LANGUAGE_BUILDS.md) | Reconcile the pinned fallback/override manifest against current `main`; a stale pin is a parity delta, not a reason to redo the Japanese disassembly |
+
+For each actual residual ZIP difference, record donor identity, physical bank
+and interval, current source owner, existing interpretation/codec, intended
+replacement and allowed output differences. First eliminate already-adopted
+bytes and pure source/label renames. Additional disassembly is justified only
+for a remaining difference that those existing contracts cannot explain;
+state that missing contract explicitly. Do not reuse personal donor examples.
+
+Original-ROM observations establish the Japanese side of a contract. They do
+not by themselves validate English rendering, relocated pointers, timing,
+translation fidelity or whole-ZIP parity. Validate affected English behavior
+and the Japanese fallback when work is authorized. Historical counts such as
+KEEP1851/995/856 describe their stated cohorts, not a fresh remaining-difference
+count. No percentage or completion time for full ZIP parity is inferred here.
+
 ## Public English checkpoint (2026-10-07)
 
 The experimental [English branch](https://github.com/zenaror/mobile-trainer/tree/codex/translation-en-reflow) preserves the separately published English work described by the historical checkpoints below. The current MAIN language package is recorded in [the current make english checkpoint](#current-make-english-checkpoint-and-shared-raw-parity-2026-10-13). The project operator authorized publication of this separate branch; the earlier local-only restriction has been superseded. The Japanese reconstruction on `main` remains byte-identical to the original ROM. Original ROMs and the translation ZIP are never tracked in Git.
