@@ -114,10 +114,21 @@ These are inactive-slot initializations, not installed callback targets. A
 scan for literal absolute `$DAxx` operands matching callback-byte addresses
 found none.
 
+The sprite-engine's generic slot writers were also checked in `home/sprites.asm`.
+`Sprite_ResetAll` fills the 14-slot page with `$FF`; `Sprite_ClearSlot` fills
+one 16-byte slot with `$FF`. `Sprite_InitSlot` first fills a slot with zero,
+sets `+$0E` to the animation-table bank, then calls `Sprite_LoadObjectEntry`.
+That loader writes slot offsets `+$02..+$0A` and `+$0F`; it leaves callback
+bytes `+$0B..+$0D` at zero. Thus these setup paths install no callback address.
+The bank-3 save/restore pair copies the 256-byte slot page to and from its
+backup; it preserves slot state and is not itself a separate callback
+initializer.
+
 This narrows the bypass-setter question only for explicit symbol-plus-offset
-and literal-address writes in these 339 maintained source files. It does not
-cover writes through dynamically computed pointers, copied slot records, or
-unmaintained ROM code; candidate natural-entry status remains unchanged.
+and literal-address writes plus the generic engine helpers described above. It
+does not cover other writes through dynamically computed pointers, raw aliases
+of WRAM, or unmaintained ROM code; candidate natural-entry status remains
+unchanged.
 
 ## Reproduction
 
