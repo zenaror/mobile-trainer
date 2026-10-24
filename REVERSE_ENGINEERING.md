@@ -2477,3 +2477,6 @@ Corpus scope is explicit: the 70-scenario / 78,122-start manifest 9c784734fb8951
 
 
 **Explicit MBC writer inventory (2026-10-24).** A full maintained-source pass located 55 explicit MBC register writes across 27 function owners. The paths partition into the reader families already bounded by the residual matrix, fixed boot/SDK/string domains, and a small set of generic or candidate helpers without a direct lexical caller. This is not a source-complete global reader proof. See the [inventory and retained limits](docs/research/japanese_remaining_semantics_batch_20261024.md#explicit-mbc-register-writer-inventory-2026-10-24).
+
+
+**Current source reconciliation of the screen-loader matrix (2026-10-24).** Replaying the current extractor in memory accounts for all 917 named graphics loader operations by routine/file/type order; 74 stored line locators per side are stale. Its 818 statically resolved source ranges do not overlap the 25 candidate windows or Bank 53; the 99 unresolved operations remain covered by the existing grouped audit and its conditional-case limits. See the [source reconciliation](docs/research/japanese_remaining_semantics_batch_20261024.md#current-source-reconciliation-of-the-screen-loader-matrix-2026-10-24).
