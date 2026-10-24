@@ -57,6 +57,16 @@ names, 171 overlapping pairs, zero errors, 10 notes). This validates the
 current rebuild and declared inventories, not runtime behavior or semantic
 closure.
 
+The follow-up also scanned the Japanese ROM for every `CE 50` byte pair as a
+possible direct literal reference to the `29:50CE` wrapper. All four matches
+were accounted for as three `ADC A,$50` immediates and bytes inside the
+`4B:6A90–6E90` graphics asset; none is a direct pointer or control-flow target.
+The retained 70-scenario coverage/callgraph corpus also has no exact start or
+recorded destination at `29:50CE`. This does not rule out computed dispatch or
+prove global unreachability; the candidate's natural root remains unknown. See
+the bounded scan in
+[`japanese_open_questions_followup_20261023.md`](japanese_open_questions_followup_20261023.md#bank-2950ce-exact-target-scan-at-9f077cd0-2026-10-24).
+
 ### Original closure-checkpoint validations (2026-10-23)
 
 - `make`: original ROM SHA-256 OK; `RESULT: IDENTICAL`.

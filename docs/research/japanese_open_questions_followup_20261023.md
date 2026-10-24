@@ -332,3 +332,28 @@ The current 70-scenario natural corpus was also checked against three separately
 | `4B:76CC–76D0` | 0 | 0 | 0 |
 
 The result and reproduction script are retained in `.tmp/jp-open-span-corpus-audit-20261023/` (`RESULT.json` SHA-256 `88cb8c64f759a483c733258a72620bb8ea6e40d1d5f21aee6469ec4cc54d39ac`; `audit.py` SHA-256 `72c424298927596db118728f98c5c9016403df642f541e278550f215d3f9943f`). This closes only the question of whether these exact starts, edges, or data-read intervals occur in that validated corpus. It does not prove global unreachability, dead code, unused data, or hardware behavior; the existing CONFIRMED/PROBABLE/HYPOTHESIS classifications remain unchanged.
+
+## Bank 29:50CE exact-target scan at `9f077cd0` (2026-10-24)
+
+The previously documented CALL from `29:50CE` to `29:511E` leaves the wrapper's
+own natural root unknown. To check for a direct literal pointer/call target to
+the wrapper without repeating the `29:511E` scan, the immutable Japanese ROM
+was scanned for every overlapping little-endian `CE 50` byte pair. Its SHA-256
+was `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
+Exactly four pairs occur:
+
+| Physical location | Bytes/context | Classification |
+|---|---|---|
+| `04:4760` | `3E 00 CE 50` | `CE 50` is the immediate operand of `ADC A,$50`, not a 16-bit address. |
+| `04:4A32` | `3E 00 CE 50` | `CE 50` is the immediate operand of `ADC A,$50`, not a 16-bit address. |
+| `27:502B` | `3E 00 CE 50` | `CE 50` is the immediate operand of `ADC A,$50`, not a 16-bit address. |
+| `4B:6DE3` | inside `4B:6A90–6E90` | Bytes belong to `Gfx_SettingsPhone_ConfirmScreen_Tiles8800Vb1`, not a pointer table or instruction. |
+
+No `CE 50` pair occurs in physical ROM bank 29. Rechecking the retained
+70-scenario corpus found zero exact instruction starts at `29:50CE` and zero
+callgraph destinations of any recorded kind there. This closes the bounded
+literal-target scan and adds no positive caller evidence. It does not rule out
+computed dispatch or other indirect control flow, and it does not prove global
+unreachability; the wrapper and its enclosing palette-library span remain
+HYPOTHESIS as natural-entry candidates. The source, ROM, trace corpus and
+language overlay were not modified in this pass.
