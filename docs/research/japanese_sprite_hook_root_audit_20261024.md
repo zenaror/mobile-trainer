@@ -96,6 +96,29 @@ transfers from other subsystems, execution absent from retained traces, or
 resolve the candidates' roles. Their natural-entry status remains UNKNOWN;
 their operation descriptions retain their existing confidence levels.
 
+## Explicit slot-field writer census (2026-10-24)
+
+To narrow the direct-write caveat, I scanned all 339 `.asm` and `.inc` files
+under the maintained roots `home/`, `engine/`, `lib/`, `data/`, `gfx/`,
+`audio/`, and `ram/` for explicit references to callback bytes `slot+$0B..$0D`.
+The SHA-256 of the ordered `path + per-file SHA-256` list is
+`f84c377db8d669bd1fef30f256e9b2b364f72e9721fde3bdaf1ed99df35c3d14`.
+
+The only 15 references to `wSpriteSlotN+$0B` load the address passed to
+`Sprite_SetHook`; no explicit `wSpriteSlots+constant` operand resolves to a
+callback-byte offset modulo the 16-byte slot stride. The only six explicit
+stores to `wSpriteSlotN+$0B..$0D` are in `MailDraft_Menu`
+(`engine/mail/draft_menu.asm`): after setting A to `$FF`, it fills all 16 bytes
+of slots 1 and 2, including their callback fields and active byte at `+$0F`.
+These are inactive-slot initializations, not installed callback targets. A
+scan for literal absolute `$DAxx` operands matching callback-byte addresses
+found none.
+
+This narrows the bypass-setter question only for explicit symbol-plus-offset
+and literal-address writes in these 339 maintained source files. It does not
+cover writes through dynamically computed pointers, copied slot records, or
+unmaintained ROM code; candidate natural-entry status remains unchanged.
+
 ## Reproduction
 
 From the repository root:
@@ -103,6 +126,8 @@ From the repository root:
 ```sh
 rg -n 'call Sprite_SetHook|farcall Sprite_SetHook' engine home lib data --glob '*.asm'
 rg -n '^(Sprite_HookAddSlideOffset|ConnIcon_UpdateState|ConnectDialog_ObjHook_Caret|ConnectDialog_ObjHook_FollowRaster)::' home engine lib data --glob '*.asm'
+rg -n 'wSpriteSlot[0-9]+ \+ \$0(B|C|D)\b|wSpriteSlots \+' home engine lib data gfx audio ram --glob '*.asm' --glob '*.inc'
+rg -n '\$DA(0B|0C|0D|1B|1C|1D|2B|2C|2D|3B|3C|3D|4B|4C|4D|5B|5C|5D|6B|6C|6D|7B|7C|7D|8B|8C|8D|9B|9C|9D|AB|AC|AD|BB|BC|BD|CB|CC|CD|DB|DC|DD)\b' home engine lib data gfx audio ram --glob '*.asm' --glob '*.inc'
 ```
 
 The callback bank/address labels are in `home/sprites.asm`,
