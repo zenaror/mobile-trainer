@@ -2,20 +2,19 @@
 
 ## Scope and result
 
-This report consolidates the currently verifiable Japanese-ROM requirements at
-`91e1c957437e24b3837e87fdf0a210c9abac54f3` on
+This report consolidates the verifiable Japanese-ROM requirements. The
+original audit was recorded at `91e1c957437e24b3837e87fdf0a210c9abac54f3`;
+the latest source and gate revalidation is recorded below at
+`9f077cd0d64cbfb6869b80d7278f771749b61f67` on
 `codex/japanese-census-ram-ledger`. It uses only the canonical checkout
 `/home/rafael/_PROJETOS/Mobile Trainer`; the English overlay and Operator ZIP
-remain paused and were not examined in this pass. Build and test gates below
-were run at source checkpoint `f2bcbdaaec93c3b1cc81d62b2314b6ac314639d3`;
-the intervening commit only reconciles documentation, with no ASM, asset, or
-ROM-source changes.
+remain paused and were not examined.
 
 | Requirement | Current evidence | Status and limit |
 |---|---|---|
 | Reconstruct the original ROM byte for byte | `make` compares the 2 MiB output against ROM SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570` | **PASS — `RESULT: IDENTICAL`** |
 | Avoid generic function labels | Current Japanese census: zero strict address-only globals, zero generic function prefixes, zero unreviewed generic-marker labels; 15 coverage families, zero open | **CLOSED for the audited lexical families.** This does not identify every unlabelled or unreachable code span. |
-| Reconcile generic-looking data, local, RAM and resource names | Current ledgers match 2,764 local anchors, 108 strict bank/address suffix rows, 542 broad union rows (436 address-suffix and 269 Candidate labels, with 163 overlapping), and 786 RAM rows; 58 owner-qualified bank-suffix path names are individually dispositioned | **CLOSED for the census and ledgers.** Retained neutral names and `Candidate` qualifiers reflect documented evidence limits; they are not bare address-only names. |
+| Reconcile generic-looking data, local, RAM and resource names | Current ledgers match 2,764 local anchors, 106 strict bank/address suffix rows, 540 broad union rows (434 address-suffix and 269 Candidate labels, with 163 overlapping), and 786 RAM rows; 58 owner-qualified bank-suffix path names are individually dispositioned. The RAM partition has 104 exact bank overlays and 56 container interiors. | **CLOSED for the census and ledgers.** Retained neutral names and `Candidate` qualifiers reflect documented evidence limits; they are not bare address-only names. |
 | Reconcile function/operation-boundary clues | The 19 current comment clues map to named bounded operations; coverage row is `CLOSED` | **CLOSED.** They are not evidence of 19 separately callable or naturally reachable functions. |
 | Identify candidate operations with no proven natural root | The five rows at 2B:6CF5, 2D:4E42/4E54, 29:511E and 70:4740 have bounded mechanical names and explicit UNKNOWN/HYPOTHESIS entry or role status in the worklist | **Evidence-limited.** The worklist calls for new positive caller/producer/trace evidence before reopening. No generic `Function_*` label remains; do not invent a root or purpose. |
 | Track additional code/data spans outside that five-row operation worklist | `26:5344–537C`, `28:4BA6–4BC2`, and `4B:76CC–76D0` were checked against all 70 paired natural coverage, callgraph, and dataaccess reports at `1c9224e8`; each has zero exact instruction starts, zero direct call/rst/jphl edges, and zero overlapping data-read ranges in that corpus | **Finite corpus check closed; interpretation remains open.** This does not establish global unreachability or unused status; see the bounded result and manifest in `japanese_open_questions_followup_20261023.md`. |
@@ -31,7 +30,34 @@ and [`japanese_operation_boundary_worklist_20261023.tsv`](japanese_operation_bou
 The bounded Bank 53/frame evidence and limits are in
 [`bank53_names_frames_assets_audit_20261023.md`](bank53_names_frames_assets_audit_20261023.md).
 
-## Validation at the current source state
+## Validation records
+
+### Revalidation at `9f077cd0` (2026-10-24)
+
+The current published source adds only bank-1 scoped aliases for the frame,
+second and minute bytes in the existing connection-time SRAM mirror; its fourth
+byte remains without a semantic field alias. The Bank 53/frames/assets audit
+was already finite and complete at its documented checkpoint: 25 Japanese
+names and 25 candidate windows re-emit their bytes, its scoped 137-asset/71-PNG
+inventory found no missing referenced or orphan files, and eight incomplete
+editable compositions remain `KEEP`. This source change touched no Bank 53,
+frame, asset or PNG files, so those unresolved name-to-window and global
+used/unused questions were not reopened or promoted.
+
+At `9f077cd0`, `make` returned `SHA-256 OK` and `RESULT: IDENTICAL` for the
+2 MiB original (SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`).
+`make sym-check` passed (335 source files, 12,214 labels, 51 constants);
+`make palette-check` passed (162 loads, 116 arrays, two documented over-reads,
+zero errors); `make png-check` passed (418 tile sheets, 4 raw views, 37 font
+sheets, 95 screens); the GFX catalog passed (988 assets), PNG rules passed
+(987), the RAM ledger passed (786/786), the name census matched all 15
+families with zero explicitly open, and the banked-name check passed (240
+names, 171 overlapping pairs, zero errors, 10 notes). This validates the
+current rebuild and declared inventories, not runtime behavior or semantic
+closure.
+
+### Original closure-checkpoint validations (2026-10-23)
 
 - `make`: original ROM SHA-256 OK; `RESULT: IDENTICAL`.
 - `make sym-check`: 335 source files, 12,212 labels, 51 constants; OK.
