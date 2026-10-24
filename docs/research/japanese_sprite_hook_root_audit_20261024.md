@@ -156,6 +156,54 @@ does not cover other writes through dynamically computed pointers, raw aliases
 of WRAM, or unmaintained ROM code; candidate natural-entry status remains
 unchanged.
 
+## Computed pointer and helper-call census (2026-10-24)
+
+A reproducible source-level pointer-provenance pass covered the same 339
+maintained `.asm`/`.inc` files. It classified every symbolic call input to the
+slot mutation helpers: all 15 `Sprite_SetHook` calls pass `wSpriteSlot2`,
+`wSpriteSlot8`, or `wSpriteSlot12` plus `$0B`; all 524 `Sprite_SetPosition`
+calls pass a slot base at offset `$00`; all 712 `Sprite_InitSlot` and 44
+`Sprite_ClearSlot` calls also pass a slot base at offset `$00`. No callsite had
+unknown or arithmetically computed HL provenance, and there are no maintained
+numeric-address CALL/FARCALL operands for these four helpers. The separate
+`wSpriteSlots + constant` operands in the source resolve to non-hook fields.
+
+For pointer-based whole-page operations, `Sprite_UpdateAll` reads the slots,
+`Sprite_ResetAll` fills `$DA00..$DADF` with `$FF`, and
+`Sprites_RestoreSlotsFromBank3` is the only pointer-based `DE = wSpriteSlots`
+writer: it copies 256 bytes from `wSpriteSlotBackup`. The paired save routine
+is the only writer using the `wSpriteSlotBackup` symbol; the restore path can
+reinstate callback bytes already present in the saved page, but it is not an
+independently observed callback constructor. There is one known raw overlay
+writer: `DebugFlags_LoadHelpText` selects WRAM bank 3 and clears
+`wTileStage3` `$D000..$DBFF`, which overlaps the backup at `$D900..$D9FF`.
+That unreferenced debug code therefore zeros the backup if entered; a later
+restore could clear the live slot page, but it does not construct a callback
+address. The debug file is classified as unreferenced and has no natural
+execution in the retained corpus. The only executable literal `ld hl,$DA00`
+found in these source roots is in `MobileDictView_Show`, after selecting WRAM
+bank 6, where it clears the dictionary history/link heap rather than the
+bank-7 sprite slots. These findings add bounded source-level evidence; they do
+not close arbitrary raw WRAM aliasing in unmaintained or indirect code.
+
+One concrete uncertainty remains: `StoreDEAtHL_SelectWramBank7` at `00:0A2A`
+accepts caller-supplied HL and writes E then D to `[HL]` and `[HL+1]`. The
+maintained source has only its definition, the retained entrypoint record
+in `analysis/entrypoints.json` reports zero raw CALL/JP patterns, and the
+contract review finds no entry in the retained natural trace/callgraph corpus
+([details](typing_00_a2a_d34_contract_corrections.md#00-0a2a)). If reached
+indirectly with HL at callback offset `+$0B` or `+$0C`, it could overwrite the
+hook address bytes. Its caller/entry and sprite purpose remain HYPOTHESIS, so
+this pass does not claim that all bypass-setter writers are ruled out.
+
+The reproduction script is
+`.tmp/jp-sprite-hook-pointer-path-audit-20261024/scan.py` (SHA-256
+`318db18c27b23aca1596e4634188ebac3c595baa3bf0696ff8fe59061ff424e6`); its
+receipt is `RESULT.json` (SHA-256
+`d4ccc316c1356a0553c79726f552e0b0e704b69cd0e2ee721472871a6a03b71c`). The
+ordered 339-file input manifest hashes to
+`1c2bd619b794b37b9a4f60e24afa63b405d21169b83e76118b39d02c2eec6f9b`.
+
 ## Reproduction
 
 From the repository root:
@@ -166,6 +214,7 @@ rg -n '^(Sprite_HookAddSlideOffset|ConnIcon_UpdateState|ConnectDialog_ObjHook_Ca
 rg -n 'wSpriteSlot[0-9]+ \+ \$0(B|C|D)\b|wSpriteSlots \+' home engine lib data gfx audio ram --glob '*.asm' --glob '*.inc'
 rg -n '\$DA(0B|0C|0D|1B|1C|1D|2B|2C|2D|3B|3C|3D|4B|4C|4D|5B|5C|5D|6B|6C|6D|7B|7C|7D|8B|8C|8D|9B|9C|9D|AB|AC|AD|BB|BC|BD|CB|CC|CD|DB|DC|DD)\b' home engine lib data gfx audio ram --glob '*.asm' --glob '*.inc'
 python3 .tmp/jp-sprite-hook-raw-literal-audit-20261024/scan.py
+python3 .tmp/jp-sprite-hook-pointer-path-audit-20261024/scan.py
 ```
 
 The callback bank/address labels are in `home/sprites.asm`,
