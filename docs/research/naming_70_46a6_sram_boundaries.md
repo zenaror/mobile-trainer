@@ -108,6 +108,31 @@ zeroing/reset, not a global invariant. `A9EE` likewise has no demonstrated
 natural nonzero producer because the only identified nonzero stores belong
 to the Bank 70 candidate whose natural entry remains unproved.
 
+### Generic copy-route extension (2026-10-24)
+
+A targeted caller review followed maintained generic-copy routes whose
+destinations can be SRAM. `CopyBytes` in `home/copy.asm` writes BC bytes at
+`DE++`; the reviewed routes give it these bounded destinations:
+
+| Route | Destination contract in the reviewed flow | Relation to SRAM1:`$A9ED-$A9EE` |
+|---|---|---|
+| `Config_BuildImageFromAccount` | `$A000-$A0BF`, SRAM bank 2; the following fill is `$A0C0-$A0FF`, bank 2 | Different bank and address range |
+| settings-page initialization, clear, and backup | `$B000-$B1FF`, SRAM bank 1; copy destinations are `$B000` or `$B100` | Above `$A9FF` |
+| browser history push/pop | `$AA00-$AFFF`, SRAM bank 1, when the maintained ring index is in its natural `0..5` domain | Above `$A9FF`; an arbitrary/corrupt index is not bounded by this natural-state result |
+| page-cache push/pop | table-selected `$A000`/`$B000` blocks in SRAM banks 2/3; the ring writers maintain indices `0..2` | Different banks; the fourth physical table record is outside the natural ring |
+| HTML page load | the two maintained callers are in `MobileDictView`; the load destination is the bank-3 page buffer at `$B000`, with `$0FFC` capacity | Different bank and address range |
+| page-result wrapper move | SRAM bank 3 is selected; the normal page-length guard limits the backward move to the `$B000-$BFFF` page buffer | Different bank and address range; malformed pre-existing lengths are outside the normal-input claim |
+
+The targeted source review also found no generic-copy call that passes
+`sSaveCheckStateBlock` or its `$A9ED/$A9EE` fields as a destination. It
+supports the narrower conclusion that the listed normal copy routes do not
+introduce a nonzero write to SRAM1:`$A9ED` or a producer for SRAM1:`$A9EE`.
+This is not a source-complete interprocedural proof for every pointer-taking
+API, computed destination, arbitrary helper entry, or corrupt SRAM state.
+The complete natural value domains and the Bank 70 candidate's natural entry
+therefore remain UNKNOWN/HYPOTHESIS as stated above. No ROM, source instruction,
+asset, or runtime trace changed in this review.
+
 The minimal proposal changes exactly25 existing whole-comment rows in engine/comm/comm_scene.asm and adds this note. Physical source rows, all instructions/data, blanks, labels, local scopes and confidence levels remain unchanged. This source-only static proposal does not change the accepted queue, integrate a parent or authorize validation. Existing scope6 preparation helpers are untouched.
 
 
