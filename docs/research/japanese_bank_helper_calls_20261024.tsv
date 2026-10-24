@@ -52,7 +52,7 @@ bank	file	line	owner	target	transfer	contract_group
 74	engine/html/tags.asm	1674	Html_Tag_Img	BankSwitch_H	call	ordinary initialized producer bound: resource chain and URL-list boundary; exceptions/limits in japanese_html_img_list_limit_20261024.md
 74	engine/html/tags.asm	1676	Html_Tag_Img	BankSwitch_D	call	ordinary initialized producer bound: resource chain and URL-list boundary; exceptions/limits in japanese_html_img_list_limit_20261024.md
 74	engine/html/tags.asm	1707	Html_Tag_Img	BankSwitch_D	call	ordinary initialized producer bound: resource chain and URL-list boundary; exceptions/limits in japanese_html_img_list_limit_20261024.md
-4E	engine/sram/save_block_check.asm	234	Sram_BuildA9F0DeltaBlock	BankSwitch_H	call	candidate entry unproved
+4E	engine/sram/save_block_check.asm	234	Sram_BuildA9F0DeltaBlock	BankSwitch_H	call	no literal same-bank CALL/JP or far-pointer found; computed/natural entry remains open
 48	engine/text/font_8x16.asm	119	Font_BlitGlyph8x16	BankSwitch_H	call	glyph destination WRAM producer: TextTiles banks 2/3/7; keyboard/help bank 3
 48	engine/text/font_8x16.asm	134	Font_BlitGlyph8x16	BankSwitch_H	call	glyph destination WRAM producer: TextTiles banks 2/3/7; keyboard/help bank 3
-48	engine/tutorial/gates.asm	143	Tilemap_ApplyMaskRect_48_4A8C	BankSwitch_H	call	candidate entry unproved
+48	engine/tutorial/gates.asm	143	Tilemap_ApplyMaskRect_48_4A8C	BankSwitch_H	call	no literal same-bank CALL/JP or far-pointer found; raw HL=$4A8C is bank22 string, not bank48; computed entry open
