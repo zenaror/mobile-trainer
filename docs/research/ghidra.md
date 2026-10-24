@@ -130,6 +130,8 @@ the default output is the raw, unbiased Ghidra view. Tested against synthetic re
 PROBABLE-level evidence; the real files did not exist yet; verifier's run seeded `Boot`@0278, `Memset`@04D8, `ErrScreen`@6B:4C80,
 `Poll`@6B:4CF6 and both banked calls still resolved); a `code` region in bank 00 at an address >= 4000 is skipped with a warning.
 
+Seed granularity matters: each `code` row adds only one entry point at that row's start; it does not seed every instruction in the interval. A broad row with an empty label is therefore one analysis root, not a guarantee that the complete byte range is analyzed. At Japanese checkpoint `1309e369`, `config/regions/bank29.tsv` has one `code` row `5090-5376` with no label, so the region-seeded run created a function at `29:5090` but not at the known byte-verified `29:50CE` caller or `29:511E` callee. A read-only xref query consequently missed the `CALL $511E` at `29:50CE`; this is an observed tool-coverage limitation, not evidence that the call is absent. For complete-span questions, seed finer confirmed entries or use a byte-validated source/index audit, and preserve the limitation when comparing Ghidra references.
+
 Outputs (deterministic: two consecutive runs produced byte-identical files):
 
 * `analysis/ghidra_functions.json`: `functions[]` with `block` (`rom0`, `romN`, `hram`, ...), `bank`, `addr` (CPU,
