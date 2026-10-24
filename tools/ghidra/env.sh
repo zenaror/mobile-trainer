@@ -49,10 +49,17 @@ gh_check_install() {
     local props="$GHIDRA_INSTALL_DIR/Ghidra/application.properties"
     GHIDRA_VERSION="$(sed -n 's/^application.version=//p' "$props")"
     GHIDRA_RELEASE="$(sed -n 's/^application.release.name=//p' "$props")"
-    # With -Dapplication.settingsdir=X Ghidra really uses X/<user>-ghidra/ghidra_<ver>_<rel>
-    # (ApplicationUtilities.getDefaultUserSettingsDir; the "<user>-" prefix is added because X is
-    # outside $HOME). Extensions are discovered in <that dir>/Extensions.
-    GHIDRA_SETTINGS_DIR="$GHIDRA_USER_DIR/$(id -un)-ghidra/ghidra_${GHIDRA_VERSION}_${GHIDRA_RELEASE}"
+    # Ghidra appends ghidra_<ver>_<rel>, and only inserts <user>-ghidra when the
+    # configured settings directory is outside $HOME. Resolve both paths so a
+    # symlinked checkout still selects the directory Ghidra actually loads.
+    local settings_base home_base user_component="ghidra/"
+    settings_base="$(realpath -m "$GHIDRA_USER_DIR")"
+    home_base="$(realpath -m "${HOME:?HOME must be set}")"
+    case "$settings_base/" in
+        "$home_base/"*) ;;
+        *) user_component="$(id -un)-ghidra/" ;;
+    esac
+    GHIDRA_SETTINGS_DIR="$settings_base/${user_component}ghidra_${GHIDRA_VERSION}_${GHIDRA_RELEASE}"
     GHIDRA_EXT_DIR="$GHIDRA_SETTINGS_DIR/Extensions/GhidraBoy"
 }
 

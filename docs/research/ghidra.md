@@ -95,9 +95,11 @@ Needs a JDK (javac + jar), git, network only for the first clone.
 
 Isolation (CONFIRMED): `tools/ghidra/env.sh` starts the JVM directly, with the same command line as
 `support/launch.sh` but `-Dapplication.settingsdir/cachedir/tempdir` pointing into `.cache/`. It never runs
-`launch.sh`/`ghidraRun` (which would rewrite `~/.config/ghidra/.../java_home.save`). Ghidra appends a per-user
-sub-directory, so the real settings dir is `.cache/ghidra-user/<user>-ghidra/ghidra_12.1.3_PUBLIC/` and the
-extension lives in its `Extensions/GhidraBoy/`. Nothing is installed into the Ghidra install dir. Disclosure (corrected by the verifier): `~/.config/ghidra/ghidra_12.1.3_PUBLIC/application.log` was appended to twice by this work,
+`launch.sh`/`ghidraRun` (which would rewrite `~/.config/ghidra/.../java_home.save`). Ghidra appends
+`ghidra_<version>_<release>` and inserts `<user>-ghidra` only when the configured settings directory is
+outside `$HOME`; `env.sh` mirrors this rule. In this checkout the real settings dir is
+`.cache/ghidra-user/ghidra/ghidra_12.1.3_PUBLIC/`, and the extension lives in its
+`Extensions/GhidraBoy/`. Nothing is installed into the Ghidra install dir. Disclosure (corrected by the verifier): `~/.config/ghidra/ghidra_12.1.3_PUBLIC/application.log` was appended to twice by this work,
 not by the pipeline scripts: (1) 2026-09-29 13:35:18, an early `SleighCompile` run before the settings dir was overridden (3 lines);
 (2) 13:49:41, the upstream gradle `test` run (about 85 lines, the stack trace above). The original report attributed the log
 changes only to `SleighCompile` runs. No other file under `~/.config/ghidra` has a modification time from this work, the Ghidra install

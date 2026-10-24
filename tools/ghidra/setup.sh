@@ -10,7 +10,9 @@
 #   3. javac the loader/analyzer sources (fi.gekkio.ghidraboy.*) against the installed
 #      Ghidra jars (no gradle, no kotlin, no maven downloads: only the git fetch needs network)
 #   4. assemble an extension directory and install it into the isolated Ghidra user dir
-#      .cache/ghidra-user/<user>-ghidra/ghidra_<ver>/Extensions/GhidraBoy  (NOT into the Ghidra install, NOT ~/.config)
+#      under .cache/ghidra-user/ghidra/ghidra_<ver>/Extensions/GhidraBoy when the repo is inside $HOME,
+#      or .cache/ghidra-user/<user>-ghidra/ghidra_<ver>/Extensions/GhidraBoy outside $HOME
+#      (NOT into the Ghidra install, NOT ~/.config)
 #   5. write .cache/ghidra-setup.json with versions and sha256s of what was built
 #
 # Why not upstream's gradle build: it needs gradle 9 + Kotlin 2.2 + ktlint plugins from the
