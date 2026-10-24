@@ -443,3 +443,11 @@ bounded hand samples. This batch resolves only the 14 listed mapper hints as
 already represented asset bytes; their existing confidence levels and any
 natural-load or frame-use questions remain unchanged. `make png-check` passed:
 418 tile sheets, 4 raw byte views, 37 font sheets and 95 screen PNGs.
+
+### Link-map and symbol ownership follow-up (2026-10-24)
+
+At source-identical HEAD `25501d4b80a8370ab2b7482dd8388f99ca4df417`, the Japanese `make` and current symbol/map outputs were revalidated: the rebuilt 2 MiB ROM is byte-identical (SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`); `make sym-check` reports 335 source files, 12,214 labels and 51 constants. `make palette-check` reports 162 loads, 116 arrays, two documented over-reads and zero errors; `make png-check` checks 418 tile sheets, four raw views, 37 font sheets and 95 screen PNGs.
+
+The 264 mapper candidate spans (input SHA-256 unchanged at `6d0616a12bd1e406eebaf756d2652f98a1b82a6f69598f2721a7cc671b6a9a1b`) were additionally joined against that regenerated `.sym` and `.map`. All 264 spans are fully covered by current linked source sections (104 distinct section owners); 187 contain at least one current same-bank symbol start, and the other 77 are each bounded by the adjacent same-bank symbol starts surrounding the span. No neutral `Function_<bank>_<address>`, `Data_<bank>_<address>`, or `Font_<bank>_<address>` symbol occurs inside any candidate span. This provides current source-section and symbol-boundary ownership for the list, including the 77 spans with no symbol start inside them. It does not prove the semantic interpretation of every bounded instruction/data slice, and it does not find functions omitted by the mapper heuristic.
+
+Accordingly, none of these 264 mapper rows is itself evidence of an unnamed function still awaiting identification. Keep their prior per-source confidence and code/data interpretations; prioritize only spans with new positive control-flow or data-consumer evidence. This bounded conclusion does not close the project-wide naming, data, asset-use, or natural-entry review.
