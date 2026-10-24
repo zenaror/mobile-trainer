@@ -38,6 +38,39 @@ A finite textual search of all348 maintained ASM/inc files finds the Function_70
 
 The same A9ED field is read at4E:6185 in the neutral6172 fragment to choose B=19/1A, and through ReadByteFar at73:62E4 to conditionally increment a description index. Both test bit7, matching the bounded field interpretation without proving the purpose or natural execution of70:46A6/4740. The sixteen-byte save-check region includes A9ED/A9EE: maintained reset/update/verify routines operate on the larger block, so this finite literal-operand search is not evidence that no indirect or whole-block writer/consumer exists. A later check of the retained 70-scenario corpus found no instruction starts or recorded control-flow destinations in [70:4740,477F); see `japanese_open_questions_followup_20261023.md`. This is limited to that corpus and does not establish global non-use.
 
+## Additional SRAM1:A9ED writer evidence (2026-10-24)
+
+The 72 retained `traces/detail/*/dataaccess.tsv` files contain twelve merged
+SRAM1 write ranges covering `$A9ED`. Eleven are `$A9E3-$A9FC` and their
+scenarios execute `SaveCheck_ResetBlock` at `4E:4749`; the twelfth is the
+whole-bank range `$A000-$C000` in `title_settings`. That scenario executes the
+all-bank wipe path at `68:42E4`; its loop selects banks 0 through 3 and calls
+`FillBytes` (`00:04D8`) with A=0. The data-access rows are half-open merged
+ranges, so they do not identify the individual write or its value by
+themselves.
+
+To inspect the broad `title_settings` range, the existing 23,176-frame
+scenario was replayed from its retained `tutorial_profile` save/config with a
+CPU write watchpoint at `$A9ED`. It recorded ten stores, all at `00:04E6` with
+value `$00`. The watched CPU address does not include the selected SRAM bank;
+the source loop establishes that the wipe traverses all four banks, while the
+watchpoint alone does not assign each event to a bank. Coverage, callgraph,
+data-access report, stats, save and config outputs matched the retained
+scenario byte for byte. Across the 71 retained 32 KiB save snapshots, 69 have
+SRAM1:`$A9ED`=`$00`; the remaining `$FF` values are in `noadapter` and
+`noncgb_boot` snapshots. Those snapshots are end states, not a complete history
+of writes.
+
+This adds positive evidence for zeroing/reset behavior in the retained
+non-forced `title_settings` emulator flow and for the reset block's inclusion
+of A9ED. It does not
+establish the complete natural value domain, exclude nonzero writers through
+other inputs or generic copies, or prove global unreachability of the Bank 70
+readers. The operation entry and application purpose remain HYPOTHESIS. The
+replay command, hashes, retained watchpoint, and cleanup receipt are in
+`.tmp/jp-a9ed-natural-writer-20261024/` (`RESULT.json` SHA-256
+`77f25021f6d04fa0b10b6e2b902b4ba325541f9b98118c31102db06e3c9e02a1`).
+
 The minimal proposal changes exactly25 existing whole-comment rows in engine/comm/comm_scene.asm and adds this note. Physical source rows, all instructions/data, blanks, labels, local scopes and confidence levels remain unchanged. This source-only static proposal does not change the accepted queue, integrate a parent or authorize validation. Existing scope6 preparation helpers are untouched.
 
 
