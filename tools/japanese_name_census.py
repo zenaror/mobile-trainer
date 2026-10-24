@@ -42,6 +42,7 @@ LOCAL = re.compile(r"^(\.[\w.$]+)(?::|\s|$)")
 ASSET_ADDRESS = re.compile(
     r"(?:tiles?|tilemap|attrmap|palette)_?[0-9A-F]{4}(?:\.[^/]*)?\Z", re.I
 )
+BARE_BANK_FILENAME = re.compile(r"bank[0-7][0-9A-F](?:[_.-].*|\.[^.]+)?\Z", re.I)
 FUNCTION_NOTE = re.compile(
     r"\b(?:complete [^.;]{0,50}(?:functions?|operations?)|unreferenced functions?|"
     r"unlabelled (?:candidate )?(?:entry|function|code block)|"
@@ -337,7 +338,11 @@ def main() -> int:
     bank_dirs = [
         p
         for p in active_paths
-        if re.search(r"(?:^|/)bank[0-9A-F]{2}(?:/|$)", p, re.I)
+        if re.search(r"(?:^|/)bank[0-7][0-9A-F](?:/|$)", p, re.I)
+    ]
+    bare_bank_filenames = [
+        p for p in active_paths
+        if BARE_BANK_FILENAME.fullmatch(p.rsplit("/", 1)[-1])
     ]
     gfx_paths = [p for p in active_paths if p.startswith("gfx/")]
     address_assets = [
@@ -347,15 +352,20 @@ def main() -> int:
     for p in active_paths:
         components = p.split("/")
         for index, component in enumerate(components[:-1]):
-            if re.search(r"(?:^|_)bank[0-9A-F]{2}\Z", component, re.I):
+            if re.search(r"(?:^|_)bank[0-7][0-9A-F]\Z", component, re.I):
                 bank_suffix_dirs_set.add("/".join(components[: index + 1]))
     bank_suffix_dirs = sorted(bank_suffix_dirs_set)
     bank_suffix_files = [
         p
         for p in active_paths
-        if re.search(r"(?:^|_)bank[0-9A-F]{2}\.asm\Z", p, re.I)
+        if re.search(r"(?:^|_)bank[0-7][0-9A-F]\.asm\Z", p, re.I)
     ]
     path_errors: list[str] = []
+    if bare_bank_filenames:
+        path_errors.append(
+            "generic bare-bank source/resource filenames: "
+            + ", ".join(sorted(bare_bank_filenames))
+        )
     if not PATH_NAME_LEDGER.is_file():
         path_errors.append(f"missing bank-qualified path-name ledger: {PATH_NAME_LEDGER}")
     else:
@@ -388,6 +398,7 @@ def main() -> int:
         "single-RET body labels": len(hits["single-RET body labels requiring explicit disposition"]),
         "function/operation-boundary comments": len(hits["function/operation-boundary comment clues (reconciled)"]),
         "active paths with bare bankNN directory component": len(bank_dirs),
+        "active files with bare bankNN filename/prefix": len(bare_bank_filenames),
         "owner-qualified bankNN directories and ASM filenames": len(bank_suffix_dirs) + len(bank_suffix_files),
         "GFX address-only asset basenames": len(address_assets),
         "source labels explicitly retaining Unknown/Unresolved content": len(hits["source labels explicitly retaining Unknown/Unresolved content"]),
@@ -461,6 +472,10 @@ def main() -> int:
     print(f"Active source/resource paths with bankNN directory component: {len(bank_dirs)}")
     if args.list or args.generic_list:
         for row in bank_dirs:
+            print(f"  {row}")
+    print(f"Active source/resource files with bare bankNN filename/prefix: {len(bare_bank_filenames)}")
+    if args.list or args.generic_list:
+        for row in bare_bank_filenames:
             print(f"  {row}")
     print(f"Owner-qualified bankNN directory names: {len(bank_suffix_dirs)}")
     if args.list or args.generic_list:
