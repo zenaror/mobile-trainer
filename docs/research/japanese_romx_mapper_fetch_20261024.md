@@ -181,3 +181,53 @@ INPUTS.json. The finite model checks the guard only, independently of HTTP input
 validity. Three small files retained, no ROM/source clone. Documentation-only
 change; source-build baseline remains e37d96b8. This narrows the HTML obligations;
 it does not close the42 helper sites or establish any Pokémon/frame association.
+
+
+## Consumer refinement: dictionary pages and browser close-only polling
+
+The broad SDK leftover contract is not the browser's continuation contract.
+`Http_Poll` (54:43F1) supplies BC=0000 when timer bit2 is set, for both GET and
+POST. MobileAPI and the API dispatcher preserve this BC argument to the selected
+handler. When the handler admits the ongoing HTTP state, HttpReadBody's OR B,C
+at75:5057/5058 sets Z; DEC BC at505F/5060 preserves flags, and JP Z at5061 takes
+51CF. That branch clears bit2, sets substep6 and closes TCP, before the leftover
+CALL5068. Other rejected states take ErrBusy instead. The existing SDK BC=2
+counterexample in `sdk_function_names.md` therefore does not describe this
+close-only poll path. Redirect retries restore the saved initial capacity and
+start another request; they are not additional body chunks at capacity2.
+
+This removes leftover continuation from the browser-specific proof obligation.
+It does not yet prove first-response header/body parsing or all asynchronous
+packet transitions. The next HTTP work is initial body handling and publication,
+not another audit of5164. Initial browser page capacity is0FFC; the accepted
+inline-image capacity has a positive high byte, from the guard already modeled.
+
+For the dictionary consumer, all55 original far records in the already-identified
+3F:4012 table were read, rather than extrapolating from the eight historical
+scenarios. Every filename ends in `.htm`; lengths are174..571. At the declared
+LoadEntry input B000/capacity0FFC, the existing HtmlStore_LoadPage contract copies
+n=record_length bytes toB002 and stores n-2 in the header. Thus LoadImages computes
+ListEnd=B000+n+2; its two preliminary zero writes end no higher thanB23E. This
+uses the corrected stored-length contract, not an assumed header=n.
+
+An overapproximation checks every literal '<' in every record, permits one '/' as
+the parser does, and tests case-folded `img` as a **prefix**, matching the actual
+Html_MatchKeyword behavior. There are zero candidates, including bytes after any
+possible earlier terminator. This is stronger than a regex requiring a complete
+HTML word. The source links the result to the consumer: ScanPage clears the W4
+page area including DE00; the scan-only Img handler fills the image URL list;
+these records cannot select that handler through a literal tag. Entity output
+is emitted as text, not fed back into tag dispatch. WrapImageInHtml does not wrap
+the `.htm` names. Within this ordinary initialized scan with intact scratch and
+balanced callees, the list's first word remains zero. LoadImages calls
+BankSwitch_H with DE00/bank4 and returns at the zero-word test; the later
+BankSwitch_H at4C:521D and the unguarded URL copy are not reached in this domain.
+The flag that invokes LoadImages is `<html>` seen, not an image-present flag.
+
+The two dictionary rows in the helper matrix are now resolved for this declared
+55-page domain, leaving40HTML/browser rows requiring their contracts. This is
+not a global unused-code claim: a substituted page/list or direct entry is outside
+the proof, and no claim is made that all55 pages ran on a console or emulator.
+Reproduction: `.tmp/jp-html-consumer-domains-20261024/check.py` and RESULT.json,
+with per-record source hashes, lengths, tag offsets and pinned SDK opcode checks.
+Source/ROM bytes are unchanged; the e37d96b8 build remains the source baseline.

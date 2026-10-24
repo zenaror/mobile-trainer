@@ -17,8 +17,8 @@ bank	file	line	owner	target	transfer	contract_group
 4E	engine/browser/page_render.asm	1515	Browser_DrawElement_Text	BankSwitch_H	call	HTML/browser pointer invariant required
 4E	engine/browser/page_render.asm	1630	Browser_DrawElement_Bitmap	BankSwitch_H	call	HTML/browser pointer invariant required
 4C	engine/help/mobile_dictionary_view.asm	192	MobileDictView_LoadEntry	BankSwitch_H	call	fixed RAM producer
-4C	engine/help/mobile_dictionary_view.asm	283	MobileDictView_LoadImages	BankSwitch_H	call	HTML/browser pointer invariant required
-4C	engine/help/mobile_dictionary_view.asm	304	MobileDictView_LoadImages	BankSwitch_H	call	HTML/browser pointer invariant required
+4C	engine/help/mobile_dictionary_view.asm	283	MobileDictView_LoadImages	BankSwitch_H	call	dictionary 55-page initialized scan: first DE00/W4; later site excluded
+4C	engine/help/mobile_dictionary_view.asm	304	MobileDictView_LoadImages	BankSwitch_H	call	dictionary 55-page initialized scan: first DE00/W4; later site excluded
 4C	engine/help/mobile_dictionary_view.asm	350	MobileDictView_HistoryPush	BankSwitch_H	call	fixed RAM producer
 4C	engine/help/mobile_dictionary_view.asm	383	MobileDictView_HistoryPop	BankSwitch_D	call	declared history caller domain
 74	engine/html/count_pass.asm	252	Html_CountListItems_Tag_Done	BankSwitch_H	call	HTML/browser pointer invariant required
