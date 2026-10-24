@@ -1,6 +1,6 @@
 # Bank 53, Pokémon frame and PNG revalidation (2026-10-24)
 
-This finite Japanese-only recheck uses documentation HEAD `8dd8d59d0246b2c5c7f2f042cca7c26c33b9ac96` and the unchanged maintained-source baseline `25501d4b80a8370ab2b7482dd8388f99ca4df417`. The original `Mobile Trainer (Japan).gbc` is 2,097,152 bytes with SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. Comparing the baseline to HEAD found documentation-only changes; no ASM/INC, GFX asset, PNG, language overlay, or ROM source changed.
+This finite Japanese-only recheck was first recorded at documentation HEAD `8dd8d59d0246b2c5c7f2f042cca7c26c33b9ac96` against maintained-source baseline `25501d4b80a8370ab2b7482dd8388f99ca4df417`. The original `Mobile Trainer (Japan).gbc` is 2,097,152 bytes with SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. The counts below describe that original finite-audit snapshot; the current six-asset delta is reconciled explicitly below.
 
 ## Bank 53 name block
 
@@ -10,11 +10,17 @@ These facts confirm the complete encoded name table and its byte placement. They
 
 ## Bank 41–47 assets and PNGs
 
-The current `gfx/assets.tsv` has 137 rows across eight owner directories for physical banks `41–47`, totaling 93,264 bytes: 49 tile assets, 28 palettes, 28 tilemaps, 28 attribute maps, and four raw-byte views. Every file exists and reconstructs exactly the corresponding original-ROM slice. The audit interprets the catalog bank column as hexadecimal and uses file offset `bank * 0x4000 + address - 0x4000`; palette text is decoded with the project's `tools.gfx_export.palette_bytes` implementation. This cross-check found zero missing assets and zero source-to-ROM byte mismatches.
+At the original audit snapshot, `gfx/assets.tsv` had 137 rows across eight owner directories for physical banks `41–47`, totaling 93,264 bytes: 49 tile assets, 28 palettes, 28 tilemaps, 28 attribute maps, and four raw-byte views. Every file in that snapshot reconstructed the corresponding original-ROM slice. The audit interprets the catalog bank column as hexadecimal and uses file offset `bank * 0x4000 + address - 0x4000`; palette text is decoded with the project's `tools.gfx_export.palette_bytes` implementation.
 
-The eight owner directories contain 71 PNGs. The asset catalog resolves 53 source PNGs, and `gfx/screens.tsv` accounts for the remaining 18 screen compositions. Their union equals the files present in scope: zero missing and zero orphan PNGs. This is a bounded inventory; it does not claim every ROM graphic has been discovered or naturally displayed.
+At the original audit snapshot, the eight owner directories contained 71 PNGs: 53 source PNGs from the asset catalog and 18 screen compositions from `gfx/screens.tsv`. Their union matched the files present in scope, with zero missing or orphan PNGs. This is a bounded inventory; it does not claim every ROM graphic has been discovered or naturally displayed.
 
-At this HEAD, `make png-check` accepts 418 tile sheets, four raw byte views, 37 font sheets, and 95 screen PNGs; `python3 tools/gfx_export.py check` accepts 988 assets; `python3 tools/png_rules.py mk-check` accepts 987 rules.
+At that audit snapshot, `make png-check` accepted 418 tile sheets, four raw byte views, 37 font sheets, and 95 screen PNGs; `python3 tools/gfx_export.py check` accepted 988 assets; `python3 tools/png_rules.py mk-check` accepted 987 rules. Those are historical snapshot counts; the current aggregate gates are recorded in `REVERSE_ENGINEERING.md`.
+
+### Current Bank 41–47 delta (2026-10-24)
+
+A row-level comparison of `gfx/assets.tsv` at the original baseline `25501d4b` and current source revision `b9a591ce` found exactly six added rows in physical Bank 42, with no removed or modified rows in the audited Bank 41–47 scope. Each row is a separate 16-byte `PROBABLE` tile candidate at `42:48A2`, `42:5E50`, `42:6132`, `42:6340`, `42:7092`, or `42:7190`. The six corresponding PNGs exist; together the source adds 96 bytes and six editable tile PNGs.
+
+The current bounded totals are therefore 143 catalogued assets / 93,360 bytes (55 tile assets, 28 palettes, 28 tilemaps, 28 attribute maps, and four raw-byte views) and 77 PNG files across the same eight owner directories (59 asset-source PNGs plus 18 screen compositions). A direct manifest-to-files comparison found all 77 referenced PNGs present and zero orphan PNGs. The inherited byte/PNG checks for the original 137-row snapshot remain valid because none of those rows changed; current aggregate `png-check`, GFX catalog, and PNG-rule gate counts are stated in `REVERSE_ENGINEERING.md`. These six fragments complete candidate tile boundaries only; natural loading, consumption, and semantic ownership remain unconfirmed.
 
 ## Independent frame-style descriptor lookup
 
