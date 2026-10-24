@@ -27,7 +27,7 @@ edit a PNG   ->   make            ->   open mobile_trainer.gbc
 
 | what | file | how | count |
 |---|---|---|---:|
-| tile blocks (2bpp art: screens, text baked into tiles, buttons, logos) | `gfx/**/name.png` next to `name.2bpp` | exact `rgbgfx` source: 4 greys in a fixed order (index 0 white ... 3 black); 16 tiles per row (8-15 when 16 does not divide the count; the last row padded, padding tiles are ignored) | 408 catalogued tile binaries |
+| tile blocks (2bpp art: screens, text baked into tiles, buttons, logos) | `gfx/**/name.png` next to `name.2bpp` | exact `rgbgfx` source: 4 greys in a fixed order (index 0 white ... 3 black); 16 tiles per row (8-15 when 16 does not divide the count; the last row padded, padding tiles are ignored) | 424 catalogued tile binaries |
 | explicit RAW byte views | `gfx/frame_designs/metal_flame_and_creature_borders_42/raw_*.png` | reversible raw2bpp byte codec; purpose UNKNOWN/HYPOTHESIS, not a tile classification | 4 files /80B |
 | JIS 12x12 font banks, 8x16 font runs, 6x12 Latin font | `data/fonts/name.png` or `data/fonts/glyph_runs_8x16/sjis_key.png` next to its binary | glyph sheet, see section 4; `tools/font_png.py` | 37 sheets (39 binaries) |
 | whole screens (tilemap + attributes + tiles + palettes composed, in real colours) | `gfx/**/name.screen.png` next to `name.tilemap` | see section 3; an *editing view*: import writes the edit back into the tile sheets | 95 screens |
@@ -86,7 +86,7 @@ This entry updates the earlier catalogue counts to93 rows:20 PROBABLE and73 HYPO
 
 ## 7. Current original-asset catalogue
 
-The current catalogue has978 assets/623610 logical ROM bytes and977 active PNG rules. Its11 JIS12x12 binaries total131976B; all font formats together have39 binaries in37 sheets. The408 tile-sheet PNGs,4 RAW byte-view PNGs (80B) and37 font sheets are449 unique editable source PNG paths. The validity bitmap is a separate view-only picture. The RAW files preserve HYPOTHESIS/UNKNOWN purpose and use an explicit reversible byte codec; a byte-view is not a new tile classification.
+The current catalogue has994 assets/627530 logical ROM bytes and993 active PNG rules. Its11 JIS12x12 binaries total131976B; all font formats together have39 binaries in37 sheets. The424 tile-sheet PNGs,4 RAW byte-view PNGs (80B) and37 font sheets are465 unique editable source PNG paths. The validity bitmap is a separate view-only picture. The RAW files preserve HYPOTHESIS/UNKNOWN purpose and use an explicit reversible byte codec; a byte-view is not a new tile classification.
 
 The current95 screen rows are20 PROBABLE and75 HYPOTHESIS;86 of181 tilemaps have no screen row. The preceding92/93 counts describe earlier stages, not current omissions. Among the25 finite candidate physical windows,17 editing compositions and24 legacy previews exist: every window has some existing PNG representation. Eight editing views remain KEEP; this is not missing ROM art or proof of natural loading. The completed bank7C sheet shares three contiguous spans6083+10+9135B without a new PNG path. No species/name-to-image association or ALL asset-completeness claim follows.
 

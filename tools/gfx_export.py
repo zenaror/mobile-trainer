@@ -648,7 +648,8 @@ def read_manifest():
 
 def write_manifest(rows):
     def key(r):
-        return (r['asm'], int(r['addr'], 16), r['path'])
+        # Keep the checked-in manifest in stable path order; source-address sorting causes large unrelated diffs.
+        return r['path']
     with open(os.path.join(ROOT, MANIFEST), 'w', encoding='utf-8') as f:
         f.write('# gfx/assets.tsv -- written by tools/gfx_export.py (do not edit by hand)\n')
         f.write('# path: asset the .asm INCBINs / INCLUDEs.  type: tiles (2bpp) font8x16 (1bpp glyphs) font12 font6x12 sjisbitmap tilemap attrmap palette raw (explicit conditional byte codec only)\n')

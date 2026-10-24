@@ -45,10 +45,10 @@ gfx/assets.tsv                                 one line per asset: kind, size, b
 | raw bytes (conditional byte-view codec; purpose unknown) (`.bin`) | 4 | 80 |
 | validity bitmap (`.bin`) | 1 | 8198 |
 | tile-index map (`.tilemap`) | 181 | 52098 |
-| 2bpp tiles (`.2bpp`) | 418 | 366352 |
-| **all** | **988** | **627434** |
+| 2bpp tiles (`.2bpp`) | 424 | 366448 |
+| **all** | **994** | **627530** |
 
-PNGs: 418 exact rgbgfx sources (`.png`), 4 explicit raw byte-view codec sources (`.png`, purpose unknown), 39 font binaries with an editable sheet PNG (`.png`), 1 view-only picture (`_view.png`).
+PNGs: 424 exact rgbgfx sources (`.png`), 4 explicit raw byte-view codec sources (`.png`, purpose unknown), 39 font binaries with an editable sheet PNG (`.png`), 1 view-only picture (`_view.png`).
 
 ## Still `db`
 
@@ -60,9 +60,8 @@ Blocks of the graphics regions that are not converted (the note / label does not
 | object / animation tables (by label name) | 97 | 3642 |
 | HYPOTHESIS data (content type or purpose not established) | 13 | 956 |
 | sprite / OAM frame records, animation scripts, object tables (not tile art) | 26 | 476 |
-| tail (less than 16 bytes) after a converted tile block | 7 | 86 |
 | gfx fragments of fewer than 4 whole tiles | 3 | 77 |
-| region kind zero | 4 | 34 |
+| region kind zero | 5 | 49 |
 | region kind bytes | 1 | 28 |
 | region kind words | 1 | 16 |
 | tilemap+attr blocks clipped by the analysis (size differs from 2 x rows x cols) and 4-byte tile/attr record lists | 1 | 1 |
@@ -703,6 +702,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `metal_screw_border_42_4000_tile_fragment_0000.2bpp` | 2bpp tiles | 1344 | 42:4000 | PROBABLE | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
 | `metal_screw_border_42_4000_raw_4540_4560.bin` | raw bytes (conditional byte-view codec; purpose unknown) | 32 | 42:4540 | HYPOTHESIS | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
 | `metal_screw_border_42_4000_tile_fragment_0802.2bpp` | 2bpp tiles | 160 | 42:4802 | HYPOTHESIS | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `metal_screw_border_42_4000_tail_tile_48a2.2bpp` | 2bpp tiles | 16 | 42:48A2 | PROBABLE | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
 | `metal_screw_border_42_4000_tile_fragment_0900.2bpp` | 2bpp tiles | 176 | 42:4900 | HYPOTHESIS | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
 | `metal_screw_border_42_4000_tilemap.tilemap` | tile-index map | 360 | 42:4A00 | PROBABLE | - | 20x18 | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
 | `metal_screw_border_42_4000_attributes.attrmap` | attribute map | 360 | 42:4B68 | PROBABLE | - | 20x18 | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
@@ -715,9 +715,12 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `flame_jagged_border_42_4d50_attributes.attrmap` | attribute map | 360 | 42:58B8 | PROBABLE | - | 20x18 | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
 | `flame_jagged_border_42_4d50_palettes.pal` | RGB palette | 128 | 42:5A20 | PROBABLE | - | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
 | `blue_bubble_creature_border_42_5aa0_tile_fragment_0000.2bpp` | 2bpp tiles | 944 | 42:5AA0 | PROBABLE | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `blue_bubble_creature_border_42_5aa0_tail_tile_5e50.2bpp` | 2bpp tiles | 16 | 42:5E50 | PROBABLE | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
 | `blue_bubble_creature_border_42_5aa0_tile_fragment_03f0.2bpp` | 2bpp tiles | 208 | 42:5E90 | HYPOTHESIS | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
 | `blue_bubble_creature_border_42_5aa0_tile_fragment_04f2.2bpp` | 2bpp tiles | 416 | 42:5F92 | PROBABLE | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `blue_bubble_creature_border_42_5aa0_tail_tile_6132.2bpp` | 2bpp tiles | 16 | 42:6132 | PROBABLE | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
 | `blue_bubble_creature_border_42_5aa0_tile_fragment_0800.2bpp` | 2bpp tiles | 160 | 42:62A0 | HYPOTHESIS | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `blue_bubble_creature_border_42_5aa0_tail_tile_6340.2bpp` | 2bpp tiles | 16 | 42:6340 | PROBABLE | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
 | `blue_bubble_creature_border_42_5aa0_tile_fragment_0900.2bpp` | 2bpp tiles | 16 | 42:63A0 | HYPOTHESIS | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
 | `blue_bubble_creature_border_42_5aa0_tile_fragment_0910.2bpp` | 2bpp tiles | 240 | 42:63B0 | PROBABLE | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
 | `blue_bubble_creature_border_42_5aa0_tilemap.tilemap` | tile-index map | 360 | 42:64A0 | PROBABLE | - | 20x18 | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
@@ -730,7 +733,9 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `orange_double_line_border_42_67f0_tile_fragment_01c0.2bpp` | 2bpp tiles | 784 | 42:69B0 | HYPOTHESIS | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
 | `orange_double_line_border_42_67f0_raw_6cc0_6cd0.bin` | raw bytes (conditional byte-view codec; purpose unknown) | 16 | 42:6CC0 | HYPOTHESIS | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
 | `orange_double_line_border_42_67f0_tile_fragment_0802.2bpp` | 2bpp tiles | 160 | 42:6FF2 | HYPOTHESIS | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `orange_double_line_border_42_67f0_tail_tile_7092.2bpp` | 2bpp tiles | 16 | 42:7092 | PROBABLE | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
 | `orange_double_line_border_42_67f0_tile_fragment_0900.2bpp` | 2bpp tiles | 160 | 42:70F0 | HYPOTHESIS | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
+| `orange_double_line_border_42_67f0_tail_tile_7190.2bpp` | 2bpp tiles | 16 | 42:7190 | PROBABLE | exact | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
 | `orange_double_line_border_42_67f0_tilemap.tilemap` | tile-index map | 360 | 42:71F0 | PROBABLE | - | 20x18 | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
 | `orange_double_line_border_42_67f0_attributes.attrmap` | attribute map | 360 | 42:7358 | PROBABLE | - | 20x18 | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
 | `orange_double_line_border_42_67f0_palettes.pal` | RGB palette | 128 | 42:74C0 | PROBABLE | - | - | `gfx/frame_designs/metal_flame_and_creature_borders_42.asm` |
@@ -1530,7 +1535,7 @@ make png-export       (maintainers) PNGs regenerated from the binaries; never ov
 
 | kind | PNG source | files | notes |
 |---|---|---:|---|
-| 2bpp tile blocks | `name.png` (exact `rgbgfx` source of `name.2bpp`) | 418 | All tile blocks in the active catalogue; shades 0-3 are grey indices, not the game's colours (the game colours come from palettes and tile attributes; see screens) |
+| 2bpp tile blocks | `name.png` (exact `rgbgfx` source of `name.2bpp`) | 424 | All tile blocks in the active catalogue; shades 0-3 are grey indices, not the game's colours (the game colours come from palettes and tile attributes; see screens) |
 | JIS 12x12 glyphs (11 binaries) | `data/fonts/jis12x12_rows_*.png`, 94 glyphs per sheet row | 9 sheets | bank 7C's three contiguous binaries share one complete sheet |
 | 8x16 font runs | `data/fonts/glyph_runs_8x16/sjis_*.png`, 16 glyphs per row | 27 sheets | |
 | 6x12 Latin font | `data/fonts/ascii_6x12.png` | 1 sheet | 6 pixel wide cells (the two unused bits of each byte stay 0) |

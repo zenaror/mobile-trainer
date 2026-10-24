@@ -14,14 +14,18 @@ FrameDesignCandidate_MetalScrewBorder_Tiles_4000:: ; 42:4000
 	INCBIN "gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_raw_4540_4560.bin"
 	ds $2A2, $00
 
-; ---- gfx $4802-$48AB (169 bytes) [HYPOTHESIS] 2bpp tiles by coherence: 10 non-blank tiles, mean adjacent-pixel similarity h=0.52 v=0.62 (random data ~0.25-0.35);
+; ---- gfx $4802-$48A2 (160 bytes) [HYPOTHESIS] 2bpp tiles by coherence: 10 non-blank tiles, mean adjacent-pixel similarity h=0.52 v=0.62 (random data ~0.25-0.35);
 
 FrameDesignCandidate_MetalScrewBorder_Tiles_4802:: ; 42:4802
 	INCBIN "gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_tile_fragment_0802.2bpp"
-	db $00, $00, $00, $00, $10, $3C, $24, $18, $18
 
-; ---- zero $48AB-$4900 (85 bytes) [HYPOTHESIS] padding? run of 85 x $00 in unclassified bytes
-	ds $55, $00
+; ---- gfx $48A2-$48B2 (16 bytes) [PROBABLE] bounded 2bpp tile candidate; exact 16-byte decoding round-trips through rgbgfx. This does not establish original tile phase, loading, shared identity or consumer.
+
+MetalScrewBorder_TailTile_48A2:: ; 42:48A2
+	INCBIN "gfx/frame_designs/metal_flame_and_creature_borders_42/metal_screw_border_42_4000_tail_tile_48a2.2bpp"
+
+; ---- zero $48B2-$4900 (78 bytes) [HYPOTHESIS] padding? run of 78 x $00 in unclassified bytes
+	ds $4E, $00
 
 ; ---- gfx $4900-$49B0 (176 bytes) [HYPOTHESIS] 2bpp tiles by coherence: 10 non-blank tiles, mean adjacent-pixel similarity h=0.59 v=0.67 (random data ~0.25-0.35); 11 tiles: glyphs 0-9 and : (large digits) seen when rendered
 
@@ -73,14 +77,18 @@ FrameDesignCandidate_FlameJaggedBorder_Tilemap_5750:: ; 42:5750
 FrameDesignCandidate_FlameJaggedBorder_Palettes_5A20:: ; 42:5A20
 	INCLUDE "gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_palettes.pal"
 
-; ---- gfx $5AA0-$5E5E (958 bytes) [PROBABLE] 2bpp tiles by coherence: 59 non-blank tiles, mean adjacent-pixel similarity h=0.76 v=0.63 (random data ~0.25-0.35);
+; ---- gfx $5AA0-$5E50 (944 bytes) [PROBABLE] 2bpp tiles by coherence: 59 non-blank tiles, mean adjacent-pixel similarity h=0.76 v=0.63 (random data ~0.25-0.35);
 
 FrameDesignCandidate_BlueBubbleCreatureBorder_Tiles_5AA0:: ; 42:5AA0
 	INCBIN "gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_0000.2bpp"
-	db $38, $38, $7C, $7C, $FE, $FE, $EE, $EE, $FE, $FE, $7C, $7C, $38, $38
 
-; ---- zero $5E5E-$5E90 (50 bytes) [HYPOTHESIS] padding? run of 50 x $00 in unclassified bytes
-	ds $32, $00
+; ---- gfx $5E50-$5E60 (16 bytes) [PROBABLE] bounded 2bpp tile candidate; exact 16-byte decoding round-trips through rgbgfx. This does not establish original tile phase, loading, shared identity or consumer.
+
+BlueBubbleCreatureBorder_TailTile_5E50:: ; 42:5E50
+	INCBIN "gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tail_tile_5e50.2bpp"
+
+; ---- zero $5E60-$5E90 (48 bytes) [HYPOTHESIS] padding? run of 48 x $00 in unclassified bytes
+	ds $30, $00
 
 ; ---- gfx $5E90-$5F60 (208 bytes) [HYPOTHESIS] 2bpp tiles by coherence: 13 non-blank tiles, mean adjacent-pixel similarity h=0.60 v=0.68 (random data ~0.25-0.35);
 
@@ -90,23 +98,31 @@ FrameDesignCandidate_BlueBubbleCreatureBorder_Tiles_5E90:: ; 42:5E90
 ; ---- zero $5F60-$5F92 (50 bytes) [HYPOTHESIS] padding? run of 50 x $00 in unclassified bytes
 	ds $32, $00
 
-; ---- gfx $5F92-$6140 (430 bytes) [PROBABLE] 2bpp tiles by coherence: 26 non-blank tiles, mean adjacent-pixel similarity h=0.71 v=0.66 (random data ~0.25-0.35);
+; ---- gfx $5F92-$6132 (416 bytes) [PROBABLE] 2bpp tiles by coherence: 26 non-blank tiles, mean adjacent-pixel similarity h=0.71 v=0.66 (random data ~0.25-0.35);
 
 FrameDesignCandidate_BlueBubbleCreatureBorder_Tiles_5F92:: ; 42:5F92
 	INCBIN "gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_04f2.2bpp"
-	db $FF, $B5, $FF, $B5, $FF, $A5, $FF, $BD, $FF, $C3, $FF, $FF, $FF, $FF
 
-; ---- zero $6140-$62A0 (352 bytes) [HYPOTHESIS] padding? run of 352 x $00 in unclassified bytes
-	ds $160, $00
+; ---- gfx $6132-$6142 (16 bytes) [PROBABLE] bounded 2bpp tile candidate; exact 16-byte decoding round-trips through rgbgfx. This does not establish original tile phase, loading, shared identity or consumer.
 
-; ---- gfx $62A0-$634A (170 bytes) [HYPOTHESIS] 2bpp tiles by coherence: 10 non-blank tiles, mean adjacent-pixel similarity h=0.48 v=0.62 (random data ~0.25-0.35);
+BlueBubbleCreatureBorder_TailTile_6132:: ; 42:6132
+	INCBIN "gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tail_tile_6132.2bpp"
+
+; ---- zero $6142-$62A0 (350 bytes) [HYPOTHESIS] padding? run of 366 x $00 in unclassified bytes
+	ds $15E, $00
+
+; ---- gfx $62A0-$6340 (160 bytes) [HYPOTHESIS] 2bpp tiles by coherence: 10 non-blank tiles, mean adjacent-pixel similarity h=0.48 v=0.62 (random data ~0.25-0.35);
 
 FrameDesignCandidate_BlueBubbleCreatureBorder_Tiles_62A0:: ; 42:62A0
 	INCBIN "gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tile_fragment_0800.2bpp"
-	db $00, $00, $00, $00, $10, $18, $18, $10, $08, $10
 
-; ---- zero $634A-$63A0 (86 bytes) [HYPOTHESIS] 0x00 run of 86 bytes
-	ds $56, $00
+; ---- gfx $6340-$6350 (16 bytes) [PROBABLE] bounded 2bpp tile candidate; exact 16-byte decoding round-trips through rgbgfx. This does not establish original tile phase, loading, shared identity or consumer.
+
+BlueBubbleCreatureBorder_TailTile_6340:: ; 42:6340
+	INCBIN "gfx/frame_designs/metal_flame_and_creature_borders_42/blue_bubble_creature_border_42_5aa0_tail_tile_6340.2bpp"
+
+; ---- zero $6350-$63A0 (80 bytes) [HYPOTHESIS] 0x00 run of 80 bytes
+	ds $50, $00
 
 ; ---- gfx $63A0-$63B0 (16 bytes) [HYPOTHESIS] 2bpp tiles (too few non-blank tiles to score);
 
@@ -159,23 +175,31 @@ FrameDesignCandidate_OrangeDoubleLineBorder_Tiles_69B0:: ; 42:69B0
 	INCBIN "gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_raw_6cc0_6cd0.bin"
 	ds $322, $00
 
-; ---- gfx $6FF2-$709E (172 bytes) [HYPOTHESIS] 2bpp tiles by coherence: 10 non-blank tiles, mean adjacent-pixel similarity h=0.49 v=0.61 (random data ~0.25-0.35);
+; ---- gfx $6FF2-$7092 (160 bytes) [HYPOTHESIS] 2bpp tiles by coherence: 10 non-blank tiles, mean adjacent-pixel similarity h=0.49 v=0.61 (random data ~0.25-0.35);
 
 FrameDesignCandidate_OrangeDoubleLineBorder_Tiles_6FF2:: ; 42:6FF2
 	INCBIN "gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_0802.2bpp"
-	db $00, $00, $00, $00, $18, $04, $14, $0C, $14, $0C, $1C, $1C
 
-; ---- zero $709E-$70F0 (82 bytes) [HYPOTHESIS] 0x00 run of 82 bytes
-	ds $52, $00
+; ---- gfx $7092-$70A2 (16 bytes) [PROBABLE] bounded 2bpp tile candidate; exact 16-byte decoding round-trips through rgbgfx. This does not establish original tile phase, loading, shared identity or consumer.
 
-; ---- gfx $70F0-$719C (172 bytes) [HYPOTHESIS] 2bpp tiles by coherence: 10 non-blank tiles, mean adjacent-pixel similarity h=0.56 v=0.59 (random data ~0.25-0.35);
+OrangeDoubleLineBorder_TailTile_7092:: ; 42:7092
+	INCBIN "gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tail_tile_7092.2bpp"
+
+; ---- zero $70A2-$70F0 (78 bytes) [HYPOTHESIS] 0x00 run of 78 bytes
+	ds $4E, $00
+
+; ---- gfx $70F0-$7190 (160 bytes) [HYPOTHESIS] 2bpp tiles by coherence: 10 non-blank tiles, mean adjacent-pixel similarity h=0.56 v=0.59 (random data ~0.25-0.35);
 
 FrameDesignCandidate_OrangeDoubleLineBorder_Tiles_70F0:: ; 42:70F0
 	INCBIN "gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tile_fragment_0900.2bpp"
-	db $00, $00, $00, $00, $18, $04, $14, $0C, $14, $0C, $1C, $1C
 
-; ---- zero $719C-$71F0 (84 bytes) [HYPOTHESIS] padding? run of 84 x $00 in unclassified bytes
-	ds $54, $00
+; ---- gfx $7190-$71A0 (16 bytes) [PROBABLE] bounded 2bpp tile candidate; exact 16-byte decoding round-trips through rgbgfx. This does not establish original tile phase, loading, shared identity or consumer.
+
+OrangeDoubleLineBorder_TailTile_7190:: ; 42:7190
+	INCBIN "gfx/frame_designs/metal_flame_and_creature_borders_42/orange_double_line_border_42_67f0_tail_tile_7190.2bpp"
+
+; ---- zero $71A0-$71F0 (80 bytes) [HYPOTHESIS] padding? run of 80 x $00 in unclassified bytes
+	ds $50, $00
 
 ; ---- data $71F0-$74C0 (720 bytes) [PROBABLE] tilemap+attr block of screen 4: 20x18 tile indices (360 B) then 20x18 CGB attribute bytes (360 B, all values < $10 as bank/palette attributes) = the 2x$168-byte layout that copy_tilemap_rect_pair (00:08EA, b=18 rows c=20 cols) loads for the CONFIRMED screens of banks 24/4B/5F/71; followed by a 128-byte palette block; no direct reference found (bank 42 is not named by any ld hl/ld a,bank site), so structural PROBABLE only
 

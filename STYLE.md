@@ -366,7 +366,7 @@ sizes, `bank:addr` and evidence status) and the PNG modes are in [`gfx/README.md
   (`.1bpp`), the JIS 12x12 / 6x12 fonts and the Shift-JIS validity bitmap (`.bin`, with a view-only `_view.png`).  A `tilemap+attr` block that `copy_tilemap_rect_pair` loads is two files (tile
   bytes, then attribute bytes) INCBINed back to back.  A block is converted only when its block header note, its label or `config/symbols` says what it is and the bytes fit (palette: even size and
   every word < $8000; map: size = the width x height the note states); everything else (sprite frame records, animation scripts, object tables, "read as data, class unknown", fragments shorter than
-  four tiles, partial tiles at the end of a tile block) stays `db`, written as rows of 16 bytes under its header.  No compression has been demonstrated: assets are stored raw.
+  four tiles, partial tiles at the end of a tile block) stays `db`, written as rows of 16 bytes under its header, unless a bounded 16-byte tile candidate has positive structural evidence and is explicitly documented as such; this exception does not prove a loader or consumer.  No compression has been demonstrated: assets are stored raw.
 * `zero` blocks are padding (`ds $N, $00`); the fonts (`data/fonts/`) are JIS X 0208 12x12 1bpp rows, one file per font bank.
 * **In the `.asm`**: the block header (status + evidence, which states how the block is loaded: `tiles-vram: ... hdma_rom_to_vram at 0E:4231: hl=$43C0 ... de=$8000`), the labels and the pinning are
   unchanged; only the `db` rows are replaced, and the bytes must be exactly the ones the header counts (the section keeps its size, so `layout.link` and the SHA-256 do not change):
