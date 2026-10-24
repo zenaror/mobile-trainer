@@ -380,3 +380,38 @@ Original ROM SHA256 was rechecked unchanged after both runs. Retain both runs,
 fixtures and provenance as the minimal positive/control record; no historical
 artifacts removed. Candidate-worklist intersections are recorded separately in
 CANDIDATES.json; absence there is only absence in this scenario.
+
+
+## Postprocess length before walking page resources
+
+The missing two bytes are produced by `Charset_Iso2022JpToSjis_Finish` on the
+page conversion path. The page reply handler calls `Browser_WrapImageInHtml`
+first, then `Charset_ConvertPage`, then `Html_ScanPage` and
+`Browser_FetchInlineImages`. For the ISO-2022-JP subpath, conversion starts at
+page+2, reserves output at+2, emits the converted payload, writes two zero bytes,
+computes length from output-start through those terminators, and stores that
+length in the page's first two bytes. Thus HTTPbody3824 becomes resource/page
+length3826 when the converter preserves all body bytes. The observed postprocessed
+prefix3826 is consistent with this source contract. This is a postprocessor result,
+not a raw HTTP length; alternate Charset_DetectEncoding paths need their own
+length delta. The exact input/output fields are visible at7E:7D19,7D66 and7E:7E4C.
+
+## Confirmed natural BMP conversion-failure consequence
+
+The static stack case at Html_LoadPageImages is now confirmed in an ordinary
+browser-driven mGBA run using the original ROM and synthetic fake HTTP. The valid
+144x1 BMP reaches Bmp_ConvertToTiles, whose expanded-output check at51:72C0
+rejects it. The zero return at51:73CE is followed by the common loader continuation
+at74:53D1, exactly as the source predicts. That continuation executes765times;
+the run ends at bank04:53A8 with SP=CF70 and182 RAM instruction starts. This is a
+natural call chain for the supplied page/BMP, though the network fixture is synthetic.
+It proves the failure unwind can occur after TagImg's earlier validation. It does
+not give intentional meanings to instructions fetched after record-loop corruption.
+
+Consequently the two Html_LoadPageImages sites in the helper matrix must not retain
+a blanket valid-record traversal contract. Their ordinary success route remains
+bounded by the253 counted-record limit; the rejected-conversion route violates
+that invariant and is separately evidenced by the runtime witness. Keep both
+outcomes explicit in future reviews. Scenario `bmp_capacity` is purpose-built
+and separate from the pre-existing coverage union; do not merge its post-corruption
+execution into routine semantic naming without individual review.

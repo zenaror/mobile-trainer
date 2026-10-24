@@ -25,8 +25,8 @@ bank	file	line	owner	target	transfer	contract_group
 74	engine/html/count_pass.asm	254	Html_CountListItems_Tag_Done	BankSwitch_D	call	HTML/browser pointer invariant required
 74	engine/html/layout.asm	45	Html_Layout_ClearAllFloats	BankSwitch_H	call	HTML/browser pointer invariant required
 74	engine/html/layout.asm	47	Html_Layout_ClearAllFloats	BankSwitch_D	call	HTML/browser pointer invariant required
-74	engine/html/layout.asm	245	Html_LoadPageImages	BankSwitch_H	call	HTML/browser pointer invariant required
-74	engine/html/layout.asm	273	Html_LoadPageImages	BankSwitch_H	call	HTML/browser pointer invariant required
+74	engine/html/layout.asm	245	Html_LoadPageImages	BankSwitch_H	call	success: records D020..DFE0/count<=253; runtime BMP-reject branch corrupts loop stack/HL/BC (scenario bmp_capacity)
+74	engine/html/layout.asm	273	Html_LoadPageImages	BankSwitch_H	call	success: records D020..DFE0/count<=253; runtime BMP-reject branch corrupts loop stack/HL/BC (scenario bmp_capacity)
 74	engine/html/layout.asm	343	Html_Layout_EndLine	BankSwitch_H	call	HTML/browser pointer invariant required
 74	engine/html/layout.asm	348	Html_Layout_EndLine	BankSwitch_H	call	HTML/browser pointer invariant required
 74	engine/html/layout.asm	350	Html_Layout_EndLine	BankSwitch_D	jp	HTML/browser pointer invariant required
