@@ -20,8 +20,31 @@ remain paused and were not examined.
 | Track additional code/data spans outside that five-row operation worklist | The three spans were checked against the 70 paired natural coverage, callgraph, and dataaccess reports at 1c9224e8 and then extended by processing only the newly added zzzz_mailbox_cursor_count reports. Across the current 71-scenario union (78,128 starts), each has zero exact instruction starts, zero direct call/rst/jphl edges, and zero intersecting ROM data-read ranges. This finite result is for these auxiliary spans only; it does not establish global unreachability or unused status. Separate static evidence already classifies 26:5344–537C as the PROBABLE code fragment `MailSession_WriteVram1TileAndWram7ScreenRows`; its entry and intended role remain unknown. | **Finite corpus check closed.** Only the code/data identity of `28:4BA6–4BC2` and purpose/use of `4B:76CC–76D0` remain unresolved in this row. The bounded negative does not establish global unreachability or unused status; see the result and manifest in `japanese_open_questions_followup_20261023.md` and the classification evidence in `naming2_verify_fn4.md`. |
 | Verify Bank 53 Pokémon names and candidate frames | The 369-byte pointer/string block and 25 candidate windows (85,200 bytes) reproduce the original; the scoped inventory contains 137 assets, 71 PNGs, 24 previews and 17 editable views | **Finite extraction/presence check closed.** The 25 name-to-window associations and natural selection remain unknown. |
 | Check unused frames and asset/PNG omissions | Eight incomplete editable compositions remain `KEEP` because the declared view model lacks backing keys. The source bytes and legacy previews exist; the scoped inventory found no missing referenced files or orphan asset/PNG files. | **No omitted ROM asset or referenced PNG found in scope.** The eight incomplete compositions are not missing ROM data or missing referenced PNGs. No frame is classified globally unused. |
-| Reconcile GFX-plan residuals | At the current source checkpoint, the bounded GFX plan has seven residual spans totaling 82 bytes: six Bank 42 tails (71 bytes) and 1A:4A85–4A90 (11 zero bytes). The former Bank 51 tail 51:70D1–70E0 is separately bounded and no longer a plan residual. | **Byte extent and owner boundaries are reconciled; semantic use and tile phase remain open.** No complete-tile PNG candidate is supported for these seven spans. Do not retype, align, or create assets without a positive consumer. |
-| Verify current PNG/catalog manifests | `make png-check`: 418 tile sheets, 4 raw views, 37 fonts, 95 screens; GFX catalog: 988 assets; PNG rules: 987 | **PASS** for current manifests and declared source models; this does not prove natural display on hardware. |
+| Reconcile GFX-plan residuals | The bounded GFX plan has seven residual spans totaling 82 bytes: six Bank 42 tails (71 bytes) and `1A:4A85–4A90` (11 zero bytes). Six Bank 42 spans now have separate 16-byte PROBABLE tile-candidate assets with exact PNG sources; the former Bank 51 tail `51:70D1–70E0` is separately bounded and no longer a plan residual. | **Byte extents and owner boundaries are reconciled;** the six tile-candidate identities remain PROBABLE, and natural loader phase/consumption remain unproved. The 11-byte zero run is not promoted to a tile. |
+| Verify current PNG/catalog manifests | At the current source snapshot: `make png-check` checks 424 tile sheets, 4 raw views, 37 fonts and 95 screens; GFX catalog: 994 assets; PNG rules: 993 | **PASS** for current manifests and declared source models; this does not prove natural display on hardware. |
+
+## Current Japanese gate revalidation at `7c19214d` (2026-10-24)
+
+The gate commands below were run on the canonical checkout at
+`7c19214d556829ece4ad213820cb6b20b423c90f`. The Japanese source and assets
+match source baseline `b9a591ce`; changes after that baseline are documentation
+only. `make` reports `SHA-256 OK` and `RESULT: IDENTICAL` for the protected
+2 MiB original (SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`).
+`make sym-check` passes with 335 source files, 12,221 labels and 51 constants;
+`make palette-check` passes with 162 loads, 116 arrays, two documented
+over-reads and zero errors. `make png-check` checks 424 tile sheets, four raw
+byte views, 37 font sheets and 95 screens. `gfx_export.py check` accepts 994
+assets (424 exact tile PNG sources, four raw byte-view PNG sources, 39 font
+binary rows using 37 unique sheets, one view-only PNG, and 526 assets without
+PNG); `png_rules.py mk-check` accepts 993 rules.
+
+The six added Bank 42 tile candidates account for the increase from the earlier
+418/988/987 PNG/catalog/rule snapshots to the current 424/994/993 checks. These
+checks validate the declared files and manifests, not natural display, loader
+phase, the Pokémon-name/frame associations, or global used/unused status. No
+full Japanese name census or retained trace corpus was rerun for this
+documentation reconciliation.
 
 The census and ledgers are detailed in
 [`japanese_generic_name_sweep_20261023.md`](japanese_generic_name_sweep_20261023.md),
