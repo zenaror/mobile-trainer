@@ -23,6 +23,11 @@ NEW_ALIASES = {
 }
 SRAM_ALIAS_EVIDENCE = {
     "sBrowserStartAutoSelectMarker": "PROBABLE",
+    "sSaveCheckStateBlockRandomizedByte": "PROBABLE",
+}
+SRAM_ALIAS_RATIONALE = {
+    "sBrowserStartAutoSelectMarker": " The A8C1 alias records a single conditional store; marker purpose and natural execution remain unproved.",
+    "sSaveCheckStateBlockRandomizedByte": " The A9EE alias is based on conditional Random16-derived stores in a candidate operation; its entry, caller and application meaning remain unproved.",
 }
 
 
@@ -76,9 +81,10 @@ def build_rows() -> list[dict[str, str]]:
                 decision = "KEEP_NEUTRAL_EXACT_BANK_OVERLAY"
                 rationale = "Same CPU base has bank-qualified SRAM object aliases; a global semantic name would be bank-dependent."
                 evidence = "CONFIRMED"
-                if any(alias in SRAM_ALIAS_EVIDENCE for alias in aliases):
-                    evidence = "PROBABLE"
-                    rationale += " The A8C1 alias records a single conditional store; marker purpose and natural execution remain unproved."
+                for alias in aliases:
+                    if alias in SRAM_ALIAS_EVIDENCE:
+                        evidence = "PROBABLE"
+                        rationale += SRAM_ALIAS_RATIONALE[alias]
             elif base == "SSRAM_AFFF":
                 decision = "KEEP_NEUTRAL_CONTEXTUAL_CONTAINER"
                 rationale = "Scanner operand is sNetWorkPage+$0FFF in SRAM bank 3; AFFF has a different checksum role in bank 0."
@@ -137,8 +143,8 @@ def build_rows() -> list[dict[str, str]]:
     for row in rows:
         decisions[row["decision"]] = decisions.get(row["decision"], 0) + 1
     expected_decisions = {
-        "KEEP_NEUTRAL_EXACT_BANK_OVERLAY": 101,
-        "KEEP_NEUTRAL_CONTAINER_INTERIOR": 59,
+        "KEEP_NEUTRAL_EXACT_BANK_OVERLAY": 102,
+        "KEEP_NEUTRAL_CONTAINER_INTERIOR": 58,
         "KEEP_NEUTRAL_CONTEXTUAL_CONTAINER": 1,
         "KEEP_NEUTRAL_SCOPED_OVERLAY": 104,
         "KEEP_NEUTRAL_NO_UNIQUE_ROLE": 37,
@@ -147,7 +153,7 @@ def build_rows() -> list[dict[str, str]]:
     }
     if decisions != expected_decisions:
         raise AssertionError(f"RAM disposition partition changed: {decisions}")
-    if len(sram_aliases) != 101:
+    if len(sram_aliases) != 102:
         raise AssertionError(f"exact-base SRAM alias coverage changed: {len(sram_aliases)}")
     if sum(bool(overlay_aliases.get(name.upper(), [])) for name in definitions if name.startswith("hRam_")) != 42:
         raise AssertionError("HRAM overlay alias coverage no longer covers all 42 neutral bases")

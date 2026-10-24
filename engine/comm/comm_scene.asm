@@ -866,7 +866,7 @@ TrySetA9EEFromRandom16_ByA9EDFlags:: ; 70:46A6 [PROBABLE] operation; entry/purpo
 	and a, $30
 	or a, a
 	jr z, .l472A
-	ld a, [sSaveCheckStateBlock + $06]
+	ld a, [sSaveCheckStateBlockRandomizedByte]
 	or a, a
 	jr nz, .l472A
 	ld a, [sSaveCheckStateBlock + $05]
@@ -878,7 +878,7 @@ TrySetA9EEFromRandom16_ByA9EDFlags:: ; 70:46A6 [PROBABLE] operation; entry/purpo
 	call Divide16
 	ld a, $02
 	add a, e
-	ld [sSaveCheckStateBlock + $06], a
+	ld [sSaveCheckStateBlockRandomizedByte], a
 	ldh [hScratchA], a
 	pop af
 	ldh [hSRAMBank], a
@@ -903,7 +903,7 @@ TrySetA9EEFromRandom16_ByA9EDFlags:: ; 70:46A6 [PROBABLE] operation; entry/purpo
 	call Divide16
 	ld a, $0A
 	add a, e
-	ld [sSaveCheckStateBlock + $06], a
+	ld [sSaveCheckStateBlockRandomizedByte], a
 	ldh [hScratchA], a
 	pop af
 	ldh [hSRAMBank], a
