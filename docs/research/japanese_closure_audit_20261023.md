@@ -1,5 +1,44 @@
 # Japanese ROM closure audit (2026-10-23)
 
+## Current consolidated status at `d0b1e5d8` (2026-10-24)
+
+The Japanese review has closed the finite, verifiable inventories and gates
+listed below, but the ROM is **not semantically 100% closed**. No remaining
+generic address-only function/data/font labels or bare `bankNN` asset paths
+were found in the reconciled naming families; the operation-boundary clues,
+local/RAM ledgers, scoped Bank 41–47 assets, Bank 53 name block, PNG manifests,
+and declared frame-window files have documented evidence and limits. The
+current checkout passed `make` (`SHA-256 OK`, `RESULT: IDENTICAL`),
+`make sym-check` (335 source files, 12,223 labels, 51 constants),
+`make palette-check` (162 loads, 116 arrays, two documented over-reads, zero
+errors), `make png-check` (424 tile sheets, four raw views, 37 font sheets, 95
+screens), `gfx_export.py check` (994 assets), and `png_rules.py mk-check`
+(993 rules). The rebuilt ROM and protected Japanese reference are both 2 MiB
+with SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
+
+The outstanding items are evidence limits, not unperformed repetitions of the
+closed inventories: five bounded candidate roots still lack a demonstrated
+natural producer/entry; some GFX spans lack a proven natural consumer or load
+phase; and all 25 Bank 53 name-to-frame links, including Porygon/Porygon2,
+remain unresolved. The eight `KEEP` views are not classified as globally
+unused, and no global used/unused conclusion is made. Preserve the mechanical
+names and confidence levels already documented; do not invent callers,
+associations, or reachability claims. The English overlay and Operator ZIP
+remain paused pending a separate explicit authorization.
+
+This consolidation is tied to current Japanese source/assets, which have no
+diff from the validated `8af7675e` source checkpoint. A current tracked-source
+search for `Table_PokemonNamePointers` and `PokemonName00..24` finds only the
+table definition and its 25 internal `dw` operands. The only Bank 53 source
+change since the older `b9a591ce` consumer-route receipt is a comment wording
+change; the intervening changed source owners do not add name-table references.
+This is a direct-symbol check only and does not exclude computed addresses,
+indirect tables, stack/RAM values, copied data, or runtime-created flow. See
+[`japanese_frame_bank53_revalidation_20261024.md`](japanese_frame_bank53_revalidation_20261024.md)
+and [`japanese_remaining_semantics_batch_20261024.md`](japanese_remaining_semantics_batch_20261024.md)
+for the retained evidence and bounded limits.
+
 ## Scope and result
 
 This report consolidates the verifiable Japanese-ROM requirements. The
