@@ -66,6 +66,13 @@ within the current mapper evidence: no such site was found in banks `29`,
 computed transfers originating elsewhere, stack pivots, or execution outside
 the retained trace corpus; it is not a global-unreachability claim.
 
+The September `analysis/mapper/bank2B.tsv` row for the decoded span
+`2B:[69C5,6CF5)` says it was entered by a call at `2B:6735`. That call is
+`CD C5 69` in the original ROM and targets `MailView_DrawTextLine20` at
+`2B:69C5`; the span's exclusive end at `6CF5` is not a call target or
+fall-through edge. This mapper annotation therefore supplies no entry to the
+candidate `MailReply_ComposeFromRecord` at `2B:6CF5`.
+
 The in-memory check was reproduced with:
 
 ```python
