@@ -943,6 +943,8 @@ TrySetA9EEFromRandom16_ByA9EDFlags:: ; 70:46A6 [PROBABLE] operation; entry/purpo
 	; RET477E ends before477F; neither RET473F nor RET477E ordinarily falls through.
 SaveCheck_GetStateBlockBit7:: ; 70:4740
 	; Entry and caller remain unproven; computed or overlapping entries are not excluded.
+	; The other source-level reader at73:62E2 is called only for cursor index3;
+	; the normal BrowserStart cursor domain is 1/2, so it supplies no natural root here.
 	ldh [hScratchA], a
 	ldh a, [hSRAMEnable]
 	push af

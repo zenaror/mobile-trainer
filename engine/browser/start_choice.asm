@@ -440,7 +440,9 @@ BrowserStart_DescIndex_AdjustItem2:: ; 73:62DA
 	ret
 
 BrowserStart_DescIndex_AdjustItem3:: ; 73:62E2
-
+	; [HYPOTHESIS] This read is gated by BrowserStart_ShowDescription deriving B=3
+	; (cursor byte $08). The normal cursor producer domain is 1/2, so this is not a
+	; normal UI read of A9ED.bit7; corrupt/out-of-domain cursor state remains possible.
 	ld a, $01
 	ld hl, sSaveCheckStateBlock + $05
 	call ReadByteFar

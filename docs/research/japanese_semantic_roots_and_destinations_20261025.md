@@ -213,6 +213,35 @@ aliases or corruption are outside this named-route result. The unresolved
 at slot `+$0B` it can replace only the low/high bytes, and at `+$0C` it still
 depends on the pre-existing low byte. No natural caller for it is known.
 
+#### Browser-start cursor gate on the SRAM1 flags bit-7 reader (2026-10-25)
+
+`BrowserStart_DescIndex_AdjustItem3` (`73:62E2`) is a second source-level
+reader of SRAM1:`sSaveCheckStateBlock+5` bit 7, in addition to the unrooted
+`SaveCheck_GetStateBlockBit7` candidate at `70:4740`. Its caller,
+`BrowserStart_ShowDescription` (`73:62AA`), derives B from the least-significant
+set bit of `wBrowserStart_Cursor` and calls this reader only when B equals 3.
+
+The maintained cursor producer path admits 1 or 2 while the choice screen is
+active: startup clears SRAM1 `sMenuCursorMemory` (`A8B7-A8D6`) to zero; entering
+the screen maps a stored zero to cursor 1; auto-select stores 1; A stores the
+current cursor (1/2); Up/Down toggle 1↔2; and B stores 0 while exiting. The
+initial bit indices are therefore 0/1 and do not call `73:62E2`. The separate
+item-1 adjuster can conditionally change index 1 to 5 when `C0F8` is nonzero;
+it still cannot produce index 3. The conditional read requires an out-of-domain
+cursor (byte `$08`) or altered control state; that is not evidence for a
+natural nonzero value in A9ED or a caller for `70:4740`.
+
+The retained natural trace union contains `73:62AA` (287 starts in 19
+scenarios) and no start at `73:62E2`; this corroborates the bounded result but
+does not expand it to unmodeled state. The direct control/data-flow audit and
+its input, script and receipt hashes are retained under
+`.tmp/jp-browser-start-cursor-domain-20261025/`. It
+pins the startup clear, cursor initialization and writers, both toggle paths,
+description dispatch, SRAM aliases, source table, trace union and protected
+ROM. This is static-source plus retained-trace evidence; no new emulator or
+hardware run was performed. Cursor corruption, indirect writes, and the
+global value domain of SRAM1 A9ED remain outside the conclusion.
+
 ### Source-level stack-return screen (2026-10-25)
 
 A separate source-wide screen looked for register-pair `PUSH` values that
