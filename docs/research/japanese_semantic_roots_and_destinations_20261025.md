@@ -1044,7 +1044,7 @@ visual purpose.
 | `58:7E48–7EA0` | Two variants of eleven four-byte page-counter column records; `Notice_DrawPageCounter` selects the record and copies a two-tile column. | **CONFIRMED record fields and consumer.** This is object-tile metadata, not a tilemap image. |
 | `4B:5B68–5B90` | Ten four-byte digit tile/attribute records indexed by `Account_ResultPage_DrawTimeDigits`. | **CONFIRMED record fields and consumer.** This is sprite/tile upload metadata, not a tilemap image. |
 | `26:7AB0–7AC0`, `2D:5E80–5EC0` | Zero-filled tails included in existing graphics HDMA transfers. | **CONFIRMED zero-fill bytes in those transfers.** No tile-index consumer is established; these are not omitted editable art. |
-| `23:7C03–7F30` | `CandidateMapData_23_7C03`, an 813-byte low-valued, row-patterned block currently labeled HYPOTHESIS. The maintained search finds no symbolic or literal reader in the application sources. | **Unresolved.** Byte shape alone cannot distinguish map/attribute data from other packed data, and the bounded no-reader result is not global non-use. Keep the candidate label and do not export it as confirmed graphics. |
+| `23:7C03–7F30` | `CandidateMapData_23_7C03`, four 200-byte blocks plus a 13-byte `$08` tail. Rendering as four 20×10 tile-index maps with synthetic attributes yields plausible interface fragments; no exact block match exists in 365 catalogued tilemap/attrmap/raw assets. | **PROBABLE map-like structure; overall purpose/use HYPOTHESIS.** The maintained search finds no symbolic or literal reader in application sources. The bounded no-reader result is not global non-use; keep the candidate label and do not export it as confirmed graphics. |
 
 This closes the format/consumer reconciliation for the listed positive cases
 and prevents them from recurring as generic “missing assets” work. It does not
@@ -1073,11 +1073,48 @@ sprite-record consumer does not spill into the candidate in those scenarios.
 This gives a concrete boundary for that loader and corpus; it does not identify
 the candidate's format, rule out other readers, or establish global non-use.
 
-Reproduction: `.tmp/jp-bank23-targeted-read-audit-20261025/audit.py` (SHA-256
-`0d2226c0d4caa0ff6b104e09bdd1882018e68f7f5e0a3dd8e3fa94bf0e0086eb`) and
+The first receipt `.tmp/jp-bank23-targeted-read-audit-20261025/RESULT.json`
+(SHA-256 `d1c338de01ff8802ad13fe45ad76e3186640419f80a677c8c13113f58d4e337a`)
+has a wrong candidate-slice hash. Its script used decimal `23` in the physical
+offset expression instead of hexadecimal bank `$23`; it therefore hashed
+bank `$17` for that field. The 149 pinned input files are unchanged, and a
+rerun with the corrected bank expression reproduces the same trace counts and
+five boundary reads. The original receipt is preserved unchanged.
+
+Corrected reproduction: `.tmp/jp-bank23-corrected-read-audit-20261025/audit.py`
+(SHA-256 `882160a3c694f043e1dd95a2405e8c00b8a93eab600c479a37ab5a59cc18dd06`)
+and `RESULT.json` (SHA-256
+`f409349fb114c8b93fa598fd177b966e951084138f97d7a7f1bb6999675732fc`). The
+correct physical file offset for `23:7C03` is `0x08FC03`; the 813-byte slice
+hash is `b0288b061afaa97fbb034a2a0b61be325d07699b1924865f269894706cd5ea1d`.
+Re-emitting the maintained `db` body produces the same bytes. This supersedes
+only the prior receipt's candidate hash; its trace interval results are
+independently reproduced. No emulator was run and no ROM, ASM, or asset bytes
+changed.
+
+#### Bank 23 candidate structural rendering (2026-10-25)
+
+The corrected 813-byte slice contains four contiguous 200-byte blocks beginning
+at `7C03`, `7CCB`, `7D93`, and `7E5B`, followed by 13 bytes of `$08` at
+`7F23–7F30`. Each block is exactly 20×10 bytes if interpreted as a row-major
+tile-index map. Their pairwise equality ranges from 171/200 to 190/200 bytes;
+the values fit the 64 tiles already loaded from `23:6FE0–73E0`. None of the
+four 200-byte blocks is an exact substring of the 365 catalogued tilemap,
+attrmap, or raw assets checked.
+
+For a format screen only, the existing MailSrvDel progress tile sheets and
+palette were rendered with each block as a 20×10 map, signed tile numbering,
+and a synthetic `$08` attribute byte in every cell (VRAM bank 1, palette 0).
+All 200 cells resolve and the previews show coherent interface fragments.
+Those attributes and dimensions are assumptions; the images are not original
+screenshots or emulator output. This raises the **PROBABLE** interpretation
+that the blocks are tilemap variants, while their specific format, consumer,
+natural selection, and relationship to the following tail remain unresolved.
+Keep `CandidateMapData_23_7C03` and its HYPOTHESIS status; do not add editable
+assets or claim use/non-use from these previews.
+
+Reproduction: `.tmp/jp-bank23-format-preview-20261025/audit.py` (SHA-256
+`825b412178ea71df395d78e66764b0d73f7724fbb305710c1a131741f90f4bf2`) and
 `RESULT.json` (SHA-256
-`d1c338de01ff8802ad13fe45ad76e3186640419f80a677c8c13113f58d4e337a`). The
-receipt pins the original ROM, owner source, and all 147 input reports. The
-candidate slice is 813 bytes, SHA-256
-`406f67dc7c62ffd3f73664fd692bd807bd1a6fc1f68618ed226860cd15f9be8e`, with all
-values below `$40`. No emulator was run and no ROM, ASM, or asset bytes changed.
+`5bbe1ba8b491d531dc2541ed0925571b8a52ac9431823fd7fc2bbdb8f2bef9f7`); the
+four assumption-labeled PNGs are in its `model_signed_attr08/` subdirectory.
