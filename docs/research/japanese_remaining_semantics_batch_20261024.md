@@ -137,6 +137,22 @@ One conditional exception matters for bank42 tail `42:6132–6140`. `Account_Res
 
 The implemented explicit callers pass only kinds 0–4 (registration 0/4, password change 1, usage-time 2, usage-fee 3); `Account_ResultPage` is the sole named writer and `Account_ResultPage_LoadBanner` has one explicit named caller. Thus the invalid-state transfer is a **CONFIRMED conditional arithmetic/data path**, but a **HYPOTHESIS** as a natural execution or intended consumer: no producer or trace for those invalid kinds is established. It proves neither intended graphics use nor global unreachability. Do not create/rephase an asset or promote a semantic name from this path alone.
 
+#### Bank 68 indirect dispatch destinations around the result page
+
+A follow-up exhaustively checked all 256 byte selectors for each of the six decoded `JP HL` dispatch tables physically in Bank 68 (1,536 words total), the retained 49-site/7,022-case inline dispatch matrix, and the retained 104,207-instruction index. No near transfer, inline-dispatch case, or Bank 68 `JP HL` selector targets the exact `Account_ResultPage` entry at `68:766E`. This corrects only the broader impression that every indirect selector misses the routine's surrounding bytes: five selectors outside the maintained producer domains do land somewhere in `[68:766E, 68:7951)`:
+
+| Dispatch table | Selector | Destination | Byte context |
+|---|---:|---:|---|
+| `Settings_GetRegistrationProgress` | `$F4` | `68:7800` | Operand byte inside the `LD A,[wResultPage_Kind]` instruction at `77FF`; not an instruction boundary. |
+| `SettingsMenu_Dispatch` | `$28` | `68:78F2` | Immediate byte inside `LD HL,$793D` at `78F0`; not an instruction boundary. |
+| `SettingsMenu_Dispatch` | `$8F` | `68:77CB` | Operand byte `$06` of `CALL $06D1` in the inline far-call encoding beginning at `77C9`; not an instruction boundary. |
+| `SettingsMenu_Dispatch` | `$DE` | `68:7805` | `ADD A,L` instruction inside `Account_ResultPage_LoadBanner`; not the routine entry. |
+| `Registration_Verify_RunState_Dispatch` | `$98` | `68:7722` | Interior of `Account_ResultPage_InputTable` at `771A–7724`, landing in a word's bytes rather than at a handler. |
+
+The other three Bank 68 dispatch tables have no destination in that interval. The maintained direct producer code constrains registration-progress results to `$00..$04`, settings-menu states to `$00..$03` plus `$FF` exit, and registration-verification states to `$00..$09`; none yields the five selectors above. This is a source-bounded producer result, not a whole-memory invariant: the verification state aliases `wSettingsMenu_CancelFlag`, and arbitrary RAM corruption, aliases not covered by the reviewed owners, or invalid control flow are not excluded. The two destinations within the banner loader body (`7800`, `7805`) are therefore conditional computed entries into interior bytes, not evidence of natural calls or valid banner loads. Natural generation and consequences of invalid state remain **HYPOTHESIS/UNKNOWN**.
+
+Reproduce the selector projection with `.tmp/jp-resultpage-indirect-entry-domain-20261024/audit.py` (SHA-256 `deeae6515a5999b449a963491715f88a259c0d8099c491d2e42c31a542846eaf`) and `RESULT.json` (SHA-256 `f57b52593ba09ecc7c29a513580d22e51c2db88d30c4b07b1ab071e8153d23e5`). The receipt also records literal/XOR-zero stores to the named settings and verification state variables. The audit pins the original ROM and all retained input files; it deliberately retains both the exact-entry negatives and the five out-of-domain interval hits. Do not describe it as a proof of global non-entry or harmlessness.
+
 The previous `screen_ops.tsv` line locators for some keyboard uploads, `CommScene_ShowTextBox`, and `BrowserStart_AnimateFrame` were stale; the audit reconciled those entries by routine and operation order. No source, ROM, or asset was changed. The known direct frame-selector producer routes were subsequently checked below. This remains a bounded consumer audit, not a global unused proof.
 
 ### Browser frame-selector domain and RAM-descriptor route (2026-10-24)
