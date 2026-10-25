@@ -144,6 +144,34 @@ aliases or corruption are outside this named-route result. The unresolved
 at slot `+$0B` it can replace only the low/high bytes, and at `+$0C` it still
 depends on the pre-existing low byte. No natural caller for it is known.
 
+### Source-level stack-return screen (2026-10-25)
+
+A separate source-wide screen looked for register-pair `PUSH` values that
+remain on top of the stack at a nearby `RET`/`RETI`, complementing the mapper's
+unresolved-transfer inventory (31 `JP HL`, three adjacent `PUSH; RET`). It
+examined 333 tracked Japanese ASM/INC files in `home/`, `engine/`, `data/`,
+`gfx/`, `audio/`, and `lib/`; `engine/mail/sample_data.asm` was excluded before
+reading. The bounded lexical screen found seven unmatched-push sites in four
+owners:
+
+| Owner and sink | Classification |
+|---|---|
+| `74:449F` `Html_DispatchTag` | Loads a handler pointer from the 18-word `Html_TagHandlerTable` at `74:44A0`, then returns through it. All declared targets are code starts in physical Bank 74; ordinary tag IDs select this table. |
+| `74:5119` `Html_CountListItems_Dispatch` | Loads a handler pointer from the 18-word `Html_CountPassTagTable` at `74:511A`, then returns through it. The table's listed targets are code starts in physical Bank 74. Its extent remains PROBABLE as documented at the table. |
+| `75:6149` `MobileSDK_StateDispatch` | Pushes a state-table handler target, advances the substep, and returns through that target. The declared 37 entries cover states `$0A..$2E` and point to Bank 75 handlers. Out-of-domain/corrupted state values are not covered by this table-domain conclusion. |
+| `00:0B53` `Sprite_StepAndDrawSlot` | Uses the sprite descriptor's DE target with a saved `$0B54` continuation and saved registers as a trampoline. The known setter/descriptor routes are covered by the separate sprite-hook audit; arbitrary corrupted descriptors are not. |
+| `00:215D` `Bank4_GateLeave` | Deferred return through the WRAM1 PC; its named audio route resumes at `$20A9` and reaches `04:4082`, as described above. Other WRAM aliases or corrupted return bytes remain outside that route. |
+
+The scan is a candidate generator, not a full control-flow or stack proof.
+Manual review of the seven reported sites reconciles them to these table
+dispatches/trampolines. No newly discovered stack-return target enters the
+candidate code/data spans in the table above. This is an enumeration of the
+stated source pattern and its reviewed owners, not proof against arbitrary
+stack corruption, computed writes, or unrecognized control flow. Reproduction:
+`.tmp/jp-return-stack-dispatch-census-20261025/audit.py`
+and `INPUTS.json` (SHA-256 `5bfb08ab4e784a2192e9590cb1dd2777e02878f6c7eeb59d8731371b03a9ac33`);
+`RESULT.json` SHA-256 `4bca13783c020bcc8bcf36b1517e723b538c21b6186fe0e7db78317598d72a6a`.
+
 ## Bank 53 names and candidate frames
 
 The existing finite asset audit remains closed for its declared scope: the
