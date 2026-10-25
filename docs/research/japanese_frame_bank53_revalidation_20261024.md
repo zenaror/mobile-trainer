@@ -87,6 +87,38 @@ A grouped source pass at documentation commit `55e089ba497c71d790b87ceabb38e6a46
 
 The natural paths identified set home/page-list style 1, usage URL style 0, and dictionary style 2. The 27 declared table entries remain styles 0–26 and resolve only to the five bank-47 descriptors above. `SaveCheck_Verify` bounds the persisted low-seven-bit style to 1–26 (`save_block_check.asm:102–107`), but this does not constrain every input: the preview starts from an external A value copied to FFD2, and its natural caller/value remain unproved. The preview accepts A/B and ignores Select/Start; it contains no selector that walks the 25-name table or increments a Pokémon ordinal (`frame_style_chooser.asm:177–235`). No edge from `53:4000–4171` to the frame descriptor graph was found in this bounded explicit source graph.
 
+### Out-of-range selector writer and copy-alias check (2026-10-24)
+
+A targeted Japanese-source pass checked whether maintained memory-copy paths
+can bypass the eight named writers and alter `wBrowserFrameStyle` at
+`$C2C2`. It scanned 349 tracked ASM/INC files, excluding
+`engine/mail/sample_data.asm` before reading and excluding the paused English
+overlay. There are 30 lexical references to the style symbol (eight stores);
+the only raw `$C2C2` operand is its WRAM declaration. The current linker map
+has no second symbol at that address.
+
+The existing 311-call generic-copy census was cross-checked for nearby direct
+`DE` destinations in WRAM0. Only one site resolves into that window:
+`Account_CopyMailAddressToFar` copies the NUL-terminated decoded settings
+address to `$C27F`. Its source field is bounded to 25 bytes, so the copy ends
+at `$C298`, 42 bytes before `$C2C2`. Of the `FillBytes` calls with a nearby
+direct `HL` setup in WRAM0, all 13 target `$C0D4` for `$00FC` bytes and end
+at `$C1D0`; none reaches the style byte. The separate 27-site
+`WriteByteFar` census is recorded in
+[`naming_70_46a6_sram_boundaries.md`](naming_70_46a6_sram_boundaries.md#writebytefar-caller-census-and-bounded-sram-write-routes-2026-10-24);
+its listed maintained destinations likewise do not target `$C2C2`.
+
+This closes the exact-symbol writers and these direct lexical copy/fill
+destinations under their documented contracts. It does not bound register-
+or stack-derived pointers, arbitrary external API callers, malformed state,
+or unrecognized code. In particular, the preview's A input still has no
+maintained natural caller/value, so the 16 out-of-ROM descriptor reads remain
+conditional and cannot be promoted to natural behavior or global non-use.
+Reproduce the targeted checks with
+`.tmp/jp-frame-style-writer-audit-20261024/audit.py`; receipt
+`RESULT.json` pins the Japanese source manifest, linker symbols, and retained
+generic-copy census.
+
 A separate read-only decode enumerated all 128 masked selector indices. The 112 whose descriptor pointers lie in ROM yield 560 far fields; none names bank `$53`. Of the 85 out-of-range indices that still point to ROM, index 61 aliases descriptor `4E:65A0` and its bank-47 frame-1 resources. The other 16 indices point outside ROM into state-dependent regions: WRAM (`28,50,51,56,81,82,87`), VRAM (`41,54,70,72,103`), or SRAM (`62,73,76,79`). These are not established descriptors; their contents/accessibility are unknown and were not interpreted as frame records. FFD2 is also scratch for HTML images, URL lists, and blit masks, but no known executable path transports those uses into the preview input.
 
 ### Out-of-range selector fields versus candidate windows (2026-10-24)
