@@ -189,6 +189,24 @@ the ordinal to a candidate bank/address. Even supplying an index from the name
 table to the current selector would choose a Bank47 descriptor, not a
 Bank41-47 candidate mapping.
 
+### Exact Bank 53 name-byte occurrences across the original ROM (2026-10-25)
+
+A byte-exact scan decoded each of the 25 NUL-terminated names from the
+protected Bank 53 table and searched its full byte sequence (including the
+terminating NUL) at every offset of the original 2 MiB ROM. All 25 complete
+sequences occur only at their own Bank 53 source locations; there are zero
+exact copies outside physical Bank 53. Receipt:
+`.tmp/jp-bank53-raw-name-occurrences-20261025/RESULT.json` (SHA-256
+`9bda24ea4950c50fffa6b837a7a1d6fd3065ff216a1bea891426962453fe72bd`);
+reproduction script `scan.py` SHA-256
+`ce930eff2c8d386afb1668225d106d646ef551102d6eb442f51ea48714177cc4`.
+
+This closes exact full-string duplication only. It does not detect substrings,
+transformed/compressed strings, runtime copies, or readers that access the
+Bank 53 source directly; it does not establish whether any name is read or
+which frame it selects. Keep the name/frame associations and global use status
+UNKNOWN/HYPOTHESIS.
+
 Therefore all 25 executable name-to-frame associations remain
 **HYPOTHESIS/UNKNOWN**, and no frame is globally classified used or unused.
 There is no evidence of a missing PNG in the audited scope. The remaining
