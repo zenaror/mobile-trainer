@@ -3,13 +3,55 @@
   "language": "en",
   "base_commit": "ef41bff1fb24f2239661c230a48500f92bff4559",
   "english_commit": "d0ef9a448d078e6697e2a226ba0f5eab42c16409",
-  "expected_ROM": "8fa058a52c3fe947a6c636a17377a9f30a97a2541b93cbdd67d12314247df7d0",
-  "global_checksum": "462F",
+  "expected_ROM": "ba7cc4dc82f3dc713edcf92868a77a70ed306798379c9ea536459ec571457a19",
+  "global_checksum": "AA7A",
   "expected_symbols_DEBUG0": {
-    "labels": 12246,
+    "labels": 12412,
     "constants": 51
   },
   "overrides": {
+    "data/html/index.asm": {
+      "base_sha256": "e6ac7143d03f86c1f0ad6ef05c9f33247ce1995d944df67cba776f90cd307202",
+      "payload_sha256": "447c7d203444512fdef8321bb52a74830e4cbbc40929b671032988f52b3bdab6",
+      "bytes": 8896,
+      "payload_path": "languages/en/data/html/index.asm"
+    },
+    "data/html/pages_a_mark_to_download.asm": {
+      "base_sha256": "e49fb325d633f0ea22693de2a96c75c5e91b061dfeb8afd61d15ea7eed6fedf0",
+      "payload_sha256": "514a7a7122eb055bf4244f5b3e61f317d533454bf30c8487417bac796e04fd3d",
+      "bytes": 9325,
+      "payload_path": "languages/en/data/html/pages_a_mark_to_download.asm"
+    },
+    "data/html/pages_cdmaone_to_www.asm": {
+      "base_sha256": "86c2849687249cb8c27fc69adcdebd1d4a8372537b41a40039a269b406b8bdce",
+      "payload_sha256": "05eddaac0d8c39b1d53de9ef6c116fdb9faec35c946da48f275dba20da68b6b0",
+      "bytes": 394,
+      "payload_path": "languages/en/data/html/pages_cdmaone_to_www.asm"
+    },
+    "data/html/pages_email_to_m_home.asm": {
+      "base_sha256": "897e9d07861991592fe4b6d29b9912d3ab5327076b562b46a1a19d282cfdfa15",
+      "payload_sha256": "35cae523487d58ca2589931d2c336ec3f5b2218273d4dfaaed0938874ff35544",
+      "bytes": 9666,
+      "payload_path": "languages/en/data/html/pages_email_to_m_home.asm"
+    },
+    "data/html/pages_m_sys_to_offline.asm": {
+      "base_sha256": "19ebcdc7a0c43131f93d5b35877215357d1e2a64b05ed023af06ec4c00f0e217",
+      "payload_sha256": "316ced8fa9b97593cfc5a61394b9f745d797afa612f03c972a7bb39475694e31",
+      "bytes": 11530,
+      "payload_path": "languages/en/data/html/pages_m_sys_to_offline.asm"
+    },
+    "data/html/pages_online_to_receive.asm": {
+      "base_sha256": "38d48d3025b6c896e04d481fab1cab2878ad581c80c4801f3da6310359f213b8",
+      "payload_sha256": "fb0c9b1f4e855afe7f78b8ea2bc1391d7480ed6643e913321c2edf2129facf22",
+      "bytes": 13040,
+      "payload_path": "languages/en/data/html/pages_online_to_receive.asm"
+    },
+    "data/html/pages_saport_to_tu_error.asm": {
+      "base_sha256": "42e0aa1737b2b097573551d57fad51659bfdebf32d054b16d82a8bfe208f8aee",
+      "payload_sha256": "30b49f8374868f3dab4f3ddd48fe04167f0f00c4a9a4e972040e9294fcc1c37f",
+      "bytes": 2375,
+      "payload_path": "languages/en/data/html/pages_saport_to_tu_error.asm"
+    },
     "data/text/browser_start_ticker.asm": {
       "base_sha256": "633fd2aa72bfbad654c3c6967ccec3f237dc47e100ce5dc813c04dbe3508ce3b",
       "payload_sha256": "4885bebaa18116edcae5e6cacecfdbf1052701944ea8a90f3b6348e08b714798",
@@ -33,6 +75,12 @@
       "payload_sha256": "e7bf17b53cd1d5aa39e0d82aef487298740bf89617d933363fee771c54d45be4",
       "bytes": 1944,
       "payload_path": "languages/en/data/text/comm_error_messages_en.asm"
+    },
+    "data/text/dialog_messages.asm": {
+      "base_sha256": "c164018e888cfe9dac770e36f08bdc2072f739ac1f0c98f7ab2fef124384e732",
+      "payload_sha256": "aa756bd16bd15f7548ae1e039011961df1f2b3b7feea2e663ce0ce5235b875c7",
+      "bytes": 51985,
+      "payload_path": "languages/en/data/text/dialog_messages.asm"
     },
     "data/text/help_script.asm": {
       "base_sha256": "9fd55e9d46f51a6487d430272992e294acad51c3b9f090febcbefcf0356ec71a",
@@ -3546,24 +3594,17 @@
     },
     "home/header.asm": {
       "base_sha256": "5fda60c901ace35b75aa897a2ef5d6d3fb7846cbbee624f14fe6cdf3ca647ebd",
-      "payload_sha256": "ff3b567ac3ee4e648384363884ca33c316121483a8c6cfbf3a89d5c7bd9178f4",
+      "payload_sha256": "f3c90089af78ab3c7c6252395f557703e08dc3a85cc845b335e9ee8f34a1c018",
       "bytes": 3145,
       "payload_path": "languages/en/home/header.asm"
-    },
-    "data/text/dialog_messages.asm": {
-      "base_sha256": "c164018e888cfe9dac770e36f08bdc2072f739ac1f0c98f7ab2fef124384e732",
-      "payload_sha256": "aa756bd16bd15f7548ae1e039011961df1f2b3b7feea2e663ce0ce5235b875c7",
-      "bytes": 51985,
-      "payload_path": "languages/en/data/text/dialog_messages.asm"
     }
   },
   "deletions": [],
   "documentation_payloads": [],
   "fallback": "Current tracked JP source plus exact EN overrides; no ROM/ZIP/cache/pyc/build artifacts in language package",
   "known_limits": {
-    "retained_graphics_KEEP": 1851,
-    "wholeHelp_adopted": false,
-    "firstHelp_page63_only": true,
+    "zip_content_parity": "IN_PROGRESS",
+    "help_script": "Partial; complete topic parity pending",
     "runtime_visual_hardware": "UNVALIDATED"
   },
   "fallback_files": {
@@ -21982,7 +22023,7 @@
       "sha256": "612a597b8c3f5752f5c83ca0aa35c4c86d0de04b7876c6e92b4a2512f72fc7e9"
     }
   },
-  "overrides_count": 591,
+  "overrides_count": 598,
   "fallback_count": 4592,
   "source_parity_commit": "271f768b2b538c390328ffddceb9b18f034c7567",
   "published_branch_parent": "7a68640ce4ab0091de37c8efb2cb389a3a61f42c"
