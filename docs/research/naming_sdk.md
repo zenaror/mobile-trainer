@@ -65,7 +65,8 @@ code evidences), HYPOTHESIS (idea only; the row keeps the generic name and the i
   (`MobileSDK_RxPacketComplete` 75:5B46); then the state machine runs; then by serial phase C6A0: 1 = transmit
   (`MobileSDK_TxNextByte` 75:5B2B: byte from pointer C6A3 -> rSB, `MobileSDK_StartTransfer` 75:5B38: C6C1.1 = 1, rSC = $03 then $83),
   3 = receive (`MobileSDK_TickReceiving` 75:5A36: clock out the idle poll byte `$4B` or the two ack bytes `$80` and
-  `command xor $80` / `$F1`), 0 = idle counters (`MobileSDK_TickResponseWait` 75:5A51 -> state $29 on expiry, keep-alive
+  `command xor $80` / `$F1`); within phase 3, receive stage 0 enters
+  `MobileSDK_TickResponseWait` 75:5A51 -> state $29 on expiry. Phase 0 uses idle counters (keep-alive
   `MobileSDK_PollAdapterStatus` 75:5FA0, `MobileSDK_SendBeginSession` 75:59FC, `MobileSDK_ResendPacket` 75:5A17).
 * `MobileSDK_SerialReceive` (75:56D2, CONFIRMED): counts the tx bytes down, keeps the last two reply bytes in C6A8/9, retries on
   the adapter transport byte `$F2` (10x, `MobileSDK_TxRetryLimit10`; libmobile `serial.h`: `$F2` = internal error, not a checksum error) and `$F0/$F1` (3x = unknown command / checksum error, `MobileSDK_TxRetryLimit3`, common code `MobileSDK_TxRetryCheck`,

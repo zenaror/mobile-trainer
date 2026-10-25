@@ -1659,8 +1659,9 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	jp .handle_input
 
 .handle_timer_inactive ; 24:4C55
-	; [PROBABLE] 85 insn(s) never executed in the traced runs; cut out of the PROBABLE region
-	; 4BCD-53FE by apply_coverage --split
+	; [CONFIRMED, controlled serial fault] A sustained adapter-wait $D2 stream
+	; reaches 4C55 after the second response timeout (2026-10-25 replay).
+	; This is not an observation with an unmodified adapter or on hardware.
 	xor a, a
 	ld [wBrowserFetchResult], a
 	farcall Sprites_SaveSlotsToBank3
@@ -1711,7 +1712,8 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	; and a stable nonaliasing stack, the path back to 4BD5 retains one copy.
 	; An ordinary later exit consumes it as PC; a later abort discards it.
 	; For ordinary action B=0..2, row C=0..5, that first PC is in ROM0.
-	; No execution of 4C55-4D24 is present in the retained natural union.
+	; Controlled $D2 replay observed 4DB9 -> ROM0:0000 -> 24:4206 for BC=0.
+	; Other BC values remain conditional; this run is outside the natural union.
 	push bc
 	push bc
 	push af

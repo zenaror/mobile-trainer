@@ -4279,8 +4279,11 @@ MobileSDK_TickResponseWait:: ; 75:5A51
 	jr MobileSDK_TxIdlePollByte
 
 .check_response_timeout_state ; 75:5A6D
-	; [PROBABLE] 37 insn(s) never executed in the traced runs; cut out of the PROBABLE region
-	; 5A57-5AC3 by apply_coverage --split
+	; [CONFIRMED, controlled serial fault] Sustained receive-wait $D2 reaches
+	; first/second expiry without a sync-miss error. The second clears bit 4
+	; but not bit 1, allowing PageList_ActionMenu's inactive branch to run.
+	; Earlier unmodified-adapter coverage did not execute this path; the
+	; controlled-fault replay is kept separate from that natural corpus.
 	di
 	ld a, [wMobileSDK_State]
 	cp a, $2A
@@ -5563,6 +5566,8 @@ MobileSDK_ResetToIdle:: ; 75:624C
 	ret
 
 MobileSDK_EnterErrorState:: ; 75:6258
+	; [CONFIRMED] Stores error code and state 5, returns HL=wTimerEnable;
+	; it does not write that flag byte. Callers decide whether to set bit 1.
 	; [CONFIRMED] 5 insn(s) executed; cut out of the PROBABLE region 6244-6264 by apply_coverage
 	; --split [executed in 1 scenarios]
 	ld [wMobileSDK_ErrorCode], a
@@ -10092,8 +10097,8 @@ MobileSDK_TryQueueSavedPacketWithXor80Ack:: ; 75:7E89
 	ret
 
 MobileState_Timeout:: ; 75:7EB4
-	; [PROBABLE] 38 insn(s) reached by static flow only; seeds: mobile x38; min discovery hops 0;
-	; run starts at SDK/API table entry state29 (analysis/mobile_candidates.json)
+	; [CONFIRMED, controlled serial fault] State $29 dispatch observed during
+	; persistent-$D2 recovery; prior unmodified-adapter coverage was static only.
 	dec a
 	jr z, .check_phase_08_before_polling
 	dec a

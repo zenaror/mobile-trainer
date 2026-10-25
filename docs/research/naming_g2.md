@@ -352,3 +352,41 @@ commands, observer/ROM/fixture hashes, watched writes and coverage are retained
 in `.tmp/jp-pagelist-disconnect-control-20261025/{RUN,RESULT}.json` and the
 per-case files. Raw serial/MBC logs are capped and are not used as complete
 execution histories. The response-timeout producer remains a separate question.
+
+### Controlled serial-wait producer and return (2026-10-25)
+
+A separate serial-peer fault demonstrates an executable producer of the inactive
+branch: after frame 10060, the observer replaces incoming bytes with `$D2`
+starting at the next response sync byte `$99` (activation at frame 10065).
+It changes the emulated link's pending receive byte only, with no ROM, CPU
+register or WRAM forcing. `$D2` clears the SDK sync-miss counter instead of
+causing the twenty-invalid-byte error. The first response timeout occurs at
+10709; the second at 11020 writes `wTimerEnable=$20` at `75:5A88`.
+`MobileSDK_EnterErrorState` writes an error code/state but does not set flag
+bit 1. The action menu therefore reaches `24:4C55` at frame 11021. Later
+StopLink writes `$02` at 11219, after that branch has already been entered.
+
+In the follow-through replay, ordinary A presses at 12500 and 13500 close the
+message and select the current page. The duplicate BC pushes execute at 12515,
+the tail pop at `4D21` at 12586, and the return at 13505 is recorded as
+`24:4DB9 -> 00:0000 -> 24:4206`. The original byte at ROM0:0000 is RET, so this
+specific BC=0 case returns to the original caller through that extra RET.
+It is not a demonstrated crash, nor proof of the behavior for other BC values.
+This closes the producer/return question for the declared persistent-D2 fault
+model; it does not establish that a real adapter emits that stream.
+
+The private observer's fault-disabled control exactly matches the previous
+attached replay's coverage, callgraph, watched writes and final RAM. Its header
+revision differs from the cached library revision; that comparison checks this
+replay, not universal ABI compatibility. A first attempted fault run omitted
+the environment when launching the process and is explicitly rejected as fault
+evidence; the corrected run records the activation and timeout effects. Four
+additional unplug offsets (10063–10066) reach the early error exit instead,
+through `75:592A` or sync-miss writer `75:5849`.
+
+Reproduction and receipts are in `.tmp/jp-pagelist-response-wait-20261025/`:
+`build.py`, `run.py` (retained failed driver), `run_fixed.py`, `run_exit.py`,
+`CONTROL.json`, and `RESULT.json`; original adapter-removal controls remain in
+`.tmp/jp-pagelist-disconnect-control-20261025/`. These observations are kept
+separate from the ordinary trace union and hardware evidence. None establishes
+the missing six candidate roots or a Bank53 name/frame consumer.
