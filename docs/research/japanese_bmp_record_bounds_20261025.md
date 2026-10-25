@@ -442,6 +442,37 @@ Classification: **CONFIRMED** for the accumulator and retained-register
 algebra; **OPEN** for the natural-chain preconditions and first-iteration
 five-store edge.
 
+## HTML layout-record allocation bound (2026-10-25)
+
+The parser clears the 4 KiB page store in WRAM bank 4 at `$D000`, reserves
+`$00-$1F` for the header, and starts the layout-record list at `$D020`
+(`engine/html/parser.asm:184-210`, `engine/html/layout.asm:297-324`). Each
+record occupies 16 bytes. `Html_Layout_AppendRecord` advances the next pointer
+by `$10`; if its high byte becomes `$E0`, it rolls that pointer back by `$10`
+and still writes the record at the old address, but skips incrementing the
+16-bit record count (`engine/html/layout.asm:569-650`).
+
+Consequently, the counted list cannot exceed 253 records (`$FD0 / $10`):
+record starts `$D020` through `$DFE0` are the counted range. The next attempted
+append starts at `$DFF0`, computes `$E000`, rolls back to `$DFF0`, writes the
+16-byte record through `$DFFF`, and leaves the count at 253. Further overflow
+appends overwrite that same uncounted final slot. Walkers use the count, so
+they do not include the overflow slot. This establishes a static storage bound
+for the maintained layout allocator and its count-based walkers, including
+the Bank 51 loop that searches the layout list (`engine/browser/inline_image_blit.asm:433-481`).
+
+This does not settle the scanner's five trailing SRAM writes. The HTML page
+allocator is in WRAM bank 4; BMP bodies are in SRAM bank 3. The two bounds are
+independent. The first scanner exit can retain initial `M=N` after checking
+only `P+O+N < $C000`, whereas the five writes require five bytes beginning at
+the destination pointer to stay within the SRAM window. The existing source
+does not establish that stronger condition for every natural response. Nor
+does the layout count establish the still-missing body-length equation
+`Lold=O+r*H+2`. No ROM source or runtime evidence was changed or added for
+this conclusion; it is a static derivation from the maintained source at the
+revision recorded in the receipt/handoff. Classification: **CONFIRMED** for
+the allocator/count bound; **OPEN** for actual natural BMP chain/body bounds.
+
 ## HTTP body length and physical receive ceiling (2026-10-25)
 
 The maintained inline-image route makes the resource length field precise.
