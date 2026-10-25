@@ -547,6 +547,20 @@ height `$24`. The instrumented branch probe then recorded 1,346 taken branches
 from `51:729C` to `51:7251` with `DE=$D000`, `F=$C0`, and stride 0; two sampled
 interrupts entered `$0050` and returned to the loop. Receipt `.tmp/jp-bmp-malformed-http-20261025/PROBE.json` pins the source, instrumented binary, run logs and hashes (SHA-256 `2edc3173eb1dfb90534861cf910867afc1a5e71944f284cbe1187bba2379635e`).
 
+The earlier `.tmp/jp-bmp-malformed-http-20261025/RESULT.json` (SHA-256
+`c7fad49c5b2e323a34eca9c3d89639898273585128f34206edb4a3756f56d165`)
+labels the scenario as a contradiction because the process exited at its frame
+budget with `final_pc=0x1805`. That label is not supported by the same run's coverage:
+it records 1,347 executions each at `51:7251` and `51:725D`, 1,346 at
+`51:729C`, and 76,300 at `75:6149`. The frame-budget exit and asynchronous
+dispatcher PC do not establish that the converter returned. Preserve the old
+JSON as the historical receipt, but use its raw counts together with
+`PROBE.json` and the `probe2` coverage/stats (coverage SHA-256
+`7f07d78257dfd8a461af563bd86b02b181a55ce7b6f5702052bb712e26a74247`; stats
+SHA-256 `fbf2d8b1802336bd1ef7f71551d7693120bcaf4b68390a4d3a45158ac2163827`)
+for interpretation. This resolves the recorded trace conflict without
+changing or deleting either artifact.
+
 At source revision `669ad8aa4af7e0417cec7ece33d0e812496743c4`, SHA-256 values
 were: ROM `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
 harness `bcfc16de9e07a8acb81b52e4f843ab0cf2beba6e26a1a134e25a3e6f714dc280`;
