@@ -131,7 +131,49 @@ The explicit producer graph therefore confirms no name-ordinal-to-frame chain an
 
 ## Remaining frame questions
 
-Visual inspection identifies species-like artwork for 23 of the 25 names (PROBABLE visual identities); both Porygon entries remain unassigned. All 25 ordinal-to-window links remain HYPOTHESIS. Eight windows remain KEEP as editable compositions because their complete VRAM placement is not justified; their original bytes and backing assets exist. No frame is classified globally unused, and natural frame selection remains unknown. Do not assign the two geometric windows to Porygon/Porygon2 by elimination, synthesize unresolved VRAM keys, or treat a missing editable composition as a missing ROM asset.
+The visual review supports 21 direct species-to-window matches, two rodent-like windows whose Pikachu/Pichu distinction is unresolved, and two windows with no supported Pokémon identity. Porygon and Porygon2 likewise have no supported image match. This is separate from the still-unresolved executable association between a `PokemonNameXX` ordinal and a physical window. Eight windows remain KEEP as editable compositions because their complete VRAM placement is not justified; their original bytes and backing assets exist. No frame is classified globally unused, and natural frame selection remains unknown. Do not assign the two geometric windows to Porygon/Porygon2 by elimination, synthesize unresolved VRAM keys, or treat a missing editable composition as a missing ROM asset.
+
+### Direct visual species-to-window crosswalk (2026-10-24)
+
+Joining the decoded Bank 53 strings to the existing window-local visual review
+gives 21 **PROBABLE visual correspondences**. This is an image-identity
+crosswalk, not proof that the program reads the name table or selects the
+matching window by ordinal. The physical-window descriptions and PNG evidence
+are listed below; the species names come from `PokemonName00..PokemonName24`
+in `data/text/pokemon_names_bank53.asm`.
+
+| Name entry | Decoded name | Visually matching window | Level |
+|---|---|---|---|
+| `PokemonName02` | Togepi | `46:4000` | PROBABLE |
+| `PokemonName03` | Meowth | `46:4D50` | PROBABLE |
+| `PokemonName04` | Lugia | `46:5AA0` | PROBABLE |
+| `PokemonName05` | Jigglypuff | `46:67F0` | PROBABLE |
+| `PokemonName06` | Totodile | `45:4000` | PROBABLE |
+| `PokemonName07` | Entei | `45:4D50` | PROBABLE |
+| `PokemonName08` | Scizor | `45:5AA0` | PROBABLE |
+| `PokemonName09` | Psyduck | `45:67F0` | PROBABLE |
+| `PokemonName10` | Umbreon | `44:4000` | PROBABLE |
+| `PokemonName11` | Marill | `44:4D50` | PROBABLE |
+| `PokemonName12` | Tyranitar | `44:5AA0` | PROBABLE |
+| `PokemonName13` | Dragonair | `44:67F0` | PROBABLE |
+| `PokemonName14` | Sudowoodo | `43:4000` | PROBABLE |
+| `PokemonName16` | Ledyba | `43:5AA0` | PROBABLE |
+| `PokemonName17` | Bellossom | `43:67F0` | PROBABLE |
+| `PokemonName18` | Mewtwo | `42:4000` | PROBABLE |
+| `PokemonName19` | Ho-Oh | `42:4D50` | PROBABLE |
+| `PokemonName20` | Wobbuffet | `42:5AA0` | PROBABLE |
+| `PokemonName21` | Diglett | `42:67F0` | PROBABLE |
+| `PokemonName22` | Venusaur | `41:4000` | PROBABLE |
+| `PokemonName23` | Espeon | `41:4D50` | PROBABLE |
+
+`PokemonName01` (Pikachu) and `PokemonName15` (Pichu) remain jointly
+ambiguous between the rodent-like windows `43:4D50` and `47:68F0`; the current
+visual review cannot choose either pairing. `PokemonName00` (Porygon) and
+`PokemonName24` (Porygon2) remain unmatched. The geometric/panel windows
+`41:5AA0` and `41:67F0` have no supported Pokémon identity and are not assigned
+to those names by elimination. Therefore 21 species identities are resolved
+visually, while all 25 executable ordinal-to-window links, natural selection,
+and global used/unused classifications remain open.
 
 ### Window-local visual identifications (2026-10-24)
 
