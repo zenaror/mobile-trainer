@@ -38,13 +38,14 @@ height; `Bmp_CheckSize` permits width zero, rejects width >=145, and accepts
 height 1..96. The exact static contract, interval formula and evidence boundary
 are documented in
 [`japanese_bmp_record_bounds_20261025.md`](japanese_bmp_record_bounds_20261025.md).
-An earlier static inference said an accepted zero-width bottom-up header leaves
-the converter looping at WRAM3 `$D000`. A directed synthetic mGBA run instead
-observed width 0, height `$20`, bottom-up flag 0 and converted-output stride 0,
-then reached the normal ROM loop after 9,600 frames. The mechanism is
-unresolved, so neither a hang nor safety for malformed input is claimed. The
-separate record-bound finding remains: the converter discards the nested end
-pointer and does not compare reads to the declared payload length.
+An instrumented synthetic mGBA run confirms that an accepted zero-width,
+bottom-up header keeps the converter mainline in its row loop at WRAM3 `$D000`:
+at `51:729C`, `F=$C0`, `DE=$D000`, and converted-output stride is zero; the
+executed `JR NC` returns to `51:7251` with `DE` unchanged. It repeated through
+frame 9,599. The emulator's frame/interrupt advancement and final SDK dispatcher
+PC do not mean the conversion returned. This is not native-hardware evidence.
+The separate record-bound finding remains: the converter discards the nested
+end pointer and does not compare reads to the declared payload length.
 
 The three `MobileAPI_PeerReceive` sinks are `lib/mobile/main.asm:3341`,
 `:3393` and `:3397`. The full maintained lexical API-call census records 100
@@ -275,11 +276,11 @@ receipt `.tmp/jp-preview-indirect-overflow-20261025/RESULT.json` (SHA-256
 
 1. BMP source-length handling: the natural caller computes a nested record end,
    but the converter discards it and does not compare reads with the declared
-   payload length. A directed synthetic zero-width response reaches conversion
-   and returns in mGBA, contradicting the previous static hang inference; see
-   [`japanese_bmp_record_bounds_20261025.md`](japanese_bmp_record_bounds_20261025.md).
-   Reconcile the apparent zero-stride loop from register/control-flow evidence;
-   hardware and external-network guarantees remain untested.
+   payload length. The accepted zero-width bottom-up mainline loop is confirmed
+   in the directed synthetic mGBA scenario and matches the source condition;
+   see [`japanese_bmp_record_bounds_20261025.md`](japanese_bmp_record_bounds_20261025.md)
+   and its instrumented `.tmp` receipt. Hardware and external-network
+   guarantees remain untested.
 2. Treat `MobileAPI_PeerReceive` as excluded from maintained Japanese
    application routes by the 100-site immediate-index census. Reopen only if a
    new `$3A` producer or indirect API entry is demonstrated; external callers

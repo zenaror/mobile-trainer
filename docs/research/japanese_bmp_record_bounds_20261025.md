@@ -1,6 +1,6 @@
 # Japanese inline BMP record bounds (2026-10-25)
 
-Status: **CONFIRMED record-bound omission; zero-width runtime behavior is contradictory and unresolved**.
+Status: **CONFIRMED record-bound omission; zero-width bottom-up mainline loop reproduced in synthetic mGBA**.
 Source revision at initial review: `4ecacbb1a949cf54f595e81903bb3f26eebdd44d`; directed trace revision:
 `669ad8aa4af7e0417cec7ece33d0e812496743c4`. Protected ROM SHA-256:
 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
@@ -78,16 +78,18 @@ page-buffer addresses, this keeps the computed raster below the SRAM-window
 boundary, but it is not a payload-length check. The metadata writes also lack
 a lower-bound check for `pixel_offset >= 4`.
 
-The earlier source-flow analysis inferred that an accepted zero-width,
-bottom-up image would leave the row-loop destination at `$D000` and never
-satisfy its `D < $D000` exit check. A directed synthetic mGBA run contradicts
-that prediction. The run observed width 0, height `$20`, bottom-up flag 0, and
-converted-output row stride 0, entered the row-copy loop, and returned to the
-normal ROM loop by the end of the 9,600-frame budget. The edge
-`51:7251 -> 00:0392` occurred 1,347 times at frame 9,457. This means the prior
-static loop argument is incomplete or wrong. Do not claim a zero-width hang
-until the register/control-flow discrepancy is reconciled. This run does not
-establish general malformed-record safety.
+The earlier static inference is now confirmed for this accepted zero-width,
+bottom-up case. A temporary instrumented trace observed at `51:729C`:
+`A=$D0`, `F=$C0` (zero set, carry clear), `DE=$D000`, and
+`hBmpConvert_RowStride=$00`. Executing `JR NC` then sets the next PC to
+`51:7251`, re-entering the row loop with `DE` unchanged. The branch was
+observed 1,346 times through frame 9,599; two additional samples were timer
+interrupt dispatches to `$0050`. The trace reached its 9,600-frame budget while
+the converter's mainline remained in this loop. Frame advancement and the
+final PC do not mean the converter returned: final `75:6149` is
+`MobileSDK_StateDispatch`, reached from `75:58F2` during adapter processing.
+This confirms the conditional mainline hang in the synthetic mGBA scenario,
+not native-hardware behavior or general malformed-record safety.
 
 ## Distinguish the other two copies
 
@@ -95,8 +97,9 @@ The previously cited `CopyBytes` at `51:73A1` and `51:73AB`
 (`engine/browser/inline_image_blit.asm:535,541`) are output-patch operations.
 The first conditionally copies an existing output span into `wTileStage3`; the
 second copies the completed stage to a caller-derived output pointer. They are
-not the direct BMP row read, which is the `CopyBytes` at `51:7251`
-(`engine/browser/inline_image_blit.asm:266`). The maintained branch checks the
+not the direct BMP row read, which is the `CopyBytes` at `51:725D`
+(`engine/browser/inline_image_blit.asm:266`). `51:7251` is the preceding
+`Sound_FrameService` call inside the row loop. The maintained branch checks the
 high byte of the wrapped output end against `$C000`, and the staging array is
 `$900` bytes while the maximum nonzero canvas extent is `$780` bytes. The
 exact declared-record end is still not checked.
@@ -108,14 +111,15 @@ record, and `Html_NextResourceRecord` computes its end. The BMP converter drops
 that end pointer. It derives the pixel-row interval and four preceding
 metadata-write bytes from header fields, and checks the high end against the
 SRAM window at `$C000`; it never checks those accesses against the declared BMP
-payload length. The record-bound omission remains confirmed. The zero-width
-runtime consequence is unresolved because the static loop inference conflicts
-with the directed synthetic trace. The reproducible run receipt is
+payload length. The record-bound omission remains confirmed. The synthetic
+trace confirms that the accepted zero-width bottom-up case loops on the
+mainline; it does not test native hardware or general malformed responses. The
+original run receipt is
 `.tmp/jp-bmp-malformed-http-20261025/RESULT.json`; it records the fixture,
-resolved input, parent save/config, harness, and result hashes.
+resolved input, parent save/config, harness, and result hashes. The register
+and branch probe receipt is `.tmp/jp-bmp-malformed-http-20261025/PROBE.json`.
 
-**Not established:** why the zero-width run completes despite the apparent
-zero-stride loop; whether an external Mobile Adapter/network response can
+**Not established:** whether an external Mobile Adapter/network response can
 naturally supply a short or internally inconsistent image while still passing
 the header checks; whether the SDK always enforces the declared response size;
 or how the hardware behaves at an out-of-record SRAM read. The fixture is
@@ -149,14 +153,17 @@ timeout 20s .cache/trace/mgba_trace --rom 'Mobile Trainer (Japan).gbc' \
   --web-map '*.html=.cache/trace/web/page.html'
 ```
 
-Observed result: exit 0; 9,600 frames; 55,479,360 instructions; final PC `$1805`;
+Observed result: exit 0; 9,600 frames; 55,479,360 instructions; final PC
+`75:6149` (SDK state dispatcher; not a return from the converter);
 HTTP GET `/01/CGB-B9AJ/img_a.bmp` returned 200 with 318 bytes. Coverage entered
-`51:7177`, `51:7251`, and `51:729C`; the call edge `51:7251 -> 00:0392` had 1,347
-hits at frame 9,457. A second run with `--watch FFD4 --watch FFD6 --watch
+`51:7177`, `51:7251`, and `51:729C`; `51:7251 -> 00:0392` is the
+`Sound_FrameService` edge, and `51:725D -> 00:050C` is the row `CopyBytes`
+edge; each had 1,347 calls from frame 9,457. A second run with `--watch FFD4 --watch FFD6 --watch
 FFD7 --watch C332 --watch C333 --watch C334 --watch C33F` recorded width 0,
 height `$20`, bottom-up flag 0, converted-output row stride 0, and rounded
-height `$24`. These observations preserve the contradiction; they do not
-explain the loop's progress.
+height `$24`. The instrumented branch probe then recorded 1,346 taken branches
+from `51:729C` to `51:7251` with `DE=$D000`, `F=$C0`, and stride 0; two sampled
+interrupts entered `$0050` and returned to the loop. Receipt `.tmp/jp-bmp-malformed-http-20261025/PROBE.json` pins the source, instrumented binary, run logs and hashes (SHA-256 `2edc3173eb1dfb90534861cf910867afc1a5e71944f284cbe1187bba2379635e`).
 
 At source revision `669ad8aa4af7e0417cec7ece33d0e812496743c4`, SHA-256 values
 were: ROM `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
