@@ -62,6 +62,25 @@ now also includes the direct password-change POST and redirect GET roots:
 wrappers pass a null date pointer. These contracts remain static and scoped to
 the maintained roots.
 
+### Sequential-entry boundary for three orphaned ROM0 helpers (2026-10-25)
+
+A separate byte-sequencing check looked at the physical instruction directly
+before three helpers that already lacked a maintained direct/table caller.
+Each predecessor is `RET`: `ReadBytesFar` at `00:1686` follows `00:1685`
+(`home/far_read.asm:68-78`); `CopyFar16ByteBlocks` at `00:172D` follows
+`00:172C` (`home/far_helpers.asm:17-28`); and `Glyph_CopyToLeftBuf` at
+`00:0E7E` follows `00:0E7D` (`home/glyph_data.asm:155-165`). This rules out
+ordinary sequential fallthrough from the immediately preceding byte for
+these exact entry addresses. It does not rule out computed jumps, entry into
+the middle of a block, copied-byte execution, or external stack/state-driven
+entry, and does not establish global non-use.
+
+The apparent fourth case, `00:0D34`, is preceded by `Table_Random_XorBytes`
+at `00:0C34-0D33`; `Random` indexes those bytes and returns before that data
+(`home/random.asm:16-42`). Treating the table as executable fallthrough would
+misclassify data as code. This check adds no new Bank53-to-frame edge and does
+not change any candidate's UNKNOWN/HYPOTHESIS reachability status.
+
 ### Correct the WRAM physical-bank descriptions
 
 On CGB, `$C000-$CFFF` is fixed WRAM bank 0. `SVBK` selects only the switchable
