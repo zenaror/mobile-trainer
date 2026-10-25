@@ -196,6 +196,35 @@ indirectly with HL at callback offset `+$0B` or `+$0C`, it could overwrite the
 hook address bytes. Its caller/entry and sprite purpose remain HYPOTHESIS, so
 this pass does not claim that all bypass-setter writers are ruled out.
 
+### Raw pointer-shaped bytes for `00:0A2A` (2026-10-25)
+
+To check whether a stored address/bank triple supplies a hidden hook target,
+the protected ROM was searched for the little-endian byte sequence
+`2A 0A 00` (`address=$0A2A`, bank byte `$00`). All 15 matches are inside
+manifested attribute maps, not code or callback records: six in the two
+Bank-28 mail-body maps and nine in the Bank-41 orange-panel map. Every match
+starts at column 19 of a 20-cell row, so the three bytes cross a row boundary
+and are ordinary adjacent map attributes. The exact `CALL $0A2A` and
+`JP $0A2A` opcode byte patterns each occur zero times in the ROM. Physical
+banks were derived as `file_offset // $4000`, with CPU address
+`$4000 + file_offset % $4000` for switchable banks; this avoids the bank-number
+off-by-one that would misclassify those matches.
+
+This closes only these exact pointer-shaped bytes and direct opcode forms; it
+does not prove that `StoreDEAtHL_SelectWramBank7` has no computed caller, that
+all arbitrary WRAM aliases are absent, or that no runtime-created hook exists.
+The unresolved helper/caller question therefore remains, but these 15 matches
+are not evidence for it.
+
+Reproduction: `.tmp/jp-00-0a2a-pointer-shape-audit-20261025/audit.py`
+(SHA-256 `f3be387ef8a4e306f627d86192b0a41160015c66264a0b92d6c13d7e5276c09e`)
+and `RESULT.json` (SHA-256
+`b402ac59c05d81e243843385bb29f6de5efa7f9746e4935bdd5ed836dc6dd3a6`). Inputs:
+protected ROM SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570` and
+`gfx/assets.tsv` SHA-256
+`a7a24320a22cd7f9eb2ed88ff544dfde17ed41c47bf4841ab5133e54857d6729`.
+
 The reproduction script is
 `.tmp/jp-sprite-hook-pointer-path-audit-20261024/scan.py` (SHA-256
 `318db18c27b23aca1596e4634188ebac3c595baa3bf0696ff8fe59061ff424e6`); its
