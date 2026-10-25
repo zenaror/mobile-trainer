@@ -1262,3 +1262,42 @@ Reproduce with `.tmp/jp-bank23-literal-far-pointer-shapes-20261025/audit.py`
 (SHA-256 `33256e55e395271b77a0abc99e7b23be905ec41533407a984f2860a6fcfabd11`)
 and `RESULT.json` (SHA-256
 `e4c532450c9cb0c7ef0b70fcc8f4aee6ccd19527df2ad01c06789590c5cb53e2`).
+
+## Candidate return edges through arbitrary direct callees (2026-10-25)
+
+The earlier selector-only scan checked direct calls to `BankSwitch_H/D/B` and
+`BankSwitch_H_Local`. This expanded pass checks every decoded instruction start
+in the same six candidate spans and the three preceding bytes in all 127
+physical ROMX banks for `CALL` or conditional `CALL`, then resolves the callee
+against the physical bank actually visible to that call. The two maintained
+code spans `26:5344–537C` and `28:4BA6–4BC2` are code overrides in memory only;
+the frozen config is unchanged. The pass found 225 candidate byte-pattern
+return edges for 226 candidate instruction starts; 121 of the callsites are
+present as executed `CALL` instructions in the 72-scenario union. The raw
+patterns outside that subset are not asserted to be code. No candidate
+predecessor calls one of the four named bank selectors directly.
+
+Only four resolved callee owners contain explicit ROM-bank or bank-switch
+markers. Two possible edges target ROM-switching routines but are not naturally
+executed in the union: `68:4E59 -> 00:0150 MobileAPI` would return to
+`2D:4E5C`, and `48:5344 -> 00:0282 Boot` would return to `26:5347`. The other
+two callees call `BankSwitch_H`, but their `HL` values point into the page
+record list in WRAM (`$Dxxx`), so the selector changes WRAM bank and leaves the
+ROM bank unchanged. In particular, the naturally executed `74:5343 ->
+74:5548 Html_Layout_AppendRecord` returns to `74:5346` (`POP BC`) in both
+recorded scenarios. Its caller sets `HL` from the next `$Dxxx` page record and
+the page bank is 4. `74:586E Html_Layout_GetLimitsAtY` has the same WRAM-domain
+invariant; its candidate return-pattern callsite at `74:5377` is not present in
+the natural trace union. Thus the newly found HTML helper call does not provide
+an ROM-bank remap into `26:5346`.
+
+This closes the enumerated direct-call/callee class for these six spans under
+the maintained source contracts and the exact ROM bytes. It does not resolve
+computed/split targets, arbitrary mapper writes, runtime-created/copied code,
+or global entry/use. Candidate statuses therefore remain as listed in the
+matrix above. Reproduce with
+`.tmp/jp-cross-bank-callee-return-20261025/audit.py` (SHA-256
+`47457837319d274c152477df08a173000e628d3b316db4066bac29bd33a10610`); its
+receipt is `RESULT.json` (SHA-256
+`20c12fc55016ef71429f45d845a6cc4b458b761617773a899869390a5aa41fdd`). The
+receipt pins the protected ROM, 72-scenario union, and relevant source files.
