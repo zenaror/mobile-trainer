@@ -316,6 +316,26 @@ synthetic and the emulator is mGBA, not the native Mobile Adapter. Therefore do 
 call the path safe for truncated/corrupt records and do not describe the
 conditional out-of-record reads as a demonstrated exploit or natural behavior.
 
+### Public archive availability check (2026-10-25)
+
+Queried the Internet Archive Wayback CDX for the exact homepage URL
+`http://gameboy.datacenter.ne.jp/01/CGB-B9AJ/index.html`; it returned HTTP 200
+with an empty capture list (`[]`). The Wayback availability API returned HTTP
+200 with an empty `archived_snapshots` object for the same URL. A broader
+prefix request for the game's path timed out, so it provides no result about
+other pages or images. The request URLs, response bodies/statuses and hashes
+are retained in `.tmp/jp-natural-bmp-archive-check-20261025/RESULT.json`
+(SHA-256 `36be07dce2a9b36fc0c6f82cff3b8ebefc4949f64268944ee53dbe9337657cf1`).
+
+This is a current query of one public archive, not proof that no copy survives
+elsewhere or that the historical service never returned image resources. A
+published reverse-engineering account likewise reports that the exact former
+homepage content is no longer available and describes the old URL as long
+dead ([Edge of Emulation, “Mobile Adapter GB – Part 1”](https://shonumi.github.io/articles/art14.html)).
+Consequently, a naturally served top-down BMP and its pre-pixel renderer
+metadata remain unverified; the synthetic rendering result above is still the
+only positive trace for that conditional path.
+
 ## Reproduction points
 
 The static claims can be rechecked directly at the listed source locations. The
