@@ -48,6 +48,20 @@ Additional bounded indirect tables were checked: result-page banners use bank 4B
 
 This is a finite source/declared-table negative, not a proof of global non-use. `BankSwitch_H/D/B`, `ReadByteFar`, and `Gfx_StartHDMA*` accept dynamic bank inputs (`home/bank_switch.asm:7–66`, `home/far_read.asm:7–69`, `home/gfx_upload.asm:7–92`); sprite hooks restore a bank from a WRAM slot (`home/sprites.asm:32–43`); and `PalLibCandidate_WriteRomBankLowAAndZeroHigh` writes a caller-provided A (`engine/gfx/palette_library_candidate.asm:146–151`). The producers/domains for those inputs and the 99 unresolved operation rows remain open. Preserve the six tails without new assets or global `unused` labels until a consumer or a source-complete selector census resolves them.
 
+## Five candidate spans rechecked against the current 72-scenario corpus (2026-10-24)
+
+A grouped, read-only recheck matched the current `analysis/coverage_union.tsv`, all 72 scenario `callgraph.tsv` files, and all 72 `dataaccess.tsv` files against the five still-unresolved operation ranges:
+
+| Candidate span | Executed instruction starts | Recorded callgraph destinations | ROM data-read overlaps |
+|---|---:|---:|---:|
+| `2B:6CF5–6DB0` (`MailReply_ComposeFromRecord`) | 0 | 0 | 0 |
+| `2D:4E42–4E8C` (both body-locator entries) | 0 | 0 | 0 |
+| `29:50CE–5145` (palette-library wrapper and leaf) | 0 | 0 | 0 |
+| `70:4740–477F` (`SaveCheck_GetStateBlockBit7`) | 0 | 0 | 0 |
+| `55:5DF5–5E02` (keyboard fragment) | 0 | 0 | 0 |
+
+This is a current-corpus negative only; in particular the internal static edge `2D:4E49 → 2D:4E54` does not supply an outer root. It does not establish global unreachability, non-use, or purpose, and it does not replace the existing per-candidate static/ABI reviews. The current 72 scenarios include the two later replay scenarios `zz_jp_inbox_explore_replay` and `zzzz_mailbox_cursor_count`; neither adds an observed start/edge/read in these ranges. Reproduce with `.tmp/jp-candidate-entry-corpus-recheck-20261024/audit.py` (SHA-256 `39d2744a85e8fc92d3396cd3d82c78b093d95a055e434bd738691e8d6002288c`), pinned input manifest `INPUTS.json` (SHA-256 `114c09ea3321925bc87906c4b99427cf5ea8e95a9bb1d477bbd48611b3be7bd6`), and `RESULT.json` (SHA-256 `e34381346c87154e6253b02835af06db83b72b06cb9fbb010ec6146aa8355e3d`). The script verifies the immutable ROM SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570` and coverage-union SHA-256 `0c1986ea507df1172474f07f4a8959b6a872b2fd49912c31bafd551c1dfa37ae`.
+
 ## Effect on closure status
 
 This review adds a confirmed static callback mechanism and narrows several specific candidate routes, but promotes no unresolved natural entry, global unused classification, or semantic purpose. The current source census still has no generic address-only function/data/font names or bare `gfx/bankNN` paths; this is a separate lexical gate and does not mean every code/data span is semantically identified. Japanese closure is not yet 100%: the documented candidate roots, auxiliary spans, Bank 53 name/frame associations, Porygon assignments, and global frame-use status retain their stated evidence limits. English/ZIP remains paused pending Japanese closure and explicit Operator approval.
