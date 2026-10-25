@@ -412,6 +412,36 @@ Classification: **CONFIRMED** for the instruction-level transforms and
 modular interval formulas; **OPEN** for unconditional physical bounds and
 natural-record invariants.
 
+## Scanner aggregate invariant under a valid resource chain
+
+The scanner's retained count is narrower than an arbitrary modular `M`.
+After the row loop, it restores `BC=N`, copies that to `DE`, and begins the
+following-record scan (`51:395-411`). The URL loop only increments `BC`; each
+subsequent resource step adds five bytes and its 16-bit body length. It never
+subtracts. `DE` is refreshed from `BC` only after the high-byte and projected
+SRAM3-address checks at `51:402-410`. If a later step stops before that refresh,
+the previous `DE` value is retained. Therefore, **conditional on a contained,
+well-formed record chain and no 16-bit wrap**, the count passed to the two
+`CopyBytes` calls satisfies `N <= M <= $0FFF`; the first copy cannot underflow
+and its destination ends at `$D000+M <= $DFFF`. This is a source-derived
+invariant under those preconditions, not proof that every server response meets
+them. The maximum can exceed the declared `$0900`-byte `wTileStage3` symbol.
+
+The scanner's accepted `DE` values also pass the projected end check based on
+`F+9 = P+O+5`, which leaves the five final zero stores inside SRAM3. One exit
+does not refresh `DE`: if the initial `M=N` scan stops before the first accepted
+refresh, only the earlier `P+O+N < $C000` check applies; it does not reserve
+five bytes. The exact final-store bound therefore remains open for that edge.
+The scanner begins at `Q=T+2`; that is the next resource boundary only if
+`Lold=O+r*H+2`. Until that record-length relation and the natural chain's
+termination/containment are demonstrated, the conditional invariant cannot be
+promoted to the actual historical inline-image route. Receipt
+`.tmp/jp-bmp-scanner-aggregate-20261025/RESULT.json` (SHA-256
+`6250e15714e6803f797bc6a74123a0a33f4d5119ffa687790985a07393af8d32`).
+Classification: **CONFIRMED** for the accumulator and retained-register
+algebra; **OPEN** for the natural-chain preconditions and first-iteration
+five-store edge.
+
 ## HTTP body length and physical receive ceiling (2026-10-25)
 
 The maintained inline-image route makes the resource length field precise.
