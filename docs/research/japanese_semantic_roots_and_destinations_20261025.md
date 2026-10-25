@@ -27,18 +27,21 @@ classifies those sites as follows:
 | No maintained application root | 3 | One `MobileAPI_PeerReceive` family. The three sinks share caller-supplied `HL`; no maintained app call selects API index `$3A`. |
 | **Total** | **120** | 48 application/home sites and 72 SDK sites. |
 
-The two partial sites are `engine/browser/inline_image_blit.asm:535` and
-`:541`. They are reached through `Html_LoadPageImages`: `Html_NextResourceRecord`
-reads a length-prefixed resource and returns its body pointer, then
-`Bmp_ConvertToTiles` receives that pointer. The two `CopyBytes` operations move
-between the resource pointer and WRAM3 `wTileStage3`. The record length is not
-passed to the converter. `Bmp_ParseHeader` uses the BMP pixel-data offset and
-`Bmp_CheckSize` rejects width >=145 but does not reject zero width; it rejects
-zero height and height >=97. No check compares
-the computed source/write extent with the length-prefixed resource extent.
-Thus the normal image operation is understood under the valid-record
-precondition; the full interval for malformed or truncated network records is
-not proven safe.
+The two inherited-DE rows map to `CopyBytes` at
+`engine/browser/inline_image_blit.asm:535` and `:541`, which are canvas staging
+copies, not BMP input reads. The actual BMP row read is at `:266`. Its caller
+does compute a nested response-record end with `Html_NextResourceRecord` and
+passes that pointer in `DE`; `Bmp_ConvertToTiles` overwrites it with the saved
+input pointer before processing. The converter therefore has no retained
+payload bound. The row interval is derived from the pixel offset, width and
+height; `Bmp_CheckSize` permits width zero, rejects width >=145, and accepts
+height 1..96. The exact static contract, interval formula and evidence boundary
+are documented in
+[`japanese_bmp_record_bounds_20261025.md`](japanese_bmp_record_bounds_20261025.md).
+Accepted zero-width bottom-up headers leave the converter looping at WRAM3
+`$D000`; top-down headers take a separate early return. The nonzero-width path
+is statically bounded against the SRAM window, but not against the nested
+payload length. Safety for truncated/corrupted responses is not established.
 
 The three `MobileAPI_PeerReceive` sinks are `lib/mobile/main.asm:3341`,
 `:3393` and `:3397`. The full maintained lexical API-call census records 100
@@ -149,8 +152,11 @@ and [`japanese_remaining_semantics_batch_20261024.md`](japanese_remaining_semant
 
 ## Remaining work required for semantic closure
 
-1. Bound the complete source and destination intervals reaching the two BMP
-   copy sites, including natural relocation and declared record lengths.
+1. BMP source-length handling is now statically reconciled: the natural caller
+   computes a nested record end, the converter discards it, and the row-read
+   interval is derived from header offset/dimensions without a payload-bound
+   comparison. Reopen only with evidence about malformed-response production,
+   SDK receive guarantees, or a runtime SRAM boundary.
 2. Treat `MobileAPI_PeerReceive` as excluded from maintained Japanese
    application routes by the 100-site immediate-index census. Reopen only if a
    new `$3A` producer or indirect API entry is demonstrated; external callers
