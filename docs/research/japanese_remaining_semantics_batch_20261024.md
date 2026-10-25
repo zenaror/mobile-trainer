@@ -563,3 +563,28 @@ Reproduce with `.tmp/jp-readbytesfar-entry-20261024/audit.py` (SHA-256
 ROM SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`,
 the 349-file source manifest, `analysis/mapper/inline_tables.tsv`,
 `analysis/coverage_union.tsv`, and all 72 data-access reports.
+
+### Orphaned ROM0 copy helpers: direct-entry follow-up (2026-10-24)
+
+The same bounded entry check was applied as one batch to two other maintained
+ROM0 readers/copy helpers without a direct source caller:
+`Glyph_CopyToLeftBuf` (`00:0E7E–0E91`) and `CopyFar16ByteBlocks`
+(`00:172D–176F`). The 349-file Japanese source census finds only each helper's
+definition. The immutable ROM contains none of the checked near `CALL`/`JP`
+or inline far-call/far-jump encodings to either entry; the recognized inline
+dispatch tables contain no target in either interval; and the retained
+72-scenario instruction union and data-access reports record no instruction
+extent or ROM0 read overlapping either body.
+
+These are bounded direct-entry and retained-corpus negatives only. Both
+helpers accept computed pointers/banks, so arbitrary `JP HL`, copied code,
+unrecognized pointer tables and unobserved state remain outside this check.
+Their local copy mechanics stay **PROBABLE** and natural entry/use remains
+unknown; no global unused claim follows.
+
+Reproduce with `.tmp/jp-orphan-rom0-copy-helpers-20261024/audit.py` (SHA-256
+`44c9e0694f82b01e303ddae6c92d789d27140a69e2fac3b91f07e79ba5dee986`). Receipt
+`.tmp/jp-orphan-rom0-copy-helpers-20261024/RESULT.json` (SHA-256
+`5ca1978eb2f880c4b1176595fe2d1836ab2ca83fc41621a218b51b34d7114364`) pins
+the protected ROM, 349-file source manifest, recognized inline tables,
+retained instruction union and all 72 data-access reports.
