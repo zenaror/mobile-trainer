@@ -412,6 +412,42 @@ Classification: **CONFIRMED** for the instruction-level transforms and
 modular interval formulas; **OPEN** for unconditional physical bounds and
 natural-record invariants.
 
+## HTTP body length and physical receive ceiling (2026-10-25)
+
+The maintained inline-image route makes the resource length field precise.
+`Browser_FetchInlineImages` passes `wBrowserRxPtr` (the cursor immediately
+after the URL NUL, at the next record's 16-bit length word) as `DE` and passes
+`BC = $BFFC - DE` to `Http_StartGet`. `MobileAPI_HttpGet` retains that base and
+capacity. `MobileSDK_HttpPrepareRequestPackets` sets the HTTP result pointer to
+the supplied base, starts body copies at base+2, and reserves those two bytes
+by reducing the remaining capacity by two. `MobileSDK_HttpBodyStart` counts
+copied response-body bytes after the HTTP headers; on completion the SDK writes
+the accumulated `wMobileSDK_ReceivedLength` at the result pointer. Therefore
+the nested record stores the body byte count, **excluding** the two-byte record
+prefix. `Html_NextResourceRecord` returns body start at record+2 and end at
+record+2+that count.
+
+For this maintained inline-image caller, the SDK's capacity checks keep the
+body interval within `[DE+2, $BFFC)`: the maximum body count is
+`$BFFC-DE-2`. This is a confirmed receive-buffer ceiling, not a converter
+payload validation. `Bmp_ConvertToTiles` still discards the `DE` end returned by
+`Html_NextResourceRecord`, and does not compare palette, row, metadata, or copy
+intervals against the recorded body length. Its `$C0` high-byte test on
+`P+O+N` also has no carry check. Thus this pass closes the HTTP record-count
+and ordinary receive-capacity questions, but not the natural BMP-length
+relation, modular-wrap cases, scanner aggregate, or the five trailing stores.
+
+In particular, the earlier conditional invariant
+`Lold = O + r*H + 2` is not explained by the record prefix: `Lold` is the body
+byte count. The source parser ignores the BMP file-size field, so the Japanese
+ROM contains no enforced relation between HTTP body length and the BMP fields
+used by the converter. A natural response with two trailing bytes could meet
+the equation; the source alone does not show that the actual historical image
+responses had them. See receipt `.tmp/jp-bmp-http-body-length-20261025/RESULT.json`
+(SHA-256 `d7c405c9918ff22b46199f6c81e5574bca4524933e079dafef3a7035ea4670a9`).
+Classification: **CONFIRMED** for record/body-count and receive-ceiling
+semantics; **OPEN** for actual natural response lengths and converter bounds.
+
 ## Reproduction points
 
 The static claims can be rechecked directly at the listed source locations. The
