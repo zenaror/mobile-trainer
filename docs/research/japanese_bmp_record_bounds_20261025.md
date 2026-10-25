@@ -91,6 +91,38 @@ final PC do not mean the converter returned: final `75:6149` is
 This confirms the conditional mainline hang in the synthetic mGBA scenario,
 not native-hardware behavior or general malformed-record safety.
 
+## Positive-width short-payload over-read
+
+A second synthetic response separates the zero-width loop from the payload
+bound question. The fixture is a 64-byte, valid-header, 1-bpp BMP with pixel
+offset 62, width 1, height 32, bottom-up orientation, and only two payload
+bytes (`AA 55`). Its `image_size` field says 128, but the actual BMP and nested
+HTTP response length are 64 bytes. The ordinary browser replay returned this
+64-byte response with HTTP 200 and entered `Bmp_ConvertToTiles`.
+
+For width 1, the converter copies `ceil(1/8) = 1` byte per row and advances
+the source by `align_up(1, 4) = 4` bytes. Its 32 row-read addresses relative to
+the BMP start are therefore `62 + 4*n`, for `n=0..31`: 62, 66, ..., 186.
+Only offset 62 is within the declared file; offsets 66 through 186 are 31
+reads past the 64-byte record end. This is **CONFIRMED statically** for the
+accepted bottom-up header and non-wrapping address arithmetic. The trace
+coverage records 32 executions each at `51:725D` (row `CopyBytes`) and
+`51:729C` (row completion), and the callgraph records 32 calls from
+`51:725D` to `00:050C`. The retained data-access report merges SRAM reads by
+range/bank; it does not identify each of these individual pixel addresses.
+Thus runtime evidence confirms the converter path and row count in the
+synthetic replay, while the exact out-of-record address set comes from the
+source arithmetic, not a per-bus-access trace.
+
+This fixture establishes an accepted short-payload case in the instrumented
+mGBA/fake-network setup. It does not establish that a real Mobile Adapter or
+external server can deliver the same inconsistent response, nor the values
+returned by physical SRAM beyond the nested record. It is evidence of a
+missing record-bound check and conditional out-of-record reads, not evidence
+of a security exploit or of natural external-network behavior. The receipt
+and all output hashes are in
+`.tmp/jp-bmp-payload-overread-20261025/RESULT.json`.
+
 ## Distinguish the other two copies
 
 The previously cited `CopyBytes` at `51:73A1` and `51:73AB`
