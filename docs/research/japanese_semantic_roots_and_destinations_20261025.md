@@ -1118,3 +1118,30 @@ Reproduction: `.tmp/jp-bank23-format-preview-20261025/audit.py` (SHA-256
 `RESULT.json` (SHA-256
 `5bbe1ba8b491d531dc2541ed0925571b8a52ac9431823fd7fc2bbdb8f2bef9f7`); the
 four assumption-labeled PNGs are in its `model_signed_attr08/` subdirectory.
+
+#### Bank 23 raw far-pointer shape scan (2026-10-25)
+
+A bytewise scan of the entire protected ROM checked both contiguous far-pointer
+layouts whose bank byte is `$23` and whose little-endian address lies in
+`[7C03,7F30)`: `[addr16,$23]` and `[$23,addr16]`. It found 44 byte-shape
+coincidences. The current linker map owns all 44: 21 occur in code sections,
+and all three bytes of each are covered by the retained byte-validated
+instruction index; the surrounding instruction bytes show they are not
+contiguous pointer records. The other 23 are in GFX/font sections. None occurs
+physically in Bank 23. The same retained index has no direct `CALL`/`JP`/`JR`
+target or `LD rr,imm16` operand from physical Bank 23 into the candidate range.
+
+This closes these two literal byte layouts and those indexed direct-transfer
+forms only. It does not rule out computed, split, stack-derived, copied,
+unindexed or runtime-created readers, and does not identify the candidate's
+natural loader or use. The candidate remains `CandidateMapData_23_7C03` with
+overall role/use **HYPOTHESIS**. The original ROM SHA-256 is
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`; the
+instruction-index SHA-256 is
+`77ed524f29e27610a2401bcb6595afe27bc6690e2ab5b203b2c7880fbe245024`; the
+linker-map SHA-256 is
+`f23ca429a45d4047e03d5a9aa940cbebefdd2e2331e1c9695ff52bcb564e3838`.
+Reproduce with `.tmp/jp-bank23-literal-far-pointer-shapes-20261025/audit.py`
+(SHA-256 `33256e55e395271b77a0abc99e7b23be905ec41533407a984f2860a6fcfabd11`)
+and `RESULT.json` (SHA-256
+`e4c532450c9cb0c7ef0b70fcc8f4aee6ccd19527df2ad01c06789590c5cb53e2`).
