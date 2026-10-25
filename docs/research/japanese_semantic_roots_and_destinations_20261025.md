@@ -1190,7 +1190,7 @@ visual purpose.
 
 | Physical range | Maintained interpretation and reader | Closure within reviewed evidence |
 |---|---|---|
-| `1E:4357–48C1` | Seven 9×11 tile-index/attribute frame pairs (`$C6` bytes each), selected through `TopMenu_AnimTilemapFrames` by `engine/menus/top_menu.asm`. | **CONFIRMED format and consumer.** Retained reads cover only part of the seven-frame set; do not claim all frames reached. |
+| `1E:4357–48C1` | Seven 9×11 tile-index/attribute frame pairs (`$C6` bytes each), selected through `TopMenu_AnimTilemapFrames` by `engine/menus/top_menu.asm`. | **CONFIRMED format and consumer.** Corrected interval-overlap audit finds all 198 bytes of each of the seven records read in the retained corpus; the earlier partial-read statement is superseded. This is read coverage, not proof of every displayed animation sequence. |
 | `4A:5770–5838` | Five 2×10 tile-index/attribute records selected via the cursor-indexed pointer table in `engine/account/settings_menu.asm`; copied by `Tilemap_CopyRectAndAttr`. | **CONFIRMED layout, five meanings and selection.** The old no-read statement for entry 4 was incorrect: retained `settings_phone` reads `[4A:54A0,5838)`, covering it. Frame 1984 displays the phone highlight; frame 2001 dispatches to its handler. The following object-table entry is not another map. |
 | `5D:5000–5320` | Four 5×20 tilemap/attribute pairs at `$C8` stride, selected by the password-entry variant table and copied by the account-screen path. | **CONFIRMED format and source selection contract.** The records are structured screen data, not missing 2bpp art. |
 | `71:5038–5338` | Eight 4×12 tile-index/attribute pairs at `$60` stride, indexed by `CommPanel_CaptionMaps`. | **CONFIRMED format, captions and bounded phase/variant selection.** See the caption contract below. Natural traces do not establish execution of every combination; DION entries 1/3 are unselected by valid table inputs, not globally proven unused. |
@@ -1447,3 +1447,13 @@ Thus the historical corpus already supplies positive execution evidence;
 no new emulator run was needed. Do not equate the absence of a row starting
 exactly at an asset boundary with absence of an overlapping read.
 This closes the five-highlight selection question, including the hidden item.
+
+
+The concrete settings false-negative prompted a bounded cross-check of the
+same summary's two other partial-read claims. All seven top-menu records have
+198/198 bytes covered in respectively 55, 54, 24, 23, 8, 5 and 2 retained
+scenario reports. Bank71 caption records 0/2/4/5 have 96/96 bytes covered in
+16/5/8/3 reports; records 1/3/6/7 have no overlapping reads in this corpus.
+The top-menu partial-read claim is therefore superseded; the Bank71 runtime
+qualification remains. These counts concern ROM-data-read intervals, not
+universal use/non-use or display ordering. No trace was rerun.
