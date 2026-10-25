@@ -219,6 +219,39 @@ script SHA-256
 This only closes exact contiguous table-order duplication; reordered/split
 records, computed addresses and bank-implicit readers remain untested.
 
+#### Reconciliation of all 420 raw word coincidences (2026-10-25)
+
+I mapped every occurrence through the linked RGBDS sections at the current
+source-identical build. All 420 hits belong to 84 sections: 403 are in GFX,
+font/text-data or audio sections, and 17 are in engine/library sections. None
+is unowned or linker padding. The 17 code/library-section hits were then
+checked against their exact source and neighboring original-ROM bytes:
+
+| Physical location(s) | What the bytes represent | Bank-relative result |
+|---|---|---|
+| `0F:4023`, `0F:402D`, `0F:402F` | Entries in `Mail_HeaderStringTable` | Real near pointers to `0F:40A3` and twice to `0F:4164`, strings in the same physical Bank 0F; not Bank 53 pointers |
+| `2F:40D5` | Operand of `call nz` in `AbookList_Run_CheckButtonB` | Calls `AbookList_CursorUp` at `2F:4109` |
+| `4C:4093` | Operand of `jp .poll_disconnect` | Branches to `4C:407C` |
+| `65:40B4`, `40BD`, `4108`, `4111` | Operands of four startup `call`s | Calls `Registration_ReadStage` at `65:4123` |
+| `65:411B`, `4121` | Entries in `Startup_ConfigBlankJumpTable` | Two same-bank entries to `65:40E2` |
+| `7F:4055`, `4068` | Operands of `call Glyph_JisToKuTen` | Calls `7F:40B0` |
+| `5C:546C` | Two adjacent digit-tile bytes `$3F,$40` | Data, not an address |
+| `48:4891` | Last byte of one glyph-run pointer followed by the next record's key byte | The two-byte `$4059` match straddles fields; it is not a `$4059` pointer |
+| `75:4095` | Two bytes straddling adjacent `MobileSDK_ApiTable` entries | Unaligned match, not a table word |
+| `75:51BE` | Adjacent one-byte instructions in the HTTP leftover-copy path | Not an address operand |
+
+Thus the apparent matches in executable/table sections either resolve to
+near references within their actual physical bank or are cross-field byte
+coincidences. The other 403 occur in sections assembled as GFX/font/text/audio
+payloads. None supplies a reference to physical Bank 53. This closes the raw
+word-hit classification against the current linked section map; it does not
+exclude a computed, copied, bank-implicit, RAM/SRAM or externally supplied
+reader. Reproduction: `.tmp/jp-bank53-raw-name-occurrences-20261025/classify_pointer_words.py`
+(SHA-256 `048779792d8e4265b1c08933352fd2ddb9cb814c83ce75925f0208e7f15970e0`),
+using map SHA-256 `163fdad3cb91b55a523d51fecf6b45ec19c639fe032a8b89731e0200cda33d43`;
+receipt `POINTER_WORD_OWNERS.json` SHA-256
+`7ead77e6666fde17ee745b70f120addf9f3190193ec401360c1e1d1124aa9c09`.
+
 Therefore all 25 executable name-to-frame associations remain
 **HYPOTHESIS/UNKNOWN**, and no frame is globally classified used or unused.
 There is no evidence of a missing PNG in the audited scope. The remaining
