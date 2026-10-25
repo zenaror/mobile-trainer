@@ -37,7 +37,7 @@ MailSession_ShowCommError:: ; 26:5067
 	ret
 
 MailSession_PollAdapterError:: ; 26:50AC
-Function_26_50AC::
+
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wTimerEnable]
@@ -90,7 +90,7 @@ MailSession_ShowCommErrorNoWindow:: ; 26:50C6
 	ld a, $80
 	ret
 MailSession_CompareWordDeltas:: ; 26:5106 [PROBABLE] word-delta predicate
-Function_26_5106:: ; 26:5106
+
 	push bc
 	push de
 	push hl
@@ -169,7 +169,7 @@ Function_26_5106:: ; 26:5106
 	ret
 
 MailSession_InitScreen:: ; 26:5168
-Function_26_5168::
+
 	; [CONFIRMED] 122 insn(s); 122 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -377,17 +377,66 @@ Function_26_5168::
 	ld bc, $0000
 	ret
 
-Stub_Nop_26_5343:: ; 26:5343
-Function_26_5343::
+MailSession_TimerDisplayReturnOnly:: ; 26:5343
+	; [CONFIRMED] Single RET called at 26:58E0 by MailSession_UpdateTimerDisplay; that call
+	; returns before MailSession_WriteVram1TileAndWram7ScreenRows and does not fall through
+	; into the following fragment.
 	ret
 
-; ---- data $5344-$537C (56 bytes) [HYPOTHESIS] UNCLASSIFIED 56 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint) [g4: complete self-contained decode ending in ret with no caller/table/far-pointer reference found, so left unclassified]
-
-Data_26_5344:: ; 26:5344
-	db $F5, $C5, $D5, $E5, $F0, $70, $5F, $16, $32, $D5, $3E, $01, $E0, $4F, $21, $10
-	db $90, $06, $10, $3E, $FF, $22, $05, $20, $FA, $3E, $07, $E0, $8D, $E0, $70, $21
-	db $60, $D1, $06, $40, $AF, $22, $3C, $05, $20, $FB, $D1, $15, $20, $DB, $7B, $E0
-	db $8D, $E0, $70, $E1, $D1, $C1, $F1, $C9
+MailSession_WriteVram1TileAndWram7ScreenRows:: ; 26:5344
+	; [PROBABLE] Code fragment: the WRAM7 $D160-$D19F ascending stores correspond to the
+	; live InitScreen VRAM0 $9960-$999F fill at 26:52D8-52E6 (screen-map offset $160).
+	; Entry and intended role remain HYPOTHESIS; the called RET at 26:5343 bypasses it.
+	; If entered, 50 iterations issue 16 $FF stores to VRAM1 $9010-$901F and 64 ascending
+	; $00-$3F stores to WRAM7 wScreenTileMap+$160. There is no DI, LCD disable or VBlank
+	; wait here: VRAM acceptance and uninterrupted mapping are preconditions, not observed facts.
+	; MailSession_InitScreen also uploads MailSession_Tiles_62E0 to VRAM1 $9000; its second
+	; tile at ROM $62F0 is already 16 x $FF (original-ROM bytes match the tracked asset).
+	; The candidate's VRAM fill duplicates that tile value if both operations occur in order;
+	; this does not establish entry or explain the accompanying map writes.
+	; With a non-overlapping, physically bank-invariant stack, AF/BC/DE/HL restore; rSVBK
+	; is written to both hWRAMBank and rSVBK; an initially different shadow is not preserved.
+	; rVBK stays 1 without updating hVRAMBank. See naming2_verify_fn4.md (2026-10-15).
+	push af
+	push bc
+	push de
+	push hl
+	ldh a, [rSVBK]
+	ld e, a
+	ld d, $32
+.repeatFills ; 26:534D
+	push de
+	ld a, $01
+	ldh [rVBK], a
+	ld hl, $9010
+	ld b, $10
+.fillTileFF ; 26:5357
+	ld a, $FF
+	ld [hli], a
+	dec b
+	jr nz, .fillTileFF
+	ld a, $07
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, wScreenTileMap + $160
+	ld b, $40
+	xor a, a
+.fillScreenRows ; 26:5369
+	ld [hli], a
+	inc a
+	dec b
+	jr nz, .fillScreenRows
+	pop de
+	dec d
+	jr nz, .repeatFills
+	ld a, e
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop hl
+	pop de
+	pop bc
+	pop af
+	ret
 
 MailSession_DrawMailCounts:: ; 26:537C
 	; [CONFIRMED] 318 insn(s) reached by static flow only; seeds: exec x318; min discovery hops 5;
@@ -532,12 +581,12 @@ MailSession_DrawNumber:: ; 26:5447
 	ldh [rSVBK], a
 	ld hl, MailSession_NumberTemplate
 	ld de, wMailTextScratch
-.loop ; 26:5455
+.copy_number_template ; 26:5455
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, .loop
+	jr nz, .copy_number_template
 	pop bc
 	pop hl
 	push bc
@@ -742,7 +791,6 @@ MailSession_DrawNumber:: ; 26:5447
 
 PUSHC sjis
 MailSession_NumberTemplate:: ; 26:5575
-String_26_5575::
 	db "０００００", 0
 POPC
 
@@ -761,7 +809,7 @@ MailSession_TotalNumberBuffer:: ; 26:5580
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5580-566E by apply_coverage --split
 	ld bc, wTileStage2 + $70
-	jp .l55DD
+	jp .pop_hl_de_and_return
 
 .l5596 ; 26:5596
 	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5580-566E by apply_coverage
@@ -777,7 +825,7 @@ MailSession_TotalNumberBuffer:: ; 26:5580
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5580-566E by apply_coverage --split
 	ld bc, wTileStage2 + $80
-	jp .l55DD
+	jp .pop_hl_de_and_return
 
 .l55AC ; 26:55AC
 	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5580-566E by apply_coverage
@@ -793,7 +841,7 @@ MailSession_TotalNumberBuffer:: ; 26:5580
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5580-566E by apply_coverage --split
 	ld bc, wTileStage2 + $90
-	jp .l55DD
+	jp .pop_hl_de_and_return
 
 .l55C2 ; 26:55C2
 	; [CONFIRMED] 21 insn(s) executed; cut out of the PROBABLE region 5580-566E by apply_coverage
@@ -806,11 +854,11 @@ MailSession_TotalNumberBuffer:: ; 26:5580
 	cp a, $00
 	jr z, .l55D8
 	ld bc, wTileStage2 + $A0
-	jp .l55DD
+	jp .pop_hl_de_and_return
 .l55D8 ; 26:55D8
 	ld bc, wTileStage2 + $B0
 	ld a, $01
-.l55DD ; 26:55DD
+.pop_hl_de_and_return ; 26:55DD
 	pop hl
 	pop de
 	ret
@@ -827,7 +875,7 @@ MailSession_CurrentNumberBuffer:: ; 26:55E0
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5580-566E by apply_coverage --split
 	ld bc, wTileStage2 + $420
-	jp .l563D
+	jp .pop_hl_de_and_return
 
 .l55F6 ; 26:55F6
 	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5580-566E by apply_coverage
@@ -843,7 +891,7 @@ MailSession_CurrentNumberBuffer:: ; 26:55E0
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5580-566E by apply_coverage --split
 	ld bc, wTileStage2 + $420
-	jp .l563D
+	jp .pop_hl_de_and_return
 
 .l560C ; 26:560C
 	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5580-566E by apply_coverage
@@ -859,7 +907,7 @@ MailSession_CurrentNumberBuffer:: ; 26:55E0
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 5580-566E by apply_coverage --split
 	ld bc, wTileStage2 + $420
-	jp .l563D
+	jp .pop_hl_de_and_return
 
 .l5622 ; 26:5622
 	; [CONFIRMED] 33 insn(s) executed; cut out of the PROBABLE region 5580-566E by apply_coverage
@@ -872,11 +920,11 @@ MailSession_CurrentNumberBuffer:: ; 26:55E0
 	cp a, $00
 	jr z, .l5638
 	ld bc, wTileStage2 + $420
-	jp .l563D
+	jp .pop_hl_de_and_return
 .l5638 ; 26:5638
 	ld bc, wTileStage2 + $430
 	ld a, $01
-.l563D ; 26:563D
+.pop_hl_de_and_return ; 26:563D
 	pop hl
 	pop de
 	ret
@@ -906,15 +954,13 @@ MailSession_UploadNumberTiles:: ; 26:5640
 
 PUSHC sjis
 MailSession_Txt_Total:: ; 26:566E
-String_26_566E::
 	db "ぜんぶで", 0
 POPC
 
-; ---- text $5677-$567C (5 bytes) [PROBABLE] Shift-JIS "つう" + NUL between String_26_566E chunks (566E holds ぜんぶで / つう / つうめをチェックしています as consecutive NUL-terminated strings)
+; ---- text $5677-$567C (5 bytes) [PROBABLE] Shift-JIS "つう" + NUL between MailSession_Txt_Total and MailSession_Txt_Checking (566E, 5677 and 567C are consecutive NUL-terminated strings)
 
 PUSHC sjis
 MailSession_Txt_Counter:: ; 26:5677
-String_26_5677::
 	db "つう", 0
 POPC
 
@@ -922,7 +968,6 @@ POPC
 
 PUSHC sjis
 MailSession_Txt_Checking:: ; 26:567C
-String_26_567C::
 	db "つうめをチェックしています", 0
 POPC
 
@@ -945,12 +990,11 @@ MailSession_ShowMsgSending:: ; 26:5697
 
 PUSHC sjis
 MailSession_Msg_Sending:: ; 26:56B2
-String_26_56B2::
 	db "　　　　メールをそうしんしています　　　", 0
 POPC
 
 MailSession_ShowMsgReceiving:: ; 26:56DB
-Function_26_56DB::
+
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -969,14 +1013,13 @@ Function_26_56DB::
 
 PUSHC sjis
 MailSession_Msg_Receiving:: ; 26:56F6
-String_26_56F6::
 	db "　　　　メールをじゅしんしています　　　", 0
 POPC
 
 MailSession_ShowMsgSent:: ; 26:571F
-Function_26_571F::
+
 	; [PROBABLE] push bc / ld a,$02 / ldh [$FFB0],a / ld a,$26 / ld bc,$D400 / ld de,$D600 / ld
-	; hl,$573A: loads the address of String_26_573A that follows the far call at 572F; chain falls
+	; hl,$573A: loads the address of MailSession_Msg_Sent that follows the far call at 572F; chain falls
 	; through into that site-validated far call; entry unproven
 	push bc
 	ld a, $02
@@ -997,13 +1040,12 @@ Function_26_571F::
 
 PUSHC sjis
 MailSession_Msg_Sent:: ; 26:573A
-String_26_573A::
 	db "　　　　メールをそうしんしました　　　　", 0
 POPC
 
 MailSession_ShowMsgReceiveDone:: ; 26:5763
-Function_26_5763::
-	; [PROBABLE] same as 26:571F but ld hl,$577E (String_26_577E); chain falls through into the far
+
+	; [PROBABLE] same as 26:571F but ld hl,MailSession_Msg_ReceiveDone (577E); chain falls through into the far
 	; call at 5773; entry unproven
 	push bc
 	ld a, $02
@@ -1024,12 +1066,11 @@ Function_26_5763::
 
 PUSHC sjis
 MailSession_Msg_ReceiveDone:: ; 26:577E
-String_26_577E::
 	db "　　　　メールじゅしんかんりょう　　　　", 0
 POPC
 
 MailSession_ShowMsgNoMail:: ; 26:57A7
-Function_26_57A7::
+
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1048,7 +1089,6 @@ Function_26_57A7::
 
 PUSHC sjis
 MailSession_Msg_NoMail:: ; 26:57C2
-String_26_57C2::
 	db "　　　　メールはありませんでした　　　　", 0
 POPC
 
@@ -1071,7 +1111,6 @@ MailSession_ShowMsgCannotReceive:: ; 26:57EB
 
 PUSHC sjis
 MailSession_Msg_CannotReceive:: ; 26:5806
-String_26_5806::
 	db "　　　メールはうけとれませんでした　　　", 0
 POPC
 
@@ -1094,12 +1133,11 @@ MailSession_ShowMsgReceived:: ; 26:582F
 
 PUSHC sjis
 MailSession_Msg_Received:: ; 26:584A
-String_26_584A::
 	db "　　　　メールをうけとりました　　　　　", 0
 POPC
 
 MailSession_ClearMsg:: ; 26:5873
-Function_26_5873::
+
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1118,13 +1156,16 @@ Function_26_5873::
 ; Raw representation and both existing labels retained; bank48 glyph $8140 is16 zero bytes, emitted to two WRAM2 tile buffers. Original JP evidence only; English runtime/visual/fidelity/hardware UNVALIDATED.
 
 MailSession_Msg_Blank:: ; 26:588E
-Data_26_588E::
 	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
 	db $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40
 	db $81, $40, $81, $40, $81, $40, $81, $40, $00
 
 MailSession_UploadMsgTiles:: ; 26:58B7
-Function_26_58B7::
+	; [CONFIRMED] Active captions are rasterized text: WRAM2 D400 -> VRAM0 9400.
+	; The base map rows 14/15 use VBK0 indices40-53/60-73. The separately
+	; identified Bank23 candidate panels use prebaked VRAM1 title tiles instead;
+	; this upload does not select those maps or their title atlas.
+
 	; [CONFIRMED] 57 insn(s); 57 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ldh a, [rSVBK]
@@ -1151,7 +1192,7 @@ MailSession_UpdateTimerDisplay:: ; 26:58DC
 	push bc
 	push de
 	push hl
-	call Stub_Nop_26_5343
+	call MailSession_TimerDisplayReturnOnly
 	xor a, a
 	ldh [rVBK], a
 	ldh a, [rSVBK]
@@ -1188,7 +1229,7 @@ MailSession_UpdateTimerDisplay:: ; 26:58DC
 	cp a, $3C
 	jr c, .l5968
 
-.loop ; 26:5926
+.write_45_49_tile_pairs ; 26:5926
 	; [PROBABLE] 14 insn(s) reached by static flow only; seeds: exec x14; min discovery hops 0;
 	; fall-through of the jrcc at 26:5924 (executed)
 	ld a, $07
@@ -1212,7 +1253,7 @@ MailSession_UpdateTimerDisplay:: ; 26:58DC
 	ld a, [wTimerAMinutes]
 	add a, $3C
 	cp a, $64
-	jr nc, .loop
+	jr nc, .write_45_49_tile_pairs
 	ld l, a
 	ld h, $00
 	ld de, $000A
@@ -1284,15 +1325,15 @@ MailSession_StartHDMAAtVBlank:: ; 26:59B6
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, rLY
-.l59C6 ; 26:59C6
+.wait_ly_143 ; 26:59C6
 	ld a, [de]
 	cp a, $8F
-	jr nz, .l59C6
+	jr nz, .wait_ly_143
 	ld b, $91
-.l59CD ; 26:59CD
+.wait_ly_145 ; 26:59CD
 	ld a, [de]
 	cp a, b
-	jr nz, .l59CD
+	jr nz, .wait_ly_145
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a

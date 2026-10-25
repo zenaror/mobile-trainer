@@ -9,7 +9,7 @@ PUSHC sjis
 ; ---- ptrtable $4000-$4032 (50 bytes) [PROBABLE] 25 words: ten original offsets and fifteen
 ; bank-53 tail targets. Raw donor pointers and NUL string extents checked; no reader is established.
 
-Table_53_4000:: ; 53:4000
+Table_PokemonNamePointers:: ; 53:4000
 	dw PokemonName00
 	dw PokemonName01
 	dw PokemonName02

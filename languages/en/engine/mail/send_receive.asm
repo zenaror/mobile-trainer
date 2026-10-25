@@ -5,7 +5,7 @@
 SECTION "engine/mail/send_receive", ROMX
 
 MailSendRecv_Main:: ; 27:4000
-Function_27_4000::
+
 	; [CONFIRMED] 61 insn(s); 61 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $01
@@ -18,12 +18,12 @@ Function_27_4000::
 	ld hl, wMailSessionBlock
 	ld de, MailSendRecv_RequestTemplate
 	ld b, $07
-.loop ; 27:4017
+.copy_request_template ; 27:4017
 	ld a, [de]
 	ld [hli], a
 	inc de
 	dec b
-	jr nz, .loop
+	jr nz, .copy_request_template
 	farcall Mailbox_CountRecords
 	ld a, $0C
 	sub a, d
@@ -91,11 +91,10 @@ Function_27_4000::
 
 ; ---- data $409F-$40A1 (2 bytes) [HYPOTHESIS] UNCLASSIFIED 2 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
-Data_27_409F:: ; 27:409F
+MailSendRecv_CandidateJrToJoin_409F:: ; 27:409F
 	db $18, $5E
 
 MailSendRecv_Main_ErrorDisconnect:: ; 27:40A1
-Label_27_40A1::
 	; [PROBABLE] 8 insn(s) reached by static flow only; seeds: exec x8; min discovery hops 1;
 	; entered by jpcc from 27:4080 (PROBABLE code)
 	ld a, [wTimerEnable]
@@ -109,24 +108,22 @@ Label_27_40A1::
 	farcall MailDisconnect_ScreenNoTimer
 
 MailSendRecv_Main_EndNoSession:: ; 27:40BB
-Label_27_40BB::
 	; [CONFIRMED] 21 insn(s); 21 executed (in up to 2/18 scenarios)
 	farcall CommTime_TimerAIsNonZero
 	or a, a
 	jr nz, .l40C8
 	ld a, h
 	or a, l
-	jr z, .done
+	jr z, .return_to_caller
 .l40C8 ; 27:40C8
 	ld a, $00
 	ld [wBrowserScrollbarEnable], a
 	ld [wCommSessionKind], a
 	farcall CommTime_DrawSummaryScreen
-.done ; 27:40D6
+.return_to_caller ; 27:40D6
 	ret
 
 MailSendRecv_Main_RunSession:: ; 27:40D7
-Label_27_40D7::
 	farcall MailSession_Run
 	cp a, $80
 	cp a, $7F
@@ -219,16 +216,15 @@ Label_27_40D7::
 ; ---- data $417A-$4181 (7 bytes) [CONFIRMED] read as data by executed code (in up to 4/18 scenarios); content class unknown
 
 MailSendRecv_RequestTemplate:: ; 27:417A
-Data_27_417A::
 	db $04, $00, $00, $01, $24, $D5, $04
 
 	; [PROBABLE] 24 insn(s) reached by static flow only; seeds: site x24; min discovery hops 0; run
 	; starts at a raw `CD D1 06` (far-call) pattern site whose target agrees with decoded code
 	farcall Mobile_BeginCancel
-.loop ; 27:4187
+.poll_mobile_cancel ; 27:4187
 	farcall Mobile_CancelPoll
 	cp a, $01
-	jr z, .loop
+	jr z, .poll_mobile_cancel
 	cp a, $FF
 	jr z, .l4195
 .l4195 ; 27:4195
@@ -254,7 +250,7 @@ Data_27_417A::
 	ret
 
 Mail_OutboxIsEmpty:: ; 27:41BC
-Function_27_41BC::
+
 	; [CONFIRMED] 15 insn(s); 15 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $00
@@ -284,7 +280,7 @@ Function_27_41BC::
 	ret
 
 MailConnect_Screen:: ; 27:41E3
-Function_27_41E3::
+
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $00
@@ -328,12 +324,12 @@ Function_27_41E3::
 	ld b, $09
 	ld hl, wMailTextScratch
 	ld de, $C0A0 ; raw: scratch: 9 bytes copied from $D524, not a glyph
-.loop ; 27:4225
+.copy_mail_scratch_bytes ; 27:4225
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .loop
+	jr nz, .copy_mail_scratch_bytes
 	ld hl, wSpriteSlot8
 	ld de, MailSession_ObjTable_6F20_Entry68
 	ld a, BANK(MailSession_ObjTable_6F20_Entry68)
@@ -408,7 +404,7 @@ Function_27_41E3::
 .l42CF ; 27:42CF
 	farcall Session_ResetCounters
 	farcall Timer_ResetClockB
-	farcall Stub_Nop_7F_61FC
+	farcall Stack_PushPopAFAndReturn
 	xor a, a
 	ld [wCommSessionActive], a
 	ld hl, wBrowserTimerLastSec
@@ -837,10 +833,10 @@ MailConnect_Screen_Loop:: ; 27:4305
 
 ; ---- data $46A0-$46A1 (1 bytes) [HYPOTHESIS] UNCLASSIFIED 1 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
-Data_27_46A0:: ; 27:46A0
+MailSendRecv_CandidateRetOpcode_46A0:: ; 27:46A0
 	db $C9
 
-.loop ; 27:46A1
+.wait_for_a_or_b ; 27:46A1
 	; [PROBABLE] 26 insn(s) reached by static flow only; seeds: site x26; min discovery hops 0;
 	; entered by jr from 27:46DD (PROBABLE code)
 	push bc
@@ -870,11 +866,11 @@ Data_27_46A0:: ; 27:46A0
 	ld a, $FF
 	ret
 .l46DD ; 27:46DD
-	jr .loop
+	jr .wait_for_a_or_b
 
 ; ---- data $46DF-$46E5 (6 bytes) [HYPOTHESIS] UNCLASSIFIED 6 bytes: no code/data evidence (see analysis/mapper/unknown_spans.tsv for the hint)
 
-Data_27_46DF:: ; 27:46DF
+MailConnect_CandidateCallPollAndJpZShowError_46DF:: ; 27:46DF
 	db $CD, $47, $47, $CA, $E5, $46
 
 MailConnect_ShowError:: ; 27:46E5
@@ -897,15 +893,15 @@ MailConnect_ShowError:: ; 27:46E5
 	farcall Timer_ResetClockB
 	ld de, $C0A9 ; raw: dead load: Mobile_BeginDisconnect loads DE itself
 	farcall Mobile_BeginDisconnect
-.l471A ; 27:471A
+.poll_disconnect ; 27:471A
 	farcall Mobile_DisconnectPoll
 	cp a, $01
-	jr z, .l471A
+	jr z, .poll_disconnect
 	farcall Mobile_BeginCancel
-.l472A ; 27:472A
+.poll_cancel ; 27:472A
 	farcall Mobile_CancelPoll
 	cp a, $01
-	jr z, .l472A
+	jr z, .poll_cancel
 	cp a, $FF
 	jr z, .l4738
 .l4738 ; 27:4738
@@ -917,7 +913,7 @@ MailConnect_ShowError:: ; 27:46E5
 	ret
 
 MailConnect_PollAdapterError:: ; 27:4747
-Function_27_4747::
+
 	; [CONFIRMED] 6 insn(s); 6 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, [wTimerEnable]
@@ -945,7 +941,7 @@ Function_27_4747::
 	ret
 
 MailDisconnect_Screen:: ; 27:4768
-Function_27_4768::
+
 	; [CONFIRMED] 10 insn(s); 10 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $01
@@ -1447,7 +1443,7 @@ MailDisconnect_ScreenNoTimer:: ; 27:49B0
 	ret
 
 MailConnect_InitScreen:: ; 27:4B95
-Function_27_4B95::
+
 	; [CONFIRMED] 122 insn(s); 122 executed (in up to 4/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -1620,7 +1616,7 @@ Function_27_4B95::
 	; region); no direct caller/table entry found: entry HYPOTHESIS
 	call CommTime_DrawHMSScreen
 
-.loop ; 27:4D51
+.wait_for_a_or_b ; 27:4D51
 	; [PROBABLE] 18 insn(s) reached by static flow only; seeds: site x18; min discovery hops 0;
 	; entered by jr from 27:4D7F (PROBABLE code)
 	push bc
@@ -1642,7 +1638,7 @@ Function_27_4B95::
 	ld a, $FF
 	ret
 .l4D7F ; 27:4D7F
-	jr .loop
+	jr .wait_for_a_or_b
 
 CommTime_DrawHMSScreen:: ; 27:4D81
 	; [PROBABLE] 5 insn(s) (xor a ; ldh [$FF43],a ; push de ; push bc ; push af) falling into the
@@ -1782,9 +1778,9 @@ CommTime_DrawHMSScreen:: ; 27:4D81
 	ld [$992B], a
 	ld [$990C], a
 	ld [$992C], a
-	jp Label_27_4EEB
+	jp LCDOn_ReturnBCZero
+Gfx_UploadPalettesAndBgMaps_EnableLCD:: ; 27:4EC0 [PROBABLE] local operation
 
-Function_27_4EC0:: ; 27:4EC0
 	; [PROBABLE] 53 bytes/22 logical starts [4EC0,4EF5); farcall inline bytes are data.
 	; WRAM7 palette upload, saved-shadow restore, then 00:082C forces WRAM7 before RET4EF4.
 	; Entry/purpose HYPOTHESIS; JP4EBD->4EEB skips the prologue and reaches LCDOn/BC0/RET.
@@ -1811,8 +1807,7 @@ Function_27_4EC0:: ; 27:4EC0
 	ldh a, [hScratchA]
 	ldh a, [rLCDC]
 	call Gfx_UploadBgMapBuffers
-
-Label_27_4EEB:: ; 27:4EEB
+LCDOn_ReturnBCZero:: ; 27:4EEB [PROBABLE] local operation; entry unproved
 	farcall LCDOn
 	ld bc, $0000
 	ret
@@ -1875,11 +1870,11 @@ Label_27_4EEB:: ; 27:4EEB
 	ld l, a
 	ld h, $00
 	sub a, $3C
-	jr c, .skip
+	jr c, .draw_time_digits
 	ld hl, $003B
 	ld a, $3B
 	ldh [hMailCommTime_DisplaySeconds], a
-.skip ; 27:4F84
+.draw_time_digits ; 27:4F84
 	xor a, a
 	ldh [hCommTime_DigitStarted], a
 	ld bc, $FF9C
@@ -1906,7 +1901,6 @@ Label_27_4EEB:: ; 27:4EEB
 	ldh [hDialogResult], a
 
 CommTime_Summary_FrameLoop_27_4FC0:: ; 27:4FC0
-Label_27_4FC0::
 	farcall Sprite_UpdateAll
 	call VBlank_WaitAndService
 	farcall Joypad_UpdateIdleFrames
@@ -1915,7 +1909,7 @@ Label_27_4FC0::
 
 ; ---- ptrtable $4FD8-$4FE2 (10 bytes) [PROBABLE] inline table of `call $056A` (JoypadDispatch) at 27:4FD5: 5 entries; fixed length (5 words) by the routine
 
-Table_27_4FD8:: ; 27:4FD8
+CommTime_SummaryInputDispatchTable:: ; 27:4FD8
 	dw CommTime_SummaryInput_ButtonA_27_4FE2
 	dw CommTime_SummaryInput_IgnoreB_27_4FE5
 	dw CommTime_SummaryInput_IgnoreSelect_27_4FE8
@@ -1923,31 +1917,26 @@ Table_27_4FD8:: ; 27:4FD8
 	dw CommTime_Summary_FrameLoop_27_4FC0
 
 CommTime_SummaryInput_ButtonA_27_4FE2:: ; 27:4FE2
-Label_27_4FE2::
 	; [PROBABLE] 63 insn(s) reached by static flow only; seeds: site x63; min discovery hops 0;
 	; entered by table from 27:4FD5 (PROBABLE code)
 	jp CommTime_Summary_Close_27_4FEE
 
 CommTime_SummaryInput_IgnoreB_27_4FE5:: ; 27:4FE5
-Label_27_4FE5::
 	jp CommTime_Summary_FrameLoop_27_4FC0
 
 CommTime_SummaryInput_IgnoreSelect_27_4FE8:: ; 27:4FE8
-Label_27_4FE8::
 	jp CommTime_Summary_FrameLoop_27_4FC0
 
 CommTime_SummaryInput_IgnoreStart_27_4FEB:: ; 27:4FEB
-Label_27_4FEB::
 	jp CommTime_Summary_FrameLoop_27_4FC0
 
 CommTime_Summary_Close_27_4FEE:: ; 27:4FEE
-Label_27_4FEE::
 	farcall Palette_FadeOutToWhite
 	farcall Sprite_ResetAll
 	ret
 
 CommTime_DrawNumber_27_4FFB:: ; 27:4FFB
-Function_27_4FFB::
+
 	inc a
 	add hl, bc
 	bit 7, h
@@ -1980,7 +1969,7 @@ Function_27_4FFB::
 	ret
 
 CommTime_PutDigit_27_5021:: ; 27:5021
-Function_27_5021::
+
 	push bc
 	push de
 	ld h, d
@@ -2013,7 +2002,6 @@ Function_27_5021::
 ; ---- data $5048-$505C (20 bytes) [PROBABLE] 10 pairs of tile indices read by CommTime_PutDigit_27_5021: DE=$5048+((2*A)&$FF), then bytes at DE/DE+1 are stored at the input destination and destination+$20; attribute bytes $08 go to destination+$400 and destination+$420. A=0..9 selects these 10 pairs; the routine does not clamp A. Entries 3 and 9 are $69,$6F and $6E,$7F (preserved); exactly 8 of 10 second bytes equal first+$10. In original JP evidence, the caller path and all 20 bytes are unexecuted/unread in the 69 natural scenarios; the former row/no-reference hypothesis is contradicted by this computed reader. No visual digit appearance is validated. Original JP evidence only; English runtime/visual/fidelity/hardware UNVALIDATED.
 
 Table_CommTime_DigitTiles_27_5048:: ; 27:5048
-Data_27_5048::
 	db $67, $77, $68, $78, $69, $79, $69, $6F, $6A, $7A, $6B, $7B, $6C, $7C, $6D, $7D
 	db $6E, $7E, $6E, $7F
 

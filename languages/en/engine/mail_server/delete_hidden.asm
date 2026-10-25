@@ -84,13 +84,13 @@ MailSrvDelHidden_MenuLoop:: ; 22:4076
 	pop de
 	pop bc
 	dec c
-	jr z, .l40AE
+	jr z, .check_and_delete
 	dec c
-	jr z, .l40ED
+	jr z, .delete_completely
 	call MailSrvDelHidden_DeleteAll
 	ld c, $00
 	jr .l40B3
-.l40AE ; 22:40AE
+.check_and_delete ; 22:40AE
 	call MailSrvDelHidden_CheckAndDelete
 
 	; [PROBABLE] 1 insn(s) never executed in the traced runs; cut out of the PROBABLE region
@@ -129,7 +129,7 @@ MailSrvDelHidden_MenuLoop:: ; 22:4076
 	call MailSrvDelHidden_MenuInit
 	pop bc
 	jp MailSrvDelHidden_MenuLoop
-.l40ED ; 22:40ED
+.delete_completely ; 22:40ED
 	call MailSrvDelHidden_DeleteCompletely
 	ld c, $02
 	jr .l40B3
@@ -175,7 +175,7 @@ MailSrvDelHidden_MenuLoop:: ; 22:4076
 .l4148 ; 22:4148
 	ldh a, [hJoyPressedRepeat]
 	and a, PADF_UP
-	jr z, .l4170
+	jr z, .repeat_menu_loop
 
 	; [PROBABLE] 21 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 4000-43E0 by apply_coverage --split
@@ -195,7 +195,7 @@ MailSrvDelHidden_MenuLoop:: ; 22:4076
 .l416D ; 22:416D
 	call MailSrvDelHidden_MenuSelect
 
-.l4170 ; 22:4170
+.repeat_menu_loop ; 22:4170
 	; [CONFIRMED] 4 insn(s) executed; cut out of the PROBABLE region 4000-43E0 by apply_coverage
 	; --split [executed in 3 scenarios]
 	jp MailSrvDelHidden_MenuLoop
@@ -335,13 +335,13 @@ MailSrvDelHidden_MenuInit:: ; 22:422D
 	ldh [rSVBK], a
 	ld hl, wTileStage2
 	ld bc, $0F00
-.loop ; 22:42E7
+.clear_tile_stage ; 22:42E7
 	xor a, a
 	ld [hli], a
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, .loop
+	jr nz, .clear_tile_stage
 	pop bc
 	push bc
 	ld a, c
@@ -446,7 +446,6 @@ MailSrvDelHidden_ShowDescDeleteAll:: ; 22:43C5
 
 PUSHC sjis
 String_MailSrvDelHidden_DescDeleteAll:: ; 22:43E0
-String_22_43E0::
 	db "メールサーバにのこっているすべての　メールを、じどうでぜんぶけします　　じょうほうはたしかめられません　　　", 0
 POPC
 
@@ -464,10 +463,10 @@ MailSrvDelHidden_ShowDescCheck:: ; 22:444D
 	call MailSrvDelHidden_UploadTextTiles
 	ret
 
-; ---- text $4468-$448D (37 bytes) [HYPOTHESIS] Shift-JIS text: 18 x 81 40 (full-width space) + NUL; no reference found (no ld/dw of $4468 in the ROM); sits between a ret and the referenced string String_22_448D (ld hl,$448D at 22:444D) - probably a blank-line string
+; ---- text $4468-$448D (37 bytes) [HYPOTHESIS] 18 full-width spaces plus NUL; no reference found; candidate blank-line text between a ret and String_MailSrvDelHidden_DescCheck
 
 PUSHC sjis
-String_22_4468:: ; 22:4468
+MailSrvDelHidden_CandidateBlankLine:: ; 22:4468
 	db "　　　　　　　　　　　　　　　　　　", 0
 POPC
 
@@ -475,7 +474,6 @@ POPC
 
 PUSHC sjis
 String_MailSrvDelHidden_DescCheck:: ; 22:448D
-String_22_448D::
 	db "メールサーバにのこっているメールの　じょうほうをたしかめて、１つうずつ　じぶんでけすことができます　　　　　", 0
 POPC
 
@@ -497,7 +495,6 @@ MailSrvDelHidden_ShowDescDeleteCompletely:: ; 22:44FA
 
 PUSHC sjis
 String_MailSrvDelHidden_DescDeleteCompletely:: ; 22:4515
-String_22_4515::
 	db "もんだいのあるメールとメールサーバにのこっているすべてのメールをじどうでぜんぶけします　　　　　　　　　　　", 0
 POPC
 
@@ -783,16 +780,12 @@ MailSrvDelHidden_ConfirmSelect:: ; 22:47DE
 
 PUSHC sjis
 String_MailSrvDelHidden_Confirm:: ; 22:481B
-String_22_481B::
 	db "このしょりをおこなうと　　　　　", 0
 String_MailSrvDelHidden_DeleteAllWarningPart2:: ; 22:483C
-String_22_483C::
 	db "サーバにある　すべてのメールが　", 0
 String_MailSrvDelHidden_DeleteAllWarningPart3:: ; 22:485D
-String_22_485D::
 	db "きえてしまいます　　　　　　　　", 0
 String_MailSrvDelHidden_DeleteAllWarningPart4:: ; 22:487E
-String_22_487E::
 	db "　　　　よろしいですか？　　　　", 0
 POPC
 
@@ -820,7 +813,7 @@ MailSrvDelHidden_UploadTextTiles:: ; 22:489F
 	ret
 
 MailSrvDelHidden_DrawTimerNumbers:: ; 22:48CD
-Function_22_48CD::
+
 	; [PROBABLE] function prologue (push af/bc/de/hl ... ld de,$C2D7 ... call $4975 / $4A97 ...)
 	; that falls straight into the far-call site at 22:48FE (PROBABLE code); it follows a ret at
 	; 48CC. No caller/pointer to 48CD found in the ROM (words.py scan), so the entry is unproven;
@@ -930,7 +923,7 @@ Function_22_48CD::
 	ret
 
 MailSrvDelHidden_FormatDecimalStr:: ; 22:4975
-Function_22_4975::
+
 	push hl
 	push bc
 	ld a, $01
@@ -938,12 +931,12 @@ Function_22_4975::
 	ldh [rSVBK], a
 	ld hl, String_MailSrvDelHidden_NumberTemplate
 	ld de, wMailTextScratch
-.loop ; 22:4983
+.copy_number_template ; 22:4983
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr nz, .loop
+	jr nz, .copy_number_template
 	pop bc
 	pop hl
 	push bc
@@ -1000,7 +993,7 @@ Function_22_4975::
 	xor a, a
 	ld [bc], a
 	ld a, $05
-	jp .l4A8A
+	jp .pop_bc_and_return
 .l49E6 ; 22:49E6
 	ld h, d
 	ld l, e
@@ -1045,7 +1038,7 @@ Function_22_4975::
 	xor a, a
 	ld [bc], a
 	ld a, $04
-	jp .l4A8A
+	jp .pop_bc_and_return
 .l4A2C ; 22:4A2C
 	ld h, d
 	ld l, e
@@ -1079,7 +1072,7 @@ Function_22_4975::
 	xor a, a
 	ld [bc], a
 	ld a, $03
-	jp .l4A8A
+	jp .pop_bc_and_return
 .l4A60 ; 22:4A60
 	ld h, d
 	ld l, e
@@ -1102,7 +1095,7 @@ Function_22_4975::
 	xor a, a
 	ld [bc], a
 	ld a, $02
-	jp .l4A8A
+	jp .pop_bc_and_return
 .l4A82 ; 22:4A82
 	ld a, [bc]
 	add a, e
@@ -1111,7 +1104,7 @@ Function_22_4975::
 	xor a, a
 	ld [bc], a
 	ld a, $01
-.l4A8A ; 22:4A8A
+.pop_bc_and_return ; 22:4A8A
 	pop bc
 	ret
 
@@ -1119,12 +1112,11 @@ Function_22_4975::
 
 PUSHC sjis
 String_MailSrvDelHidden_NumberTemplate:: ; 22:4A8C
-String_22_4A8C::
 	db "０００００", 0
 POPC
 
 MailSrvDelHidden_NumberOffset:: ; 22:4A97
-Function_22_4A97::
+
 	; [PROBABLE] 130 insn(s) reached by static flow only; seeds: exec x74, site x56; min discovery
 	; hops 0; entered by call from 22:491A (PROBABLE code) | 56 insn(s) never executed in the traced
 	; runs; cut out of the PROBABLE region 4A97-4BB5 by apply_coverage --split | forced execution:
@@ -1138,7 +1130,7 @@ Function_22_4A97::
 	cp a, $00
 	jr z, .l4AAD
 	ld bc, $0000
-	jp .l4AF4
+	jp .pop_hl_de_and_return
 .l4AAD ; 22:4AAD
 	ld h, d
 	ld l, e
@@ -1148,7 +1140,7 @@ Function_22_4A97::
 	cp a, $00
 	jr z, .l4AC3
 	ld bc, $0000
-	jp .l4AF4
+	jp .pop_hl_de_and_return
 .l4AC3 ; 22:4AC3
 	ld h, d
 	ld l, e
@@ -1158,7 +1150,7 @@ Function_22_4A97::
 	cp a, $00
 	jr z, .l4AD9
 	ld bc, $0000
-	jp .l4AF4
+	jp .pop_hl_de_and_return
 .l4AD9 ; 22:4AD9
 	ld h, d
 	ld l, e
@@ -1168,17 +1160,17 @@ Function_22_4A97::
 	cp a, $00
 	jr z, .l4AEF
 	ld bc, $0000
-	jp .l4AF4
+	jp .pop_hl_de_and_return
 .l4AEF ; 22:4AEF
 	ld bc, $0010
 	ld a, $01
-.l4AF4 ; 22:4AF4
+.pop_hl_de_and_return ; 22:4AF4
 	pop hl
 	pop de
 	ret
 
 MailSrvDelHidden_UploadDecimalTiles:: ; 22:4AF7
-Function_22_4AF7::
+
 	ldh a, [rSVBK]
 	push af
 	ld a, $02
@@ -1219,12 +1211,12 @@ MailSrvDelHidden_DeleteAll_Confirm:: ; 22:4B2F
 	ld hl, wMailSessionBlock
 	ld de, Data_MailSrvDelHidden_DeleteAll_Confirm_SessionBlockTemplate
 	ld b, $07
-.loop ; 22:4B45
+.copy_session_template ; 22:4B45
 	ld a, [de]
 	ld [hli], a
 	inc de
 	dec b
-	jr nz, .loop
+	jr nz, .copy_session_template
 	ld d, $01
 	ld bc, wMailSessionBlock
 	farcall ConnectDialog_Run
@@ -1281,8 +1273,8 @@ MailSrvDelHidden_DeleteAll_Confirm:: ; 22:4B2F
 	jp z, .l4BB7
 	jp .l4BD1
 
-	; [HYPOTHESIS] jr $4C2B (18 74) after the unconditional 'jp $4BD1' at 22:4BB2: unreachable by
-	; flow and never referenced; target 4C2B is a code instruction start
+	; [HYPOTHESIS] JR4BB5->4C2B (1874) is bypassed sequentially by JP4BB2->4BD1;
+	; target is a code start; independent entry remains unproved, not universally unreachable
 	jr .l4C2B
 
 .l4BB7 ; 22:4BB7
@@ -1304,13 +1296,13 @@ MailSrvDelHidden_DeleteAll_Confirm:: ; 22:4B2F
 	jr nz, .l4BDE
 	ld a, h
 	or a, l
-	jr z, .done
+	jr z, .return_after_optional_summary
 .l4BDE ; 22:4BDE
 	ld a, $00
 	ld [wBrowserScrollbarEnable], a
 	ld [wCommSessionKind], a
 	farcall CommTime_DrawSummaryScreen
-.done ; 22:4BEC
+.return_after_optional_summary ; 22:4BEC
 	ret
 
 .l4BED ; 22:4BED
@@ -1380,7 +1372,6 @@ MailSrvDelHidden_DeleteAll_Confirm:: ; 22:4B2F
 ; ---- data $4C5B-$4C62 (7 bytes) [CONFIRMED] opaque7-byte session-block template copied by original bank22 loop to WRAMbank1 wMailSessionBlock ($D624); 2 whole/2 union natural scenarios; no protocol-field meaning inferred; bytes and labels preserved ; original JP natural-read evidence; English runtime UNVALIDATED.
 
 Data_MailSrvDelHidden_DeleteAll_Confirm_SessionBlockTemplate:: ; 22:4C5B
-Data_22_4C5B::
 	db $03, $00, $00, $01, $24, $D5, $00
 
 MailSrvDelHidden_DeleteCompletely:: ; 22:4C62
@@ -1408,12 +1399,12 @@ MailSrvDelHidden_DeleteCompletely_Confirm:: ; 22:4C7A
 	ld hl, wMailSessionBlock
 	ld de, Data_MailSrvDelHidden_DeleteCompletely_Confirm_SessionBlockTemplate
 	ld b, $07
-.loop ; 22:4C90
+.copy_session_template ; 22:4C90
 	ld a, [de]
 	ld [hli], a
 	inc de
 	dec b
-	jr nz, .loop
+	jr nz, .copy_session_template
 	ld d, $01
 	ld bc, wMailSessionBlock
 	farcall ConnectDialog_Run
@@ -1470,8 +1461,8 @@ MailSrvDelHidden_DeleteCompletely_Confirm:: ; 22:4C7A
 	jp z, .l4D02
 	jp .l4D1C
 
-	; [HYPOTHESIS] jr $4D76 (18 74) after the unconditional 'jp $4D1C' at 22:4CFD: unreachable, same
-	; pattern as 4BB5; target is a code instruction start
+	; [HYPOTHESIS] JR4D00->4D76 (1874) is bypassed sequentially by JP4CFD->4D1C;
+	; target is a code start; independent entry remains unproved, not universally unreachable
 	jr .l4D76
 
 .l4D02 ; 22:4D02
@@ -1493,13 +1484,13 @@ MailSrvDelHidden_DeleteCompletely_Confirm:: ; 22:4C7A
 	jr nz, .l4D29
 	ld a, h
 	or a, l
-	jr z, .done
+	jr z, .return_after_optional_summary
 .l4D29 ; 22:4D29
 	ld a, $00
 	ld [wBrowserScrollbarEnable], a
 	ld [wCommSessionKind], a
 	farcall CommTime_DrawSummaryScreen
-.done ; 22:4D37
+.return_after_optional_summary ; 22:4D37
 	ret
 
 .l4D38 ; 22:4D38
@@ -1569,7 +1560,6 @@ MailSrvDelHidden_DeleteCompletely_Confirm:: ; 22:4C7A
 ; ---- data $4DA6-$4DAD (7 bytes) [CONFIRMED] opaque7-byte session-block template copied by original bank22 loop to WRAMbank1 wMailSessionBlock ($D624); 1 whole/1 union natural scenarios; no protocol-field meaning inferred; bytes and labels preserved ; original JP natural-read evidence; English runtime UNVALIDATED.
 
 Data_MailSrvDelHidden_DeleteCompletely_Confirm_SessionBlockTemplate:: ; 22:4DA6
-Data_22_4DA6::
 	db $03, $00, $00, $01, $24, $D5, $00
 
 MailSrvDelHidden_CheckAndDelete:: ; 22:4DAD
@@ -1589,12 +1579,12 @@ MailSrvDelHidden_CheckAndDelete:: ; 22:4DAD
 	ld hl, wMailSessionBlock
 	ld de, Data_MailSrvDelHidden_CheckAndDelete_SessionBlockTemplate
 	ld b, $07
-.loop ; 22:4DD2
+.copy_session_template ; 22:4DD2
 	ld a, [de]
 	ld [hli], a
 	inc de
 	dec b
-	jr nz, .loop
+	jr nz, .copy_session_template
 	ld d, $01
 	ld bc, wMailSessionBlock
 	farcall ConnectDialog_Run
@@ -1651,8 +1641,8 @@ MailSrvDelHidden_CheckAndDelete:: ; 22:4DAD
 	jp z, .l4E43
 	jp .l4E5D
 
-	; [HYPOTHESIS] jr $4EB9 (18 76) after the unconditional 'jp $4E5D': unreachable, same pattern as
-	; 4BB5; target is a code instruction start
+	; [HYPOTHESIS] JR4E41->4EB9 (1876) is bypassed sequentially by JP4E3E->4E5D;
+	; target is a code start; independent entry remains unproved, not universally unreachable
 	jr .l4EB9
 
 .l4E43 ; 22:4E43
@@ -1674,13 +1664,13 @@ MailSrvDelHidden_CheckAndDelete:: ; 22:4DAD
 	jr nz, .l4E6A
 	ld a, h
 	or a, l
-	jr z, .done
+	jr z, .return_after_optional_summary
 .l4E6A ; 22:4E6A
 	ld a, $00
 	ld [wBrowserScrollbarEnable], a
 	ld [wCommSessionKind], a
 	farcall CommTime_DrawSummaryScreen
-.done ; 22:4E78
+.return_after_optional_summary ; 22:4E78
 	ret
 
 .l4E79 ; 22:4E79
@@ -1751,5 +1741,4 @@ MailSrvDelHidden_CheckAndDelete:: ; 22:4DAD
 ; ---- data $4EE9-$4EF0 (7 bytes) [CONFIRMED] opaque7-byte session-block template copied by original bank22 loop to WRAMbank1 wMailSessionBlock ($D624); 1 whole/1 union natural scenarios; no protocol-field meaning inferred; bytes and labels preserved ; original JP natural-read evidence; English runtime UNVALIDATED.
 
 Data_MailSrvDelHidden_CheckAndDelete_SessionBlockTemplate:: ; 22:4EE9
-Data_22_4EE9::
 	db $03, $00, $00, $01, $24, $D5, $00

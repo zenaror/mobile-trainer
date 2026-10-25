@@ -7,11 +7,10 @@ SECTION "engine/address_book/address_picker", ROMX
 ; ---- words $56F2-$56FE (12 bytes) [CONFIRMED] 6 SRAM record addresses $A69D..$A82D, stride $50 (verified arithmetic progression); byte-identical to the tables of 2F:51B5 etc.; the region was already CONFIRMED as read by executed code
 
 Table_AddrPick_SlotAddrs:: ; 2C:56F2
-Table_2C_56F2::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
 AddrPick_Menu:: ; 2C:56FE
-Function_2C_56FE::
+
 	; [CONFIRMED] 24 insn(s); 24 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -105,9 +104,9 @@ AddrPick_CursorDown:: ; 2C:57A7
 	inc c
 	ld a, c
 	cp a, $07
-	jr nz, .skip
+	jr nz, .refresh_down_highlight
 	ld c, $01
-.skip ; 2C:57C4
+.refresh_down_highlight ; 2C:57C4
 	ld a, d
 	call AddrPick_MoveNameHighlight
 	call AddrPick_RefreshSlotIcons
@@ -123,9 +122,9 @@ AddrPick_CursorUp:: ; 2C:57CC
 	dec c
 	ld a, c
 	cp a, $00
-	jr nz, .skip
+	jr nz, .refresh_up_highlight
 	ld c, $06
-.skip ; 2C:57E9
+.refresh_up_highlight ; 2C:57E9
 	ld a, d
 	call AddrPick_MoveNameHighlight
 	call AddrPick_RefreshSlotIcons
@@ -149,18 +148,18 @@ AddrPick_LoadSelection:: ; 2C:57F1
 	; 57A7-58AC by apply_coverage --split
 	ld b, $40
 	ld hl, wEditAddressBuf
-.l580F ; 2C:580F
+.clear_edit_address ; 2C:580F
 	xor a, a
 	ld [hli], a
 	dec b
-	jr nz, .l580F
+	jr nz, .clear_edit_address
 	ld b, $10
 	ld hl, wEditNameBuf
-.l5819 ; 2C:5819
+.clear_edit_name ; 2C:5819
 	xor a, a
 	ld [hli], a
 	dec b
-	jr nz, .l5819
+	jr nz, .clear_edit_name
 	ld a, $01
 	ret
 
@@ -196,7 +195,7 @@ AddrPick_LoadSelection:: ; 2C:57F1
 	ld a, [hli]
 	ld [de], a
 	cp a, $00
-	jr z, .l5860
+	jr z, .zero_fill_address_remainder
 	inc de
 	dec b
 	jr nz, .l5854
@@ -205,14 +204,14 @@ AddrPick_LoadSelection:: ; 2C:57F1
 	; 57A7-58AC by apply_coverage --split
 	jr .l5866
 
-.l5860 ; 2C:5860
+.zero_fill_address_remainder ; 2C:5860
 	; [CONFIRMED] 50 insn(s) executed; cut out of the PROBABLE region 57A7-58AC by apply_coverage
 	; --split [executed in 1 scenarios]
 	xor a, a
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l5860
+	jr nz, .zero_fill_address_remainder
 .l5866 ; 2C:5866
 	push bc
 	dec c
@@ -229,16 +228,16 @@ AddrPick_LoadSelection:: ; 2C:57F1
 	pop bc
 	ld b, $10
 	ld de, wEditNameBuf
-.l587E ; 2C:587E
+.copy_name_until_nul_or_limit ; 2C:587E
 	ld a, [hli]
 	ld [de], a
 	inc de
 	cp a, $00
-	jr z, .l588A
+	jr z, .zero_fill_name_remainder
 	dec b
-	jr nz, .l587E
+	jr nz, .copy_name_until_nul_or_limit
 	jr .l5895
-.l588A ; 2C:588A
+.zero_fill_name_remainder ; 2C:588A
 	ld a, b
 	cp a, $00
 	jr z, .l5895
@@ -246,7 +245,7 @@ AddrPick_LoadSelection:: ; 2C:57F1
 	ld [de], a
 	inc de
 	dec b
-	jr nz, .l588A
+	jr nz, .zero_fill_name_remainder
 .l5895 ; 2C:5895
 	push bc
 	push de
@@ -257,7 +256,7 @@ AddrPick_LoadSelection:: ; 2C:57F1
 	ret
 
 AddrPick_InitScreen:: ; 2C:58AC
-Function_2C_58AC::
+
 	; [CONFIRMED] 129 insn(s); 129 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	farcall Sprite_ResetAll
@@ -391,7 +390,7 @@ Function_2C_58AC::
 	ret
 
 AddrPick_RefreshSlotIcons_2C_5A12:: ; 2C:5A12
-Function_2C_5A12::
+
 	; [PROBABLE] 10 insn(s): register setup (push bc; ld a,7; ldh [$FF8D]...; ld hl,$DA70; ld
 	; de,$7220; ld a,$2C; ld b,1) falling into the FarCall site at 2C:5A25; well-formed instruction
 	; chain (clean decode, all direct targets land on instruction starts, lands exactly on the next
@@ -694,7 +693,7 @@ Function_2C_5A12::
 	ret
 
 AddrPick_TestSlotEmpty_2C_5CA3:: ; 2C:5CA3
-Function_2C_5CA3::
+
 	push bc
 	push af
 	ld a, $01
@@ -717,27 +716,27 @@ Function_2C_5CA3::
 	add hl, de
 	ld a, [hl]
 	cp a, $00
-	jr z, .l5CCE
+	jr z, .return_ff_restore_bc
 	ld a, $00
 	pop bc
 	ret
-.l5CCE ; 2C:5CCE
+.return_ff_restore_bc ; 2C:5CCE
 	ld a, $FF
 	pop bc
 	ret
 
 AddrPick_SetListAreaAttrs:: ; 2C:5CD2
-Function_2C_5CD2::
+
 	push af
 	push bc
 	di
 	ld a, $01
 	ldh [rVBK], a
 	ld hl, $9866
-.loop ; 2C:5CDC
+.wait_for_ly_90 ; 2C:5CDC
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, .loop
+	jr nz, .wait_for_ly_90
 	ld a, $08
 	ld [hli], a
 	ld [hli], a
@@ -1058,7 +1057,7 @@ Function_2C_5CD2::
 	ret
 
 AddrPick_InitListAttrs:: ; 2C:5E51
-Function_2C_5E51::
+
 	; [CONFIRMED] 299 insn(s); 299 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -1067,10 +1066,10 @@ Function_2C_5E51::
 	di
 	ld a, $01
 	ldh [rVBK], a
-.loop ; 2C:5E5B
+.wait_for_ly_90 ; 2C:5E5B
 	ldh a, [rLY]
 	cp a, $90
-	jr nz, .loop
+	jr nz, .wait_for_ly_90
 	ld a, $00
 	ld hl, $98C6
 	ld [hli], a
@@ -1363,7 +1362,7 @@ Function_2C_5E51::
 	ret
 
 AddrPick_MoveNameHighlight_X28_2C_5FB1:: ; 2C:5FB1
-Function_2C_5FB1::
+
 	; [PROBABLE] 80 insn(s): complete SRAM-access routine (push af; ld a,1; ldh [$FF8C],a; ld
 	; [$4000],a; ld a,$0A ... xor a; ldh [$FFF5],a; ld [$0000],a; pop af; ret); well-formed
 	; instruction chain (clean decode, all direct targets land on instruction starts, lands exactly
@@ -1380,7 +1379,7 @@ Function_2C_5FB1::
 	dec a
 	dec c
 	cp a, $FF
-	jr z, .l5FF1
+	jr z, .initialize_list_attributes
 	push bc
 	push af
 	ld e, a
@@ -1410,12 +1409,12 @@ Function_2C_5FB1::
 	call AddrBook_DrawSlotName
 	pop bc
 	jr .l5FF4
-.l5FF1 ; 2C:5FF1
+.initialize_list_attributes ; 2C:5FF1
 	call AddrPick_InitListAttrs
 .l5FF4 ; 2C:5FF4
 	ld a, c
 	cp a, $FF
-	jr z, .l6022
+	jr z, .set_list_area_attributes
 	push bc
 	ld e, c
 	sla e
@@ -1445,7 +1444,7 @@ Function_2C_5FB1::
 	call AddrBook_DrawSlotName
 	pop hl
 	jr .l6025
-.l6022 ; 2C:6022
+.set_list_area_attributes ; 2C:6022
 	call AddrPick_SetListAreaAttrs
 .l6025 ; 2C:6025
 	call AddrBook_UploadTextTiles
@@ -1458,7 +1457,7 @@ Function_2C_5FB1::
 	ret
 
 AddrPick_MoveNameHighlight:: ; 2C:6032
-Function_2C_6032::
+
 	; [CONFIRMED] 40 insn(s); 40 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push af
@@ -1473,7 +1472,7 @@ Function_2C_6032::
 	dec a
 	dec c
 	cp a, $FF
-	jr z, .l6072
+	jr z, .initialize_list_attributes
 	push bc
 	push af
 	ld e, a
@@ -1504,7 +1503,7 @@ Function_2C_6032::
 	pop bc
 	jr .l6075
 
-.l6072 ; 2C:6072
+.initialize_list_attributes ; 2C:6072
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
 	; entered by jrcc from 2C:6047 (executed)
 	call AddrPick_InitListAttrs
@@ -1513,7 +1512,7 @@ Function_2C_6032::
 	; [CONFIRMED] 22 insn(s); 22 executed (in up to 1/18 scenarios)
 	ld a, c
 	cp a, $FF
-	jr z, .l60A3
+	jr z, .set_list_area_attributes
 	push bc
 	ld e, c
 	sla e
@@ -1549,7 +1548,7 @@ Function_2C_6032::
 	pop hl
 	jr .l60A6
 
-.l60A3 ; 2C:60A3
+.set_list_area_attributes ; 2C:60A3
 	; [PROBABLE] 1 insn(s) reached by static flow only; seeds: exec x1; min discovery hops 1;
 	; entered by jrcc from 2C:6078 (executed)
 	call AddrPick_SetListAreaAttrs
@@ -1566,8 +1565,8 @@ Function_2C_6032::
 	ret
 
 AddrPick_DrawSlotNames:: ; 2C:60B3
-Function_2C_60B3::
-	; [PROBABLE] 102 insn(s): complete SRAM-access routine (same prologue/epilogue as 2C:5FB1);
+
+	; [PROBABLE] 51 insn(s): complete SRAM-access routine (same prologue/epilogue as 2C:5FB1);
 	; well-formed instruction chain (clean decode, all direct targets land on instruction starts,
 	; lands exactly on the next code region); no direct caller/table entry found: entry HYPOTHESIS
 	push bc
@@ -1625,6 +1624,9 @@ Function_2C_60B3::
 	pop af
 	ret
 
+AddrPick_DrawSixSlotNamesAtX30:: ; 2C:6100
+	; [CONFIRMED] enable SRAM bank 1, draw six slot names from Table_AddrPick_SlotAddrs at X=$30
+	; through AddrBook_DrawSlotName, then disable SRAM. Entry and caller remain HYPOTHESIS.
 	push bc
 	push af
 	ld a, $01
@@ -1681,7 +1683,7 @@ Function_2C_60B3::
 	ret
 
 AddrBook_DrawSlotName:: ; 2C:614D
-Function_2C_614D::
+
 	; [CONFIRMED] 11 insn(s); 11 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call
 	ld a, $10
@@ -1695,7 +1697,7 @@ Function_2C_614D::
 	ld [rRAMG], a
 	ld a, [hli]
 	cp a, $00
-	jr z, .l61D9
+	jr z, .load_space_glyph_for_padding
 
 	; [CONFIRMED] 61 insn(s) reached by static flow only; seeds: exec x61; min discovery hops 0;
 	; fall-through of the jrcc at 2C:6163 (executed) | 7 insn(s) executed; cut out of the PROBABLE
@@ -1703,7 +1705,7 @@ Function_2C_614D::
 	push af
 	farcall Glyph_IsSjisLeadByte
 	dec a
-	jr nz, .l61B7
+	jr nz, .draw_ascii_char
 	ld a, [wTextCellsLeft]
 	cp a, $01
 	jr nz, .l617A
@@ -1711,7 +1713,7 @@ Function_2C_614D::
 	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 6165-61D9 by apply_coverage --split
 	pop af
-	jp .l61D9
+	jp .load_space_glyph_for_padding
 
 .l617A ; 2C:617A
 	; [CONFIRMED] 35 insn(s) executed; cut out of the PROBABLE region 6165-61D9 by apply_coverage
@@ -1749,10 +1751,10 @@ Function_2C_614D::
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l61D9
+	jr z, .load_space_glyph_for_padding
 	jr .l6152
 
-.l61B7 ; 2C:61B7
+.draw_ascii_char ; 2C:61B7
 	; [PROBABLE] 17 insn(s) never executed in the traced runs; cut out of the PROBABLE region
 	; 6165-61D9 by apply_coverage --split
 	pop af
@@ -1770,10 +1772,10 @@ Function_2C_614D::
 	dec a
 	ld [wTextCellsLeft], a
 	cp a, $00
-	jr z, .l61D9
+	jr z, .load_space_glyph_for_padding
 	jp .l6152
 
-.l61D9 ; 2C:61D9
+.load_space_glyph_for_padding ; 2C:61D9
 	; [CONFIRMED] 45 insn(s); 45 executed (in up to 2/18 scenarios)
 	push bc
 	push de
@@ -1784,14 +1786,14 @@ Function_2C_614D::
 	pop hl
 	pop de
 	pop bc
-.l61EA ; 2C:61EA
+.pad_remaining_cells ; 2C:61EA
 	ld a, [wTextCellsLeft]
 	cp a, $00
 	ret z
 	dec a
 	ld [wTextCellsLeft], a
 	call AddrBook_DrawSlotName_BlitGlyphAdvance
-	jr .l61EA
+	jr .pad_remaining_cells
 
 AddrBook_DrawSlotName_BlitGlyphAdvance:: ; 2C:61F9
 	push bc
@@ -2172,7 +2174,7 @@ AddrPick_IsSlotUsed:: ; 2C:64A5
 	add hl, de
 	ld a, [hl]
 	cp a, $00
-	jr z, .l64D0
+	jr z, .return_ff_restore_bc
 
 	; [CONFIRMED] 3 insn(s) reached by static flow only; seeds: exec x3; min discovery hops 0;
 	; fall-through of the jrcc at 2C:64CA (executed) [executed in 3 scenarios]
@@ -2180,7 +2182,7 @@ AddrPick_IsSlotUsed:: ; 2C:64A5
 	pop bc
 	ret
 
-.l64D0 ; 2C:64D0
+.return_ff_restore_bc ; 2C:64D0
 	; [CONFIRMED] 3 insn(s); 3 executed (in up to 1/18 scenarios)
 	ld a, $FF
 	pop bc
@@ -2189,11 +2191,10 @@ AddrPick_IsSlotUsed:: ; 2C:64A5
 ; ---- words $64D4-$64E0 (12 bytes) [CONFIRMED] 6 SRAM record addresses $A69D..$A82D, stride $50 (verified arithmetic progression); byte-identical to the tables of 2F:51B5 etc.; the region was already CONFIRMED as read by executed code
 
 Table_AddrPick_SlotAddrs_Icons:: ; 2C:64D4
-Table_2C_64D4::
 	dw $A69D, $A6ED, $A73D, $A78D, $A7DD, $A82D
 
 AddrPick_CursorMoveEffect:: ; 2C:64E0
-Function_2C_64E0::
+
 	; [CONFIRMED] 5 insn(s); 5 executed (in up to 1/18 scenarios); entry proven: target of an
 	; executed call/far call
 	push bc
@@ -2355,7 +2356,7 @@ Function_2C_64E0::
 	; [CONFIRMED] 95 insn(s); 95 executed (in up to 2/18 scenarios)
 	ld b, $1E
 	ld b, $01
-.loop ; 2C:6643
+.update_sprites_and_poll_direction ; 2C:6643
 	push bc
 	farcall Sprite_UpdateAll
 	farcall Joypad_Update
@@ -2363,10 +2364,10 @@ Function_2C_64E0::
 	pop bc
 	ldh a, [hJoyHeld]
 	and a, PADF_UP | PADF_DOWN
-	jr nz, .l665D
+	jr nz, .restore_bc_and_return
 	dec b
-	jr nz, .loop
-.l665D ; 2C:665D
+	jr nz, .update_sprites_and_poll_direction
+.restore_bc_and_return ; 2C:665D
 	pop bc
 	ret
 
@@ -2409,15 +2410,15 @@ Gfx_StartHDMAAtVBlank_2C_669D:: ; 2C:669D
 	ld a, e
 	ldh [rHDMA4], a
 	ld de, rLY
-.l66AC ; 2C:66AC
+.wait_ly_8f ; 2C:66AC
 	ld a, [de]
 	cp a, $8F
-	jr nz, .l66AC
+	jr nz, .wait_ly_8f
 	ld b, $91
-.l66B3 ; 2C:66B3
+.wait_ly_91 ; 2C:66B3
 	ld a, [de]
 	cp a, b
-	jr nz, .l66B3
+	jr nz, .wait_ly_91
 	ld a, c
 	and a, $7F
 	ldh [rHDMA5], a
@@ -2462,14 +2463,12 @@ AddrPick_LoadCaption:: ; 2C:66BD
 ; ---- data $6702-$6704 (2 bytes) [CONFIRMED] read as data by executed code (in up to 1/18 scenarios); content class unknown [clipped from 6702-672D by higher-priority evidence]
 
 Table_AddrPick_Captions:: ; 2C:6702
-Data_2C_6702::
 	db $04, $67
 
 ; ---- text $6704-$672D (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
 String_AddrPick_Caption:: ; 2C:6704
-String_2C_6704::
 	db "　　　Ｃｈｏｏｓｅ　ｃｏｎｔａｃｔ　　　", 0
 POPC
 
