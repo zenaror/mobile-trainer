@@ -220,6 +220,10 @@ SettingsMenu_StateFadeIn:: ; 68:5156
 	ld [wSettingsMenu_State], a
 	ret
 
+; [CONFIRMED] Hidden flag is normalized to 0/1 by Settings_GetHiddenModeFlag.
+; Valid cursor cycles: 0..3 normally, 0..4 when hidden. Up from zero reaches
+; the last item; Down from the last wraps to zero. SRAM cursor restore itself
+; is unchecked; these domains assume a valid saved cursor (navigation starts at 0).
 SettingsMenu_StateInput:: ; 68:5172
 	ldh a, [hJoyPressedRepeat]
 	bit PADB_A, a
@@ -366,11 +370,11 @@ SettingsMenu_DrawItems:: ; 68:522C
 	farcall Tilemap_CopyRectAndAttr
 	ret
 
-; ---- words $528C-$5296 (10 bytes) [PROBABLE] 5 words $5770,$5798,$57C0,$57E8,$5810 (stride $28) read with `ld hl,$528C ; add a,a ; add a,l ... ld a,[hli] ; ld h,[hl] ; ld l,a` at 68:5276 and passed as HL to the far call `ld a,$4A ; farcall 00:08EA` (ld a,$4A at 68:5283; farcall at 68:5285, copy_tilemap_rect_pair, bc=$020A set at 68:5270): the words are therefore pointers into BANK 4A data, NOT into bank 68 code [verifier: retyped ptrtable->words; as a ptrtable the generator emitted an address-only code alias at 68:5798, a false symbolic reference to this bank]
+; ---- ptrtable $528C-$5296 (10 bytes) [CONFIRMED] five Bank4A 2x10 highlight pairs. Cursor 4 selects the hidden phone-number item; SettingsMenu_Run returns cursor+1, dispatching result 5 to Nav_MobileSettings_PhoneNumber.
 
 SettingsMenu_ItemHighlightMaps:: ; 68:528C
-	dw Tilemap_SettingsMenu_ItemHighlightMap_Entry0
-	dw Tilemap_SettingsMenu_ItemHighlightMap_Entry1
-	dw Tilemap_SettingsMenu_ItemHighlightMap_Entry2
-	dw Tilemap_SettingsMenu_ItemHighlightMap_Entry3
-	dw Tilemap_SettingsMenu_ItemHighlightMap_Entry4
+	dw Tilemap_SettingsMenu_HighlightChangePassword
+	dw Tilemap_SettingsMenu_HighlightUsageTime
+	dw Tilemap_SettingsMenu_HighlightUsageFee
+	dw Tilemap_SettingsMenu_HighlightDeleteRegistration
+	dw Tilemap_SettingsMenu_HighlightPhoneNumber

@@ -1191,7 +1191,7 @@ visual purpose.
 | Physical range | Maintained interpretation and reader | Closure within reviewed evidence |
 |---|---|---|
 | `1E:4357–48C1` | Seven 9×11 tile-index/attribute frame pairs (`$C6` bytes each), selected through `TopMenu_AnimTilemapFrames` by `engine/menus/top_menu.asm`. | **CONFIRMED format and consumer.** Retained reads cover only part of the seven-frame set; do not claim all frames reached. |
-| `4A:5770–5838` | Five 2×10 tile-index/attribute records selected via the cursor-indexed pointer table in `engine/account/settings_menu.asm`; copied by `Tilemap_CopyRectAndAttr`. | **CONFIRMED layout and indexed-reader structure.** Natural traces did not read entry 4; its runtime selection stays unverified. The 40-byte tail is an object-table entry, not another map. |
+| `4A:5770–5838` | Five 2×10 tile-index/attribute records selected via the cursor-indexed pointer table in `engine/account/settings_menu.asm`; copied by `Tilemap_CopyRectAndAttr`. | **CONFIRMED layout, five meanings and selection.** The old no-read statement for entry 4 was incorrect: retained `settings_phone` reads `[4A:54A0,5838)`, covering it. Frame 1984 displays the phone highlight; frame 2001 dispatches to its handler. The following object-table entry is not another map. |
 | `5D:5000–5320` | Four 5×20 tilemap/attribute pairs at `$C8` stride, selected by the password-entry variant table and copied by the account-screen path. | **CONFIRMED format and source selection contract.** The records are structured screen data, not missing 2bpp art. |
 | `71:5038–5338` | Eight 4×12 tile-index/attribute pairs at `$60` stride, indexed by `CommPanel_CaptionMaps`. | **CONFIRMED format, captions and bounded phase/variant selection.** See the caption contract below. Natural traces do not establish execution of every combination; DION entries 1/3 are unselected by valid table inputs, not globally proven unused. |
 | `73:438F–45DD` | Browser-start map/attribute rectangles plus five 5×7 tile-index animation frames and their attribute suffix. | **CONFIRMED reader and format** for the addressed rectangles and 175 frame-index bytes. The final three bytes at `45DD–45E0` are zero and outside the retained reads; do not include them in the frame asset. |
@@ -1421,3 +1421,29 @@ These are CONFIRMED static consumer/selector contracts and rendered captions,
 not proof of every natural path or global non-use of the DION resources.
 The original eight records and all pointer bytes are unchanged. Caption content
 and valid-table selection are closed; do not repeat this format/meaning pass.
+
+
+### Settings highlights: fifth entry observed (2026-10-25)
+
+The five 2×10 highlight records at `4A:5770–5838` are, in cursor order:
+change password, check usage time, check usage charge, delete registration,
+and change telephone number. They now have semantic ASM labels and symbolic
+pointers. Rendering used the original SettingsMenu HDMA sources and palette.
+
+`Settings_GetHiddenModeFlag` returns 0 for stored `$A5`, 1 otherwise.
+The menu-entry B+Select+Right path writes the hidden setting; normal cursor
+movement cycles 0..3 with flag 0 and 0..4 with flag 1. Starting at zero, Up
+selects the last item. Confirmation returns cursor+1, and result 5 selects
+`Nav_MobileSettings_PhoneNumber` at `7C:7E08`, which calls `SettingsPhone_Run`.
+Navigation initializes the saved cursor to zero; subsequent SRAM restoration
+is not bounds-checked, so this is a valid-state contract, not malformed-SRAM safety.
+
+The earlier claim that entry 4 had no retained read is **superseded**. The
+existing `traces/detail/settings_phone/dataaccess.tsv` contains the merged
+interval `rom_read 4A 54A0 5838`, which fully includes `[5810,5838)`.
+Its callgraph records `00:0550 -> 7C:7E08` four times, first at frame 2001;
+the retained frame-1984 screenshot visibly highlights the fifth item.
+Thus the historical corpus already supplies positive execution evidence;
+no new emulator run was needed. Do not equate the absence of a row starting
+exactly at an asset boundary with absence of an overlapping read.
+This closes the five-highlight selection question, including the hidden item.

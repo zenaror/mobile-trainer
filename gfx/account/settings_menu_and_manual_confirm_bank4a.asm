@@ -96,29 +96,29 @@ Tilemap_SettingsMenu_FlagSet:: ; 4A:54A0
 
 ; ---- data $5770-$5810 (160 bytes) [CONFIRMED] four records indexed by wSettingsMenu_Cursor through 68:528C; each contains 20 tile numbers then 20 $0A attributes for a 2x10 tilemap/attrmap copied by Tilemap_CopyRectAndAttr with A=$4A and BC=$020A
 
-Tilemap_SettingsMenu_ItemHighlightMap_Entry0:: ; 4A:5770
+Tilemap_SettingsMenu_HighlightChangePassword:: ; 4A:5770
 	db $80, $81, $82, $83, $84, $85, $86, $87, $88, $89, $90, $91, $92, $93, $94, $95
 	db $96, $97, $98, $99, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 
-Tilemap_SettingsMenu_ItemHighlightMap_Entry1:: ; 4A:5798
+Tilemap_SettingsMenu_HighlightUsageTime:: ; 4A:5798
 	db $8A, $8B, $8C, $8D, $8E, $8F, $A0, $A1
 	db $A2, $A3, $9A, $9B, $9C, $9D, $9E, $9F, $B0, $B1, $B2, $B3, $0A, $0A, $0A, $0A
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 
-Tilemap_SettingsMenu_ItemHighlightMap_Entry2:: ; 4A:57C0
+Tilemap_SettingsMenu_HighlightUsageFee:: ; 4A:57C0
 	db $8A, $A4, $A5, $A6, $A7, $A8, $A9, $AA, $AB, $A3, $9A, $B4, $B5, $B6, $B7, $B8
 	db $B9, $BA, $BB, $B3, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 
-Tilemap_SettingsMenu_ItemHighlightMap_Entry3:: ; 4A:57E8
+Tilemap_SettingsMenu_HighlightDeleteRegistration:: ; 4A:57E8
 	db $AC, $AD, $AE, $AF, $C0, $C1, $C2, $C3
 	db $C4, $C5, $BC, $BD, $BE, $BF, $D0, $D1, $D2, $D3, $D4, $D5, $0A, $0A, $0A, $0A
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 
-; ---- data $5810-$5838 (40 bytes) [PROBABLE] fifth 2x10 tilemap/attrmap record, selected by cursor index 4 from the five-word table at 68:528C; no natural read was observed in the bounded corpus
+; ---- data $5810-$5838 (40 bytes) [CONFIRMED] phone-number highlight, hidden-mode cursor 4; settings_phone reads [4A:54A0,5838), displays this selection at frame 1984 and dispatches to 7C:7E08 at frame 2001
 
-Tilemap_SettingsMenu_ItemHighlightMap_Entry4:: ; 4A:5810
+Tilemap_SettingsMenu_HighlightPhoneNumber:: ; 4A:5810
 	db $C6, $C7, $C8, $C9, $CA, $CB, $CC, $CD, $CE, $89, $D6, $D7, $D8, $D9, $DA, $DB
 	db $DC, $DD, $DE, $99, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 	db $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
