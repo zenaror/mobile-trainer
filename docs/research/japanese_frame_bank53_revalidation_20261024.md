@@ -133,6 +133,50 @@ The explicit producer graph therefore confirms no name-ordinal-to-frame chain an
 
 Visual inspection identifies species-like artwork for 23 of the 25 names (PROBABLE visual identities); both Porygon entries remain unassigned. All 25 ordinal-to-window links remain HYPOTHESIS. Eight windows remain KEEP as editable compositions because their complete VRAM placement is not justified; their original bytes and backing assets exist. No frame is classified globally unused, and natural frame selection remains unknown. Do not assign the two geometric windows to Porygon/Porygon2 by elimination, synthesize unresolved VRAM keys, or treat a missing editable composition as a missing ROM asset.
 
+### Window-local visual identifications (2026-10-24)
+
+A read-only reinspection of the existing candidate previews and component PNGs
+supports the following **visual** identities. These describe artwork visible
+in a candidate window; they do not establish a Bank 53 ordinal, executable
+pointer, selector value, natural selection, or runtime use.
+
+| Candidate window | Visual evidence | Assessment |
+|---|---|---|
+| `41:4000` | `gfx/previews/screens/BrowserFrameCandidate_41_0.png`: broad head, foliage and flower | Venusaur-like, PROBABLE |
+| `41:4D50` | `gfx/previews/screens/BrowserFrameCandidate_41_1.png`: lilac feline, long ears and forehead gem | Espeon-like, PROBABLE |
+| `41:5AA0` | `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/green_beveled_panel_41_5aa0_tiles.png`: beveled panels, UI parts and digits | No Pokémon identity supported |
+| `41:67F0` | `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/orange_beveled_panel_41_67f0_tiles.png`: interface pieces, border and digits | No Pokémon identity supported |
+| `42:4000` | `gfx/previews/screens/BrowserFrameCandidate_42_0.png`: pale humanoid, pointed head and curved arm | Mewtwo-like, PROBABLE |
+| `42:4D50` | `gfx/previews/screens/BrowserFrameCandidate_42_1.png`: red bird head, yellow crest and beak | Ho-Oh-like, PROBABLE |
+| `42:5AA0` | `gfx/previews/screens/BrowserFrameCandidate_42_2.png`: elongated blue figures with raised arms | Wobbuffet-like, PROBABLE |
+| `42:67F0` | `gfx/previews/screens/BrowserFrameCandidate_42_3.png`: rounded brown heads with oval noses | Diglett-like, PROBABLE |
+| `43:4000` | `gfx/previews/screens/BrowserFrameCandidate_43_0.png`: brown trunk and arms with green balls | Sudowoodo-like, PROBABLE |
+| `43:4D50` | `gfx/frame_designs/plant_chevron_and_heart_borders_43/blue_yellow_chevron_border_43_4d50_tiles.png`: frontal yellow rodent faces, dark pointed ears and cheeks | Pikachu/Pichu-like; the two-window distinction remains uncertain |
+| `43:5AA0` | `gfx/previews/screens/BrowserFrameCandidate_43_2.png`: red insect, large eyes and antennae | Ledyba-like, PROBABLE |
+| `43:67F0` | `gfx/frame_designs/plant_chevron_and_heart_borders_43/heart_and_flower_border_43_67f0_tiles.png`: paired head flowers and leaf skirt | Bellossom-like, PROBABLE |
+| `44:4000` | `gfx/previews/screens/BrowserFrameCandidate_44_0.png`: dark body, yellow rings and red eye | Umbreon-like, PROBABLE |
+| `44:4D50` | `gfx/frame_designs/arc_bubble_rock_and_scroll_borders_44/blue_bubble_border_44_4d50_tiles.png`: round ears and pale belly | Marill-like, PROBABLE |
+| `44:5AA0` | `gfx/previews/screens/BrowserFrameCandidate_44_2.png`: green creature with spikes | Tyranitar-like, PROBABLE |
+| `44:67F0` | `gfx/previews/screens/BrowserFrameCandidate_44_3.png`: blue serpent, small horn and pale appendages | Dragonair-like, PROBABLE |
+| `45:4000` | `gfx/previews/screens/BrowserFrameCandidate_45_0.png`: blue crocodile with toothed mouth | Totodile-like, PROBABLE |
+| `45:4D50` | `gfx/frame_designs/ice_spike_curve_and_gold_borders_45/violet_spike_border_45_4d50_tiles.png`: crown/mask and angular mane | Entei-like, PROBABLE |
+| `45:5AA0` | `gfx/previews/screens/BrowserFrameCandidate_45_2.png`: red creature and marked pincer | Scizor-like, PROBABLE |
+| `45:67F0` | `gfx/previews/screens/BrowserFrameCandidate_45_3.png`: yellow head, large eyes and broad bill | Psyduck-like, PROBABLE |
+| `46:4000` | `gfx/previews/screens/BrowserFrameCandidate_46_0.png`: spiked egg body with triangular marks | Togepi-like, PROBABLE |
+| `46:4D50` | `gfx/previews/screens/BrowserFrameCandidate_46_1.png`: frontal coin and whiskers | Meowth-like, PROBABLE |
+| `46:5AA0` | `gfx/previews/screens/BrowserFrameCandidate_46_2.png`: pale elongated head and dark eye marking | Lugia-like, PROBABLE |
+| `46:67F0` | `gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/pink_scallop_border_46_67f0_tiles.png`: round face, large eyes and forelock | Jigglypuff-like, PROBABLE |
+| `47:68F0` | `gfx/browser/frames_2_3/browser_frame_candidate_72f0.screen.png`: yellow head in profile, dark ear and cheek | Pikachu/Pichu-like; the two-window distinction remains uncertain |
+
+The review supports 21 distinctive visual identities and two rodent-like
+windows, but cannot safely decide which rodent depiction is Pikachu and which
+is Pichu. It finds no Porygon-like silhouette in `41:5AA0` or `41:67F0`;
+their “geometric Porygon” interpretation remains unsupported. The four
+decisive component PNG hashes are, respectively, `203402ee8432d32eea02cfeee20d58f50caceb2180d876016c106cf23317d7b6`,
+`79d6224cb981cf021a12ce84e1164c60098599f7b286f10eeaf172c29ebaa7b5`,
+`4c0bbca1753b80992588edfea5e1c6193f14a8805f51ae45fad289b512447aab`, and
+`101d974b982b4eeba83e7a83047948dc99dc6b0619330af76ffeeac21f469ffd`.
+
 ### Current direct-symbol consumer matrix (2026-10-24)
 
 A grouped scan of 349 maintained Japanese ASM/INC sources (including root constant/include files and `ram/`, excluding `engine/mail/sample_data.asm` before reading and excluding language overlays) checked the 26 Bank 53 name symbols and every labeled asset whose start falls inside the 25 candidate windows. It found zero external references to the name symbols and zero external references to the 104 candidate-window asset labels across the eight Bank 41–47 owner files. The 124 asset rows in those windows remain present in the manifest; this result means their editable source labels are not directly named by another maintained source file. It does not exclude raw byte pointers, computed/indexed addresses, generic descriptors in RAM/SRAM, copied data, or code/data readers with no symbol reference.
