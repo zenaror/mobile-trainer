@@ -575,6 +575,33 @@ A retained source-only census was reproduced on the current Japanese source set:
 
 Reproduce from repository root with `.tmp/jp-reader-census-20261024/scan.py` (SHA-256 `c2f87122cbdd35db70a8ca0359f0d563246f0889890e1cb2f96e9503f8b5437a`). Current receipt SHA-256 `bfb36f367ed9d1362725ef7f07314cc12b7ad6d2783cc409225512c317419436`; it pins source manifest `586656649691e15a1d2a05bd902bdd69465520711e809cf015e5d94f21b67e9e`, linker symbols `6373908de7aa1b10c772bd7aa9087bff13eb1e2352b0c71f24e7a26b82ad1598`, and screen operation source `888f78456d6d82544727d405487f9e5744902ced904e4d3823497dc3c80000aa`. The per-site and provenance TSVs remain alongside the receipt in the same `.tmp` directory.
 
+### Generic copy destination reconciliation (2026-10-24)
+
+A second bounded pass follows the nearest local `ld de,operand` at each of the
+same 311 retained copy callsites, stopping at a control-transfer boundary and
+resolving linked symbols plus `ram/*.asm` aliases. It resolves 161 destinations
+to WRAM/echo (including five overlay aliases), 25 to SRAM, and two to VRAM.
+Three numeric low-window setups are false positives: each occurs in
+`Pop3_RetrPoll` after `MailRecord_GetFreeSlotPtr`, adds offset 3 or 9 to its
+returned HL, then copies that computed pointer to DE. The helper selects SRAM0
+and returns one of the twelve addresses in `MailRecord_AddrTable2` (`A124` to
+`AE13`); the three sinks therefore remain in SRAM, not MBC registers. The
+remaining 120 callsites inherit DE without a local setup in the bounded scan.
+
+**Result:** no confirmed generic-copy destination enters CPU `$0000–$7FFF`
+among the locally resolved callsites after tracing the three pointer-derived
+cases. This does not classify the 120 inherited-DE sites, prove arbitrary
+corrupted pointers safe, or establish source/Bank 53 non-use. The protected
+`engine/mail/sample_data.asm` was not read. No ROM/source/assets changed and no
+build or runtime scenarios were run.
+
+Reproduce with `.tmp/jp-copy-destination-reconciliation-20261024/audit.py`
+(SHA-256 `a4063a674e13a047b42e355547f5357eabe8cbf55864236ca0b33dfefab06b29`);
+receipt `.tmp/jp-copy-destination-reconciliation-20261024/RESULT.json` (SHA-256
+`2001920ce2ffa1aed35bb76223c8dcd00671c7ecbea689722c4e4c1131fb6f48`). It pins
+the retained site list, linker symbols, ROM, all 38 distinct callsite source
+files, and the two SRAM record/helper contract files.
+
 ### `ReadBytesFar` direct-entry follow-up (2026-10-24)
 
 `ReadBytesFar` at ROM0 `00:1686–16A1` is a bank-selecting byte-range reader,
