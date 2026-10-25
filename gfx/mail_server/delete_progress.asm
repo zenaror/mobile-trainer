@@ -542,7 +542,14 @@ MailSrvDel_ProgressObject_Anim0Script:: ; 23:7BFE
 	sprite_anim_step 0, 20
 	sprite_anim_step 1, 29
 
-; ---- data $7C03-$7F30 (813 bytes) [HYPOTHESIS] tilemap/attribute-like index data (all bytes < $40, 20-byte rows of runs of $11/$2F/$08/$10 and small ascending index runs 08-0F/18-1F/02-07/12-17); the mapper called 7C01-7E81 "tiles-2bpp" (coherence 0.66/0.88) but repeated-byte runs give that score to tilemaps as well and no loader references these bytes; extent 7E81-7F30 (previously unclassified) continues the same pattern (the $08 fill is an attribute-map pattern) - purpose unknown
+; ---- data $7C03-$7F30 (813 bytes)
+; [PROBABLE] 13 zero alignment bytes at 7C03-7C10, then four 20x5 tile-index/attribute
+; pairs (100+100 bytes) at 7C10, 7CD8, 7DA0, 7E68; all 400 attribute bytes are $08.
+; With MailSession_Tiles_62E0 at VRAM1 $9000 and the CommProgress palette, the maps
+; render sending/sent/receiving/received captions and B-cancel. Intended association
+; is PROBABLE; no Bank23 loader/selector is demonstrated. Overall use HYPOTHESIS.
+; This supersedes the earlier four 20x10 maps plus 13-byte $08-tail interpretation.
+; See japanese_semantic_roots_and_destinations_20261025.md, corrected paired-map layout.
 
 CandidateMapData_23_7C03:: ; 23:7C03
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $11, $11, $11

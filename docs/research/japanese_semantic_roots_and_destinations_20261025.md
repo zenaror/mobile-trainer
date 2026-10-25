@@ -1198,7 +1198,7 @@ visual purpose.
 | `58:7E48–7EA0` | Two variants of eleven four-byte page-counter column records; `Notice_DrawPageCounter` selects the record and copies a two-tile column. | **CONFIRMED record fields and consumer.** This is object-tile metadata, not a tilemap image. |
 | `4B:5B68–5B90` | Ten four-byte digit tile/attribute records indexed by `Account_ResultPage_DrawTimeDigits`. | **CONFIRMED record fields and consumer.** This is sprite/tile upload metadata, not a tilemap image. |
 | `26:7AB0–7AC0`, `2D:5E80–5EC0` | Zero-filled tails included in existing graphics HDMA transfers. | **CONFIRMED zero-fill bytes in those transfers.** No tile-index consumer is established; these are not omitted editable art. |
-| `23:7C03–7F30` | `CandidateMapData_23_7C03`, four 200-byte blocks plus a 13-byte `$08` tail. Rendering as four 20×10 tile-index maps with synthetic attributes yields plausible interface fragments; no exact block match exists in 365 catalogued tilemap/attrmap/raw assets. | **PROBABLE map-like structure; overall purpose/use HYPOTHESIS.** The maintained search finds no symbolic or literal reader in application sources. The bounded no-reader result is not global non-use; keep the candidate label and do not export it as confirmed graphics. |
+| `23:7C03–7F30` | `CandidateMapData_23_7C03`: corrected interpretation is 13 leading zero bytes plus four 20×5 tilemap/attribute pairs, rendering mail send/sent/receive/received panels with the existing MailSession graphics. See the corrected paired-map layout below; the former trailing `$08` interpretation is superseded. | **PROBABLE map-like structure; overall purpose/use HYPOTHESIS.** The maintained search finds no symbolic or literal reader in application sources. The bounded no-reader result is not global non-use; keep the candidate label and do not export it as confirmed graphics. |
 
 This closes the format/consumer reconciliation for the listed positive cases
 and prevents them from recurring as generic “missing assets” work. It does not
@@ -1246,32 +1246,49 @@ only the prior receipt's candidate hash; its trace interval results are
 independently reproduced. No emulator was run and no ROM, ASM, or asset bytes
 changed.
 
-#### Bank 23 candidate structural rendering (2026-10-25)
+#### Bank 23 corrected paired-map layout (2026-10-25)
 
-The corrected 813-byte slice contains four contiguous 200-byte blocks beginning
-at `7C03`, `7CCB`, `7D93`, and `7E5B`, followed by 13 bytes of `$08` at
-`7F23–7F30`. Each block is exactly 20×10 bytes if interpreted as a row-major
-tile-index map. Their pairwise equality ranges from 171/200 to 190/200 bytes;
-the values fit the 64 tiles already loaded from `23:6FE0–73E0`. None of the
-four 200-byte blocks is an exact substring of the 365 catalogued tilemap,
-attrmap, or raw assets checked.
+The earlier structural preview split the 813-byte slice at `7C03` into four
+20×10 index maps and a 13-byte `$08` tail, supplying synthetic attributes.
+That segmentation is superseded. The first 13 bytes are zero; offset 13 is
+**the only phase in 0–13** for which all four 200-byte records have 100 `$08`
+bytes in their second half and fit within the slice. This yields:
 
-For a format screen only, the existing MailSrvDel progress tile sheets and
-palette were rendered with each block as a 20×10 map, signed tile numbering,
-and a synthetic `$08` attribute byte in every cell (VRAM bank 1, palette 0).
-All 200 cells resolve and the previews show coherent interface fragments.
-Those attributes and dimensions are assumptions; the images are not original
-screenshots or emulator output. This raises the **PROBABLE** interpretation
-that the blocks are tilemap variants, while their specific format, consumer,
-natural selection, and relationship to the following tail remain unresolved.
-Keep `CandidateMapData_23_7C03` and its HYPOTHESIS status; do not add editable
-assets or claim use/non-use from these previews.
+| Tile-index bytes (100) | Attribute bytes (100) | Rendered caption with MailSession graphics |
+|---|---|---|
+| `23:7C10–7C74` | `23:7C74–7CD8` | メールをおくっています — sending mail |
+| `23:7CD8–7D3C` | `23:7D3C–7DA0` | メールをおくりました — mail sent |
+| `23:7DA0–7E04` | `23:7E04–7E68` | メールをうけとっています — receiving mail |
+| `23:7E68–7ECC` | `23:7ECC–7F30` | メールをうけとりました — mail received |
 
-Reproduction: `.tmp/jp-bank23-format-preview-20261025/audit.py` (SHA-256
-`825b412178ea71df395d78e66764b0d73f7724fbb305710c1a131741f90f4bf2`) and
-`RESULT.json` (SHA-256
-`5bbe1ba8b491d531dc2541ed0925571b8a52ac9431823fd7fc2bbdb8f2bef9f7`); the
-four assumption-labeled PNGs are in its `model_signed_attr08/` subdirectory.
+The final 13 `$08` bytes belong to the fourth attribute half under this model;
+there is no separate trailing fragment. The leading `7C03–7C10` zero run is
+**PROBABLE alignment padding**, not a proven unused interval. Each pair renders
+as 20×5 cells, including a B-cancel footer, with the original attributes and
+`MailSession_Tiles_62E0` mapped at VRAM1 `$9000`. That tile mapping and the
+CommProgress palette are existing `MailSession_InitScreen` setup operations.
+Using them here is a reconstructed composition, not proof that InitScreen
+reads these Bank23 records. The layout and intended mail-status association
+are **PROBABLE**; the Bank23 reader/selector and natural use remain **HYPOTHESIS**.
+
+The nearby MailSrvDel progress tile context produces mismatched fragments.
+A bounded heuristic screen of catalogued tile sheets (at least 51 tiles, with
+indices 00/10/11/2F composed of solid horizontal rows) found six contexts;
+MailSession yields the four consistent captions above. This is visual/type
+evidence, not a global uniqueness proof. None of the four corrected 200-byte
+pairs, nor its 100-byte tile half, occurs elsewhere verbatim in the original
+ROM. Lack of a duplicate is not proof of non-use.
+
+Reproduce with `.tmp/jp-bank23-paired-map-alignment-20261025/audit.py` and
+`tile_contexts.py`; `RESULT.json` pins the pair and PNG hashes and the loaded
+art/palette inputs, and `TILE_CONTEXTS.json` records the six heuristic contexts.
+The four `paired_*.png` previews use ROM attributes and the existing MailSession
+screen asset context. They are not emulator screenshots or newly proven live
+assets. The earlier `.tmp/jp-bank23-format-preview-20261025` receipts remain
+historical evidence of the rejected segmentation; do not re-use that geometry
+or its separate-tail claim. The corrected ROM slice hash and bounded no-reader
+results in the preceding section remain valid. No asset is missing from the
+ROM reconstruction, and no loader or editable-screen contract is invented.
 
 #### Bank 23 raw far-pointer shape scan (2026-10-25)
 
