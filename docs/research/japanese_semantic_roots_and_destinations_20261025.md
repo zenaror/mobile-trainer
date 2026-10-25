@@ -166,6 +166,31 @@ maintained route inventories. The finite evidence and asset counts remain in
 [`japanese_frame_bank53_revalidation_20261024.md`](japanese_frame_bank53_revalidation_20261024.md)
 and [`japanese_remaining_semantics_batch_20261024.md`](japanese_remaining_semantics_batch_20261024.md).
 
+### Out-of-range frame selector check for the 25th candidate window
+
+The earlier out-of-range selector audit filtered the five far fields for each
+ROM-resident descriptor against the 24 candidate windows in Banks 41–46. It
+did not include the separate 25th window at `47:68F0–7640`. I rechecked its
+retained 101-index decode against the current protected ROM and
+`engine/browser/frame_graphics.asm`; both SHA-256 pins still match the saved
+receipt. None of the 425 ROM-resident far fields selected by out-of-range
+indices `27..127` points into `47:68F0–7640`.
+
+This extends the bounded selector result to all 25 candidate windows for
+ROM-resident descriptor fields. Sixteen out-of-range selector words point
+outside ROM into mutable WRAM/VRAM/SRAM; those contents are not interpreted as
+ROM descriptors and remain conditional. The maintained producer limits and
+the chooser's lack of a natural caller are unchanged. No name ordinal or
+candidate window is shown globally unused.
+
+Reproduction: `.tmp/jp-browser-oob-bank47-tail-20261024/audit.py` (SHA-256
+`0b6dba5651faaa2c94ef0c35c8b588fe73a0d233033f8cd5dbf1a31be705badb`),
+which reuses `.tmp/jp-browser-oob-selector-frame-route-20261024/RESULT.json`
+(SHA-256 `17c3233fad4d3d1783ecb4a090ab7bbaff8bd5d7e9770929d271762b8c2be1b6`)
+and confirms its ROM/source pins before filtering the omitted range. The new
+receipt is `.tmp/jp-browser-oob-bank47-tail-20261024/RESULT.json` (SHA-256
+`0d4ac74dff8427e16ceeccf97886c31f3c752079d6e3f925bcfd6ce16420444f`).
+
 ## Remaining work required for semantic closure
 
 1. BMP source-length handling is now statically reconciled: the natural caller
