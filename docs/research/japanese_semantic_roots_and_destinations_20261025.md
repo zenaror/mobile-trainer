@@ -521,6 +521,31 @@ and confirms its ROM/source pins before filtering the omitted range. The new
 receipt is `.tmp/jp-browser-oob-bank47-tail-20261024/RESULT.json` (SHA-256
 `0d4ac74dff8427e16ceeccf97886c31f3c752079d6e3f925bcfd6ce16420444f`).
 
+### REON page archive checked against the ROM-semantic blockers (2026-10-25)
+
+I inspected the public [`REONTeam/pages` repository](https://github.com/REONTeam/pages)
+at commit `baeec2f1e4348c36384297810ba18a1c0d172236`. It contains 190 tracked
+files and eight BMPs. Its preserved `Original Sitemap/01/CGB-B9AJ/index.html`
+references `hometitle_04.bmp` and `cl_02.bmp`; the archived Mobile Stadium
+schedule page references `other3.bmp`, `other4.bmp`, and `other5.bmp`. The
+remaining BMPs are alternate homepage logo variants. These files are external
+page payloads, not ROM-resident Bank 41–53 graphics. The `cl_02.bmp` illustration
+is not identified here as a Pokémon or as any named ROM asset. The repository
+does not attach original capture timestamps, HTTP headers, or response-body
+hashes, so its “original sitemap” label is not treated as authenticated server
+provenance.
+
+This archive therefore provides no `PokemonNameXX` selector, frame bank/address,
+or runtime read edge, and does not change any candidate's **UNKNOWN/HYPOTHESIS**
+use status. It also does not replace the absent historical homepage response:
+the archived root page is one preserved variant and the sitemap is partial.
+The bounded census receipt is
+`.tmp/reon-pages-audit-20261025/ARCHIVE_CENSUS.json`, SHA-256
+`feb064ac42781a6314d5313c97a031bb87329fe88efbe8bd4488e0e246c6b3db`; the
+checkout pins the upstream commit and hashes every tracked file. It is retained
+as temporary source evidence, not copied into the project or treated as a ROM
+asset source.
+
 ### Mutable descriptor pointers are out-of-table selector artifacts (2026-10-24)
 
 I reconciled the 16 pointers that the earlier 0–127 decode classified as
