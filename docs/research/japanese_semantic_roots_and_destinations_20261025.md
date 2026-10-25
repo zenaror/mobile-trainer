@@ -712,3 +712,8 @@ has SHA-256
 `traces/detail/settings_cgi/callgraph.tsv` has SHA-256
 `aad0e4318860607fa80efc23e6361e77cbe45f5ae22ddb020e678c1c5d7709af`.
 No ROM, ASM, or graphic asset was changed for this analysis.
+
+
+### Correction: community archived BMP examples (2026-10-25)
+
+A commit-pinned community archive now provides eight exact BMP candidates and an archived homepage that references two. Its commit says the files came from Echelon's latest dump, without a primary response capture manifest. A directed mGBA run served that archived homepage and both linked image bodies through the Japanese ROM's browser path; the ROM fetched them and executed the `Bmp_CheckSize` rejection branch for the standard top-down height `-48` (low byte 208). It did not reach conversion or rendering. Three other files pass only the parser/dimension gates. This replaces “no historical BMP bytes available in checked sources” with “candidate dump-derived bytes and a positive parser-rejection trace available; original response provenance and natural render remain unverified.” Hashes, source lineage, exact links, gate results and scope are in [`japanese_bmp_record_bounds_20261025.md`](japanese_bmp_record_bounds_20261025.md#community-archive-bmp-payloads-2026-10-25) and `.tmp/jp-archived-pages-bmp-20261025/RESULT.json`.
