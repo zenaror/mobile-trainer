@@ -500,6 +500,29 @@ This closes the *current mapper inventory's* computed-control-transfer route to 
 The first cross-check used the tracked `analysis/mapper/report.md`, which was still the 18-scenario snapshot (SHA-256 `e645869e7943a280501d01c8cb42d6a18d1bf37017428849e13cae708daca01e`). To avoid relying on it, `tools/mapper.py` was rerun against all 72 current data-access scenarios into `.tmp/jp-current-mapper-recheck-20261024/`. The fresh report records 78,114 executed ROM starts and the same 34 indirect sites; the run's mapper validation reports zero missing executed starts, sweep failures, boundary crossings or tiling problems. The candidate cross-check was rerun against this fresh report and again found no route in the enumerated inventory. The tracked `analysis/mapper` snapshot was preserved because its hand-reviewed `audit.md` is tied to the previous deterministic sample population; replacing only generated files would make that retained review inconsistent. The full fresh report, stats and bank outputs remain together under the private `.tmp` directory. Fresh report SHA-256 `f7cf26d142de61260cb3c5df3dca0fc0e734219b696801c6707ffbcc83cb372d`; stats SHA-256 `0f3d0622199ec06d40e5e18e0c71261dff4c085f990b6fc3de163c3fe2ff6ae4`; tool `tools/mapper.py` SHA-256 `7432c3dbe9b0c54304b864662211be58111189259ebe046059522ab3dfee1bbb`. Reproduce the candidate check with `.tmp/jp-indirect-two-entry-crosscheck-20261024/audit.py` (SHA-256 `b1f5d3444ff513c1a15daa1a2ba164aa3a454a0a1f7aede4b0628604cdcedec5`); receipt `RESULT.json` SHA-256 `19df871c1ebf9a40c2a7d54d037ed04e4bd2b71e7fcc3d9b8f27f29366301d41`. The source and ROM pins remain as stated above.
 
 
+### Exact byte identity for the Bank 48 mask helper (2026-10-25)
+
+The 31-byte body at physical `48:4A8C–4AAA` is byte-identical to the
+CONFIRMED `Tilemap_ApplyMaskRect` body at `00:091C–093B` in the protected
+Japanese ROM. Both SHA-256 digests are
+`b231673b2c0cc922b4d8c54cd89b4cb1d4dcb084f0efb42cdb1cc2399b7d02d5`.
+This confirms the local operation: for B rows it applies `[HL]=([HL]&D)|E`,
+advancing each row by `ceil(C/32)*32`; the `$C=0`/`$B=0` wrap cases are those
+of the byte-identical ROM0 routine. The candidate's first `CALL BankSwitch_H`
+therefore has the same A/HL region-selection behavior as the confirmed twin.
+
+This advances the meaning of the code bytes, not the entry/use result: the
+candidate still follows `RET` at `48:4A8B`, and no natural caller or pointer
+to `48:4A8C` is established by the bounded source, dispatch, and trace audits.
+Its source comment is now `CONFIRMED` for the identical body while explicitly
+retaining **UNKNOWN** reachability. After this comment-only change, `make`
+returned `SHA-256 OK` and `RESULT: IDENTICAL` to original ROM
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
+`make sym-check` passed (335 source files, 12,224 labels, 51 constants).
+No opcode/data byte changed. No emulator/hardware behavior is inferred for an
+unobserved entry into the Bank48 copy.
+
+
 ### Sprite object-table reader domain (2026-10-24)
 
 `Sprite_InitSlot` stores its input bank in the sprite slot, selects that bank, and reads the selected four-byte object-table entry through `Sprite_LoadObjectEntry` (`home/sprites.asm:235–299`). A source census over all 212 maintained `.asm` files under `home/`, `engine/`, `lib/`, and `data/` (including `engine/unreferenced/`) found 712 direct `call`/`farcall Sprite_InitSlot` sites. Every site had a symbolic `DE` operand within the preceding 16 source lines, and every table symbol resolved in the current linker `.sym`. None of those object tables is located in physical Bank 41–47 or Bank 53. This bounds the direct object-table selection route: its 4-byte records do not originate in the candidate graphic windows or the Bank 53 Pokémon-name block.

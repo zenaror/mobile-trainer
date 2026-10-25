@@ -137,11 +137,12 @@ Tutorial_GateTopMenu:: ; 48:4A4E
 
 Tilemap_ApplyMaskRect_48_4A8C:: ; 48:4A8C
 
-	; [HYPOTHESIS] byte-identical to ROM0 Tilemap_ApplyMaskRect: B rows apply [HL]=([HL]&D)|E;
-	; the next-row advance is ceil(C/32)*32 for C=1..255 (32 only for widths 1..32); C=0 processes
-	; 256 bytes and advances 256, while B=0 wraps to 256 rows. No caller/pointer to 48:4A8C is known;
-	; a 32-byte stride requires C=1..32. The bank-selection and writable-destination contract is
-	; unproved for this copy; it follows RET at 4A8B and ends at RET 4AAA.
+	; [CONFIRMED] 31 bytes identical to Tilemap_ApplyMaskRect at 00:091C (ROM SHA-256
+	; 6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570): B rows apply [HL]=([HL]&D)|E;
+	; row advance is ceil(C/32)*32 for C=1..255; C=0 processes 256 bytes, and B=0 wraps to 256 rows.
+	; A selects the region through BankSwitch_H based on H. No natural caller/pointer to 48:4A8C is
+	; established in the bounded source/dispatch/trace reviews; entry and runtime use remain UNKNOWN.
+	; The copy follows RET at 4A8B and ends at RET 4AAA.
 	call BankSwitch_H
 	ld a, c
 	ldh [hTileMaskRect_Width], a
