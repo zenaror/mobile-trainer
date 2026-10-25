@@ -658,6 +658,51 @@ receipt `.tmp/jp-copy-destination-reconciliation-20261024/RESULT.json` (SHA-256
 the retained site list, linker symbols, ROM, all 333 tracked Japanese ASM/INC
 files in the six maintained roots, and the two SRAM record/helper contract files.
 
+### Derived generic-copy source follow-up (2026-10-25)
+
+The census was rerun against the current checkout because six source files had
+changed since the 2026-10-24 source manifest. It reproduces the same 311 sites,
+the same 77 `derived-lexical` inputs, and byte-identical site/provenance TSV
+hashes. The updated manifest pins all 333 inspected source files at
+`68395345b07230356f31c91fee7b4f34190a4a63096291b6b41a2a85e1e8818c`.
+
+The 77 derived inputs are distributed across caller banks
+00(3), 4C(5), 4E(4), 4F(1), 51(2), 54(3), 67(1), 68(5), 74(4), and 75(49).
+Only four are in a physical candidate code bank, Bank 4E:
+
+| Callsite | Source producer and mapped region |
+|---|---|
+| `engine/browser/page_render.asm:148,170` | `Browser_MakeShortTitle` receives either the page-header pointer in WRAM bank `hPageHeaderPtr+2`, or `wBrowserPageUrl` after selecting WRAM bank 6. |
+| `engine/browser/page_render.asm:1474` | `Browser_DrawElement_Text` obtains the text pointer in the `$D000` WRAM window; `hPageRender_TextBank` is the WRAM bank from the page record and is passed to `BankSwitch_H`. |
+| `engine/browser/page_view.asm:538` | `Browser_Menu_PageList` receives the selected URL pointer from `PageList_Main`; the URL slot table contains SRAM addresses `$A000`–`$A584`, and the handler enables SRAM before `CopyBytes`. |
+
+The other candidate-bank callsites are not derived inputs: all five Bank 48
+copies use `wPaletteBufBg` as the lexical source, and there are no generic-copy
+sites in Bank 53 or Banks 41–47. The source selectors encountered in the
+bounded owners are also outside the candidate ranges: the built-in HTML reader
+selects Banks 3D/3E; prompt/dial readers
+select Bank 65, Bank 68, or SRAM 1; browser history/page-cache readers select
+WRAM 6 or SRAM 1/3; inline BMP conversion reads its input from SRAM 3 and its
+staged output from WRAM; HTML title/text readers use WRAM 4 or a text-record
+WRAM bank. No positive read of Bank 53, a candidate frame window, or the
+candidate code bytes at `4E:47EB` / `48:4A8C` was found in this maintained
+generic-copy family.
+
+This closes the named producer paths represented by the current maintained
+generic-copy census, including the previously untraced Bank 4E cases. It is not
+a universal no-read/no-use proof: arbitrary pointer corruption, unmodeled
+interprocedural mapper changes, handwritten readers, copied code, external
+payloads, and unobserved execution remain outside the census. It establishes
+neither global frame use nor a Pokémon-name/frame link.
+
+Reproduction: current census `.tmp/jp-derived-copy-source-triage-20261025/scan.py`
+(SHA-256 `c2f87122cbdd35db70a8ca0359f0d563246f0889890e1cb2f96e9503f8b5437a`),
+receipt `RESULT.json` (SHA-256 `ef52af2d2ae7426085751058dfed2e3e7fa24819a0a86d6eb51af131b94029c0`);
+producer assertions `.tmp/jp-derived-copy-source-triage-20261025/analyze.py`
+(SHA-256 `85d421e4e8a2ebbc657d8fc182bab68e03e43d57e4779700c805eb23c2b676ff`),
+receipt `SOURCE_DOMAIN_RESULT.json` (SHA-256
+`e64ce828c875e3db26e47e760c8ddbc127e759a208365cc225b794575af288ad`).
+
 ### `ReadBytesFar` direct-entry follow-up (2026-10-24)
 
 `ReadBytesFar` at ROM0 `00:1686–16A1` is a bank-selecting byte-range reader,
