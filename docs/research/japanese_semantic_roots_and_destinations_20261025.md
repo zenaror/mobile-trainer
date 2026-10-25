@@ -513,3 +513,55 @@ audit was run twice and produced identical results. `make` reports
 `SHA-256 OK` / `RESULT: IDENTICAL` to the protected ROM, and `make sym-check`
 passes 335 source files, 12,224 labels and 51 constants. No emulator or
 hardware test was run.
+
+### Follow-up: remaining evidence barriers (2026-10-25)
+
+Three independent read-only reviews tried distinct routes into the remaining
+questions without repeating the closed 72-scenario corpus or the 349/333-file
+source censuses:
+
+* A structural decode of `53:4000–4170` confirms 25 little-endian string
+  pointers followed by 25 NUL-terminated names. The block contains no separate
+  frame-bank/address field. A visual/index-derived pattern for ordinals 2–23
+  can be written as `bank=$46-floor((n-2)/4)`,
+  `address=$4000+$0D50*((n-2) mod 4)`, with the existing probable exception
+  `n=1 -> 47:68F0`; this describes the asset arrangement, not executable code
+  that produces or consumes the mapping. Ordinals 0 and 24 remain without a
+  supported asset assignment. No new executable edge was found.
+* The June 2018 Project Pokémon post says the author found Mobile Trainer
+  Pokémon sprites in a ROM and later attached `BetaP2.JPG`, but supplies no ROM
+  hash, bank, offset, or extraction recipe. The 191x175 attachment is a sprite
+  sheet, not a browser-frame image. It was fetched to
+  `.tmp/jp-beta-p2-pixel-match-20261025/BetaP2.JPG` (SHA-256
+  `f6ce4db01ff0364209407f8216e3d9088ef462022df14d7558f63b58394ebf53`). A
+  bounded local comparison of 108 exact tile entries, the common Bank 47
+  graphics, and selected OBJ sheets at `70:5490`, `70:5890`, and Bank 26 Mail
+  Session entries found no exact attribution. The complete existing contact
+  sheets showed no obvious visual match, but they are not a pixel-level proof
+  that the sprite is absent from every ROM byte or an unexported resource.
+  Preserve the forum image as an external lead, not binary evidence.
+* A separate small follow-up of candidate roots at `48:4A8C`, `4E:47EB`, and
+  `00:0A2A` found no new maintained caller or dispatch edge. Code behavior can
+  be named from local instructions, but natural entry still needs the concrete
+  caller/selector, register inputs, mapper state, and valid continuation listed
+  in the candidate matrix above. No status is promoted to globally unused.
+
+The BMP historic-source search has a similar provenance limit. Shonumi's
+2018-era Mobile Adapter research reports that Nintendo's original homepage
+content had been erased and that the exact `index.html` was no longer valid;
+the documented image experiments used a customized page. This is useful
+secondary evidence for why a natural historical BMP response may be
+unavailable, not a primary copy of any server payload. See
+[`Edge of Emulation: Mobile Adapter GB - Part 1`](https://shonumi.github.io/articles/art14.html)
+and the bounded archive/local-corpus checks in
+[`japanese_bmp_record_bounds_20261025.md`](japanese_bmp_record_bounds_20261025.md).
+
+These results answer why the semantic questions cannot honestly be marked
+closed from the present evidence: the ROM's name block has no explicit image
+mapping, no reviewed natural or forced trace contains a read of the names or
+candidate windows, the outside sprite screenshot has no ROM locator, and the
+historical server body is not available in the sources checked. The remaining
+claims are therefore **UNKNOWN/HYPOTHESIS**, not an assertion that the code
+or assets are unused. A new ROM-located sprite payload, a producer/consumer
+trace carrying ordinal and physical frame address, a natural candidate entry,
+or a primary archived server response would change that status.
