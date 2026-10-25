@@ -900,3 +900,30 @@ ROM, search corpora, saved states/configs, resolved inputs, and per-replay
 coverage/data/callgraph output hashes. The protected ROM hash remained
 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
 No ROM or asset bytes changed.
+
+### Natural mail-body editor bypasses the 2D:4E42 locator (2026-10-25)
+
+I parsed three retained natural synthetic-network reports (`mail_compose`,
+`mail_reply_ascii`, and `mail_inbox`) without regenerating traces. In all
+three, `MailBody_Edit` at `2D:4722` executes and its cursor path calls
+`MailBody_GetCharPtr` at `2D:4E8C` from `2D:4912` (24 call edges per report).
+None records an instruction start in `[2D:4E42,2D:4E8C)`, which includes the
+`MailBody_LocateCell` wrapper and `MailBody_LocateCellInMappedWram` helper.
+The MBC reports independently contain PC and post-write physical-bank rows for
+Bank 2D in each scenario.
+
+This confirms that these three natural editor flows use the alternate getter
+path and do not enter either locator routine. It does not identify another
+producer for `4E42`, prove the routines globally unreachable, or resolve their
+input/stack contract. Their matrix statuses remain unchanged. Evidence is
+synthetic mGBA execution, not native hardware.
+
+Reproduce the retained-report check with
+`.tmp/jp-mailbody-locator-natural-route-20261025/audit.py` (SHA-256
+`ba318c48a43fa6cda42320d7ff4db602e0bfb9c2fa44c8c0e6159c0681ca14cd`) and
+`RESULT.json` (SHA-256
+`ac0255b18b4f95381c170c492ebf2fbb76bb2d7e0b93c0a1b0a724cac1162a1c`). The
+receipt pins the Japanese ROM, body-editor source, scenario registry, and
+coverage/MBC/callgraph reports for each scenario. It records zero candidate
+instruction starts, 32–34 executions of the getter, and the exact input hashes.
+No ROM or assembly bytes changed.
