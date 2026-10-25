@@ -77,6 +77,11 @@ Smtp_QuitPoll:: ; 54:4552
 	ret
 
 Smtp_StartMailFrom:: ; 54:4575
+	; [CONFIRMED conditional] For complete valid SJIS units with no literal ESC,
+	; <=64 address + 2 separator + <=16 name + 1 ')' bytes encode to <=251
+	; bytes, fitting capacity $100 and its 8-bit field length. The <=20-byte
+	; subject encodes to <=62, fitting $80. This excludes capacity-truncated
+	; JIS escapes for that domain, not malformed fields or split SJIS pairs.
 	call Mobile_ResetCommandTimer
 	ld a, $03
 	ld [wMobileRetriesLeft], a

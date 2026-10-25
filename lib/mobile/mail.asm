@@ -3062,6 +3062,12 @@ Mail_EmitAddressListItem:: ; 0F:5066
 	ret
 
 Mail_EncodeHeaderWords:: ; 0F:50B7
+	; [CONFIRMED conditional] ESC $ B/@ saves the pointer to B/@ at 50E0.
+	; NUL at the leading-byte test in 50E2-50E4 reaches 5139 without POP HL: RET consumes
+	; that saved text pointer, leaving the real caller return stacked. ASCII
+	; termination is balanced; a closed JIS run reaches POP HL at 510F.
+	; See mail_sdk_data_names.md, header-encoder stack contract. No repair:
+	; malformed stored/external input and execution from RAM remain unproved.
 	ld hl, wMail_TextBuf1
 	ld de, wMail_TextBuf2
 	ld b, $00

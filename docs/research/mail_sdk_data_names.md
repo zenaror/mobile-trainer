@@ -102,3 +102,32 @@ The old isolated receipt remains historical; no follow-on native result is claim
 Independent review, fallback-manifest integration, linked symbol checks and native
 original-ROM comparisons remain pending. A static proposal is not byte-identity
 validation or independent self-acceptance.
+
+## Header-encoder stack contract (2026-10-25)
+
+Branch-aware local stack traversal exposed a conditional transfer at
+`Mail_EncodeHeaderWords` (`0F:50B7`): `PUSH HL` at `50E0` saves the address
+of the B/@ byte in `ESC $ B/@`. A NUL observed at the scan's leading-byte
+test (`50E2–50E4`) before the closing `ESC ( B/J` goes
+to `5137–5139` without popping HL, so RET consumes that text pointer and
+leaves the caller return stacked. ASCII termination is balanced; a closed
+JIS run reaches `POP HL` at `510F` before Base64 conversion. This records
+the original behavior without repairing the ROM or claiming natural entry
+into RAM. A small fail-closed interpreter of the original leaf bytes checks
+ASCII, unclosed B/@, and closed-B cases with synthetic RAM/stack; it is not
+a native emulator or hardware observation.
+
+The maintained SMTP header producer has a narrower domain: for complete
+valid SJIS units without literal ESC, at most 83 source bytes (64 address,
+2 separator, 16 display name, closing parenthesis) expand to at most 251;
+20 subject bytes expand to at most 62. A finite ASCII/JIS-mode length model
+includes the closing escape. These fit capacities 256/128 and the one-byte
+measured field lengths, excluding capacity truncation of a JIS run in this
+domain. It does not prove every stored input has complete SJIS units, no
+embedded ESC, or stable nonaliasing state. The body conversion is a different
+route and is outside this header result. No candidate root or Bank53/frame
+association is established. Reproduction and per-path states:
+`.tmp/jp-branch-stack-returns-20261025/check_header_contract.py` and
+`HEADER_CONTRACT.json`. The broad `probe.py`/`RESULT.json` in that directory
+are candidate generation only: balanced calls assumed, bounded stacks, no
+register/memory/mapper tracking; their other rows are not confirmed defects.
