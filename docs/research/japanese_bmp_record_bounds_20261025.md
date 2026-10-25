@@ -172,18 +172,45 @@ SRAM bank 3 in the image layout record. Since conversion metadata was skipped,
 the four bytes at P-4..P-1 remain whatever the input supplied. For the synthetic
 P=62 fixture below, that pointer is body+58, inside the second palette entry.
 
-A directed synthetic mGBA/fake-network replay delivered a 64-byte response
-with that top-down predicate. Across 20,000 frames, coverage records one entry
-at 51:7177 and one success return at 51:73CB, both at frame 9443. It records no
-row-loop/copy instruction starts (51:7251, 51:725D, 51:729C) and no bitmap draw
-starts (51:740D, 4E:5A6D, 4E:5B59). Thus the converter accepted and returned
-success, but this replay did not demonstrate rendering the resulting image.
-It does not establish whether a natural top-down resource supplies usable
-pre-pixel metadata, nor on-screen output on hardware. Fixture, harness, input,
-state, logs, and coverage hashes are in
-.tmp/jp-bmp-topdown-20261025/RESULT.json; audit script SHA-256
-de7c9c579af05d8bcb464ba993014c741d86896cc6a1f41d7d10649b22d9d46a and
-RESULT.json SHA-256 4ec6a8bb514d1fa2b9a0d7de9c3718b46a8282d1dc328aa089f74e60662498ae.
+An initial synthetic mGBA/fake-network probe delivered a 64-byte response
+with the top-down predicate, then reported no draw instructions through 20,000
+frames. That probe replayed only the `browser_bookmarks` menu path; it did not
+navigate through the `a.html` image and scroll its viewport into the image.
+Its missing draw coverage was a scenario-coverage limitation, not evidence that
+the accepted record could never reach a renderer. Preserve that bounded result
+and its receipt at `.tmp/jp-bmp-topdown-20261025/`.
+
+### Top-down conversion can reach the image renderer with crafted metadata
+
+A follow-up replay used the `browser_pages` interaction sequence from the
+existing `browser_bookmarks` save/config. The test page's `<img src="img_a.bmp">`
+was unchanged; only that HTTP response was replaced by a synthetic 362-byte
+BMP-like fixture: width 64, accepted raw height `20 FF FF FF`, pixel offset
+`P=74`, 288 pixel bytes, and four deliberately constructed bytes at `P-4..P-1`
+(`20 01 08 24`). These bytes encode the canvas metadata shape that the renderer
+reads: the row stride at `P-2` is 8, and pixel rows start at `P`. This is a
+conditional consumer contract established by source and tested fixture, not a
+claim that a natural server supplies those bytes.
+
+The fake server returned this fixture as HTTP 200 at frame 9345. The first
+`Bmp_ConvertToTiles` entry and success return were at frame 9462. Row-copy code
+for a later bottom-up image was not reached until frame 13710, after the
+`img_a.bmp` path had already rendered. The browser bitmap dispatcher and
+`Image_BlitToTileCanvas` first ran at frame 11065; each has four starts in the
+scenario. The screenshot at frame 12102 shows the image area after drawing.
+Thus a top-down record whose pre-pixel bytes satisfy the renderer's expected
+metadata can pass through the maintained HTML image route and be blitted in the
+instrumented emulator. The former no-render probe is superseded only as an
+answer to whether *this directed page path* reaches the renderer.
+
+Still **unproven**: whether any natural Mobile Trainer server/resource supplies
+a top-down BMP with compatible pre-pixel bytes; whether an ordinary top-down
+BMP renders correctly; and physical adapter/hardware behavior. Reproduction
+inputs, hashes, coverage and screenshot are retained in
+`.tmp/jp-bmp-topdown-render-20261025/`; audit script SHA-256
+`8563b5a437e5db4a416ceb84e44b592e865cbbcf08996070c0cd978f40dee017`,
+`RESULT_RENDER.json` SHA-256
+`4ed9f6810854951c43259fef46aba78f91f7b5fab8bcef605b59a5f683c7d43e`.
 
 Width zero has R=0 and zero input/output stride, but CopyBytes copies 256
 bytes for BC=0. The row source pointer is restored after each copy, so those
