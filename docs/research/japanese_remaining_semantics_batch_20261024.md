@@ -588,6 +588,17 @@ and returns one of the twelve addresses in `MailRecord_AddrTable2` (`A124` to
 `AE13`); the three sinks therefore remain in SRAM, not MBC registers. The
 remaining 120 callsites inherit DE without a local setup in the bounded scan.
 
+For the external asynchronous reply pointer specifically, a grouped scan of
+all 100 maintained lexical `call`/`farcall`/`jp MobileAPI` sites recovers an
+immediate API index at every site. Index `$38` occurs twice and maps to
+`MobileAPI_ReadConfig`; both callers (`AdapterCheck_State_ReadConfig` and
+`SettingsPhone_ReadAdapterConfig_State_ReadConfig`) pass `DE=sConfigImage`,
+`BC=$00C0`, and select SRAM bank 2. `sConfigImage` is `S2:$A000`, size 192.
+The handler copies that DE to `wMobileSDK_DestPointer`, which
+`MobileSDK_RxReadConfigReply` later uses for the response copy. This closes
+that maintained dynamic pointer producer; it does not classify the other 120
+inherited-DE sites as a whole.
+
 **Result:** no confirmed generic-copy destination enters CPU `$0000–$7FFF`
 among the locally resolved callsites after tracing the three pointer-derived
 cases. This does not classify the 120 inherited-DE sites, prove arbitrary
@@ -596,11 +607,11 @@ corrupted pointers safe, or establish source/Bank 53 non-use. The protected
 build or runtime scenarios were run.
 
 Reproduce with `.tmp/jp-copy-destination-reconciliation-20261024/audit.py`
-(SHA-256 `a4063a674e13a047b42e355547f5357eabe8cbf55864236ca0b33dfefab06b29`);
+(SHA-256 `a7a7ed2efaf06a21a5147b8c9f4cc2f92ee03d972014bbd5326f5d06e0c102c7`);
 receipt `.tmp/jp-copy-destination-reconciliation-20261024/RESULT.json` (SHA-256
-`2001920ce2ffa1aed35bb76223c8dcd00671c7ecbea689722c4e4c1131fb6f48`). It pins
-the retained site list, linker symbols, ROM, all 38 distinct callsite source
-files, and the two SRAM record/helper contract files.
+`56396855ec1a303116f7038b8aebe07d64702793c529385fb9384efd0e094f64`). It pins
+the retained site list, linker symbols, ROM, all 333 tracked Japanese ASM/INC
+files in the six maintained roots, and the two SRAM record/helper contract files.
 
 ### `ReadBytesFar` direct-entry follow-up (2026-10-24)
 
