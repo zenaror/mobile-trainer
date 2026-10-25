@@ -445,8 +445,11 @@ MailSrvDelHidden_ShowDescDeleteAll:: ; 22:43C5
 ; ---- text $43E0-$444D (109 bytes) [CONFIRMED] NUL-terminated original Shift-JIS text109 (54 double-byte glyph codes + NUL); original ROM22 source passed to TextTiles_RenderLine48:403E via bank-qualified ReadByteFar; 3 whole/3 union natural scenarios; bytes and labels preserved ; original JP natural-read evidence; English runtime UNVALIDATED.
 
 PUSHC sjis
+PUSHC sjis
 String_MailSrvDelHidden_DescDeleteAll:: ; 22:43E0
-	db "メールサーバにのこっているすべての　メールを、じどうでぜんぶけします　　じょうほうはたしかめられません　　　", 0
+	db "Ｅｒａｓｅ　ａｌｌ　ｅｍａｉｌ　　　ｓｔｏｒｅｄ　ｏｎ　ｔｈｅ　　　　　ｍａｉｌ　ｓｅｒ"
+	db "ｖｅｒ　　　　　　　", 0
+POPC
 POPC
 
 MailSrvDelHidden_ShowDescCheck:: ; 22:444D
@@ -473,8 +476,11 @@ POPC
 ; ---- text $448D-$44FA (109 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
+PUSHC sjis
 String_MailSrvDelHidden_DescCheck:: ; 22:448D
-	db "メールサーバにのこっているメールの　じょうほうをたしかめて、１つうずつ　じぶんでけすことができます　　　　　", 0
+	db "Ｓｅｌｅｃｔ　ａｎｄ　ｅｒａｓｅ　　ｅｍａｉｌ　ｓｔｏｒｅｄ　ｏｎ　　　ｔｈｅ　ｍａｉｌ"
+	db "　ｓｅｒｖｅｒ　　　", 0
+POPC
 POPC
 
 MailSrvDelHidden_ShowDescDeleteCompletely:: ; 22:44FA
@@ -494,8 +500,11 @@ MailSrvDelHidden_ShowDescDeleteCompletely:: ; 22:44FA
 ; ---- text $4515-$4582 (109 bytes) [CONFIRMED] NUL-terminated original Shift-JIS text109 (54 double-byte glyph codes + NUL); original ROM22 source passed to TextTiles_RenderLine48:403E via bank-qualified ReadByteFar; 1 whole/1 union natural scenarios; bytes and labels preserved ; original JP natural-read evidence; English runtime UNVALIDATED.
 
 PUSHC sjis
+PUSHC sjis
 String_MailSrvDelHidden_DescDeleteCompletely:: ; 22:4515
-	db "もんだいのあるメールとメールサーバにのこっているすべてのメールをじどうでぜんぶけします　　　　　　　　　　　", 0
+	db "Ｓｕｓｐｉｃｉｏｕｓ　ｅｍａｉｌ　　ｗｉｌｌ　ｂｅ　ｅｒａｓｅｄ　　　　ａｕｔｏｍａｔｉ"
+	db "ｃａｌｌｙ　　　　　", 0
+POPC
 POPC
 
 MailSrvDelHidden_Confirm:: ; 22:4582
@@ -779,14 +788,16 @@ MailSrvDelHidden_ConfirmSelect:: ; 22:47DE
 ; consumer; the four 33-byte fragments remain separate.
 
 PUSHC sjis
+PUSHC sjis
 String_MailSrvDelHidden_Confirm:: ; 22:481B
-	db "このしょりをおこなうと　　　　　", 0
+	db "Ａｌｌ　ｅｍａｉｌ　ｓｔｏｒｅｄ", 0
 String_MailSrvDelHidden_DeleteAllWarningPart2:: ; 22:483C
-	db "サーバにある　すべてのメールが　", 0
+	db "ｒｅｍｏｔｅｌｙ　ｗｉｌｌ　　　", 0
 String_MailSrvDelHidden_DeleteAllWarningPart3:: ; 22:485D
-	db "きえてしまいます　　　　　　　　", 0
+	db "ｎｏｗ　ｂｅ　ｅｒａｓｅｄ．　　", 0
 String_MailSrvDelHidden_DeleteAllWarningPart4:: ; 22:487E
-	db "　　　　よろしいですか？　　　　", 0
+	db "　　　Ｃｏｎｔｉｎｕｅ？　　　　", 0
+POPC
 POPC
 
 MailSrvDelHidden_UploadTextTiles:: ; 22:489F

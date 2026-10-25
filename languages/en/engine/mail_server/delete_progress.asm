@@ -1,0 +1,466 @@
+; engine/mail_server/delete_progress.asm
+; bank 23, $55C3-$58C4 (769 bytes); pinned by layout.link
+; transaction progress screen: init, progress text, number formatting
+
+SECTION "engine/mail_server/delete_progress", ROMX
+
+MailSrvDel_ProgressInit:: ; 23:55C3
+	; [CONFIRMED] 150 insn(s) executed; cut out of the PROBABLE region 5424-581E by apply_coverage
+	; --split [executed in 5 scenarios]
+	farcall Sprite_ResetAll
+	farcall Sprite_UpdateAll
+	farcall TextTiles_ClearBuffers
+	farcall TextTiles_UploadBuffers
+	farcall LCDOff
+	xor a, a
+	ldh [rSCX], a
+	ld a, $F0
+	ldh [rWY], a
+	ld bc, $0040
+	ld de, wPaletteBufBg
+	ld hl, Palette_MailSrvDelProgress_Bg
+	ld a, BANK(Palette_MailSrvDelProgress_Bg)
+	farcall Palette_LoadToBuffer
+	ld bc, $0040
+	ld de, wPaletteBufObj
+	ld hl, Palette_MailSrvDelProgress_Obj
+	ld a, BANK(Palette_MailSrvDelProgress_Obj)
+	farcall Palette_LoadToBuffer
+	ld de, $9001
+	ld hl, Gfx_MailSrvDelProgress_Tiles9000Vb1
+	ld a, BANK(Gfx_MailSrvDelProgress_Tiles9000Vb1)
+	ld b, $92
+	ld c, $40
+	farcall Gfx_StartHDMAWithService
+	ld de, $9401
+	ld hl, Gfx_MailSrvDelProgress_Tiles9400Vb1
+	ld a, BANK(Gfx_MailSrvDelProgress_Tiles9400Vb1)
+	ld b, $97
+	ld c, $10
+	farcall Gfx_StartHDMAWithService
+	ld de, $8000
+	ld hl, Gfx_MailSrvDelProgress_Tiles8000Vb0
+	ld a, BANK(Gfx_MailSrvDelProgress_Tiles8000Vb0)
+	ld b, $96
+	ld c, $16
+	farcall Gfx_StartHDMAWithService
+	ld bc, $1214
+	ld de, wScreenTileMap
+	ld hl, Tilemap_MailSrvDelProgress_Screen
+	ld a, BANK(Tilemap_MailSrvDelProgress_Screen)
+	farcall Tilemap_CopyRectAndAttr
+	ldh a, [rLCDC]
+	call Gfx_UploadBgMapBuffers
+	farcall LCDOn
+	call MailSrvDel_DrawElapsedTime
+	farcall Stat_DisableScrollSplit
+	call VBlank_Wait
+	farcall Palette_FadeInFromWhite
+	push af
+	ldh a, [rSVBK]
+	push af
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld a, $0B
+	ld [wStatSplitLine], a
+	ld a, $00
+	ld [wKbdSlideDeltaRow], a
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	pop af
+	farcall Stat_EnableScrollSplit
+	di
+	ldh a, [hWRAMBank]
+	push af
+	ld a, $01
+	ldh [rSVBK], a
+	ld bc, $000C
+	call Sound_PlayMusicOrResume
+	pop af
+	ldh [rSVBK], a
+	ei
+	ret
+
+MailSrvDel_DrawProgressText:: ; 23:56A1
+	push af
+	push bc
+	push de
+	push hl
+	push de
+	push bc
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld de, wMailSessionBlock + $0D
+	ld a, [de]
+	xor a, $FF
+	ld c, a
+	inc de
+	ld a, [de]
+	xor a, $FF
+	ld b, a
+	inc bc
+	add hl, bc
+	pop bc
+	pop de
+	push hl
+	call MailSrvDel_NumberTileOffset
+	pop hl
+	push hl
+	push bc
+	call MailSrvDel_FormatNumber
+	ld e, a
+	ld d, $00
+	swap e
+	pop hl
+	add hl, de
+	ld b, h
+	ld c, l
+	pop hl
+	ld a, $02
+	ldh [hTextTiles_DestBank], a
+	ld a, BANK(String_MailSrvDel_ProgressText)
+	ld hl, $0140
+	add hl, bc
+	ld d, h
+	ld e, l
+	ld hl, String_MailSrvDel_ProgressText
+	farcall TextTiles_RenderLine
+	di
+	call MailSrvDel_UploadNumberTiles
+	ei
+	pop hl
+	pop de
+	pop bc
+	pop af
+	ret
+
+MailSrvDel_FormatNumber:: ; 23:56F0
+	push hl
+	push bc
+	ld a, $01
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ld hl, String_MailSrvDel_NumberTemplate
+	ld de, wMailTextScratch
+.copy_number_template ; 23:56FE
+	ld a, [hli]
+	ld [de], a
+	inc de
+	cp a, $00
+	jr nz, .copy_number_template
+	pop bc
+	pop hl
+	push bc
+	ld bc, wMailTextScratch + $01
+	ld de, $2710
+	push bc
+	farcall Divide16
+	pop bc
+	ld a, l
+	cp a, $00
+	jr z, .l5761
+
+	; [PROBABLE] 46 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5424-581E by apply_coverage --split
+	ld a, [bc]
+	add a, l
+	ld [bc], a
+	inc bc
+	inc bc
+	ld h, d
+	ld l, e
+	ld de, $03E8
+	push bc
+	farcall Divide16
+	pop bc
+	ld a, [bc]
+	add a, l
+	ld [bc], a
+	inc bc
+	inc bc
+	ld h, d
+	ld l, e
+	ld de, $0064
+	push bc
+	farcall Divide16
+	pop bc
+	ld a, [bc]
+	add a, l
+	ld [bc], a
+	inc bc
+	inc bc
+	ld h, d
+	ld l, e
+	ld de, $000A
+	push bc
+	farcall Divide16
+	pop bc
+	ld a, [bc]
+	add a, l
+	ld [bc], a
+	inc bc
+	inc bc
+	ld a, [bc]
+	add a, e
+	ld [bc], a
+	inc bc
+	xor a, a
+	ld [bc], a
+	ld a, $05
+	jp .l5805
+
+.l5761 ; 23:5761
+	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 5424-581E by apply_coverage
+	; --split [executed in 5 scenarios]
+	ld h, d
+	ld l, e
+	ld de, $03E8
+	push bc
+	farcall Divide16
+	pop bc
+	ld a, l
+	cp a, $00
+	jr z, .l57A7
+
+	; [PROBABLE] 35 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5424-581E by apply_coverage --split
+	ld a, [bc]
+	add a, l
+	ld [bc], a
+	inc bc
+	inc bc
+	ld h, d
+	ld l, e
+	ld de, $0064
+	push bc
+	farcall Divide16
+	pop bc
+	ld a, [bc]
+	add a, l
+	ld [bc], a
+	inc bc
+	inc bc
+	ld h, d
+	ld l, e
+	ld de, $000A
+	push bc
+	farcall Divide16
+	pop bc
+	ld a, [bc]
+	add a, l
+	ld [bc], a
+	inc bc
+	inc bc
+	ld a, [bc]
+	add a, e
+	ld [bc], a
+	inc bc
+	xor a, a
+	ld [bc], a
+	ld a, $04
+	jp .l5805
+
+.l57A7 ; 23:57A7
+	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 5424-581E by apply_coverage
+	; --split [executed in 5 scenarios]
+	ld h, d
+	ld l, e
+	ld de, $0064
+	push bc
+	farcall Divide16
+	pop bc
+	ld a, l
+	cp a, $00
+	jr z, .l57DB
+
+	; [PROBABLE] 24 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5424-581E by apply_coverage --split
+	ld a, [bc]
+	add a, l
+	ld [bc], a
+	inc bc
+	inc bc
+	ld h, d
+	ld l, e
+	ld de, $000A
+	push bc
+	farcall Divide16
+	pop bc
+	ld a, [bc]
+	add a, l
+	ld [bc], a
+	inc bc
+	inc bc
+	ld a, [bc]
+	add a, e
+	ld [bc], a
+	inc bc
+	xor a, a
+	ld [bc], a
+	ld a, $03
+	jp .l5805
+
+.l57DB ; 23:57DB
+	; [CONFIRMED] 9 insn(s) executed; cut out of the PROBABLE region 5424-581E by apply_coverage
+	; --split [executed in 5 scenarios]
+	ld h, d
+	ld l, e
+	ld de, $000A
+	push bc
+	farcall Divide16
+	pop bc
+	ld a, l
+	cp a, $00
+	jr z, .l57FD
+
+	; [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5424-581E by apply_coverage --split
+	ld a, [bc]
+	add a, l
+	ld [bc], a
+	inc bc
+	inc bc
+	ld a, [bc]
+	add a, e
+	ld [bc], a
+	inc bc
+	xor a, a
+	ld [bc], a
+	ld a, $02
+	jp .l5805
+
+.l57FD ; 23:57FD
+	; [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 5424-581E by apply_coverage
+	; --split [executed in 5 scenarios]
+	ld a, [bc]
+	add a, e
+	ld [bc], a
+	inc bc
+	xor a, a
+	ld [bc], a
+	ld a, $01
+.l5805 ; 23:5805
+	pop bc
+	push af
+	ld a, $02
+	ldh [hTextTiles_DestBank], a
+	ld a, $01
+	ld hl, $0140
+	add hl, bc
+	ld d, h
+	ld e, l
+	ld hl, wMailTextScratch
+	farcall TextTiles_RenderLine
+	pop af
+	ret
+
+; ---- text $581E-$5829 (11 bytes) [PROBABLE] 5 x fullwidth zero (82 4F) + NUL, addressed by ld hl,$581E at 23:56F8; twin of 497B
+
+PUSHC sjis
+String_MailSrvDel_NumberTemplate:: ; 23:581E
+	db "０００００", 0
+POPC
+
+MailSrvDel_NumberTileOffset:: ; 23:5829
+	; [CONFIRMED] 56 insn(s) reached by static flow only; seeds: exec x56; min discovery hops 15;
+	; entered by call from 23:56BE (PROBABLE code) | 7 insn(s) executed; cut out of the PROBABLE
+	; region 5829-58A9 by apply_coverage --split [executed in 5 scenarios]
+	push de
+	push hl
+	ld de, $2710
+	farcall Divide16
+	ld a, l
+	cp a, $00
+	jr z, .l583F
+
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5829-58A9 by apply_coverage --split
+	ld bc, wTileStage2 + $10
+	jp .restore_hl_de_and_return
+
+.l583F ; 23:583F
+	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5829-58A9 by apply_coverage
+	; --split [executed in 5 scenarios]
+	ld h, d
+	ld l, e
+	ld de, $03E8
+	farcall Divide16
+	ld a, l
+	cp a, $00
+	jr z, .l5855
+
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5829-58A9 by apply_coverage --split
+	ld bc, wTileStage2 + $10
+	jp .restore_hl_de_and_return
+
+.l5855 ; 23:5855
+	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5829-58A9 by apply_coverage
+	; --split [executed in 5 scenarios]
+	ld h, d
+	ld l, e
+	ld de, $0064
+	farcall Divide16
+	ld a, l
+	cp a, $00
+	jr z, .l586B
+
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5829-58A9 by apply_coverage --split
+	ld bc, wTileStage2 + $20
+	jp .restore_hl_de_and_return
+
+.l586B ; 23:586B
+	; [CONFIRMED] 7 insn(s) executed; cut out of the PROBABLE region 5829-58A9 by apply_coverage
+	; --split [executed in 5 scenarios]
+	ld h, d
+	ld l, e
+	ld de, $000A
+	farcall Divide16
+	ld a, l
+	cp a, $00
+	jr z, .l5881
+
+	; [PROBABLE] 2 insn(s) never executed in the traced runs; cut out of the PROBABLE region
+	; 5829-58A9 by apply_coverage --split
+	ld bc, wTileStage2 + $30
+	jp .restore_hl_de_and_return
+
+.l5881 ; 23:5881
+	; [CONFIRMED] 20 insn(s) executed; cut out of the PROBABLE region 5829-58A9 by apply_coverage
+	; --split [executed in 5 scenarios]
+	ld bc, wTileStage2 + $30
+	ld a, $01
+.restore_hl_de_and_return ; 23:5886
+	pop hl
+	pop de
+	ret
+
+MailSrvDel_UploadNumberTiles:: ; 23:5889
+	ldh a, [rSVBK]
+	push af
+	ld a, $02
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	xor a, a
+	ldh [rVBK], a
+	ld hl, wTileStage2
+	ld de, $9000
+	ld c, $27
+	farcall Gfx_GdmaAtVBlankNoDi
+	pop af
+	ldh [hWRAMBank], a
+	ldh [rSVBK], a
+	ret
+
+; ---- text $58A9-$58C4 (27 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
+
+PUSHC sjis
+PUSHC sjis
+String_MailSrvDel_ProgressText:: ; 23:58A9
+	db "Ｃｈｅｃｋｉｎｇ．．．　　", 0
+POPC
+POPC

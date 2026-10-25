@@ -1312,20 +1312,22 @@ Mailbox_HintTable:: ; 25:53D0
 ; ---- text $53DA-$54A7 (205 bytes) [PROBABLE] text: 5 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
+PUSHC sjis
 Mailbox_Hint_SelectMail:: ; 25:53DA
-	db "　　メールを　せんたくしてください　　　", 0
-
+	db "Ｐｌｅａｓｅ　ｓｅｌｅｃｔ　ｅｍａｉｌ　", 0
 Mailbox_Hint_Read:: ; 25:5403
-	db "　　　もらったメールを　よみます　　　　", 0
-
+	db "Ｒｅａｄ　ｒｅｃｅｉｖｅｄ　ｅｍａｉｌ　", 0
 Mailbox_Hint_Reply:: ; 25:542C
-	db "　　このメールに　へんじをかきます　　　", 0
-
+	db "　　　Ｗｒｉｔｅ　ａ　ｒｅｐｌｙ　　　　", 0
 Mailbox_Hint_Delete:: ; 25:5455
-	db "　　　　このメールを　けします　　　　　", 0
-
+	db "　　Ｅｒａｓｅ　ｔｈｉｓ　ｅｍａｉｌ　　", 0
 Mailbox_Hint_NoMail:: ; 25:547E
-	db "　　　　　メールが　ありません　　　　　", 0
+	db "　　　　　　Ｎｏ　Ｅｍａｉｌ　　　　　　", 0
+POPC
+
+
+
+
 POPC
 
 Mailbox_ReplyToRecord:: ; 25:54A7

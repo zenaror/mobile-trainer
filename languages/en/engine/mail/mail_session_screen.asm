@@ -953,22 +953,30 @@ MailSession_UploadNumberTiles:: ; 26:5640
 ; ---- text $566E-$5677 (9 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
+PUSHC sjis
 MailSession_Txt_Total:: ; 26:566E
-	db "ぜんぶで", 0
+	db "Ｓｕｍ：", 0
+POPC
 POPC
 
 ; ---- text $5677-$567C (5 bytes) [PROBABLE] Shift-JIS "つう" + NUL between MailSession_Txt_Total and MailSession_Txt_Checking (566E, 5677 and 567C are consecutive NUL-terminated strings)
 
 PUSHC sjis
+PUSHC sjis
 MailSession_Txt_Counter:: ; 26:5677
-	db "つう", 0
+	db "　　", 0
+POPC
 POPC
 
 ; ---- text $567C-$5697 (27 bytes) [CONFIRMED] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
+PUSHC sjis
 MailSession_Txt_Checking:: ; 26:567C
-	db "つうめをチェックしています", 0
+	db "　ｃｈｅｃｋｅｄ．", 0
+; Retained original storage bytes; outside the selected live string extents.
+	db $C4, $82, $A2, $82, $DC, $82, $B7, $00
+POPC
 POPC
 
 MailSession_ShowMsgSending:: ; 26:5697
@@ -989,8 +997,10 @@ MailSession_ShowMsgSending:: ; 26:5697
 ; ---- text $56B2-$56DB (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
+PUSHC sjis
 MailSession_Msg_Sending:: ; 26:56B2
-	db "　　　　メールをそうしんしています　　　", 0
+	db "　　　Ｓｅｎｄｉｎｇ　ｅｍａｉｌ．．．　", 0
+POPC
 POPC
 
 MailSession_ShowMsgReceiving:: ; 26:56DB
@@ -1012,8 +1022,10 @@ MailSession_ShowMsgReceiving:: ; 26:56DB
 ; ---- text $56F6-$571F (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
+PUSHC sjis
 MailSession_Msg_Receiving:: ; 26:56F6
-	db "　　　　メールをじゅしんしています　　　", 0
+	db "　　Ｒｅｃｅｉｖｉｎｇ　ｅｍａｉｌ．．．", 0
+POPC
 POPC
 
 MailSession_ShowMsgSent:: ; 26:571F
@@ -1039,8 +1051,10 @@ MailSession_ShowMsgSent:: ; 26:571F
 ; ---- text $573A-$5763 (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
+PUSHC sjis
 MailSession_Msg_Sent:: ; 26:573A
-	db "　　　　メールをそうしんしました　　　　", 0
+	db "　　　　　Ｅｍａｉｌ　ｓｅｎｔ！　　　　", 0
+POPC
 POPC
 
 MailSession_ShowMsgReceiveDone:: ; 26:5763
@@ -1065,8 +1079,10 @@ MailSession_ShowMsgReceiveDone:: ; 26:5763
 ; ---- text $577E-$57A7 (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
+PUSHC sjis
 MailSession_Msg_ReceiveDone:: ; 26:577E
-	db "　　　　メールじゅしんかんりょう　　　　", 0
+	db "　　　　　　Ｆｉｎｉｓｈｅｄ！　　　　　", 0
+POPC
 POPC
 
 MailSession_ShowMsgNoMail:: ; 26:57A7
@@ -1088,8 +1104,10 @@ MailSession_ShowMsgNoMail:: ; 26:57A7
 ; ---- text $57C2-$57EB (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
+PUSHC sjis
 MailSession_Msg_NoMail:: ; 26:57C2
-	db "　　　　メールはありませんでした　　　　", 0
+	db "　　　Ｎｏ　ｎｅｗ　ｅｍａｉｌ．　　　　", 0
+POPC
 POPC
 
 MailSession_ShowMsgCannotReceive:: ; 26:57EB
@@ -1110,8 +1128,10 @@ MailSession_ShowMsgCannotReceive:: ; 26:57EB
 ; ---- text $5806-$582F (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
+PUSHC sjis
 MailSession_Msg_CannotReceive:: ; 26:5806
-	db "　　　メールはうけとれませんでした　　　", 0
+	db "　Ｆａｉｌｅｄ　ｒｅｃｅｉｖｉｎｇ．　　", 0
+POPC
 POPC
 
 MailSession_ShowMsgReceived:: ; 26:582F
@@ -1132,8 +1152,10 @@ MailSession_ShowMsgReceived:: ; 26:582F
 ; ---- text $584A-$5873 (41 bytes) [PROBABLE] text: 1 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
 PUSHC sjis
+PUSHC sjis
 MailSession_Msg_Received:: ; 26:584A
-	db "　　　　メールをうけとりました　　　　　", 0
+	db "　　Ｅｍａｉｌ　ｒｅｃｅｉｖｅｄ！　　　", 0
+POPC
 POPC
 
 MailSession_ClearMsg:: ; 26:5873

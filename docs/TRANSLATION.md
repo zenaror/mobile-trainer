@@ -40,6 +40,40 @@ palettes and font glyphs. Edit their source PNGs and mappings together. See
 A composed screen preview shows a specified graphics context; it may not include
 text or sprites generated at runtime.
 
+## English resource sources
+
+English overrides are maintained under `languages/en/`. Edit those inputs,
+not the generated copy in `build/en/source`.
+
+- [HTML records and index](../languages/en/data/html/index.asm) use symbolic
+  body lengths and banked record targets. A record can continue across two
+  pinned sections; preserve its byte length and continuation labels.
+- [Dictionary entries](../languages/en/data/text/mobile_dictionary_entries_en.asm)
+  use the Bank48 full-width font. Keep category counts, page indices and the
+  sixteen-cell entry limit consistent with the dictionary reader.
+- [Registration text](../languages/en/data/text/registration_english_tail.asm)
+  keeps the original notice metadata and prompt tables, with symbolic targets
+  for strings stored in additional sections.
+- [Help text](../languages/en/data/text/help_script_english_relocated.asm)
+  uses the shared interpreter and graphics. Its body buffer has sixteen
+  columns and three rows. Count rows that receive glyphs: a trailing newline
+  immediately before NUL moves the cursor without drawing another row.
+- [Sample-mail text](../languages/en/data/text/sample_mail_english_tail.asm)
+  preserves the existing record layout. Sample names occupy sixteen-byte
+  fields; preserve the encoded-byte limit and adjacent fields.
+
+The two English canvas demonstration sentences in the
+[page-list prototype](../languages/en/engine/unreferenced/page_list_prototype.asm)
+retain twenty-four full-width glyphs. Its original drawing loops advance an
+eight-bit X coordinate without line wrapping, so those sentences exceed the
+visible row width and wrap the coordinate. A natural entry to this prototype
+has not been established.
+
+Additional language sections declare their bank and address explicitly. Keep
+all consumers pointed at the intended symbolic label, and preserve the original
+storage outside the selected text and pointer ranges. A code point accepted by
+an encoding is not sufficient: the selected renderer must have its glyph.
+
 ## Language builds
 
 The default `make` builds the original Japanese ROM. The existing English

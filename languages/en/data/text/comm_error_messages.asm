@@ -8,207 +8,229 @@ PUSHC sjis
 
 ; ---- text $4000-$4F53 (3923 bytes) [PROBABLE] text: 36 string(s) of analysis/strings.tsv (Shift-JIS/ASCII, NUL terminated)
 
-CommErr_Msg_AdapterNotPlugged:: ; 5C:4000
 	; English UI slot; retain fixed boundaries for following messages.
-	db "The Mobile Adapter", $0D, "is no"
-	db "t connected", $0D, "properly.", $0D, "Pl"
-	db "ease check the", $0D, "manual.", 0, 0
-	db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-	db 0, 0, 0, 0, 0, 0, 0, 0, 0
-
+PUSHC sjis
+CommErr_Msg_AdapterNotPlugged:: ; 5C:4000
+	db "The Mobile Adapter", $0D
+	db "is not connected", $0D
+	db "properly.", $0D
+	db "Please check the", $0D
+	db "manual.", 0
+; Retained original storage bytes; outside the selected live string extents.
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00
 CommErr_Msg_DialFailedOrBusy:: ; 5C:4069
-	; English UI: fixed slot, explicit line breaks and trailing zero fill.
 	db "Could not connect", $0D
 	db "because the line", $0D
 	db "is busy.", $0D
 	db "Please try again", $0D
 	db "later.", 0
-	ds 80, 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 CommErr_Msg_LineBusy:: ; 5C:40FD
-	; English UI: fixed slot, explicit line breaks and trailing zero fill.
 	db "Could not connect", $0D
 	db "due to a high", $0D
 	db "volume of calls.", $0D
 	db "Please try again", $0D
 	db "later.", 0
-
 CommErr_Msg_AdapterError:: ; 5C:4146
-	; English UI: fixed slot, explicit line breaks and trailing zero fill.
 	db "Mobile Adapter", $0D
 	db "error.", $0D
 	db "Please try again.", $0D
 	db "If the problem", $0D
 	db "persists, please", $0D
 	db "contact support.", 0
-	ds 68, 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00
 CommErr_Msg_GenericCommError:: ; 5C:41E3
-	; English UI: fixed slot, explicit line breaks and trailing zero fill.
 	db "Communication", $0D
 	db "error.", $0D
 	db "Please try again.", $0D
 	db "If the problem", $0D
 	db "persists, please", $0D
 	db "contact support.", 0
-	ds 63, 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 CommErr_Msg_BadPasswordOrLoginId:: ; 5C:427A
-	; English UI: fixed slot, explicit line breaks and trailing zero fill.
 	db "Invalid Log-in", $0D
 	db "ID or Password.", $0D
 	db "Please confirm", $0D
 	db "your Log-in", $0D
 	db "information", $0D
 	db "and try again.", 0
-	ds 70, 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00
 CommErr_Msg_Disconnected:: ; 5C:4315
-	; English UI: fixed slot, explicit line breaks and trailing zero fill.
 	db "The phone was", $0D
 	db "disconnected.", $0D
 	db "Please check the", $0D
 	db "manual and try", $0D
 	db "again later.", 0
-	ds 13, 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 CommErr_Msg_ServerCommError:: ; 5C:436B
-	; English UI: fixed slot, explicit line breaks and trailing zero fill.
 	db "Error connecting", $0D
 	db "to the", $0D
 	db "Mobile Center.", $0D
 	db "Please try again", $0D
 	db "later.", 0
-	ds 35, 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00
 CommErr_Msg_AdapterRegistrationInvalid:: ; 5C:43CD
-	; English UI: fixed slot, explicit line breaks and trailing zero fill.
 	db "The Mobile Adapter", $0D
 	db "is not configured", $0D
 	db "properly.", $0D
 	db "Please run factory", $0D
 	db "reset through", $0D
 	db "Mobile Trainer.", 0
-	ds 2, 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $00, $00
 CommErr_Msg_ServerBusy:: ; 5C:442F
-	; English UI: fixed slot, explicit line breaks and trailing zero fill.
 	db "The Mobile Center", $0D
 	db "is busy.", $0D
 	db "Please check the", $0D
 	db "manual and try", $0D
 	db "calling again", $0D
 	db "later.", 0
-	ds 43, 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 CommErr_Msg_BadDestinationAddress:: ; 5C:44AA
-	; English UI: fixed slot, explicit line breaks and trailing zero fill.
 	db "The email address", $0D
 	db "is incorrect.", $0D
 	db "Please re-enter", $0D
 	db "the email", $0D
 	db "address.", 0
-	ds 17, 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00
 CommErr_Msg_BadOwnMailAddress:: ; 5C:44FE
-	db "メールアドレスにまちがい", $0D
-	db "があります。　　　　　　", $0D
-	db "取扱説明書をごらんの上、", $0D
-	db "モバイルトレーナーで初期", $0D
-	db "登録をして下さい。", 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $83, $81, $81, $5B, $83, $8B, $83, $41, $83, $68, $83, $8C, $83, $58, $82, $C9
+	db $82, $DC, $82, $BF, $82, $AA, $82, $A2, $0D, $82, $AA, $82, $A0, $82, $E8, $82
+	db $DC, $82, $B7, $81, $42, $81, $40, $81, $40, $81, $40, $81, $40, $81, $40, $81
+	db $40, $0D, $8E, $E6, $88, $B5, $90, $E0, $96, $BE, $8F, $91, $82, $F0, $82, $B2
+	db $82, $E7, $82, $F1, $82, $CC, $8F, $E3, $81, $41, $0D, $83, $82, $83, $6F, $83
+	db $43, $83, $8B, $83, $67, $83, $8C, $81, $5B, $83, $69, $81, $5B, $82, $C5, $8F
+	db $89, $8A, $FA, $0D, $93, $6F, $98, $5E, $82, $F0, $82, $B5, $82, $C4, $89, $BA
+	db $82, $B3, $82, $A2, $81, $42, $00
 CommErr_Msg_BadPasswordOrServerError:: ; 5C:4575
-	; English UI: fixed slot, explicit line breaks and trailing zero fill.
 	db "Incorrect Log-in", $0D
 	db "Password or", $0D
 	db "Mobile Center", $0D
 	db "error.", $0D
 	db "Please try again", $0D
 	db "later.", 0
-	ds 56, 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00
 CommErr_Msg_ContentDownloadRetry:: ; 5C:45F7
-	; English UI: fixed slot, explicit line breaks and trailing zero fill.
 	db "Unable to read", $0D
 	db "the data.", $0D
 	db "Please try again.", $0D
 	db "If the problem", $0D
 	db "persists, please", $0D
 	db "contact support.", 0
-	ds 71, 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00
 CommErr_Msg_Timeout:: ; 5C:469A
-	; English UI: fixed slot, explicit line breaks and trailing zero fill.
 	db "Time's up!", $0D
 	db "The call has ended.", $0D
 	db "Please check the", $0D
 	db "manual and try", $0D
 	db "again later.", 0
-	ds 24, 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00
 CommErr_Msg_FeePaymentOverdue:: ; 5C:46FE
-	; English UI: fixed slot, explicit line breaks and trailing zero fill.
 	db "The service is", $0D
 	db "unavailable due to", $0D
 	db "a missed payment.", $0D
 	db "Please check the", $0D
 	db "manual.", 0
-	ds 28, 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 CommErr_Msg_UnavailableCustomerReason:: ; 5C:4767
-	; English UI: fixed slot, explicit line breaks and trailing zero fill.
 	db "The service is", $0D
 	db "unavailable at", $0D
 	db "this time.", $0D
 	db "Please check the", $0D
 	db "manual.", 0
-	ds 9, 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00
 CommErr_Msg_LineBusyOrServerError:: ; 5C:47B2
-	; English UI: fixed slot, explicit line breaks and trailing zero fill.
 	db "There was an error", $0D
 	db "with the phone or", $0D
 	db "the Mobile Center.", $0D
 	db "Please try again", $0D
 	db "later.", 0
-	ds 54, 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00
 CommErr_Msg_FeeLimitExceeded:: ; 5C:4838
-	; English UI: fixed slot, explicit line breaks and trailing zero fill.
 	db "You have reached", $0D
 	db "the monthly", $0D
 	db "spending limit.", $0D
 	db "Please check the", $0D
 	db "manual for", $0D
 	db "details.", 0
-	ds 16, 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 CommErr_Msg_Maintenance:: ; 5C:489A
-	; English UI: fixed slot, explicit line breaks and trailing zero fill.
 	db "The Mobile Center", $0D
 	db "is undergoing", $0D
 	db "maintenance.", $0D
 	db "Please try again", $0D
 	db "later.", 0
-	ds 44, 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 CommErr_Msg_ContentDownloadFailed:: ; 5C:490B
-	; English UI: fixed slot, explicit line breaks and trailing zero fill.
 	db "Unable to read", $0D
 	db "the data.", $0D
 	db "Please check the", $0D
 	db "manual for", $0D
 	db "details.", 0
-	ds 13, 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 CommErr_Msg_BadLoginId:: ; 5C:4956
-	db "ログインＩＤにまちがいが", $0D
-	db "あります。取扱説明書をご", $0D
-	db "らんの上、ログインＩＤを", $0D
-	db "登録し直して下さい。", 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $83, $8D, $83, $4F, $83, $43, $83, $93, $82, $68, $82, $63, $82, $C9, $82, $DC
+	db $82, $BF, $82, $AA, $82, $A2, $82, $AA, $0D, $82, $A0, $82, $E8, $82, $DC, $82
+	db $B7, $81, $42, $8E, $E6, $88, $B5, $90, $E0, $96, $BE, $8F, $91, $82, $F0, $82
+	db $B2, $0D, $82, $E7, $82, $F1, $82, $CC, $8F, $E3, $81, $41, $83, $8D, $83, $4F
+	db $83, $43, $83, $93, $82, $68, $82, $63, $82, $F0, $0D, $93, $6F, $98, $5E, $82
+	db $B5, $92, $BC, $82, $B5, $82, $C4, $89, $BA, $82, $B3, $82, $A2, $81, $42, $00
 CommErr_Msg_LoginIdSuspended:: ; 5C:49B6
-	; English UI: fixed slot, explicit line breaks and trailing zero fill.
 	db "Your Log-in ID has", $0D
 	db "been restricted and", $0D
 	db "can no longer access", $0D
@@ -217,51 +239,54 @@ CommErr_Msg_LoginIdSuspended:: ; 5C:49B6
 	db "instruction booklet and", $0D
 	db "contact KDDI customer", $0D
 	db "service.", 0
-	ds 7, 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $00, $00, $00, $00, $00, $00, $00
 CommErr_Msg_LoginIdCancelled:: ; 5C:4A51
-	db "このログインＩＤは解約さ", $0D
-	db "れているため、利用できま", $0D
-	db "せん。取扱説明書をごらん", $0D
-	db "の上、ＤＤＩカスタマサー", $0D
-	db "ビスセンターにお問い合わ", $0D
-	db "せ下さい。", 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $82, $B1, $82, $CC, $83, $8D, $83, $4F, $83, $43, $83, $93, $82, $68, $82, $63
+	db $82, $CD, $89, $F0, $96, $F1, $82, $B3, $0D, $82, $EA, $82, $C4, $82, $A2, $82
+	db $E9, $82, $BD, $82, $DF, $81, $41, $97, $98, $97, $70, $82, $C5, $82, $AB, $82
+	db $DC, $0D, $82, $B9, $82, $F1, $81, $42, $8E, $E6, $88, $B5, $90, $E0, $96, $BE
+	db $8F, $91, $82, $F0, $82, $B2, $82, $E7, $82, $F1, $0D, $82, $CC, $8F, $E3, $81
+	db $41, $82, $63, $82, $63, $82, $68, $83, $4A, $83, $58, $83, $5E, $83, $7D, $83
+	db $54, $81, $5B, $0D, $83, $72, $83, $58, $83, $5A, $83, $93, $83, $5E, $81, $5B
+	db $82, $C9, $82, $A8, $96, $E2, $82, $A2, $8D, $87, $82, $ED, $0D, $82, $B9, $89
+	db $BA, $82, $B3, $82, $A2, $81, $42, $00
 CommErr_Msg_LoginIdUnavailable:: ; 5C:4AD9
-	; English UI: fixed slot, explicit line breaks and trailing zero fill.
 	db "Your Log-in ID is", $0D
 	db "currently unavailable.", $0D
 	db "Please refer to the", $0D
 	db "instruction booklet and", $0D
 	db "contact KDDI customer", $0D
 	db "service.", 0
-	ds 5, 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $00, $00, $00, $00, $00
 CommErr_Msg_NewPasswordEmpty:: ; 5C:4B52
-	; English UI: fixed slot, explicit line breaks and trailing zero fill.
 	db "The new password was", $0D
 	db "not entered correctly.", $0D
 	db "Please enter 4 to 8", $0D
 	db "alphanumeric characters", $0D
 	db "for your password.", 0
-	ds 8, 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $00, $00, $00, $00, $00, $00, $00, $00
 CommErr_Msg_NewPasswordLength:: ; 5C:4BC5
-	; English UI: fixed slot, explicit line breaks and trailing zero fill.
 	db "The new password is", $0D
 	db "too long or too short.", $0D
 	db "Please enter 4 to 8", $0D
 	db "alphanumeric characters", $0D
 	db "for your password.", 0
-	ds 9, 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00
 CommErr_Msg_NewPasswordBadChars:: ; 5C:4C38
-	db "この新しいパスワードには", $0D
-	db "使用できない文字が入って", $0D
-	db "います。アルファベットと", $0D
-	db "数字を組み合わせた４～８", $0D
-	db "文字を入力して下さい。", 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $82, $B1, $82, $CC, $90, $56, $82, $B5, $82, $A2, $83, $70, $83, $58, $83, $8F
+	db $81, $5B, $83, $68, $82, $C9, $82, $CD, $0D, $8E, $67, $97, $70, $82, $C5, $82
+	db $AB, $82, $C8, $82, $A2, $95, $B6, $8E, $9A, $82, $AA, $93, $FC, $82, $C1, $82
+	db $C4, $0D, $82, $A2, $82, $DC, $82, $B7, $81, $42, $83, $41, $83, $8B, $83, $74
+	db $83, $40, $83, $78, $83, $62, $83, $67, $82, $C6, $0D, $90, $94, $8E, $9A, $82
+	db $F0, $91, $67, $82, $DD, $8D, $87, $82, $ED, $82, $B9, $82, $BD, $82, $53, $81
+	db $60, $82, $57, $0D, $95, $B6, $8E, $9A, $82, $F0, $93, $FC, $97, $CD, $82, $B5
+	db $82, $C4, $89, $BA, $82, $B3, $82, $A2, $81, $42, $00
 CommErr_Msg_NewPasswordNeedsMix:: ; 5C:4CB3
 	db "The new password", $0D
 	db "consists of only", $0D
@@ -270,8 +295,8 @@ CommErr_Msg_NewPasswordNeedsMix:: ; 5C:4CB3
 	db "Please enter 4 to 8", $0D
 	db "alphanumeric characters", $0D
 	db "for your password.", 0
-	ds 5, 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $00, $00, $00, $00, $00
 CommErr_Msg_NewPasswordSameAsOld:: ; 5C:4D3F
 	db "The new password", $0D
 	db "matches your old", $0D
@@ -280,37 +305,100 @@ CommErr_Msg_NewPasswordSameAsOld:: ; 5C:4D3F
 	db "and enter 4 to 8", $0D
 	db "alphanumeric characters", $0D
 	db "for your password.", 0
-	ds 19, 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db $00, $00, $00
 CommErr_Msg_RegistrationPending:: ; 5C:4DCF
-	db "登録書の処理が完了してい", $0D
-	db "ないようです。処理が完了", $0D
-	db "するまでしばらくお待ち下", $0D
-	db "さい。", 0
-
+; Retained original storage bytes; outside the selected live string extents.
+	db $93, $6F, $98, $5E, $8F, $91, $82, $CC, $8F, $88, $97, $9D, $82, $AA, $8A, $AE
+	db $97, $B9, $82, $B5, $82, $C4, $82, $A2, $0D, $82, $C8, $82, $A2, $82, $E6, $82
+	db $A4, $82, $C5, $82, $B7, $81, $42, $8F, $88, $97, $9D, $82, $AA, $8A, $AE, $97
+	db $B9, $0D, $82, $B7, $82, $E9, $82, $DC, $82, $C5, $82, $B5, $82, $CE, $82, $E7
+	db $82, $AD, $82, $A8, $91, $D2, $82, $BF, $89, $BA, $0D, $82, $B3, $82, $A2, $81
+	db $42, $00
 CommErr_Boot_AdapterNotPlugged:: ; 5C:4E21
-	db "モバイルアダプタが正しく", $0D
-	db "差しこまれていません。", 0
-
+	db "The Mobile Adapter", $0D
+	db "is not connected", $0D
+	db "properly.", 0
+; Retained original storage bytes; outside the selected live string extents.
+	db $42, $00
 CommErr_Boot_WrongPassword:: ; 5C:4E51
-	db "パスワードにまちがいがあ", $0D
-	db "ります。正しいパスワード", $0D
-	db "を入力して下さい。", 0
+	db "The password is", $0D
+	db "incorrect. Please enter", $0D
+	db "the correct password.", 0
+; Retained original storage bytes; outside the selected live string extents.
+	db $82, $B3, $82, $A2, $81, $42, $00, $83, $82, $83, $6F, $83, $43, $83, $8B, $83
+	db $41, $83, $5F, $83, $76, $83, $5E, $82, $CC, $93, $6F, $98, $5E, $8F, $EE, $0D
+	db $95, $F1, $83, $47, $83, $89, $81, $5B, $82, $C5, $82, $B7, $81, $42, $83, $66
+	db $81, $5B, $83, $5E, $82, $F0, $8F, $89, $0D, $8A, $FA, $89, $BB, $82, $B5, $82
+	db $DC, $82, $B7, $81, $42, $00, $83, $4A, $81, $5B, $83, $67, $83, $8A, $83, $62
+	db $83, $57, $82, $CC, $83, $5A, $81, $5B, $83, $75, $83, $66, $81, $5B, $0D, $83
+	db $5E, $83, $47, $83, $89, $81, $5B, $82, $C5, $82, $B7, $81, $42, $83, $66, $81
+	db $5B, $83, $5E, $82, $F0, $8F, $89, $0D, $8A, $FA, $89, $BB, $82, $B5, $82, $DC
+	db $82, $B7, $81, $42, $00, $83, $4A, $81, $5B, $83, $67, $83, $8A, $83, $62, $83
+	db $57, $82, $CC, $83, $5A, $81, $5B, $83, $75, $83, $66, $81, $5B, $0D, $83, $5E
+	db $83, $47, $83, $89, $81, $5B, $82, $C5, $82, $B7, $81, $42, $83, $66, $81, $5B
+	db $83, $5E, $82, $F0, $8F, $89, $0D, $8A, $FA, $89, $BB, $82, $B5, $82, $DC, $82
+	db $B7, $81, $42, $00
+POPC
 
-CommErr_Boot_AdapterConfigError:: ; 5C:4E96
-	db "モバイルアダプタの登録情", $0D
-	db "報エラーです。データを初", $0D
-	db "期化します。", 0
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
 
-CommErr_Boot_SaveDataErrorA:: ; 5C:4ED5
-	db "カートリッジのセーブデー", $0D
-	db "タエラーです。データを初", $0D
-	db "期化します。", 0
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
 
-CommErr_Boot_SaveDataErrorB:: ; 5C:4F14
-	db "カートリッジのセーブデー", $0D
-	db "タエラーです。データを初", $0D
-	db "期化します。", 0
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+
+
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+
+
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+
+
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+
+	; English UI: fixed slot, explicit line breaks and trailing zero fill.
+
+
+
+
+
+
+
+
+
 
 ; ---- data $4F53-$4FA8 (85 bytes) [CONFIRMED] 21 records of 4 bytes [id ; mode ; dw list pointer] terminated by $FF at 4FA7 (ids 10-17, 20-26, 30-33, 40, F0), searched linearly by the executed code at 5C:527A-5289 (ld hl,$4F53 ; ld a,[hli] ; cp $FF ; cp b ; inc hl x3 ; jr), b = [C196]; mode = second byte (dec a ; jr nz at 528B-528D: mode 1 takes the path at 5C:528F, any other mode the path at 5C:52EF (each loads a different tilemap first)), dw = list of triples read at 5C:5302-531C; the id/mode/pointer bytes are read data (dataaccess, 3/18 scenarios) and every pointer lands exactly on a list start
 
@@ -489,4 +577,38 @@ CommErr_MessagePointers_Boot:: ; 5C:5146
 	dw CommErr_Boot_SaveDataErrorA
 	dw CommErr_Boot_SaveDataErrorB
 
+POPC
+
+; ---- text $7C80-$7CD6 (86 bytes) [CONFIRMED] referenced English interface string; NUL terminated.
+SECTION "data/text/comm_error_messages/english/CommErr_Boot_SaveDataErrorB", ROMX[$7C80], BANK[$5C]
+PUSHC sjis
+CommErr_Boot_SaveDataErrorB:: ; 5C:7C80
+	db "The cartridge save data", $0D
+	db "is corrupted.", $0D
+	db "The data will now be", $0D
+	db "erased and", $0D
+	db "re-initialized.", 0
+POPC
+
+; ---- text $7CD6-$7D2C (86 bytes) [CONFIRMED] referenced English interface string; NUL terminated.
+SECTION "data/text/comm_error_messages/english/CommErr_Boot_SaveDataErrorA", ROMX[$7CD6], BANK[$5C]
+PUSHC sjis
+CommErr_Boot_SaveDataErrorA:: ; 5C:7CD6
+	db "The cartridge save data", $0D
+	db "is corrupted.", $0D
+	db "The data will now be", $0D
+	db "erased and", $0D
+	db "re-initialized.", 0
+POPC
+
+; ---- text $7D2C-$7D96 (106 bytes) [CONFIRMED] referenced English interface string; NUL terminated.
+SECTION "data/text/comm_error_messages/english/CommErr_Boot_AdapterConfigError", ROMX[$7D2C], BANK[$5C]
+PUSHC sjis
+CommErr_Boot_AdapterConfigError:: ; 5C:7D2C
+	db "The Mobile Adapter", $0D
+	db "registration information", $0D
+	db "is corrupted.", $0D
+	db "The data will now be", $0D
+	db "erased and", $0D
+	db "re-initialized.", 0
 POPC

@@ -3,10 +3,10 @@
   "language": "en",
   "base_commit": "ef41bff1fb24f2239661c230a48500f92bff4559",
   "english_commit": "d0ef9a448d078e6697e2a226ba0f5eab42c16409",
-  "expected_ROM": "ea293a535d6cecd6fe53ee21bf4b5bed8062b070b6468f0307ede1b73d854496",
-  "global_checksum": "52E4",
+  "expected_ROM": "b0362f8027cb343079db099ae0e5dc56056846aca8e6441e6c2e63b8c88bf50c",
+  "global_checksum": "D1DE",
   "expected_symbols_DEBUG0": {
-    "labels": 12486,
+    "labels": 12493,
     "constants": 51
   },
   "overrides": {
@@ -54,8 +54,8 @@
     },
     "data/text/browser_start_ticker.asm": {
       "base_sha256": "633fd2aa72bfbad654c3c6967ccec3f237dc47e100ce5dc813c04dbe3508ce3b",
-      "payload_sha256": "4885bebaa18116edcae5e6cacecfdbf1052701944ea8a90f3b6348e08b714798",
-      "bytes": 1623,
+      "payload_sha256": "2d3db73b03fe05303c0fbeb088cefb0ddaa26d237c4920218a82fc65a921744b",
+      "bytes": 1808,
       "payload_path": "languages/en/data/text/browser_start_ticker.asm"
     },
     "data/text/browser_start_title_en.asm": {
@@ -66,8 +66,8 @@
     },
     "data/text/comm_error_messages.asm": {
       "base_sha256": "28108a98a78a2be87a63e0bd912c3cc93a138a299b908dad710c9bffcd878d5d",
-      "payload_sha256": "141a4e51928390ebb516473653ac696c1d27f71ef66400f84820e3cde4b3f487",
-      "bytes": 23982,
+      "payload_sha256": "87f08fee50947d6f9023d9bd87e6d304f25cd751f1a1ddd2574fd4a641c96b6d",
+      "bytes": 33795,
       "payload_path": "languages/en/data/text/comm_error_messages.asm"
     },
     "data/text/comm_error_messages_en.asm": {
@@ -76,11 +76,23 @@
       "bytes": 1944,
       "payload_path": "languages/en/data/text/comm_error_messages_en.asm"
     },
+    "data/text/connect_dialog.asm": {
+      "base_sha256": "40e9351a1d953f3685607f802e9521bfbcd9cd4a3119fa428714964989ad3cc8",
+      "payload_sha256": "af200caafeb146c2ffeac9e327e51fb72ad26a8b94539404802ef7b3d3d46b19",
+      "bytes": 4332,
+      "payload_path": "languages/en/data/text/connect_dialog.asm"
+    },
     "data/text/dialog_messages.asm": {
       "base_sha256": "c164018e888cfe9dac770e36f08bdc2072f739ac1f0c98f7ab2fef124384e732",
       "payload_sha256": "aa756bd16bd15f7548ae1e039011961df1f2b3b7feea2e663ce0ce5235b875c7",
       "bytes": 51985,
       "payload_path": "languages/en/data/text/dialog_messages.asm"
+    },
+    "data/text/help_menu_ticker.asm": {
+      "base_sha256": "464cd882d51df828cd09223b20263a5a8fc056d52016095cef7d1a676f3715d7",
+      "payload_sha256": "a72f1a16e8e3a38327ed0463c8f87b8a38ba383ae8a096f78ea6e7f33b0c804a",
+      "bytes": 10279,
+      "payload_path": "languages/en/data/text/help_menu_ticker.asm"
     },
     "data/text/help_script.asm": {
       "base_sha256": "9fd55e9d46f51a6487d430272992e294acad51c3b9f090febcbefcf0356ec71a",
@@ -124,11 +136,59 @@
       "bytes": 6436,
       "payload_path": "languages/en/data/text/registration_prompts.asm"
     },
+    "data/text/sample_mail_english_tail.asm": {
+      "base_sha256": null,
+      "payload_sha256": "681bd2d6e5137c9f85c70391d62e02943af408820ce75fd1a7fd3057f6bb4ee1",
+      "bytes": 1993,
+      "payload_path": "languages/en/data/text/sample_mail_english_tail.asm"
+    },
+    "data/text/top_menu_ticker.asm": {
+      "base_sha256": "15bdf089773d2dfa0cccb3a1e7aacba7b1d3d749e980f521da6971b63f373c1e",
+      "payload_sha256": "7fef1a6bed91cf2861520ba2ea56e7ff2c73803cd753c4a7de0aff0dd17f0f22",
+      "bytes": 3015,
+      "payload_path": "languages/en/data/text/top_menu_ticker.asm"
+    },
     "engine/address_book/address_picker.asm": {
       "base_sha256": "72911c74f9cb38ee24f43c8d5e6a7b05fac9deb12ef66a462cca9c87d3080a06",
       "payload_sha256": "2519213be56811da43114a7d958e825a04196cea2ee04610c25463ae7831f063",
       "bytes": 46689,
       "payload_path": "languages/en/engine/address_book/address_picker.asm"
+    },
+    "engine/address_book/list.asm": {
+      "base_sha256": "aa3d2bcb0037787f451167d470b77197a630162761c6d926c06f14c969f430f8",
+      "payload_sha256": "81d4b9d420a8dcb9cfd7dcdb50b3fbf6a32943ad99510bf94389825459acab85",
+      "bytes": 41163,
+      "payload_path": "languages/en/engine/address_book/list.asm"
+    },
+    "engine/address_book/save_sender_address.asm": {
+      "base_sha256": "1b87e1d6f4f9459063aa94b4a15b7815edfad4154f92601fbad8c5d2c782d083",
+      "payload_sha256": "f78603e96ab4f4b9f1fe58bc1b036f6f818165f4d160250cb43ba2be8438e5fb",
+      "bytes": 27586,
+      "payload_path": "languages/en/engine/address_book/save_sender_address.asm"
+    },
+    "engine/browser/menus.asm": {
+      "base_sha256": "491d452189b00207ecce9fc3f517576de4741137a5c903982c7037decebce867",
+      "payload_sha256": "8fa02d8e53cffcbddb358e46c1d63f38437ad3e92470364ac721f9a841c8932d",
+      "bytes": 24614,
+      "payload_path": "languages/en/engine/browser/menus.asm"
+    },
+    "engine/browser/page_list.asm": {
+      "base_sha256": "ae0acefa2dbdf814ae4db595cab606ddd8f405f1d57b25a6b4f0b8768b595240",
+      "payload_sha256": "0aaf8b99e53e20139599c1639db2182125285e564bb45b2149f646a2aa8bc8c2",
+      "bytes": 53072,
+      "payload_path": "languages/en/engine/browser/page_list.asm"
+    },
+    "engine/debug/debug_flags.asm": {
+      "base_sha256": "66b65168da6a4751cb2fe133e6dbaf415259a9f3fd3049c4fceeebdd6244df18",
+      "payload_sha256": "93559e2859b0f595dfd965c6d8e0a2d2b23426414e687862d8ec873a02b7e2e4",
+      "bytes": 23802,
+      "payload_path": "languages/en/engine/debug/debug_flags.asm"
+    },
+    "engine/debug/error_screen_test.asm": {
+      "base_sha256": "39f57d14c5be16cc4e927c7b9f7550de4f83df261d034fc509120cd950165d8d",
+      "payload_sha256": "b9c71db9e6eb8abfaf12e2998546237d94b3bad67e8d7d931ea47e31aa60bd45",
+      "bytes": 10675,
+      "payload_path": "languages/en/engine/debug/error_screen_test.asm"
     },
     "engine/help/help_script.asm": {
       "base_sha256": "f01e3526d95449995654b01febe969bd4afffdccb3bb5048c216bb16d85f45ad",
@@ -142,16 +202,22 @@
       "bytes": 20927,
       "payload_path": "languages/en/engine/help/mobile_dictionary.asm"
     },
+    "engine/mail/draft_menu.asm": {
+      "base_sha256": "2354a705aaf071c3950ac52fca4788b84b49382467e1f91e2ea978fd3f6c57c1",
+      "payload_sha256": "c9bf7c087e5b4966ba0fee3e808a110f1f26eaebe65b2a75cedadd8f33ac80d3",
+      "bytes": 21575,
+      "payload_path": "languages/en/engine/mail/draft_menu.asm"
+    },
     "engine/mail/mail_session_screen.asm": {
       "base_sha256": "5154f72ad6aae7812533f7cf62e7f6fa1ef59d3664a4ddd16d7d48b551bb936a",
-      "payload_sha256": "d076170bde3245241eb90be9a2dd21a02ec83d902d4220bc7ba37b7eb25b25cd",
-      "bytes": 29132,
+      "payload_sha256": "cf9fd39ba81d9cda3cbaa6e77d7a2545636e0ea0d69ca7260fb5f510148853dd",
+      "bytes": 29400,
       "payload_path": "languages/en/engine/mail/mail_session_screen.asm"
     },
     "engine/mail/mailbox_screen.asm": {
       "base_sha256": "4db8dc16e846ed0935b08a5759f3fd0494fa8932553cb122931bf409400cfb70",
-      "payload_sha256": "d15b97704ab5267b4a50fcab4a9b85a7c000553b5b2435ef55df0c6e7ed6a742",
-      "bytes": 36878,
+      "payload_sha256": "965d434f9fbabf3f78837984095a869e0fa2957a443482c8894d94c781499f10",
+      "bytes": 36894,
       "payload_path": "languages/en/engine/mail/mailbox_screen.asm"
     },
     "engine/mail/result_screens.asm": {
@@ -159,6 +225,12 @@
       "payload_sha256": "071d8718ad209f625bfcfdd8340716665f95fd5faeab9af5e46e562a5693c98f",
       "bytes": 50318,
       "payload_path": "languages/en/engine/mail/result_screens.asm"
+    },
+    "engine/mail/sample_data.asm": {
+      "base_sha256": "ba938f480f1ad3c7efbb1d683f740c5246a911a5aad0a05215e7f4021a6a0f1c",
+      "payload_sha256": "8d204b6c7c54560ea79fb0647bf840f9b904b659c2861a4f650f6feb61c34792",
+      "bytes": 15620,
+      "payload_path": "languages/en/engine/mail/sample_data.asm"
     },
     "engine/mail/send_receive.asm": {
       "base_sha256": "040087b021ec1d2ca0441aca6372feb7f4c7150d3faa74860147c4d76f91b9db",
@@ -168,9 +240,51 @@
     },
     "engine/mail_server/delete_hidden.asm": {
       "base_sha256": "1439acd930ae3889c1b215a13614f7c162b3a13815db59d937c8174d9c46bb37",
-      "payload_sha256": "c15cb85ad0cca7546e14bacb105708dda975d37bd0efb9640c4b16f200ae057c",
-      "bytes": 40041,
+      "payload_sha256": "94179b45332d383b3c18f07a5847c0ddf497fb079246d2ee318ca19a0cb03ddf",
+      "bytes": 40126,
       "payload_path": "languages/en/engine/mail_server/delete_hidden.asm"
+    },
+    "engine/mail_server/delete_menu.asm": {
+      "base_sha256": "8a93f58453b2948b19052cb638665f44ce836ffd422a75ad523c80d87fcd9477",
+      "payload_sha256": "17cc70a9a17955c16c3890221c1420f61d7b5e158e617e6482f3f831792755f0",
+      "bytes": 23539,
+      "payload_path": "languages/en/engine/mail_server/delete_menu.asm"
+    },
+    "engine/mail_server/delete_messages.asm": {
+      "base_sha256": "85a921a5590a51ae13ed979e8cdf70d2f2db0fc5327dd70516afc69056f715a5",
+      "payload_sha256": "f0d5f71a87dda236a2dc93e2ad8b44bdd05dff6e9128909437ae265848e52fd4",
+      "bytes": 8899,
+      "payload_path": "languages/en/engine/mail_server/delete_messages.asm"
+    },
+    "engine/mail_server/delete_progress.asm": {
+      "base_sha256": "b167b21c91e52a058820e16ca8f26d3a7f042eb3c278f9d0ce75916b63ea9384",
+      "payload_sha256": "20e283e5ce32e9620810c2b7bb174b1a64962f0d972182931389368a1d93609a",
+      "bytes": 8963,
+      "payload_path": "languages/en/engine/mail_server/delete_progress.asm"
+    },
+    "engine/mail_server/tidy_screen.asm": {
+      "base_sha256": "371e4790578a6ec643d412334d6da8e9dbc3a04e389f42628faf74c37edf19ea",
+      "payload_sha256": "753135e5d51193fe8f10a7f4063b90487f584b5d0aa715f18f135865377fcb33",
+      "bytes": 31378,
+      "payload_path": "languages/en/engine/mail_server/tidy_screen.asm"
+    },
+    "engine/menus/mail_menu.asm": {
+      "base_sha256": "b101209dd8cdc9ead761b69a6b150af9db41b47defa77a7dbde409b0bd5f4e30",
+      "payload_sha256": "4c6dc1c93b2f4df1783d3042f6fab23c17cd6f6be9a56d1161dbe234d470d1b2",
+      "bytes": 17762,
+      "payload_path": "languages/en/engine/menus/mail_menu.asm"
+    },
+    "engine/mobile/pop3_top.asm": {
+      "base_sha256": "ffa3433923c36136f24772c2f9b5006e44a589e8259605bd65bdd620c1e366e6",
+      "payload_sha256": "4e6a8a18ffe04fa66ca3b47b38a0b28beb9bac7a1020cc5e88ef4d5edfb3f075",
+      "bytes": 12006,
+      "payload_path": "languages/en/engine/mobile/pop3_top.asm"
+    },
+    "engine/unreferenced/page_list_prototype.asm": {
+      "base_sha256": "e838c2f45ca08c6032872ae7acaa7b0320d577ed195429ee15f44d47f7b3a9ff",
+      "payload_sha256": "ee87f25039de0abe3c097673567a810828ffbc2256a0e46af2fdc99fd23830a6",
+      "bytes": 53558,
+      "payload_path": "languages/en/engine/unreferenced/page_list_prototype.asm"
     },
     "gfx/account/account_entry_mail_and_action_screens_bank5e/account_action_confirm_page_5e_7300.screen.png": {
       "base_sha256": "73c3194508e165490b22a9927c057b50366d38b362ce2938f8a8352212da5088",
@@ -3636,7 +3750,7 @@
     },
     "home/header.asm": {
       "base_sha256": "5fda60c901ace35b75aa897a2ef5d6d3fb7846cbbee624f14fe6cdf3ca647ebd",
-      "payload_sha256": "89302eb22a203fbaa59bf5b73ea65365b81be5026a5ed515c8c3e06e379b0405",
+      "payload_sha256": "1aba8dbf5e7c2ac24dd5bf13526bb801502e3d24d9c2f9843a683851f1c61f34",
       "bytes": 3145,
       "payload_path": "languages/en/home/header.asm"
     }
@@ -3645,9 +3759,11 @@
   "documentation_payloads": [],
   "fallback": "Current tracked JP source plus exact EN overrides; no ROM/ZIP/cache/pyc/build artifacts in language package",
   "known_limits": {
-    "zip_content_parity": "IN_PROGRESS",
-    "help_script": "ZIP donor Help topics adapted; translation beyond donor not covered",
-    "runtime_visual_hardware": "UNVALIDATED"
+    "zip_content_parity": "Referenced donor text and graphics with explicit format adaptations",
+    "translation_beyond_zip": "Not covered",
+    "help_script": "Existing donor topics adapted; broader Japanese Help content not newly translated",
+    "prototype_canvas_sentences": "Two donor demonstration strings exceed visible width; natural entry unestablished",
+    "runtime_visual_hardware": "Partial conditional emulator checks; hardware unvalidated"
   },
   "fallback_files": {
     ".gitignore": {
@@ -6635,8 +6751,8 @@
       "sha256": "d519fd3d8c383f9e09b34a7cf00816ad6f628fac22e3a3c62eef2ae46fde9e55"
     },
     "docs/TRANSLATION.md": {
-      "size": 2530,
-      "sha256": "30dddf6dd4e14aa2fea5229a54b38b097d02a30d1c68e4ecee205e22c4735d80"
+      "size": 4542,
+      "sha256": "ef53a5c3d183c0ef38eeb95d960e103c7260b58f67f0ce8ebcba03f667ad70bc"
     },
     "docs/research/account_screens_bank5e_aliases_20261021.md": {
       "size": 138,
@@ -22065,7 +22181,7 @@
       "sha256": "612a597b8c3f5752f5c83ca0aa35c4c86d0de04b7876c6e92b4a2512f72fc7e9"
     }
   },
-  "overrides_count": 605,
+  "overrides_count": 624,
   "fallback_count": 4592,
   "source_parity_commit": "271f768b2b538c390328ffddceb9b18f034c7567",
   "published_branch_parent": "7a68640ce4ab0091de37c8efb2cb389a3a61f42c"
