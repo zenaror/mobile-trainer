@@ -116,7 +116,39 @@ corpus or claim global reachability.
 | `70:4740` | **PROBABLE** SRAM1 state-bit query and bank-shadow restoration; natural entry/record producer **UNKNOWN**. `473F` is RET and the natural table selects other handlers. | A maintained table/indirect producer selecting `70:4740` and establishing SRAM1 record contents and coherent bank-shadow state. |
 | `26:5344-537C` | **PROBABLE** repeated VRAM1 and WRAM7 writes; known caller `5343` is RET and reviewed hook setters do not select Bank26. | A maintained hook/caller selecting physical Bank26 and demonstrating the stack bank, VRAM bank, and WRAM bank state for those writes. |
 | `28:4BA6-4BC2` | **PROBABLE** WRAM0 clear and WRAM7 fill; preceding script ends at `4BA5`, before these bytes. No maintained hook/caller is known. | A maintained hook/caller that enters `4BA6` with the expected WRAM7 and stack-bank state; the preceding sprite script does not supply it. |
-| `42:6132` | **PROBABLE** candidate graphics/tile data. A conditional banner descriptor can read across it only for kind `$B5`; maintained producers use kinds 0-4. | A maintained producer of kind `$B5` (or another concrete descriptor producer) and a source read whose interval includes `42:6132`. |
+| `42:6132` | **PROBABLE** candidate graphics/tile data. A conditional banner descriptor can read across it only for kind `$B5`; the 11 maintained direct `Account_ResultPage` callers supply only kinds 0-4, and the stored kind has no direct C27C-alias clobber in the named pre-banner helper path. | A new producer outside that maintained result-page path, or a concrete descriptor/read route that includes `42:6132`. |
+
+#### Result-page kind liveness before the conditional Bank 42 read (2026-10-25)
+
+The `$B5` route through `Account_ResultPage_LoadBanner` (`68:77D6`) requires
+the byte in `wResultPage_Kind` (`$C27C`) to reach the banner lookup unchanged.
+I rechecked the current Japanese sources rather than relying only on the
+caller-value list: all 11 maintained direct `farcall Account_ResultPage` sites
+load A as `{0,1,2,3,4}`; the entry stores A once at `engine/account/result_page.asm:11`,
+and the only direct call to `Account_ResultPage_LoadBanner` is at line 42.
+Between that store and the banner call, the named calls are
+`Joypad_SetRepeatTiming`, `VBlank_Wait`, `Sprite_ResetAll`,
+`Sound_FrameService`, and two `Gfx_StartHDMAWithService` calls. The relevant
+helper sources (`engine/input/joypad.asm`, `home/vblank.asm`,
+`home/sprites.asm`, `home/audio.asm`, `audio/engine.asm`,
+`home/bank_switch.asm`, `home/copy.asm`, and `home/gfx_upload.asm`) contain no
+direct reference to any of the 25 declared `$C27C` overlay aliases or the raw
+`wRam_C27C` name. Within these declared caller and helper contracts, the
+banner lookup therefore receives a natural kind in 0–4. The out-of-range
+`$B5` descriptor remains a **CONFIRMED conditional** byte path, not a natural
+read of `42:6132` through this route.
+
+This does not prove absence under arbitrary computed writes, re-entry,
+corrupted state, or every interrupt/reentrancy interleaving, and it says
+nothing about other consumers of the candidate window. Reproduction:
+`.tmp/jp-bank42-result-kind-liveness-20261025/audit.py` (SHA-256
+`cbdc6828c1d83e98fe45119ea4c478e05ab755c8864000cfea0554d26ce08402`), receipt
+`RESULT.json` (SHA-256
+`3fff3410bfa6253a18c040fb4eb440540e3b518e0debc6188b9ea3a3eaca5fad`). It pins
+the protected ROM, the 338-file maintained ASM/INC source set
+(excluding `engine/mail/sample_data.asm` before reading), the 11 caller values,
+the sole banner callsite, and the helper alias-reference screen. No ASM or ROM
+bytes changed; no runtime or hardware execution was performed.
 
 These are the terminal results of the reviewed maintained caller, hook, table,
 stack-return and state domains. They are **not** claims that all bytes are
