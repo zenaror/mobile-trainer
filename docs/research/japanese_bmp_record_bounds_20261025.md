@@ -336,6 +336,24 @@ Consequently, a naturally served top-down BMP and its pre-pixel renderer
 metadata remain unverified; the synthetic rendering result above is still the
 only positive trace for that conditional path.
 
+### Retained local BMP corpus
+
+A bounded inventory of `.tmp/jp-bmp-*`, `traces/web/`, and
+`.cache/trace/web/` found 45 BMP files representing 25 unique byte hashes:
+five experimental fixtures, 20 project-generated fake-server fixtures, and
+the 20 cached byte-identical copies. Provenance for the generated set is
+explicit in `tools/trace/make_fixtures.py` (SHA-256
+`b9645a2eced71530270685c6633489704c036f4b9258d04c2f9f93ce76e8f543`); it
+generates bottom-up BMPs. Of the two synthetic BMPs that satisfy the ROM's
+top-down header predicate, only `img_topdown_canvas.bmp` has the deliberately
+constructed `P-4..P-1 = 20 01 08 24` renderer metadata and a positive rendered
+trace. No file in this inventory has verified historical-server provenance.
+The complete per-file paths, sizes, header fields, metadata bytes, and hashes
+are in `.tmp/jp-bmp-natural-source-census-20261025/RESULT.json` (SHA-256
+`218c94b71e3b01ee927bed57ae482c63197e1e52d40c5f745a16b442c779b5b7`).
+This closes only the local corpus inventory; it cannot rule out historical
+resources outside the checkout or other retained archives.
+
 ## Reproduction points
 
 The static claims can be rechecked directly at the listed source locations. The
