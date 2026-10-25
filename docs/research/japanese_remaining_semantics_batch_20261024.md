@@ -798,3 +798,19 @@ The source now states these contracts and uses the ten existing sample labels
 in place of numeric HL operands. Original instruction/data bytes are unchanged.
 The separate receipt pins all source extents and hashes; no global reader census
 or emulator run was repeated.
+
+
+The following consumer check closes the immediate effect question for the
+three full-width names. `Mailbox_DrawSenderName` passes A=16 to
+`Mailbox_DrawTextLine`; `MailView_DrawTextLine16` starts the same cell budget.
+Each wide character consumes two cells and two source bytes, each narrow
+character one. The sample mail name is seven wide characters plus two narrow
+characters, exhausting the budget at byte 16 without reading byte 17.
+The two address-book names are eight wide characters: both
+`AddrBook_DrawSlotName` and `AbookView_DrawName` stop after those 16 cells.
+`Abook_LoadSlotToBuffers` also copies exactly 16 name bytes before copying the
+address separately. None of these three original strings contains CR or an
+incomplete wide-character pair within the field. Thus the overwritten NUL does
+not establish adjacent-field leakage in these specific display/load paths.
+This is a static exact-input contract, not an all-consumer safety guarantee or
+proof that the sample installers have a natural caller.

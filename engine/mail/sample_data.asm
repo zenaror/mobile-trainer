@@ -9,6 +9,8 @@ SECTION "engine/mail/sample_data", ROMX
 ; No dynamic ROM source selector. Natural entry remains unproved.
 ; Sample 2 name copies 16 nonzero bytes plus NUL into a 16-byte field;
 ; the following subject copy overwrites that NUL. Original bytes preserved.
+; Mailbox_DrawSenderName / MailView_DrawTextLine16 use 16-cell limits; this
+; sample (seven wide + two narrow glyphs) exhausts the limit before byte 17.
 MailRecord_InstallSampleMails:: ; 2D:4195
 	; [PROBABLE] profile-defaults initialiser: SRAM bank 0 select (ld [$4000]), enable ($0A ->
 	; [$0000]), then strcpy-style copies of 9-byte records and NUL strings into SRAM ($A124...) via
@@ -274,6 +276,8 @@ POPC
 ; [CONFIRMED static contract] Six fixed Bank2D name/address pairs into SRAM1,
 ; stride $50 (name $10, address $40). Entries 0 and 3 copy a 17-byte name
 ; including NUL; the following address copy overwrites that extra NUL.
+; Both names are eight wide glyphs. AddrBook_DrawSlotName / AbookView_DrawName
+; stop at 16 cells, and Abook_LoadSlotToBuffers copies exactly 16 name bytes.
 ; No caller or natural execution is established by this source contract.
 Abook_InstallSampleEntries:: ; 2D:44FB
 	; [PROBABLE] second profile-defaults routine: SRAM bank 1 select/enable, 12 strcpy calls (`ld
