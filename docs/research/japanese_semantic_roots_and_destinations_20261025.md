@@ -1277,19 +1277,24 @@ present as executed `CALL` instructions in the 72-scenario union. The raw
 patterns outside that subset are not asserted to be code. No candidate
 predecessor calls one of the four named bank selectors directly.
 
-Only four resolved callee owners contain explicit ROM-bank or bank-switch
-markers. Two possible edges target ROM-switching routines but are not naturally
-executed in the union: `68:4E59 -> 00:0150 MobileAPI` would return to
-`2D:4E5C`, and `48:5344 -> 00:0282 Boot` would return to `26:5347`. The other
-two callees call `BankSwitch_H`, but their `HL` values point into the page
-record list in WRAM (`$Dxxx`), so the selector changes WRAM bank and leaves the
-ROM bank unchanged. In particular, the naturally executed `74:5343 ->
-74:5548 Html_Layout_AppendRecord` returns to `74:5346` (`POP BC`) in both
-recorded scenarios. Its caller sets `HL` from the next `$Dxxx` page record and
-the page bank is 4. `74:586E Html_Layout_GetLimitsAtY` has the same WRAM-domain
-invariant; its candidate return-pattern callsite at `74:5377` is not present in
-the natural trace union. Thus the newly found HTML helper call does not provide
-an ROM-bank remap into `26:5346`.
+Manual review of the four mapper-marked callee owners removes all four as
+ROMX return edges into these candidates. `68:4E59` is a real `CALL 00:0150`
+in `Mobile_InitAndWait`, but its caller passes `A=$02, HL=$0068` to
+`MobileAPI`; that API saves and restores ROM bank `$0068`, so its continuation
+is `68:4E5C`, never physical `2D:4E5C`. This callsite is in the `Dev_InstallTestConfig` developer/test branch called
+from `Registration_Aborted`, but it is not in the retained natural trace union. The apparent `48:5344 -> 00:0282 Boot` call is not an instruction:
+its bytes fall inside the maintained 8x16 font run `48:4EBB–53EB`
+(`Font_GlyphRun_829F`, `data/fonts/font_8x16.asm`), so it cannot return to
+`26:5347` as code. The other two callees call `BankSwitch_H`, but their `HL`
+values point into the page-record list in WRAM (`$Dxxx`), so the selector
+changes WRAM bank and leaves the ROM bank unchanged. In particular, the
+naturally executed `74:5343 -> 74:5548 Html_Layout_AppendRecord` returns to
+`74:5346` (`POP BC`) in both recorded scenarios. Its caller sets `HL` from the
+next `$Dxxx` page record and the page bank is 4. `74:586E
+Html_Layout_GetLimitsAtY` has the same WRAM-domain invariant; its candidate
+return-pattern callsite at `74:5377` is not present in the natural trace union.
+Thus the flagged direct-callee class supplies no ROM-bank remap into a
+candidate span.
 
 This closes the enumerated direct-call/callee class for these six spans under
 the maintained source contracts and the exact ROM bytes. It does not resolve
@@ -1297,7 +1302,7 @@ computed/split targets, arbitrary mapper writes, runtime-created/copied code,
 or global entry/use. Candidate statuses therefore remain as listed in the
 matrix above. Reproduce with
 `.tmp/jp-cross-bank-callee-return-20261025/audit.py` (SHA-256
-`47457837319d274c152477df08a173000e628d3b316db4066bac29bd33a10610`); its
+`22577938b27862d9b20f3f10746d53f0977ad9cccb9cab2b5e3e097721bcce0b`); its
 receipt is `RESULT.json` (SHA-256
-`20c12fc55016ef71429f45d845a6cc4b458b761617773a899869390a5aa41fdd`). The
+`2c428464edec4bf19c443a10d6705467ae13bdc448eda03b113f9eef25a2b50b`). The
 receipt pins the protected ROM, 72-scenario union, and relevant source files.
