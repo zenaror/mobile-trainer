@@ -159,9 +159,31 @@ The top-down flag takes a distinct early success return after header parsing;
 it skips the palette reads, the $FF writes, the four conversion metadata
 writes, output-canvas construction, and pixel-row loop. Its converter-side
 containment requirement is therefore the corrected 50-byte fixed-header
-threshold. This documents control flow only; it does not establish that an
-externally supplied top-down image is naturally produced or that success
-yields a usable rendered image.
+threshold. The parser takes hBmp_Height from body byte 22, and sets this flag
+when bytes 23, 24, and 25 are all $FF; the size check then requires the low
+byte at 22 to be 1..96. If interpreted as a conventional signed 32-bit BMP
+height, this accepts values -255..-160 rather than the usual -1..-96 range.
+This is the ROM's predicate, not a claim that it implements standard BMP
+height semantics.
+
+On this branch, HL remains bitmap_base+P-4 when Bmp_ConvertToTiles returns A=1.
+Html_LoadPageImages treats that as success and stores the returned pointer and
+SRAM bank 3 in the image layout record. Since conversion metadata was skipped,
+the four bytes at P-4..P-1 remain whatever the input supplied. For the synthetic
+P=62 fixture below, that pointer is body+58, inside the second palette entry.
+
+A directed synthetic mGBA/fake-network replay delivered a 64-byte response
+with that top-down predicate. Across 20,000 frames, coverage records one entry
+at 51:7177 and one success return at 51:73CB, both at frame 9443. It records no
+row-loop/copy instruction starts (51:7251, 51:725D, 51:729C) and no bitmap draw
+starts (51:740D, 4E:5A6D, 4E:5B59). Thus the converter accepted and returned
+success, but this replay did not demonstrate rendering the resulting image.
+It does not establish whether a natural top-down resource supplies usable
+pre-pixel metadata, nor on-screen output on hardware. Fixture, harness, input,
+state, logs, and coverage hashes are in
+.tmp/jp-bmp-topdown-20261025/RESULT.json; audit script SHA-256
+de7c9c579af05d8bcb464ba993014c741d86896cc6a1f41d7d10649b22d9d46a and
+RESULT.json SHA-256 4ec6a8bb514d1fa2b9a0d7de9c3718b46a8282d1dc328aa089f74e60662498ae.
 
 Width zero has R=0 and zero input/output stride, but CopyBytes copies 256
 bytes for BC=0. The row source pointer is restored after each copy, so those
