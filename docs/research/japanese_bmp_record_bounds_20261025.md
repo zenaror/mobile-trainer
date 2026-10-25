@@ -57,15 +57,22 @@ source_read_end_exclusive = source_start + (H - 1) * input_stride + row_bytes
 canvas_extent = canvas_stride * canvas_height
 ```
 
-The interval is the union of `H` row reads, each `row_bytes` long and separated
-by `input_stride`. It is not necessarily contiguous when row padding exists.
-`Bmp_ConvertToTiles` uses `CopyBytes` at `51:7251-7266` for each row. Before
-that loop it stores `canvas_extent` as the copy/fill count and computes the
-canvas stride at `51:7190-7212`; the loop destination uses that stride while
-the source cursor uses `input_stride`. The top-down accepted flag takes an
-early success return before metadata writes and the row loop. The parser does
-not require `pixel_offset >= 4`, and no code compares the source reads or the
-four metadata writes with the nested length returned in `DE`.
+For positive widths, the interval is the union of H row reads, each
+row_bytes long and separated by input_stride. It is not necessarily contiguous
+when row padding exists. Bmp_ConvertToTiles uses CopyBytes at 51:7251-7266 for
+each row. Before that loop it stores canvas_extent as the copy/fill count and
+computes the canvas stride at 51:7190-7212; the loop destination uses that
+stride while the source cursor uses input_stride. Width zero is exceptional:
+its computed copy count is BC=0, and CopyBytes at 00:050C copies 256 bytes for
+BC=0 with B=0. The row source pointer is restored after each copy and its
+computed stride is zero, so the same 256-byte source span is read repeatedly
+while the mainline loop does not return.
+
+The top-down accepted flag returns before palette reads, metadata writes and
+the row loop. Bottom-up conversion reads eight palette bytes at an address
+derived from the 16-bit DIB-size field, writes $FF to BMP body offsets 23..25,
+and writes four conversion bytes at bitmap_base+pixel_offset-4..-1. None of
+these reads or writes is compared with the nested length returned in DE.
 
 At the validator's maximum width and height, `row_bytes=18`,
 `input_stride=20`, `canvas_stride=20`, `canvas_height=96`, and the final source
@@ -93,25 +100,42 @@ not native-hardware behavior or general malformed-record safety.
 
 ## Exhaustive accepted-dimension and declared-length classes
 
-The fixed header reads are at BMP-relative byte offsets 0, 1, 10..13,
-19..34, and 48..51. Thus a record length of at least **52 bytes** is required
-to keep all header reads inside the declared record, independent of raster
-dimensions. This is a containment threshold, not a guarantee that the header
-values pass validation. The size validator accepts exactly 145 width values
-(W=0..144) and 96 height values (H=1..96), giving 13,920 accepted
-dimension pairs.
+**Correction (2026-10-25 follow-up):** recounting the parser's indexed reads
+shows that the fixed header offsets are 0, 1, 10..13, 18..33, and 46..49.
+The previous version of this note was one byte high in the width/field read
+range and two bytes high in the final range; it overstated the parser-only
+containment minimum as 52 bytes. It is
+**50 bytes** (highest read offset 49). This is only a header-read threshold,
+not a complete converter-read bound or a guarantee that field values pass.
+The size validator accepts 145 width values (W=0..144) and 96 height values
+(H=1..96), giving 13,920 accepted dimension pairs after the header predicates.
 
-For bottom-up images, define P as the 16-bit pixel offset and
-R=ceil(W/8). Source row reads fit in a nonwrapping declared record of length
-L exactly when P + (H-1)*align_up(R,4) + R <= L. The converter also writes
-four metadata bytes at P-4..P-1: P<4 places writes before the BMP record;
-4<=P<52 overwrites bytes from the already-parsed header; P>=52 keeps
-those writes after the fixed header. These classes are independent of the
-pixel-row containment test. No runtime bounds check enforces either condition.
+For bottom-up images, let P be the 16-bit pixel offset, R=ceil(W/8), and S be
+the 16-bit value read from BMP offsets 14..15. The pixel-row span fits a
+nonwrapping declared record of length L iff
+P + (H-1)*align_up(R,4) + R <= L. Separately, Bmp_ConvertToTiles passes the
+pointer at BMP offset 14 plus S to Bmp_ColorSum twice; each call consumes four
+bytes, so the palette-read interval is [14+S,22+S). For the common S=40
+header this is bytes 54..61 and needs L>=62. The parser does not bound S, so
+for positive widths the complete bottom-up containment condition is
+L >= max(50, 22+S, P + (H-1)*align_up(R,4) + R), with P>=4 to contain
+the metadata writes, subject to the nonwrapping-file-offset model. For width
+zero, each loop iteration copies 256 bytes from the same restored source
+address P; keeping that per-iteration read in the record requires P+256<=L
+and P>=4, but the loop does not complete.
 
-| Bytes copied per row R | Accepted W | Source stride | Required span at H=1 | Required span at H=96 |
+Before those row reads, the converter also writes $FF to BMP offsets
+23..25. Its four conversion metadata bytes go to P-4..P-1: P<4 places these
+writes before the BMP record; P>=4 keeps them at or after the record start.
+For positive widths, P plus the nonzero row span contains the upper edge of
+the four-byte metadata write; P>=4 is still required for its lower edge. For
+W=0, the repeated 256-byte copy condition also contains its upper edge. The
+three fixed writes are inside the record whenever L>=50. No runtime check
+enforces these read or write bounds.
+
+| Computed row bytes R | Accepted W | Source stride | Span at H=1 / W0 iteration | Span at H=96 / W0 union |
 |---:|:---:|---:|---:|---:|
-| 0 | 0 | 0 | 0 | 0 |
+| 0 | 0 | 0 | 256 | 256 (same span repeated; no return) |
 | 1 | 1–8 | 4 | 1 | 381 |
 | 2 | 9–16 | 4 | 2 | 382 |
 | 3 | 17–24 | 4 | 3 | 383 |
@@ -132,22 +156,48 @@ pixel-row containment test. No runtime bounds check enforces either condition.
 | 18 | 137–144 | 20 | 18 | 1918 |
 
 The top-down flag takes a distinct early success return after header parsing;
-it does not write the four metadata bytes, build the output canvas, or read
-pixel rows. Under the same nonwrapping record model, its converter-side
-containment requirement is therefore the 52-byte fixed-header threshold.
-This documents control flow only; it does not establish that an externally
-supplied top-down image is naturally produced or that success yields a usable
-rendered image.
+it skips the palette reads, the $FF writes, the four conversion metadata
+writes, output-canvas construction, and pixel-row loop. Its converter-side
+containment requirement is therefore the corrected 50-byte fixed-header
+threshold. This documents control flow only; it does not establish that an
+externally supplied top-down image is naturally produced or that success
+yields a usable rendered image.
 
-Width zero has R=0 and zero input/output stride. It is not a zero-byte
-successful raster: the output-row pointer cannot advance, matching the
-previously reproduced synthetic mGBA mainline loop. Positive widths execute
-the finite H row iterations; their required source span is the table above
-plus P. The exhaustive arithmetic and per-pair CSV are reproducible with
-.tmp/jp-bmp-dimension-domain-20261025/audit.py; its source hash, revision,
-matrix summary, and limits are in the adjacent RESULT.json. The generated
-matrix covers all accepted dimensions, but does not enumerate every possible
-record length, pixel offset, 16-bit wrap, or field-valid header byte string.
+Width zero has R=0 and zero input/output stride, but CopyBytes copies 256
+bytes for BC=0. The row source pointer is restored after each copy, so those
+bytes come from P..P+255 repeatedly; the output-row pointer cannot advance
+and the mainline loop does not return. Positive widths execute the finite H
+row iterations; their row span is the table above plus P. The
+dimension matrix from .tmp/jp-bmp-dimension-domain-20261025/audit.py remains
+valid for positive-width row arithmetic, but its zero-width zero-copy model and
+previous header-bound statement are superseded by the corrected indexed-read
+audit in .tmp/jp-bmp-access-interval-recheck-20261025/. Audit script SHA-256
+bb84a31a54ddd03a64e3a1b4927ebd27d8510ddea92dd1890c461a4afca473b4;
+RESULT.json SHA-256 c5b8f21bfeff06e0f5dc53d232a96a43b11ddafdadac927ee9a00d38263fb999;
+dimension_matrix.csv SHA-256 15a02a32f236630b52ffc58080593eb80a4a29078bf8a49b3b501c68b29baf81.
+That audit records corrected header reads, palette reads, writes, and
+address-wrap thresholds.
+Neither matrix enumerates every
+field-valid byte string. The palette and pixel formulas are separate intervals
+and do not assume a valid external response or model 16-bit address wrap.
+
+### 16-bit CPU address wrap and mapped regions
+
+The nested BMP body resides in the SRAM3 page buffer, whose full address
+window is B000..BFFF. Let B be its actual body pointer. The parser adds the
+16-bit pixel offset P to HL with ordinary 16-bit wrap. For the full page
+address envelope, P<=4000 cannot wrap the pixel start for any B; P=4001..4FFF
+wraps only for the higher body addresses; and P>=5000 wraps for every possible
+B. These thresholds follow from B+P modulo 65536, not from a payload-length
+check. Before wrapping, offsets P=1000, 2000, 3000 and 4000 place the pixel
+start respectively in C000..CFFF, D000..DFFF, E000..EFFF and F000..FFFF for
+this full-page envelope. P=5000 wraps the start into 0000..0FFF. Those windows
+no longer denote SRAM3; interpretation of banked/VRAM regions depends on the
+live CGB and mapper state. The palette pointer similarly uses B+14+S modulo
+65536. The address calculation audit is in
+.tmp/jp-bmp-access-interval-recheck-20261025/RESULT.json; it uses the entire
+page as a conservative envelope, not a claim that every address is a natural
+nested-record start.
 
 ## Positive-width short-payload over-read
 
