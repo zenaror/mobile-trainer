@@ -252,22 +252,6 @@ using map SHA-256 `163fdad3cb91b55a523d51fecf6b45ec19c639fe032a8b89731e0200cda33
 receipt `POINTER_WORD_OWNERS.json` SHA-256
 `7ead77e6666fde17ee745b70f120addf9f3190193ec401360c1e1d1124aa9c09`.
 
-#### Literal `$53` accumulator values are not Bank 53 selectors (2026-10-25)
-
-A source search for the exact `ld a, $53` form across the maintained Japanese
-ASM/INC roots finds six instructions in two owners. The one in
-`engine/account/confirm_screens.asm` stores `$53` to `hTextY`; the five in
-`engine/browser/page_list.asm` store it to byte zero of `wSpriteSlot2`
-as a sprite Y position. `ram/banked.asm` defines these records in
-WRAM7, and `Sprite_UpdateAll` processes them as sprite slots. None feeds a
-ROM-bank register or a BankSwitch ROM-region call. Together with the
-55-explicit-MBC-writer inventory and 85-site BankSwitch input matrix already
-documented in
-[`japanese_remaining_semantics_batch_20261024.md`](japanese_remaining_semantics_batch_20261024.md),
-this closes the literal `ld a,$53` candidate form. It does not constrain a
-register-derived `$53`, computed/copied code, arbitrary memory corruption, or
-external entry, and it adds no Bank53 reader or name/frame association.
-
 Therefore all 25 executable name-to-frame associations remain
 **HYPOTHESIS/UNKNOWN**, and no frame is globally classified used or unused.
 There is no evidence of a missing PNG in the audited scope. The remaining
