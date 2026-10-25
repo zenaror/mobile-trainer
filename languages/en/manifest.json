@@ -3,8 +3,8 @@
   "language": "en",
   "base_commit": "ef41bff1fb24f2239661c230a48500f92bff4559",
   "english_commit": "d0ef9a448d078e6697e2a226ba0f5eab42c16409",
-  "expected_ROM": "6ff8c3a8d224dc13114aed3b0fdaf8fe89d7cbf97c1c82342707b1cb0338188d",
-  "global_checksum": "EEF8",
+  "expected_ROM": "8fa058a52c3fe947a6c636a17377a9f30a97a2541b93cbdd67d12314247df7d0",
+  "global_checksum": "462F",
   "expected_symbols_DEBUG0": {
     "labels": 12246,
     "constants": 51
@@ -3546,9 +3546,15 @@
     },
     "home/header.asm": {
       "base_sha256": "5fda60c901ace35b75aa897a2ef5d6d3fb7846cbbee624f14fe6cdf3ca647ebd",
-      "payload_sha256": "80843c0796b13e14fca2d4c5dc4423273be55f2d0d48b6c5b2f05bbd732a9e3e",
+      "payload_sha256": "ff3b567ac3ee4e648384363884ca33c316121483a8c6cfbf3a89d5c7bd9178f4",
       "bytes": 3145,
       "payload_path": "languages/en/home/header.asm"
+    },
+    "data/text/dialog_messages.asm": {
+      "base_sha256": "c164018e888cfe9dac770e36f08bdc2072f739ac1f0c98f7ab2fef124384e732",
+      "payload_sha256": "aa756bd16bd15f7548ae1e039011961df1f2b3b7feea2e663ce0ce5235b875c7",
+      "bytes": 51985,
+      "payload_path": "languages/en/data/text/dialog_messages.asm"
     }
   },
   "deletions": [],
@@ -21976,7 +21982,7 @@
       "sha256": "612a597b8c3f5752f5c83ca0aa35c4c86d0de04b7876c6e92b4a2512f72fc7e9"
     }
   },
-  "overrides_count": 590,
+  "overrides_count": 591,
   "fallback_count": 4592,
   "source_parity_commit": "271f768b2b538c390328ffddceb9b18f034c7567",
   "published_branch_parent": "7a68640ce4ab0091de37c8efb2cb389a3a61f42c"
