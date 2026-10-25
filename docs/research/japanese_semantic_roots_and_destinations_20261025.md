@@ -207,6 +207,18 @@ Bank 53 source directly; it does not establish whether any name is read or
 which frame it selects. Keep the name/frame associations and global use status
 UNKNOWN/HYPOTHESIS.
 
+A companion byte scan checked each of the 25 little-endian 16-bit target words
+across the ROM, plus contiguous ordered runs and the exact 50-byte table. There
+are 420 raw word coincidences outside Bank 53 across 24 targets; none is a
+contiguous run of two or more table-order pointers, and the full table has no
+copy outside Bank 53. The individual words are unclassified byte matches, not
+pointer evidence. Receipt `.tmp/jp-bank53-raw-name-occurrences-20261025/POINTER_WORDS.json`
+(SHA-256 `64b837958e137c592cff198bb6830a702bff84e1fb4f95d52e6f56fc98290a99`);
+script SHA-256
+`cd3ae5c32a5c4b45ad74e129806b611a202b61e3e4e3596cf98e25493cc01945`.
+This only closes exact contiguous table-order duplication; reordered/split
+records, computed addresses and bank-implicit readers remain untested.
+
 Therefore all 25 executable name-to-frame associations remain
 **HYPOTHESIS/UNKNOWN**, and no frame is globally classified used or unused.
 There is no evidence of a missing PNG in the audited scope. The remaining
