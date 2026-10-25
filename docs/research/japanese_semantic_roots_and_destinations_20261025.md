@@ -943,12 +943,15 @@ Bank 2B itself is naturally active in the inbox scenario, but for the text-tile
 upload/HDMA helper route. That route returns at `6CF4`; it is not evidence of
 entry into the adjacent reply clone. It bounds sequential fallthrough for
 these helper executions only and does not rule out computed/indirect entry,
-other callers, or global use. The natural reply implementation attribution
-remains scenario-specific.
+other callers, or global use. The same retained scenario has a positive natural reply edge
+`25:4591 -> 25:54A7` once; `Mailbox_ReplyToRecord` records 64 instruction
+starts and 2,200 executions. Thus the reply route in this scenario is concretely
+attributed to Bank 25, while Bank 2B is also active for the separate upload
+helper. This does not identify every possible caller of the Bank 2B clone.
 
 Reproduce by parsing the retained reports with
 `.tmp/jp-mailbox-bank2b-adjacent-return-20261025/audit.py` (SHA-256
-`c69b7f8be787d1e7c76a079de79d390282b98c8c3170b1d19cef2d8835e9d4e6`) and its `RESULT.json` (SHA-256 `97ff2c9893ac027541eae47d9ebb0a0d22f4dafab0d0abd3aabc489b5a4b10de`). The receipt pins
+`d27f11c463994b05fb4c357e8778e1652dbb00329c266aee6b5179c2ee04a088`) and its `RESULT.json` (SHA-256 `062d7e23675dbfb85f00927345eb639cc84c5276d468ce40fd5e4da1372fa1ee`). The receipt pins
 the ROM, `mail_inbox` scenario row, coverage/MBC/callgraph reports and
 `engine/mail/mail_viewer_sender.asm`. No trace was regenerated; no ROM or
 assembly bytes changed.
