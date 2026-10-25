@@ -179,11 +179,42 @@ to those names by elimination. Therefore 21 species identities are resolved
 visually, while all 25 executable ordinal-to-window links, natural selection,
 and global used/unused classifications remain open.
 
+#### Ordered name-to-window crosswalk (2026-10-25)
+
+A separate structural comparison resolves the two visually ambiguous entries
+to a **PROBABLE intended ordinal/window mapping**. The 25 name pointers are in
+ordinal order. Sorting the 25 candidate tile windows by physical bank descending
+and address ascending, then excluding only the two independently identified
+UI-only panels (`41:5AA0`, `41:67F0`), leaves exactly 23 species-art windows.
+That sequence matches `PokemonName01..PokemonName23` one-for-one: `01` maps to
+`47:68F0`, `02..05` to the four windows in bank 46, `06..09` to bank 45,
+`10..13` to bank 44, `14..17` to bank 43, `18..21` to bank 42, and `22..23` to
+`41:4000` and `41:4D50`. The prior visual crosswalk independently identifies
+the entries `02..14`, `16..23`; the order resolves the remaining pair as
+`PokemonName01` Pikachu → `47:68F0` and `PokemonName15` Pichu → `43:4D50`.
+
+This alignment, combined with the visible species-like artwork, is strong
+evidence for the intended asset ordering. It is still not an executable
+association: the maintained source graph has no demonstrated reader that takes
+an ordinal from `Table_PokemonNamePointers` and selects the corresponding
+physical window. `PokemonName00` (Porygon) and `PokemonName24` (Porygon2) have
+no corresponding species-art window in this 25-window set; the two panel
+windows are not substituted for them. No candidate is thereby proven naturally
+loaded or globally used/unused.
+
+Reproduction: `.tmp/jp-bank53-name-window-order-20261025/audit.py` (SHA-256
+`b8930ab085262d1e3528a3979844c424de24bfd46a98ef769d04a39a866a4037`), receipt
+`RESULT.json` (SHA-256
+`136e4aebe563cfb3f3aefb191f3d772f9c712d1b9c2414d7a0ca83202101dc69`). The
+script pins the protected ROM and hashes the name source and asset manifest;
+it verifies 25 candidate tile-window starts and the exact 23-to-23 ordering.
+The two panel exclusions are inputs from the window-local visual review above.
+
 #### Reinspection of the two rodent-like tile sources
 
 The exact tile PNG for `43:4D50` (`blue_yellow_chevron_border_43_4d50_tiles.png`, SHA-256 `4c0bbca1753b80992588edfea5e1c6193f14a8805f51ae45fad289b512447aab`) contains two small animal faces flanking the “START MENU / B BACK” artwork. The separate `47:68F0` source is a profile-like yellow head in its candidate screen composition (PNG SHA-256 `101d974b982b4eeba83e7a83047948dc99dc6b0619330af76ffeeac21f469ffd`). These are positive visual observations only: they do not identify the individual faces as Pikachu or Pichu, nor associate either name ordinal with either source.
 
-The generated `BrowserFrameCandidate_43_1.png` is a synthetic composition, not an emulator screenshot: `tools/render_screens.py::frame_scenes` applies the Bank-47 descriptor layout as an explicit HYPOTHESIS to the Bank-43 package. The retained preview metadata marks it `hypothesis` and `no capture`; it must not be cited as runtime evidence. The reproduced candidate image is `.tmp/jp-frame-visual-recheck-20261024/screens/BrowserFrameCandidate_43_1.png` (SHA-256 `6c2b5c8dbfc0c49be11730ef0e28b98f845c0f5cb7c73efac94727f37750679b`), generated with `tools/render_screens.py` SHA-256 `6e481c771351587764cb1dd13d58504c0bd7d54c9a75d5f79f5121ba0f67cbe4`. This review leaves both names and all ordinal-to-window links unresolved.
+The generated `BrowserFrameCandidate_43_1.png` is a synthetic composition, not an emulator screenshot: `tools/render_screens.py::frame_scenes` applies the Bank-47 descriptor layout as an explicit HYPOTHESIS to the Bank-43 package. The retained preview metadata marks it `hypothesis` and `no capture`; it must not be cited as runtime evidence. The reproduced candidate image is `.tmp/jp-frame-visual-recheck-20261024/screens/BrowserFrameCandidate_43_1.png` (SHA-256 `6c2b5c8dbfc0c49be11730ef0e28b98f845c0f5cb7c73efac94727f37750679b`), generated with `tools/render_screens.py` SHA-256 `6e481c771351587764cb1dd13d58504c0bd7d54c9a75d5f79f5121ba0f67cbe4`. This synthetic-pixel review alone leaves the two rodent identities and ordinal links unresolved; the separate ordered comparison below supplies a PROBABLE intended pairing, while executable selection remains unproved.
 
 ### Window-local visual identifications (2026-10-24)
 
@@ -229,9 +260,10 @@ does not prove whether another, unidentified resource is used for either
 Porygon name.
 
 The review supports 21 distinctive visual identities and two rodent-like
-windows, but cannot safely decide which rodent depiction is Pikachu and which
-is Pichu. It finds no Porygon-like silhouette in `41:5AA0` or `41:67F0`;
-their “geometric Porygon” interpretation remains unsupported. The four
+windows. The rendered pixels alone do not decide which rodent depiction is
+Pikachu and which is Pichu; the separate sequence alignment above supplies a
+PROBABLE intended pairing. It finds no Porygon-like silhouette in `41:5AA0` or
+`41:67F0`; their “geometric Porygon” interpretation remains unsupported. The four
 decisive component PNG hashes are, respectively, `203402ee8432d32eea02cfeee20d58f50caceb2180d876016c106cf23317d7b6`,
 `79d6224cb981cf021a12ce84e1164c60098599f7b286f10eeaf172c29ebaa7b5`,
 `4c0bbca1753b80992588edfea5e1c6193f14a8805f51ae45fad289b512447aab`, and

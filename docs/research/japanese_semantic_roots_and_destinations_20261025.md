@@ -235,9 +235,13 @@ reproduction script `scan.py` SHA-256
 
 This closes exact full-string duplication only. It does not detect substrings,
 transformed/compressed strings, runtime copies, or readers that access the
-Bank 53 source directly; it does not establish whether any name is read or
-which frame it selects. Keep the name/frame associations and global use status
-UNKNOWN/HYPOTHESIS.
+Bank 53 source directly. A separate exact ordering comparison now supports a
+PROBABLE intended visual/index mapping for `PokemonName01..PokemonName23` to 23
+species-art windows; it does not establish that the ROM reads those names or
+selects those windows by ordinal. `PokemonName00` and `PokemonName24` remain
+unmatched within the candidate-window set. Keep executable name/frame links
+UNKNOWN/HYPOTHESIS and global use status unknown; details and reproduction are
+in `japanese_frame_bank53_revalidation_20261024.md`.
 
 A companion byte scan checked each of the 25 little-endian 16-bit target words
 across the ROM, plus contiguous ordered runs and the exact 50-byte table. There
@@ -388,8 +392,10 @@ index or a Pokémon ordinal.
 
 This is a newly enumerated conditional bad-index route, not a maintained
 natural entry. The enumerated producers cannot supply the out-of-range values
-shown above. It neither links `PokemonNameXX` to a candidate window nor
-classifies any resource globally used or unused. Reproduction:
+shown above. It provides no executable `PokemonNameXX`-to-window edge; a
+separate ordered asset comparison gives only a PROBABLE intended visual/index
+crosswalk for ordinals 01–23. This route does not classify any resource
+globally used or unused. Reproduction:
 `.tmp/jp-preview-indirect-overflow-20261025/audit.py` (SHA-256
 `29681c0adb66b742c4b1d7fb1a05f9b0f0ab1c4761389a430a0def992310dcda`);
 receipt `.tmp/jp-preview-indirect-overflow-20261025/RESULT.json` (SHA-256
