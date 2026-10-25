@@ -4,10 +4,10 @@ Documentation of the *Mobile Trainer (Japan)* disassembly.  The source is the ha
 [`../REVERSE_ENGINEERING.md`](../REVERSE_ENGINEERING.md).  This directory holds the reference documents and the research notes that carry the evidence behind the statuses (`CONFIRMED` / `PROBABLE` / `HYPOTHESIS`)
 written in the source comments.
 
-Current Japanese delivery: [integrated on main, with scope and limits](research/japanese_closure_audit_20261023.md#delivery-on-main-2026-10-24).
+Current Japanese source delivery: [integrated on main, with finite-scope limits](research/japanese_closure_audit_20261023.md#delivery-on-main-2026-10-24). Semantic closure work remains active; see the current [root and destination reconciliation](research/japanese_semantic_roots_and_destinations_20261025.md).
 For future authorized ZIP parity, start with the [Japanese reuse contract](TRANSLATION.md#japanese-baseline-and-reuse-contract-2026-10-24).
-Dated checkpoint paragraphs below preserve historical results; their old next-step
-statements do not reopen completed Japanese work. English remains paused.
+Dated checkpoint paragraphs below preserve historical results; use the current
+top-level status and semantic audit for active work. English remains paused.
 
 Evidence lives in these places, from the source outwards:
 
@@ -125,6 +125,7 @@ Reference documents (current):
 | [`japanese_remaining_semantics_batch_20261024.md`](research/japanese_remaining_semantics_batch_20261024.md) | Consolidated Japanese residual matrix; trampoline diagnostic triage, candidate-root direct/indirect transfer census, RAM execution, interrupt-vector, sprite-callback writer, and bounded generic ROM-copy reader routes; browser frame-selector/WRAM-descriptor producer domain; Bank 26/28/53 and data-reader reconciliation; conditional mask-rectangle helper contract; evidence limits and re-entry criteria |
 | [`japanese_text_copy_destination_matrix_20261024.md`](research/japanese_text_copy_destination_matrix_20261024.md) | Full Japanese `CopyString`/XOR caller census, derived destination contracts, SRAM bank ranges, and bounded A9ED/A9EE writer result |
 | [`japanese_mobile_sdk_output_destinations_20261024.md`](research/japanese_mobile_sdk_output_destinations_20261024.md) | Caller-rooted MobileSDK output-pointer routes, including HTTP, POP3, config export, and bounds against SRAM1 A9ED/A9EE |
+| [`japanese_semantic_roots_and_destinations_20261025.md`](research/japanese_semantic_roots_and_destinations_20261025.md) | Reconciles the 120 inherited-DE sites, corrects physical WRAM0 labels, records unresolved indirect roots and the Bank53 name/frame boundary |
 | [`japanese_confirm_screen_slot_records_20261023.md`](research/japanese_confirm_screen_slot_records_20261023.md) | Bank 4B confirm-screen slot-cell record boundaries, symbolic selector pointers, zero-record naming, and byte-identical validation |
 | [`japanese_frame_wipe_cursor_contract_20261023.md`](research/japanese_frame_wipe_cursor_contract_20261023.md) | Bank 4E frame-preview cursor reader, 41-group layout, and separate post-terminator tail; natural preview entry remains unproved |
 | [`japanese_natural_mail_reply_trace_20261023.md`](research/japanese_natural_mail_reply_trace_20261023.md) | Natural-input mGBA replay: 117 new instruction starts, reply-path and editor-fragment observations, and callgraph caveats |

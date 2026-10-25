@@ -148,7 +148,7 @@ The mail-library dispatcher has 12 maintained application callsites in
 `Mail_CopyToSram` callsite and the descriptors used by those selectors gives
 three natural output contracts: selector 4 writes the parsed body to SRAM3
 `$B000` with `$0800` capacity (`Data_Pop3Retr_ParseBodyArgs`); selector 6
-writes decoded headers to WRAM5 `$C480` (`Data_Pop3Retr_DecodeFromHeaderArgs`
+writes decoded headers to fixed WRAM0 `$C480` (`Data_Pop3Retr_DecodeFromHeaderArgs`
 and `Data_Pop3Top_DecodeHeaderArgs`); selector 8 writes composed mail headers
 to SRAM3 `$A100` with `$0F00` capacity (`Data_Smtp_HeaderComposeArgs`).
 Selectors 1 and 2 are the app's scan/check calls; neither supplies the
