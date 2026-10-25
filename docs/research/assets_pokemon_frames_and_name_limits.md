@@ -577,3 +577,17 @@ not the executable name-reader/selector status: no ordinal-to-frame consumer
 has been found, and no frame is globally classified used or unused. See the
 [Bank51 boundary correction](japanese_semantic_roots_and_destinations_20261025.md#bank-51-pokemon-art-candidate-boundary-correction-2026-10-25) and the
 [Bank53 crosswalk limits](japanese_frame_bank53_revalidation_20261024.md#ordered-name-to-window-crosswalk-2026-10-25).
+
+#### Provenance of the BetaP2 screenshot
+
+The pixel-comparison input is the `BetaP2.JPG` screenshot posted by jojo12100
+on 2018-06-09 in the [Project Pokemon prototype discussion](https://projectpokemon.org/home/forums/topic/39815-unreleased-prototype-pokemon/page/37/#comment-225659).
+In that post, the author says they had found most of the discussed Pokémon art
+in the Mobile Trainer ROM, initially could not find Porygon2, and then found
+Porygon2 before attaching `BetaP2.JPG` and `Mewtwo.JPG`. A moderator separately
+corrects an earlier beta-Tyranitar claim that had conflated Mobile Trainer with
+the GS demo. This is a dated community report and screenshot provenance, not a
+ROM dump, capture of the original web service, or proof of an in-game reader.
+The pixel match against immutable Bank 51 bytes is independent evidence for a
+**PROBABLE** visual Porygon2 association; it says nothing new about Porygon,
+executable ordinal selection, or global use.
