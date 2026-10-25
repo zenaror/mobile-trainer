@@ -91,6 +91,64 @@ final PC do not mean the converter returned: final `75:6149` is
 This confirms the conditional mainline hang in the synthetic mGBA scenario,
 not native-hardware behavior or general malformed-record safety.
 
+## Exhaustive accepted-dimension and declared-length classes
+
+The fixed header reads are at BMP-relative byte offsets 0, 1, 10..13,
+19..34, and 48..51. Thus a record length of at least **52 bytes** is required
+to keep all header reads inside the declared record, independent of raster
+dimensions. This is a containment threshold, not a guarantee that the header
+values pass validation. The size validator accepts exactly 145 width values
+(W=0..144) and 96 height values (H=1..96), giving 13,920 accepted
+dimension pairs.
+
+For bottom-up images, define P as the 16-bit pixel offset and
+R=ceil(W/8). Source row reads fit in a nonwrapping declared record of length
+L exactly when P + (H-1)*align_up(R,4) + R <= L. The converter also writes
+four metadata bytes at P-4..P-1: P<4 places writes before the BMP record;
+4<=P<52 overwrites bytes from the already-parsed header; P>=52 keeps
+those writes after the fixed header. These classes are independent of the
+pixel-row containment test. No runtime bounds check enforces either condition.
+
+| Bytes copied per row R | Accepted W | Source stride | Required span at H=1 | Required span at H=96 |
+|---:|:---:|---:|---:|---:|
+| 0 | 0 | 0 | 0 | 0 |
+| 1 | 1–8 | 4 | 1 | 381 |
+| 2 | 9–16 | 4 | 2 | 382 |
+| 3 | 17–24 | 4 | 3 | 383 |
+| 4 | 25–32 | 4 | 4 | 384 |
+| 5 | 33–40 | 8 | 5 | 765 |
+| 6 | 41–48 | 8 | 6 | 766 |
+| 7 | 49–56 | 8 | 7 | 767 |
+| 8 | 57–64 | 8 | 8 | 768 |
+| 9 | 65–72 | 12 | 9 | 1149 |
+| 10 | 73–80 | 12 | 10 | 1150 |
+| 11 | 81–88 | 12 | 11 | 1151 |
+| 12 | 89–96 | 12 | 12 | 1152 |
+| 13 | 97–104 | 16 | 13 | 1533 |
+| 14 | 105–112 | 16 | 14 | 1534 |
+| 15 | 113–120 | 16 | 15 | 1535 |
+| 16 | 121–128 | 16 | 16 | 1536 |
+| 17 | 129–136 | 20 | 17 | 1917 |
+| 18 | 137–144 | 20 | 18 | 1918 |
+
+The top-down flag takes a distinct early success return after header parsing;
+it does not write the four metadata bytes, build the output canvas, or read
+pixel rows. Under the same nonwrapping record model, its converter-side
+containment requirement is therefore the 52-byte fixed-header threshold.
+This documents control flow only; it does not establish that an externally
+supplied top-down image is naturally produced or that success yields a usable
+rendered image.
+
+Width zero has R=0 and zero input/output stride. It is not a zero-byte
+successful raster: the output-row pointer cannot advance, matching the
+previously reproduced synthetic mGBA mainline loop. Positive widths execute
+the finite H row iterations; their required source span is the table above
+plus P. The exhaustive arithmetic and per-pair CSV are reproducible with
+.tmp/jp-bmp-dimension-domain-20261025/audit.py; its source hash, revision,
+matrix summary, and limits are in the adjacent RESULT.json. The generated
+matrix covers all accepted dimensions, but does not enumerate every possible
+record length, pixel offset, 16-bit wrap, or field-valid header byte string.
+
 ## Positive-width short-payload over-read
 
 A second synthetic response separates the zero-width loop from the payload
