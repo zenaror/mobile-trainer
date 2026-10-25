@@ -358,6 +358,50 @@ windows. Keep executable name/frame links UNKNOWN/HYPOTHESIS and global use
 status unknown; details and reproduction are in
 `japanese_frame_bank53_revalidation_20261024.md`.
 
+### The maintained text renderers accept strings, not Bank 53 ordinals (2026-10-25)
+
+The two maintained generic text consumers inspected here have a ready-string
+ABI. `TextEngine_Run` (`00:0ED3`) saves `A` as the string bank and reads the
+next byte directly from `[HL++]` (`home/text.asm:7-26`).
+`TextTiles_RenderLine` (`48:403E`) likewise saves `A` as the string bank and
+uses `ReadByteFar` on successive bytes at `HL` (`engine/text/text_tiles.asm:66-85`).
+Neither consumer interprets `HL` as an ordinal or computes
+`Table_PokemonNamePointers + 2*n`.
+
+The ROM branch of `ReadByteFar` (`00:1620`) takes `A=bank, HL=address`,
+temporarily selects the low ROM bank, performs one `[HL++]` read, then restores
+the previous low-bank latch (`home/far_read.asm:7-13,51-66`). It does not
+change the high ROM-bank latch; boot initializes that latch to zero
+(`home/init.asm:89-96`). This defines what a future Bank 53 string read must
+supply, but does not itself read the name table. Passing `HL=53:4000` to one
+of these renderers would stream the table's pointer bytes; it would not
+dereference the selected word into a string address.
+
+The known frame consumer is also a separate path: `Browser_LoadFrameGraphics`
+indexes `Table_Browser_FrameDescriptors` from `wBrowserFrameStyle & $7F`,
+then reads a graphics bank/address pair from that descriptor and submits the
+transfer (`engine/browser/frame_graphics.asm:30-57`). The bounded maintained
+descriptor route resolves to Bank 47 as documented above; it carries no
+`PokemonName` ordinal. Therefore these inspected producer/consumer contracts
+do not form an executable name-to-frame chain. The smallest missing edge is a
+maintained producer that reads `53:4000+2*n`, preserves or derives `n`, and
+uses that value to choose a physical frame bank/address. This is scoped to the
+named consumers and descriptor route, not a proof against every computed or
+external input.
+
+ROM SHA-256 remains
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
+Source SHA-256s: `home/text.asm`
+`d73b3be312d463c4ac0e8ce12b59c33d0d5d369bd847eebdc83a54c8218e3374`,
+`home/far_read.asm`
+`7c1ce23d299e34b2b5d8722bde0cb7cdd474056ceae829764189249e9f371b14`,
+`engine/text/text_tiles.asm`
+`32ac143f088908b4573510534dde71dc31ce2daa724132d7060f9d369ac88c25`,
+`engine/browser/frame_graphics.asm`
+`2b4d086daad5dcd0ba7993260c680c31d21ab5aca9d2bd5d0f580c90f8cc9a73`, and
+`data/text/pokemon_names_bank53.asm`
+`eac460828daee81f7a4e86eefc6e0a88661e4ffaca77a53f0ad53fe65c89121d`.
+
 A companion byte scan checked each of the 25 little-endian 16-bit target words
 across the ROM, plus contiguous ordered runs and the exact 50-byte table. There
 are 420 raw word coincidences outside Bank 53 across 24 targets; none is a
