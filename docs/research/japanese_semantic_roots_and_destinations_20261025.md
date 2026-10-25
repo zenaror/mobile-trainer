@@ -166,6 +166,20 @@ maintained route inventories. The finite evidence and asset counts remain in
 [`japanese_frame_bank53_revalidation_20261024.md`](japanese_frame_bank53_revalidation_20261024.md)
 and [`japanese_remaining_semantics_batch_20261024.md`](japanese_remaining_semantics_batch_20261024.md).
 
+#### Bank53 target intersection with retained inline dispatch
+
+I cross-referenced every case in the retained 49-table/7,022-case
+`JumpTableInline` matrix with the physical name/string extent `53:4000–4170`.
+There are zero enumerated indirect dispatch targets in that range. This closes
+that specific indirect-transfer form for the retained matrix; it does not
+close generic reader/copy paths, unmodeled computed transfers, or arbitrary
+runtime state. Reproduce with
+`.tmp/jp-bank53-inline-dispatch-crosscheck-20261025/audit.py` (SHA-256
+`92d60b2ad5009cf25c13101ae9fa72a10156cc64cebf51ba3a9ab6024d7c6a06`); its
+receipt `RESULT.json` has SHA-256
+`003aaa9ab5974dd93c773565ceaddb079b53c4aeb7946c15bb186d6ab4d9f806` and pins
+the original ROM plus the retained dispatch matrix.
+
 ### Out-of-range frame selector check for the 25th candidate window
 
 The earlier out-of-range selector audit filtered the five far fields for each
