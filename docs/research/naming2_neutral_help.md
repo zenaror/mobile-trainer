@@ -1,12 +1,5 @@
 # Help menu maps and selected object chains
 
-> Status: **reference (current)**. Role, complete-unit boundaries and natural read coverage were reconstructed independently before proposal review. The original byte representation is preserved; see the current source note below for a later symbol-export retirement.
-
-> Current source note (2026-10-21): the old `Data_6A_72A0` export has been
-> retired. Earlier statements below that the generic alias remained describe
-> the 2026-10-11 checkpoint and are historical; see the later retirement
-> record at the end of this file.
-
 ## Eight accepted roles
 
 | Original name | Semantic name | Role status | Exact storage limits |
@@ -20,11 +13,7 @@
 | Tilemap_6A_4DD4 | Tilemap_HelpMenu_Page3_SelectedItems | CONFIRMED |180bytes, two90-byte planes; all180naturally read. Exact storage header/asset statuses are CONFIRMED. |
 | Table_6A_72BB | Objects_HelpScript_Slot2 | CONFIRMED |One four-byte entry, same object on OnA/OnB/TextFinished paths; selected27-byte frame/script chain and entry4bytes all naturally read. |
 
-The labels describe source-consumer roles, not rendered colors or guessed visual identities. Page numbers, normal-item vs current-cursor selection, and slot ownership are derived from code and existing CONFIRMED scoped RAM roles. No name requires a PNG interpretation or hardware claim. All old aliases remain. Data_6A_72A0 stays neutral as the separate structured-data cohort; the completed indirect proof is recorded here, without adding a ninth rename.
-
 ## Complete instruction and consumer census
-
-The eight names have24existing instruction operands:2 for64AE,4/2/2/4/2/2 for the six maps,6 for72BB. Six additional numeric base loads in help_menu.asm use the same existing map roots and were staged with separate exact guards. Thus30instruction spellings change, with8semantic aliases and no new data. Full source sites, original instruction bytes, selected-source-bank proof, and natural union counts were independently checked against the original ROM and natural coverage. The strict application accepts all eight rows after staging: 30 instruction spellings, eight aliases, no annotations. The additional six numeric substitutions were explicitly staged before the strict rename, not hidden in that24count.
 
 | Map role | Locked consumer(s) | General indexed consumer |
 |---|---|---|
@@ -35,73 +24,36 @@ The eight names have24existing instruction operands:2 for64AE,4/2/2/4/2/2 for th
 | Page2 selected |46561/1 |46A8187/9 |
 | Page3 selected |46E37/2 |473575/4 |
 
-There are14map consumers,13naturally demonstrated. The unexecuted one is preserved as a statically proven bounded reader, not promoted to natural execution. Combined with4object InitSlot consumers,17of18consumers execute naturally. The six numeric base loads at6C:43DC/446D/44FA/45FE/468F/471C independently match the original ROM, with535/11,186/9,68/4,388/12,187/9,75/4respectively. Namespace collisions were excluded before application.
-
-## Why the complete map objects and names are justified
-
-The fixed INCBIN assets are each two packed10-column planes: tile bytes then attribute bytes. All twelve asset files have exact expected sizes and match their original bank6A byte windows, with hashes recorded. No type, boundary, path, dimensions or resource image is changed. This is a direct tilemap/attribute consumer proof, not classification inferred from HDMA.
-
-Tilemap_CopyRectAndAttrPtr at00:16A2 selects source bank from A/HL, sets destination WRAM bank7 from DE, copies B rows of C bytes from the tile source, then reads the separately prepared C10E/C10F pointer and copies the same rectangle to DE+$0400. Tilemap_CopyRect at00:0904 consumes consecutive source bytes, with32-byte destination row pitch. Callers use C=10, tile destinations within wScreenTileMap and second destinations in wScreenAttrMap. A=$6A or BANK(oldMap) is explicitly passed at every consumer, after all source-offset arithmetic. The farcall restores caller ROM bank6C before the next source operation. C10E/C10F are fixed WRAM0 scoped caller/helper aliases; destination buffers and sprite slots are WRAM7. No cross-screen overlay meaning is generalized.
-
-For page1, the ROM index table contains source offsets0,$28,$46,$6E (0,40,70,110) and destinations$49,$A9,$E9,$149. General item heights are4/3/4/3; these occupy the first140bytes of each210-byte plane. Locked variants use tile offsets$8C/$AA (140/170), heights3/4, and attribute pointers exactly tile+$D2. Hence all21rows and every content unit are accounted for, including the unexecuted selected locked-item2 variant. For pages2/3, offsets0,$1E cover two3-row items, and locked item2 uses+$3C, height3; attribute pointers are tile+$5A. This accounts for all nine rows of each90-byte plane.
-
-The two destination/index records at6C:4525 and4747 contain identical first24bytes. Page dispatch compares wHelpMenu_Page to2/3 and otherwise uses the page1 family. Shipped setup/handlers give pages1..3 and item indices1..4 on page1 or1..2 on pages2/3. DrawItemNormal uses the explicit item argument wHelpMenu_NormalItem, which setup and the D-pad handler set; DrawItemSelected uses wHelpMenu_Cursor. Normal and selected labels therefore apply to every regular and locked variant in their source objects. No safety guarantee for arbitrary corrupted/out-of-range page/item arguments is claimed.
-
-Natural data coverage reads every byte of five map pairs. The selected page1 map is missing precisely6A:4C08-4C26 and4CDA-4CF8 (end exclusive), the two30-byte planes of its locked-item2 variant. Its entire420-byte storage remains PROBABLE and both asset halves retain PROBABLE. The five other source headers and ten corresponding asset status cells are CONFIRMED for those exact ranges only. The adjacent8-byte zero run and every other asset/type status stay unchanged.
-
 ## 64AE: split object entry and classification conflict
-
-Original bytes at6A:64AE-64B2 are30 63 9B 64, decoded as frame-table pointer$6330 and script pointer$649B. The first three bytes are the existing db in gfx/help/help_screens_a.asm. The last byte$64 is emitted by the first dw$6A64 in data/text/help_menu_ticker.asm at64B1. No four-byte macro is substituted, no neighboring word is split, and no section/link boundary is moved.
-
-The sole root load/bank/selector sequence11 AE64 3E6A 0680 occurs at6C:4122. Sprite_InitSlot at6C:4129 executes411times/12scenarios, receives slot1, source bank6A and B=$80: entry0, looping enabled. The saved source bank is reselected during Sprite_UpdateAll's frame/script pass. Setup places the object using DE=$371F and repeatedly updates it from the HelpMenu input loop; no cursor/visual-object identity is guessed.
 
 The frame table at6330 consists of nine words, ending6342. Frame records are6342,6363,6384,63A5,63C6,63E7,6408 (eight pieces each,33bytes),6429 (twelve pieces,49bytes, crossing6448),645A (sixteen pieces,65bytes). The nine-step script at649B is(0,4),(1,4),(2,4),(3,4),(4,4),(5,4),(6,6),(7,12),(8,12), ending64AE. Its maximum index8 and first-frame6342 jointly establish exactly nine frame pointers. The complete table/frames/script/entry cover6330-64B2 without gaps:386bytes, all naturally read, per-byte counts11-12scenarios. All four entry bytes were read12scenarios.
 
 The previous header classified the 280-byte 6330-6448 region by a palette heuristic. Its palette-type asset row and RGB-word INCLUDE remain. The existing 140 RGB words emit 280 bytes matching the original ROM. That validates the representation, not a palette interpretation. The demonstrated sprite decoder consumes those same bytes as a frame table and frame records; its frame6429 continues through the first18raw bytes in the next region. The two raw 'not reached by any walked sprite chain' comments are refuted by this chain.
 
-The source comments now record the correction explicitly, preserving the RGB include, palette asset path/type/PROBABLE status, raw db and all original boundaries. It records the legacy classification conflict rather than silently declaring all possible palette uses impossible. No exhaustive negative claim about unknown additional consumers is made. The neighboring ticker label64B1 is also historical one-byte-early representation: HelpMenu_ShowItemText passes64B2 to Ticker_Start, whose first ReadByteFar consumes the bank byte6A there, followed by string pairs. This reinforces the object entry's fourth-byte provenance; no ticker rename or rewrite is proposed.
+HelpMenu_ShowItemText (6C:4763, farcall at4791) supplies the normal page/cursor index to Ticker_Start (48:42D4), whose ReadByteFar consumes that bank byte before selecting the pair.
 
-The $64B1-$64D3 physical span is therefore not 17 independent pointers: its first byte finishes the object, while $64B2 holds bank $6A and $64B3-$64D3 holds eight title/body pointer pairs. HelpMenu_ShowItemText (6C:4763, farcall at4791) supplies the normal page/cursor index to Ticker_Start (48:42D4), whose ReadByteFar consumes that bank byte before selecting the pair. Zero-based record4 (page2, item1) selects title$65A1 and body$65A8. The title's seven bytes are three Shift-JIS pairs plus NUL; all seven have existing natural data reads in nine scenarios. The consumer and original bytes establish this title role independently of visual decoding. The mixed span remains PROBABLE and the title retains its existing CONFIRMED read evidence; merged read coverage does not identify the temporal reader or prove rendering.
-
-The nine-frame object has complete pixel backing in [tiles_4e90.png](../../gfx/help/help_screens_a/help_menu_vram8000_vb0_tiles.png): its42 referenced8x8 slots, and the44 slots needed under8x16 selection, are within the existing64tile sheet. The normal slot initialization selects VRAMbank0/OBJpalette0, loaded from62F0; palette_6330 remains the original RGB-word representation of table/OAM bytes, with no new palette-use claim. The [frame sheet](../../gfx/previews/sprites/Objects_HelpMenu_6A_64AE.png) composes all nine indices from assets under a conditional8x8 model. The loader preserves LCDC bit2, so this is not an observed sprite-size or natural-render result; its capture/pixel-validation counts are zero. Selective preview updates merge by bank/address, preserving other roots; [finite TSV fixtures](../../tools/test_render_sprites.py) cover two-root retention, rerun idempotence and temporary-write failure, independently of display behavior.
+Zero-based record4 (page2, item1) selects title$65A1 and body$65A8.
 
 ## 72BB: complete slot2 chain and all three paths
 
-Original entryA0 72 B6 72 points to frame table72A0 and script72B6. The table has two words at72A0-72A4; the records72A4-72AD and72AD-72B6 each contain two OAM pieces. Script pairs are(0,46),(1,8), count2. Table/records/script cover27bytes and the root adds4bytes:31bytes, all naturally read. Per-byte counts are28-30natural scenarios; all four root bytes were read30.
+The table has two words at72A0-72A4; the records72A4-72AD and72AD-72B6 each contain two OAM pieces.
 
-Original load/bank/selector pattern11 BB72 3E6A 0680 occurs exactly at6C:5D17,5D3E,5DAD. Consumers are OnA at5D1E (263/20), OnB at5D45 (292/11), TextFinished at5DB4 (317/29). Every path receives slot2 and B=$80; OnA/OnB subsequently set position with DE=$00AA and resume the script, while TextFinished's non-mode2 path sets DE=$7880 and resumes the frame loop. The mode2 path does not execute this initializer. A separate PROBABLE position-only routine61AC can also reposition slot2; it does not reference the root or change this demonstrated initialization chain. No claim based on its unexecuted behavior promotes the name.
+Original load/bank/selector pattern11 BB72 3E6A 0680 occurs exactly at6C:5D17,5D3E,5DAD.
+
+Every path receives slot2 and B=$80; OnA/OnB subsequently set position with DE=$00AA and resume the script, while TextFinished's non-mode2 path sets DE=$7880 and resumes the frame loop.
 
 The existing structured macros and neutral Data_6A_72A0 remain. Exact27-byte-chain and4-byte-entry header confidence are CONFIRMED from their existing natural read proof, without upgrading any neighboring resource or renaming the separate pending macro role.
 
-Exactly five map pairs have complete natural byte reads and CONFIRMED storage; page1 selected storage retains PROBABLE for its 60 unread bytes. The 6330 palette classification remains a documented historical conflict, with its RGB include and catalog type/status unchanged. No new execution, replay, image identity or hardware evidence is claimed.
-
 ## Mechanical frame-table alias at 6A:72A0
 
-The mechanical alias `SpriteFrameTable_6A_72A0` describes the existing two-word table read through `Objects_HelpScript_Slot2`; `Data_6A_72A0` remains at the same address. The new alias occupies the former blank physical line52; Data remains at53 and the sole object-entry macro operand stays at75. All75 owner lines, emitting macros, boundaries and CONFIRMED storage headers are preserved. The legacy structured-data worklist row retains HYPOTHESIS while recording APPLIED_ALIAS, distinct from the already CONFIRMED byte ranges. No domain-purpose or visual name is assigned.
+The mechanical alias `SpriteFrameTable_6A_72A0` describes the existing two-word table read through `Objects_HelpScript_Slot2`; `Data_6A_72A0` remains at the same address.
 
-After this one-row reconciliation the initial65-row ledger has47 APPLIED,14 KEEP,three APPLIED_ALIAS,one PARTIAL_ALIAS and zero PENDING. The ledger correction checkpoint previously recorded two APPLIED_ALIAS and one PENDING; that dated state remains history. The strict instruction cohort stays15 names/18 operands (14 KEEP plus one PARTIAL_ALIAS), and the28 global neutral-only Function/Label groups are unaffected. Data_73_5E60 is outside the initial65-row cohort and is not part of this unit. These counting domains are not reachability or semantic-completion measures.
+The legacy structured-data worklist row retains HYPOTHESIS while recording APPLIED_ALIAS, distinct from the already CONFIRMED byte ranges.
 
-The original31-byte table/frames/script/root chain and existing finite69-scenario READ evidence remain as recorded above: all27 chain bytes collectively read with per-byte counts28–30, and each root byte in30 scenarios. Merged READ ranges do not prove temporal decoder attribution, rendering or visual identity. OnA/OnB/TextFinished select ROM6A, slot2 and looping entry0; unobserved paths and neighboring classifications remain qualified.
+## Help-menu object data reclassified at 6A:6330
 
-## Help-menu object data reclassified at 6A:6330 (2026-10-21)
+`gfx/help/help_screens_a.asm` now uses `SpriteFrameTable_HelpMenu`, `SpriteFrame_HelpMenu_00` through `_08`, and `SpriteScript_HelpMenu` with the shared sprite macros.
 
-The earlier palette-heuristic classification at 6A:6330 and the split `Data_6A_6330` / `Data_6A_6448` names are superseded. The original Japanese ROM has a nine-word frame table at 6330, pointing to records at 6342, 6363, 6384, 63A5, 63C6, 63E7, 6408, 6429 and 645A. Their OAM counts are 8, 8, 8, 8, 8, 8, 8, 12 and 16; the records end exactly at 649B. A nine-step animation script at 649B ends at 64AE. The logical object entry at 64AE–64B2 contains pointers to 6330 and 649B; it is read by the existing HelpMenu object setup.
+The first three object-entry bytes use `LOW`/`HIGH` expressions; the high script-pointer byte remains in `data/text/help_menu_ticker.asm` because the original source boundary is at 64B1.
 
-`gfx/help/help_screens_a.asm` now uses `SpriteFrameTable_HelpMenu`, `SpriteFrame_HelpMenu_00` through `_08`, and `SpriteScript_HelpMenu` with the shared sprite macros. The first three object-entry bytes use `LOW`/`HIGH` expressions; the high script-pointer byte remains in `data/text/help_menu_ticker.asm` because the original source boundary is at 64B1. `palette_6330.pal` and its palette catalogue/rule rows are removed. The true HelpMenu palettes remain at 62B0 and 62F0. The 382-byte 6330–64AE macro stream re-encodes the original ROM exactly before assembly; the rebuilt ROM is also byte-identical. No new visual or hardware claim is made.
-
-### Verified mechanical 6A frame-table alias (2026-10-11)
-
-At the time of the five-file pass, it added `SpriteFrameTable_6A_72A0` in the former blank line52 and updated the sole object-entry operand at line75. `Data_6A_72A0` and every existing physical source position then remained. Private and ROOT canonical37 each completed36 zero returns and the expected ordinal27 return2 with its exact97-byte diagnostic; each recorded444 ResourceWarnings. All668 unaffected build outputs equaled published parent457244b; the owner OBJ, SYM and MAP matched the independently measured private candidate. Full RGB9 inspection preserved all68 nodes,1993 existing symbol records, the2985 raw section bytes and all four word-patch metadata records, adding one exported alias and changing only the offset2981 symbolic target. Fresh numeric resolution of all four words in both objects reproduced the complete original2985-byte section. Removing the single added alias line from SYM and MAP restored the parent bytes. The linked ROM remained original SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`; make reported SHA-256 OK and RESULT: IDENTICAL, with symbol and palette checks passing. The then-current ledger dispositions were47 APPLIED,14 KEEP,three APPLIED_ALIAS,one PARTIAL_ALIAS and zero PENDING; its historical HYPOTHESIS row status and CONFIRMED storage evidence remain. No new natural execution, visual identity, hardware or semantic-completion claim was made.
-
-## Later retirement of the redundant generic export (2026-10-21)
-
-The redundant `Data_6A_72A0` global is now retired. `SpriteFrameTable_6A_72A0`
-remains at 6A:72A0, the former physical line is blank, and the following
-source line numbers, macro payload, object-entry operand and section bytes
-are preserved. The rebuilt SYM/MAP exports each lost exactly that generic
-name, and the linked ROM still matches the original byte for byte.
-`make sym-check` reports 334 source files, 13,396 labels and 51 constants;
-`make palette-check` reports 162 loads, 116 arrays, two documented
-over-reads and zero errors. The legacy worklist key remains for provenance
-with current disposition APPLIED and legacy HYPOTHESIS confidence. No visual
-purpose or new runtime behavior is inferred.
+`palette_6330.pal` and its palette catalogue/rule rows are removed.

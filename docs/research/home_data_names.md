@@ -1,19 +1,6 @@
 # HOME data and continuation alias retirement
 
-This is a finite original-ROM naming pass. The HOME cohort contains 11 existing generic
-aliases in five owners; all 11 are exactly colocated with already named labels. There are
-no neutral-only candidates in this HOME cohort, no new proper names, and no claim that
-11 independent functions or runtime entries have newly been established. The label
-positions are CONFIRMED by adjacent source definitions and the retained linked baseline.
-The operation qualifications below are static PROBABLE where they describe code reach
-or a composed contract. Existing source evidence and historical coverage remain unchanged.
-
-The owners are home/audio.asm, home/far_string.asm, home/init.asm, home/random.asm and
-home/text.asm. They are disjoint from the Function483 SOURCE's 119 files and Font33
-SOURCE's 68 files. The only extra existing owner is ram/hram.asm: its hRandomIndex
-comment follows the retained table identity. No RAM equate, value, size, status, field
-meaning or ABI changes. Historical config, analysis manifests and research receipts
-keep the old names as historical address references.
+The only extra existing owner is ram/hram.asm: its hRandomIndex comment follows the retained table identity.
 
 ## Four data identities and their consumers
 
@@ -44,9 +31,7 @@ restoration or stack visibility. RAM names are contextual evidence only.
 
 ## Seven existing continuation identities
 
-Boot_MainLoop (00:0328) far-calls Main_Run and, if it returns, the continuation jumps
-back to 0328. This is a bounded loop target within Boot, not a new independent entry
-or an assertion that Main_Run always returns or that the non-CGB path reaches it.
+Boot_MainLoop (00:0328) far-calls Main_Run and, if it returns, the continuation jumps back to 0328.
 
 TextEngine_ReloadBank (00:0ED8) loads the string-bank byte and calls BankSwitch_H,
 then falls into NextByte. The helper uses current H: A=0 keeps mapping; otherwise H
@@ -76,24 +61,6 @@ and does not promise universal AF/HL/stack preservation or generic reentrancy sa
 No existing descriptive identity was refuted by the finite content/consumer review.
 The qualifications above constrain their meaning; they do not upgrade natural-entry,
 emulator, hardware, mapper, interrupt, stack, buffer or all-input evidence.
-
-## Transformation and expected symbol delta
-
-Eleven generic definition lines become blank lines. Four current HOME comments and
-one hRandomIndex comment use the retained identity. No current code operand uses a
-retired generic name, and no local label belongs to any retired generic scope.
-Existing physical lines and instructions are preserved. Every other label keeps its
-baseline name and exact bank/address; no proper name changes and no new local scope
-name is introduced. The 5 comment edits retain their old physical lines, including
-inherited long comments; no prose was reflowed into instructions.
-
-The private baseline linked-symbol file has 15,437 symbols, SHA256
-475f6694b2ee52aace778856903704a904d854d081abd5c9a63a49587e52c855.
-This isolated pass predicts 15,426 symbols: remove the 11 aliases below, preserve all
-remaining name/address pairs. ROOT must rebase this delta over Function483+Font33
-before integration. The isolated prediction is not a linked result for that combined
-tree. No build, sym-check, original-ROM comparison, emulator hardware run was
-performed here. Native validation is required before any byte-identity claim.
 
 ## Retired alias map
 

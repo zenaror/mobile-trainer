@@ -1,63 +1,12 @@
 # ROMX mapper writes and the following instruction fetch
 
-## Scope and evidence
-
-CONFIRMED static result on source based on `b4863f2a7916936ac75da56088c6773a6618d403`: 333 maintained ASM/INC files contain 55 resolved textual `ld [absolute], a|sp` stores into $2000–$3FFF. Three sites belong to ROMX owners. All recognized absolute expressions resolved. This is not an exhaustive census of computed writes, macro/data-emitted instructions, or execution outside declared owners.
-
-Original ROM SHA-256: `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. The three instruction encodings were checked against this ROM. Reproduction script, source hashes and rows are retained in `jp-romx-mapper-write-20261024` (review artifact); these are static evidence, not new runtime observations.
-
 | Physical source | Instruction bytes | Next fetch | Interpretation |
 | --- | --- | --- | --- |
 | 68:424E | EA 00 21 | 4251 | A ROM-bank change can replace the lexical Bank68 RET. |
 | 29:510F | EA 00 20 | 5112 | A ROM-bank change can replace the lexical XOR A and remaining sequence. |
 | 29:5113 | EA 00 30 | 5116 | A high-bank change can replace the lexical RET; reaching this store itself is conditional. |
 
-## Producer and continuation contracts
-
-`Profile_Edit` supplies A=0 and HL=`sProfileAddress` ($AF50) to `Account_CopyMailAddressToFar`. That routine saves and reloads the arguments before calling `BankSwitch_H_Local`. With those saved arguments intact, H=$AF selects the SRAM branch and cannot reach 68:424E. This bounded producer contract does not prove behavior for corrupted saved state or all possible callers. The local helper differs from the ROM0 helper: it has no A=0 early return.
-
-`PalLibCandidate_WriteRomBankLowAAndZeroHigh` describes the physical byte sequence, not an unconditional runtime contract. The first store may replace the bytes fetched at $5112 before the high-bank clear. Its natural entry and selector domain remain HYPOTHESIS. The earlier `typing_29_leaf_lcdc_ly_limits.md` already identifies this remapping concern; this pass consolidates the direct-store scope and corrects the source annotation, rather than claiming a new natural entry.
-
-## Consequence for semantic closure
-
-An indirect-jump census alone cannot close these transitions: mapper writes change instruction provenance without a JP HL. This pass establishes the above three sites and the bounded Profile_Edit producer. It does not establish unused code or a Pokémon/frame association.
-
-Remaining distinct analysis: callers of the ROM0 bank-switch helpers and their return-bank contracts, computed mapper writes, and producers of copied executable RAM. Do not repeat the completed direct textual-store census unless the source or its parsing scope changes.
-
-## Verification
-
-`make`: RESULT: IDENTICAL (2,097,152 bytes, original SHA-256 above). `make sym-check`: 335 source files, 12,223 labels, 51 exported constants, OK. `make palette-check`: 162 loads, 116 arrays, two documented over-reads, zero errors. Only source comments changed. Small script/results/logs are retained as the reproducible evidence for this pass; no historical directories were recreated.
-
-## ROM0 helper return contracts (second pass)
-
-The companion [57-site matrix](japanese_bank_helper_calls_20261024.tsv) covers every textual named CALL/JP to `BankSwitch_H/D/B` in tracked home/engine/lib/data/gfx/audio ASM/INC: 85 sites, 28 owned by ROM0 and 57 by ROMX (56 CALL, one tail JP). This scope does not include numeric calls, emitting macros or computed transfers. Grouping a site does **not** establish its argument invariant.
-
-The inspected helper contract is exact: A=0 returns before any selector write; otherwise region-high < $80 writes the ROM low selector, $80–$BF writes the SRAM selector, and >= $C0 writes rSVBK. The helpers preserve the pointer registers. A ROM0 RET itself remains readable after a ROM switch, but its ROMX return address may now refer to another physical bank. The tail JP in `Html_Layout_EndLine` returns to that routine's caller, not to a local instruction after the JP.
-
-| Sites | Proven domain or remaining obligation |
-| --- | --- |
-| 5 fixed RAM producers | Two page-buffer clears plus dictionary entry clear use HL=$B000/A=3; dictionary history push and the title fallback use HL=$D500/A=6. These local inputs cannot select ROM. |
-| 3 history entries | `Browser_HistoryPushFrom` is fed by the fall-through $D500/A=6 or the two GoBack producers $D500/$D400,A=6. Seven declared Browser_HistoryPop callers and one MobileDictView_HistoryPop caller use A=0 and DE=wAttrUrlBuf; the helper is a no-op even before considering DE. These claims cover the listed declared producers with intact arguments. |
-| 3 cache sites | Reset-maintained slots 0..2 contain (A000,2),(B000,2),(A000,3). Push uses source B000, length1000; six declared Pop callers supply dest B000, bank3, length1000. Eight chunks of200 per transfer, with C000 folded to A000, keep every switch pointer in A000–BFFF. A finite arithmetic model checks the six direction/slot cases; it is not an emulator run or a proof for corrupted slot/count values. |
-| 2 glyph-copy sites | The stack parser loads caller-provided destination pointers/banks. Keyboard supplies DE00/DE10,bank3. HelpScript constructs D000+16*x and D100+16*x for an 8-bit x; all256 pairs have region-high >=C0. The three TextTiles callsites construct pointers from their own parameters/strides and still require a producer/range invariant; do not generalize the keyboard/help result to those callers. |
-| 2 candidate entries | `Tilemap_ApplyMaskRect_48_4A8C` accepts unconstrained A/H and has no established natural producer. `Sram_BuildA9F0DeltaBlock` forces A=0A before its helper call. Neither candidate's bank-switch call proves that the candidate itself is naturally entered. |
-| 42 HTML/browser pointer sites | Some setup roots are fixed, but shared HRAM pointers, record traversal, source advancement and data fields need their preservation/bounds checked; this category remains conditional. Concrete setup and allocator bounds are below. |
-
-### Candidate correction: 4E:47EB
-
-CONFIRMED bytes `3e0ae0f5ea0000c5d5cd2206` lead to the helper call at47F4 and return PC47F7. With H<$80 and ROM high bit zero, this selects bank0A; its bytes at47F7 are zero, whereas Bank4E starts `3e01`. Thus the lexical record-copy sequence is not the executed continuation for arbitrary input H. The source now states this necessary region precondition. This changes the callable contract; it supplies no natural caller and makes no claim about execution beyond the remapped fetch.
-
-### HTML roots and allocator bounds
-
-Both `Html_ParsePage` and `Html_ScanPage` set the page header to D000 in WRAM4, text output to `wHtmlTextStream` in WRAM5, and source to B000 in SRAM3. These are concrete setup values, not assumptions inferred from the function names. `Html_Layout_Init` seeds the record list and next-record pointer at header+20=D020. `Html_Layout_AppendRecord` saves the old pointer in HL, increments the cursor by10, and subtracts10 if the resulting high byte equals E0. Starting at D020, this transition preserves the finite set D020,D030,...,DFF0; DFF0 remains the cursor on saturation. Its own BankSwitch_H consequently sees a WRAM address in this intact-state domain. This alone does not establish every HTML consumer: overwritten HRAM, input-derived links, TextTiles parameter arithmetic and source scans are separate obligations.
-
-### Evidence and retention
-
-The second-pass script and hashes are in `audit.py` (review artifact) and `RESULT.json`; the matrix is versioned with this note. Only small task evidence is retained. No ROM execution or translation build was performed for this analysis, and no historical evidence was deleted. The next analysis must address the remaining pointer invariants or copied-code producers rather than rediscovering these 57 sites.
-
 ## Observed RAM execution producers
-
-The existing 72-scenario coverage union contains exactly these 14 RAM instruction starts. They have source producers; they are not 14 unexplained copied routines. The union's displayed decoded operand is representative and must not be treated as a complete set of dynamic targets.
 
 | Starts | Producer and admissible code shape |
 | --- | --- |
@@ -68,23 +17,7 @@ The existing 72-scenario coverage union contains exactly these 14 RAM instructio
 | CBF7,CBFA | `Int_InstallRamVectors` emits JP01ED and JP01B7. |
 | C133 | Ticker saves the three VBlank vector bytes here, then its ROM0 handler chains through this copy. The copied target inherits the saved-vector state. |
 
-The configured joypad vector CBFD=RETI exists too, but is not among those14 observed starts. The saved STAT bytes atC130 are restored as data and are not additional observed code starts. Source producers were inspected in `home/{lcd,bank_switch,farcall,vblank,interrupt_handlers}.asm`, `engine/menus/ticker.asm`, `engine/comm/connect_dialog.asm`, `engine/gfx/scroll_split.asm`, and `engine/error/non_cgb_screen.asm`.
-
-This reconciles **the observed RAM-execution domain** with known producers. It does not prove that no arbitrary write can corrupt a stub or that other RAM locations can never execute. Investigation should continue on concrete pointer/producer obligations, not repeat the14-start inventory.
-
-Second-pass verification after adding the Bank6B label: `make` RESULT: IDENTICAL; `make sym-check` OK (12,224 labels,51 exported constants); `make palette-check` zero errors. Retained task evidence is about67KB, with no source clone or emulator build.
-
-## TextTiles producer bounds (third pass)
-
-This pass reuses the established consumer, CR/LF and bank evidence in `typing_73_ticker_text.md`, `crlf_text_consumers_20261023.md`, and `naming2_verify_ramop9.md`. It does not reopen the glyph inventory or claim new natural debug-screen execution. The added question is whether the destination arithmetic of the declared grid producers can select ROM in `Font_BlitGlyph8x16`.
-
-### Row-limited ticker
-
-The only two textual `farcall TextTiles_RenderGridRows` sites are the ticker's title/body calls. Both set base D000, width64, row0/end1 and destination bank2. Title column is `(uint8 titleX >>3)+1`, hence1..32; body column is21. Before any wrap, the largest glyph starts are D3F0 and D7F0; their two16-byte halves end at D7FF. The first CR or completion of column63 increments row to1 and returns before another row is written. NUL can only shorten this path. Thus the bounded row destination domain holds independently of text length, assuming intact scratch state and normal callee returns. The existing Bank73 published-text proof remains valid and is not counted as new evidence.
-
 ### All 18 named grid callsites
-
-The current tracked engine source has18 textual `farcall TextTiles_RenderGrid` sites. Eleven directly select immutable ROM strings; seven use the inspected dynamic/table producers below. Every row is a **conditional static contract**, not a guarantee for corrupted state or an assertion that a debug entry is naturally reachable. The byte model follows the inspected column/wrap/CR advance: CR skips one following byte, and two-byte glyphs advance destination by16. The font operation is conservatively summarized as two16-byte destination writes even when a missing glyph would return without writing.
 
 | Source site | Producer domain | Maximum destination byte |
 | --- | --- | --- |
@@ -107,204 +40,13 @@ The current tracked engine source has18 textual `farcall TextTiles_RenderGrid` s
 | `engine/debug/sound_test.asm:312` | immutable direct ROM string | $D5DF |
 | `engine/debug/sound_test.asm:449` | bounded inspected dynamic producer | $D15F |
 
-All these destinations remain in the WRAM region, so their two font helper calls cannot select ROM within the stated domains. The range claim is about address regions, not intended allocation size or visual correctness.
-
-The dynamic contracts are: typed password buffer with0..8 valid full-width glyphs and terminator; debug hex builders with fixed prefix/suffix and masked digit indexes (7glyphs for flags,8for error,6for sound); flags bit builder16glyphs; flags decimal builder copies a15-byte,7glyph template and overwrites at most five digit cells. The relevant16-pair hexadecimal alphabets and decimal template were checked against original bytes for leading CR/NUL and termination. For the name-pointer site, `DebugFlags_Run` clears C0E5 to0, the increment branch rejects1 and decrement rejects0; under this initialized-state path the sole selected pointer is19:4912→4914. This does not prove entry into DebugFlags_Run or close the table under arbitrary index values.
-
-The finite script checks all32title start columns and the11direct ROM strings; dynamic bounds encode the source-inspected constructor limits and are not independent CPU execution. Reproducible inputs, original source-byte hashes and per-site output are retained in `check.py` (review artifact) and `RESULT.json`. No source/ROM/build output changed in this documentation-only pass; the preceding byte-identical build remains the source baseline. The remaining TextTiles branch is `TextTiles_RenderLine`, whose unbounded loop needs actual source lengths and destination producers; the grid results must not be generalized to it.
-
-## RenderLine: producer batch and exact continuation list
-
-The [84-site matrix](japanese_textline_producer_domains_20261024.tsv) records the current textual `farcall TextTiles_RenderLine` sites under tracked engine/home/lib/data sources. This is a callsite count, not the old147destination-operand count and not a count of unknown functions. Source coordinates refer to the2dd130a1 snapshot. A conservative local assignment scan discards knowledge at labels, other transfers and unmodelled instructions; unresolved rows therefore require producer analysis, not a presumption of unsafe execution.
-
-| Sites | Evidence and domain |
-| --- | --- |
-|43 | Constant source bank/address and two destination pointers; original ROM walked exactly as the renderer's two-byte/NUL reader. Every admitted source stays in its ROM bank, terminates, and both glyph halves remain in the WRAM address region. |
-|10 | Six declared pointer tables: address picker1entry, address-book5, page-list4messages x5line offsets, draft4, mailbox5, tidy6. All41selected string cases checked from original bytes. Selecting outside the declared extent is not covered. |
-|9 | Existing Bank29 decimal formatter contracts: at most5glyphs. The three NumberOffset routines each return only0,10,20,30,40; destinations add one of D000/D0A0/D140 and a second-plane offset50. Source inspection rechecks those return constants; the existing template proof supplies the formatter contract. |
-|22 | Interprocedural or mutable-source arguments still require resolution. Their exact owners and lines are preserved in the matrix; do not rerun the84-site census to find them again. |
-
-The model does not prove natural reachability, producer-index validity, SRAM integrity, glyph identity or memory allocation correctness. It establishes destination address regions under explicit input contracts. A successful font lookup performs two16-byte writes; treating every glyph as a successful lookup is conservative for the upper bound. The renderer's lack of a length limit still matters outside the admitted source domains.
-
-The22remaining calls are two browser-menu rows; five generic-dialog rows; one help-script row; four mail-session rows; two progressive mail-result scratch rows; six delete-screen decimal rows; and two delete-progress rows. These are the next concrete producer obligations, alongside the separate HTML/browser pointer invariants. Existing Bank22 text and Bank29 decimal evidence was reused, not reopened as unfinished inventory.
-
-Reproduction is `check.py` (review artifact) and `RESULT.json`, with immutable ROM hash and maintained source hashes. This pass changes documentation only; the last verified RGBDS source/build remains7b1f83f1. No emulator run or new natural-edge observation is claimed. Small script/results retained; no ROM copy, source clone or historical evidence removal.
-
-## Remaining RenderLine producers resolved within their declared domains
-
-The preceding22 residual rows now have explicit conditional contracts in the matrix. This closes the destination-region question for all84 named callsites **under the recorded domains**; it does not prove every selector valid or every function naturally reachable.
-
-* Five dialog callsites consume the original nested list table: four heads, lists1/23/44/1,69slots but68distinct records because lists0and3 share50BD. The68records are contiguous50BD..63D7 and contain142lines, each exactly16two-byte glyphs plusNUL. Their two/three-line selection follows header type<3 versus>=3. Line1 usesDC00/DD00, line2 DE00/DF00; the tall third line reusesDC00/DD00 after upload. The maximum byte isDFFF. The source's old flat73-entry heuristic and69-record wording are corrected to distinguish heads,slots and unique records. This is a static format confirmation, not a promotion of all message usage.
-* Two browser-menu callsites read the final pointer of seven-byte records: two records at6AEC and four at6B4C. All six strings have20glyphs; DC00/DD40 destinations end atDE7F. The fourth physical three-item record remains conditional; its presence does not establish natural selection.
-* The help-caption site reuses the five stream positions already established in `help_script_stream_map_20261020.md`:6C:4845,4BC9,51B1,543A,56FB. Their original NUL-terminated lines fit the12glyph two-plane staging domain D000/D0C0. No new script traversal or natural route is claimed.
-* Two progressive result sites select eight immutable messages with11..14glyphs. They copy the message toD524, temporarily insertNUL at successive two-byte boundaries, render, restore that byte and stop on the originalNUL. The received-message sprite helper preserves HL through its push/pop. Every prefix is no longer than the selected original string; the two maximum destinations areD1DF andD3DF.
-* Twelve numeric/suffix sites use the inspected one-to-five-digit builders. MailSession caller buffers come from TotalNumberBuffer (D070..D0B0), its following+40 stage, or CurrentNumberBuffer (D420/D430); the returned digit count adds at most50. Delete-progress buffers areD010/D020/D030, with the same bounded digit advance. Six delete-screen sites useD800/D830/D860 plus NumberOffset0or10. The second planes add200,140and140 respectively. Conservative independent products of these choices and the verified suffix lengths stay belowE000. This is an overapproximation of alignment choices, not exhaustive CPU execution or a guarantee for direct calls with arbitrary BC.
-
-These results rely on intact scratch/stack and ordinary callee returns, just as the prior bounded contracts. They eliminate these declared text-rendering paths as ROM-bank-changing destinations in that domain; they do not establish a new natural path to any candidate or a Pokémon/frame link. The remaining investigation moves to the42HTML/browser pointer sites and their actual producers, not another TextTiles inventory.
-
-Reproduction: `check.py` (review artifact) and `RESULT.json`; original bytes supply all68records,142lines,six menu strings,eight messages,five captions and numeric suffixes. The output retains hashes of the decoded original strings. Only small task artifacts are retained; no source clone or historical data removal.
-
-
-## HTML resource-chain guards: exact local boundary
-
-CONFIRMED by source inspection and exhaustive arithmetic (not emulator execution):
-`Html_NextResourceRecord` (74:5B4F) reads the length N at input P and returns
-DE=P+2+N, modulo65536. Both Browser_FetchInlineImages and MobileDictView_LoadImages
-add another2, save this as ListEnd, and write two zero bytes there before inspecting
-the next URL. This is the existing resource format, not a new natural entry.
-
-The browser's subsequent guard subtracts L from FC and H plus borrow from BF,
-then rejects a zero or negative **high byte**. It is not the predicate P<BFFC.
-For all65536 possible pointer values its accepted interval is3FFD..BEFC inclusive;
-restricted to B000..C000 it accepts B000..BEFC. The second guard, after copying
-the URL, uses the same predicate on the advanced pointer and passes BFFC-pointer
-as HTTP receive capacity. Neither guard establishes the lower bound by itself.
-MobileDictView_LoadImages has no matching guard before its URL copy; the browser
-predicate must not be attributed to that routine. Both routines' earlier tail
-writes also require a valid length-derived pointer independently of this guard.
-
-The HTTP producer is partly traced: Http_StartGet/Post save the caller's capacity
-and destination; MobileAPI_HttpGet stores them at75:4EE8. HttpPrepareRequestPackets
-(75:65CD) installs ResultBufferPtr and reserves two bytes; HttpBodyStart (75:70CD)
-subtracts two from receive capacity before its window-body comparison and tracks
-remaining capacity while copying packet bytes. HttpReadBody (75:5049) likewise
-reserves the two-byte length field. RxCopyToDest (75:5CCB) limits each fragment
-against remaining capacity; publication at75:6E43 copies ReceivedLength to the
-selected result buffer. These are local source observations, **not yet a proof**
-of the invariant across all HTTP states, leftover handling and termination.
-Consequently the initial B000/0FFC request must not yet be promoted to a proven
-bound on every resource-chain length. Even if N<=0FFA is established for that
-request, ListEnd can reach BFFE; acceptance of another URL is narrower (<=BEFC).
-
-Reproduction: `check.py` (review artifact), RESULT.json and
-INPUTS.json. The finite model checks the guard only, independently of HTTP input
-validity. Three small files retained, no ROM/source clone. Documentation-only
-change; source-build baseline remains e37d96b8. This narrows the HTML obligations;
-it does not close the42 helper sites or establish any Pokémon/frame association.
-
-
-## Consumer refinement: dictionary pages and browser close-only polling
-
-The broad SDK leftover contract is not the browser's continuation contract.
-`Http_Poll` (54:43F1) supplies BC=0000 when timer bit2 is set, for both GET and
-POST. MobileAPI and the API dispatcher preserve this BC argument to the selected
-handler. When the handler admits the ongoing HTTP state, HttpReadBody's OR B,C
-at75:5057/5058 sets Z; DEC BC at505F/5060 preserves flags, and JP Z at5061 takes
-51CF. That branch clears bit2, sets substep6 and closes TCP, before the leftover
-CALL5068. Other rejected states take ErrBusy instead. The existing SDK BC=2
-counterexample in `sdk_function_names.md` therefore does not describe this
-close-only poll path. Redirect retries restore the saved initial capacity and
-start another request; they are not additional body chunks at capacity2.
-
-This removes leftover continuation from the browser-specific proof obligation.
-It does not yet prove first-response header/body parsing or all asynchronous
-packet transitions. The next HTTP work is initial body handling and publication,
-not another audit of5164. Initial browser page capacity is0FFC; the accepted
-inline-image capacity has a positive high byte, from the guard already modeled.
-
-For the dictionary consumer, all55 original far records in the already-identified
-3F:4012 table were read, rather than extrapolating from the eight historical
-scenarios. Every filename ends in `.htm`; lengths are174..571. At the declared
-LoadEntry input B000/capacity0FFC, the existing HtmlStore_LoadPage contract copies
-n=record_length bytes toB002 and stores n-2 in the header. Thus LoadImages computes
-ListEnd=B000+n+2; its two preliminary zero writes end no higher thanB23E. This
-uses the corrected stored-length contract, not an assumed header=n.
-
-An overapproximation checks every literal '<' in every record, permits one '/' as
-the parser does, and tests case-folded `img` as a **prefix**, matching the actual
-Html_MatchKeyword behavior. There are zero candidates, including bytes after any
-possible earlier terminator. This is stronger than a regex requiring a complete
-HTML word. The source links the result to the consumer: ScanPage clears the W4
-page area including DE00; the scan-only Img handler fills the image URL list;
-these records cannot select that handler through a literal tag. Entity output
-is emitted as text, not fed back into tag dispatch. WrapImageInHtml does not wrap
-the `.htm` names. Within this ordinary initialized scan with intact scratch and
-balanced callees, the list's first word remains zero. LoadImages calls
-BankSwitch_H with DE00/bank4 and returns at the zero-word test; the later
-BankSwitch_H at4C:521D and the unguarded URL copy are not reached in this domain.
-The flag that invokes LoadImages is `<html>` seen, not an image-present flag.
-
-The two dictionary rows in the helper matrix are now resolved for this declared
-55-page domain, leaving40HTML/browser rows requiring their contracts. This is
-not a global unused-code claim: a substituted page/list or direct entry is outside
-the proof, and no claim is made that all55 pages ran on a console or emulator.
-Reproduction: `check.py` (review artifact) and RESULT.json,
-with per-record source hashes, lengths, tag offsets and pinned SDK opcode checks.
-Source/ROM bytes are unchanged; the e37d96b8 build remains the source baseline.
-
-
-## Initial HTTP body: zero-window branch and the producer of the tail count
-
-CONFIRMED static operation, pinned against original opcodes: at75:7112/7113,
-DEC B twice makes the branch at7118 take7145 exactly when entryB=2. This skips
-both receive-capacity loading and caller-destination loading. If command9F or
-packet-length byte0 takes7188, DestPointer becomes the **incoming DE**, while
-DestRemaining is unchanged. It is incorrect to claim that every HttpBodyStart
-path installs ReceiveBuffer+2. With an ordinary complete header line, the parser's
-POP DE after the successful FindLineEnd call restores a line-start pointer in the C71F reply window; the second
-FindHeaderEnd traversal does not redefine DE before this zero-window branch.
-The incomplete-line/close path needs its own incoming-DE contract.
-
-For a nonempty packet,715A loads B from the old DestRemaining low byte, not from
-the HTTP caller's capacity. The path through717B would copy256bytes if that B
-were zero, while its earlier ReceivedLength addition adds zero. This is a local
-conditional path, **not evidence of a naturally occurring256-byte copy**.
-The relevant producer correlation substantially restricts it:
-
-* RxCopyToDest copies min(remaining,incoming). For remaining>=incoming it stores
-  remaining-incoming and does not set timerbit2. For incoming>remaining it sets
-  timerbit2 and stores incoming-remaining, a strictly positive unread tail.
-  Therefore DestRemaining has two phase-dependent meanings; it cannot always
-  be interpreted as free capacity. The arithmetic was checked for all remaining
-  values0..0FFA and incoming1..255 (1,043,205 cases).
-* PollResponse only starts header parsing when timerbit2 is set or command9F
-  arrived. In the ordinary initial-window receive path, bit2 comes from the
-  strict-overflow branch just described. The non9F tail count supplied to715A is
-  consequently positive. At exact fill, RxCopyToDest does not set bit2; another
-  nonempty overflow supplies a positive tail, or9F takes the no-copy branch.
-* Thus the locally possible zero-count copy must not be promoted to a browser
-  failure without showing a producer outside that ordinary initialized receive
-  path. Conversely, proving this correlation does not make DE equal to the
-  application buffer on the zero-window branch.
-
-For the admitted body-copy phase with ordinary headers, intact state and byte
-packet lengths1..255, browser capacities>=0100 reserve2bytes, and incoming data
-counts are at most254. Nonzero-window copies clamp against capacity-2; subsequent
-RxCopyToDest calls preserve the received-count bound until overflow and the
-close-only Http_Poll path. In the zero-window branch, the old positive tail is
-at most254, copied relative to incoming DE; this still fits the **numeric**
-capacity-2 bound, but does not prove that those bytes reached the application
-buffer. Do not conflate a bounded published length with correct payload placement.
-Malformed/incomplete header parsing and unrelated state mutations are outside
-this conditional contract, not proven safe or naturally reachable.
-
-Reproduction: `check.py` (review artifact), RESULT.json and
-INPUTS.json. This closes the local zero-window/zero-count ambiguity and narrows
-future work to real producer alternatives; do not rerun the same branch census.
-No source changes, emulator execution or new natural scenario are claimed.
-
-
 ## Header and record consumers: ten more region contracts
 
-The helper matrix now resolves ten further rows under the ordinary initialized
-ParsePage/ScanPage domain with intact live HRAM state and balanced callees.
-Five header accesses are Browser_DrawTitleBar, ParseSource's clear, ParseSource_End's
-count store, and the two header accesses of StoreTitle. Their producers explicitly
-install D000/bank4; the count store adds15hex, still in WRAM. This is a producer
-contract, not a claim about arbitrary direct calls or reused HRAM in another phase.
+Five record accesses are AppendRecord, PlaceLine, BeginLineAndPlaceFloats, GetLimitsAtY, and the record-reference update loop inside Bmp_ConvertToTiles.
 
-Five record accesses are AppendRecord, PlaceLine, BeginLineAndPlaceFloats,
-GetLimitsAtY, and the record-reference update loop inside Bmp_ConvertToTiles.
-Init sets next/list=D020 and count0. AppendRecord advances by10hex; when the next
-high byte would becomeE0 it rolls back without incrementing the count. The exact
-finite recurrence has254 reachable (pointer,count) states and saturates at
-next=DFF0,count253. Therefore DFF0 is still a writable append slot, but **not a
-counted254th record**. Counted walks cover at most D020..DFE0, using bounded
-record-relative offsets. The model checks all32,131 counted record positions over
-those states. Bitmap data-pointer validity is a separate question; the helper
-inside Bmp_ConvertToTiles at this matrix row accesses the layout-record list,
-not the bitmap payload. The header/count/list roles already documented in the
-HRAM aliases were reused, rather than rediscovered as unknown state.
+Bitmap data-pointer validity is a separate question; the helper inside Bmp_ConvertToTiles at this matrix row accesses the layout-record list, not the bitmap payload.
+
+The header/count/list roles already documented in the HRAM aliases were reused, rather than rediscovered as unknown state.
 
 Two Html_LoadPageImages helper rows deliberately remain open. Its kind4 path
 pushes the record+0B pointer in addition to the loop's saved count and record.
@@ -317,42 +59,7 @@ saved word1 on the stack. This immediately violates the normal record-walk
 invariant. It is not valid to infer a bounded walk for that branch merely from
 the original record count.
 
-This is CONFIRMED conditional stack arithmetic, not observed natural failure.
-The converter has zero-return paths (initial validation failure and .return_failure),
-but the earlier image-tag validation and intervening resource transformations
-must be examined before asserting that a normal page can trigger them here.
-No general return-into-code, mapper change, or global unused-code result follows
-from this example. The next substantive question is whether an originally valid
-image can reach a converter rejection, particularly its expanded-output capacity
-check. Do not replace this exact producer question with another label census.
-
-The matrix now has30 unresolved HTML/browser rows; the two dictionary rows and
-these ten have explicit domains. Reproduction is
-`check.py` (review artifact), RESULT.json and INPUTS.json.
-Only1715bytes of task artifacts retained; no source/ROM changes or new runtime.
-
-### Current residual count after the BMP and URL-list boundary reviews
-
-The `30 unresolved` sentence above records the matrix at that checkpoint. The
-two `Html_LoadPageImages` rows were subsequently classified as a bounded
-success route plus the reproduced corrupt unwind in `bmp_capacity`. The current
-TSV therefore has **28** generic HTML/browser pointer rows, grouped into
-ordinary initialized producer domains in
-[`japanese_html_img_list_limit_20261024.md`](japanese_html_img_list_limit_20261024.md).
-That follow-up also records the newly reproduced 256/257 image-list boundary;
-it is an exception to any blanket allocation-safety claim, not a reason to
-reopen the already-proven BMP-capacity trigger.
-
-
-## Image capacity failure reproduced through the browser
-
-The preceding natural-trigger question now has a positive **emulator** result.
-The original ROM was booted using the existing tutorial_profile SRAM/config and
-homepage button macro, with the local fake HTTP service serving synthetic files.
-No force/ramset/sram-poke/cfg-poke or modified ROM was used. The existing tracer's
-source/compile-definitions/library stamp matched before reuse; executable, library,
-inputs, commands and outputs are hashed in RUN_INPUTS.json/RUN2_INPUTS.json and
-VERIFIED.json. This is not console/hardware evidence.
+The current TSV therefore has **28** generic HTML/browser pointer rows, grouped into ordinary initialized producer domains in [`japanese_html_img_list_limit_20261024.md`](japanese_html_img_list_limit_20261024.md).
 
 A conventional uncompressed1bpp BMP, width144,height1,pixel offset62, is82bytes
 including its20-byte source row. It passes the inspected validator fields and
@@ -363,36 +70,7 @@ at its BEFC length prefix. Exhaustive dimension arithmetic finds608positive
 width/height pairs in the accepted144x96 domain with this same fit/reject
 relationship at that resource position; only144x1 was run.
 
-The first page fixture had3826body bytes. Runtime wrote prefix3828 after page
-processing, so the advanced resource position missed the second browser guard;
-no BMP request occurred. This explained boundary miss is retained as a control.
-The second fixture removes two padding spaces (3824bytes). Runtime wrote prefix3826,
-fetched `x.bmp` (82bytes), and reached converter entry51:7177 at frame5106.
-The capacity rejection51:72C0 and failure return51:73CE executed at frame5107.
-The common image-loop continuation74:53D1 then executed765times. End state at
-frame6135 was ROMbank04, PC53A8, SP CF70;182RAM instruction starts were observed.
-These observations establish that earlier successful validation does not exclude
-the later capacity-failure/unwind path. They do not turn post-corruption fetches
-into intentional routines or infer their product meaning.
-
-The control ran6277frames and the positive run6135; no rerun of the project-wide
-coverage union or automatic source promotion was performed. Macro waitstable
-caps occurred, so success is established by HTTP logs and the actual target
-coverage, not by screenshot names. The page-loader Charset_ConvertPage stage sits
-between HTTP reception and resource traversal; raw HTTP length must not be
-substituted for the postprocessed prefix. The observed+2 is preserved as runtime
-evidence; broader charset contracts remain separate.
-
-Reproduction fixtures/script and both runs are in
-`jp-bmp-capacity-witness-20261024` (review artifact) (about0.97MB before the verification
-manifest). RUN2_INPUTS.json contains the exact command; `index_v2.html` is the
-positive page, `x.bmp` its image. The82-byte BMP SHA256 is
-`9266c67c16fe79e52f6358102b1a510061ff7da5f454eab05acdbcb8b0efaee3`.
-Original ROM SHA256 was rechecked unchanged after both runs. Retain both runs,
-fixtures and provenance as the minimal positive/control record; no historical
-artifacts removed. Candidate-worklist intersections are recorded separately in
-CANDIDATES.json; absence there is only absence in this scenario.
-
+The common image-loop continuation74:53D1 then executed765times.
 
 ## Postprocess length before walking page resources
 
@@ -410,20 +88,8 @@ length delta. The exact input/output fields are visible at7E:7D19,7D66 and7E:7E4
 
 ## Confirmed natural BMP conversion-failure consequence
 
-The static stack case at Html_LoadPageImages is now confirmed in an ordinary
-browser-driven mGBA run using the original ROM and synthetic fake HTTP. The valid
-144x1 BMP reaches Bmp_ConvertToTiles, whose expanded-output check at51:72C0
-rejects it. The zero return at51:73CE is followed by the common loader continuation
-at74:53D1, exactly as the source predicts. That continuation executes765times;
-the run ends at bank04:53A8 with SP=CF70 and182 RAM instruction starts. This is a
-natural call chain for the supplied page/BMP, though the network fixture is synthetic.
-It proves the failure unwind can occur after TagImg's earlier validation. It does
-not give intentional meanings to instructions fetched after record-loop corruption.
+The static stack case at Html_LoadPageImages is now confirmed in an ordinary browser-driven mGBA run using the original ROM and synthetic fake HTTP.
 
-Consequently the two Html_LoadPageImages sites in the helper matrix must not retain
-a blanket valid-record traversal contract. Their ordinary success route remains
-bounded by the253 counted-record limit; the rejected-conversion route violates
-that invariant and is separately evidenced by the runtime witness. Keep both
-outcomes explicit in future reviews. Scenario `bmp_capacity` is purpose-built
-and separate from the pre-existing coverage union; do not merge its post-corruption
-execution into routine semantic naming without individual review.
+The zero return at51:73CE is followed by the common loader continuation at74:53D1, exactly as the source predicts.
+
+Consequently the two Html_LoadPageImages sites in the helper matrix must not retain a blanket valid-record traversal contract.

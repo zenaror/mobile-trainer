@@ -8,23 +8,6 @@ Crystal community disassembly (pokecrystal + the `pokecrystal-mobile-eng` fork, 
 Japanese mobile code "using disassembled code from the Japanese ROM"). They are documentation,
 not evidence of what a Trainer routine does.
 
-Evidence vocabulary: CONFIRMED = shown by bytes/source I can cite; PROBABLE = strong but not
-conclusive; HYPOTHESIS = interpretation. The machine-readable results of the comparison are in
-`analysis/crystal_*.tsv`; the result narrative is `docs/research/crystal_xref.md`.
-
-## 1. Sources used
-
-| what | where | notes |
-|---|---|---|
-| Source tree | `.../Pokemon Crystal BR/comparativo/pokecrystal-mobile-eng/` | git HEAD 368e45eac (2025-05-09), working tree modified; `lib/mobile/main.asm` (9546 lines) and `lib/mobile/mail.asm` (5160 lines) are the SDK, `home/mobile.asm` the bank-0 glue, `mobile/*.asm` the game code |
-| Same code, pt-BR text | `.../Pokemon Crystal BR/pokecrystal-mobile-ptbr/` (has built `pokecrystal.gbc/.sym/.map`) | identical SDK code (see crystal_xref.md) |
-| Built ROM + symbols | `.../Pokemon Crystal English Project/pokecrystal.{gbc,sym,map}` | 58 387 symbols; used as reference "eng" |
-| Japanese Crystal ROM | `.../aaaaa/baseroms/jp/baserom-jp.gb` (`PM_CRYSTAL`, `BXTJ`, destination 0x00) | no symbols/source; used only as a second search target |
-| Open protocol library | `.../MobileAdapterGB/libmobile/` (`serial.c`, `commands.c`) | independent, open re-implementation of the adapter side |
-
-`Rebuilding` the Crystal source was not attempted (it needs rgbds 0.6.x; 1.0.3 is installed). The
-.sym files already exist for two builds and were validated (crystal_xref.md, section 2).
-
 ## 2. Layers and control flow
 
 ```
@@ -67,15 +50,7 @@ CONFIRMED from source (`home/mobile.asm`, `home/serial.asm`, `home/header.asm`, 
 
 ## 3. The 34-entry API table (`_MobileAPI.dw`)
 
-Names are the Crystal ones; "packets" = `MobilePacket_*`/`MOBILE_COMMAND_*` symbols textually referenced
-by the function in the Crystal source (a hint at what it sends, not a full description). The last
-column is what the Trainer ROM does with the same slot (CONFIRMED from the table bytes and call sites,
-see crystal_xref.md 3.5): Trainer table word at 75:4070+2*i and number of `call $0150` sites that load
-this API byte into A (`analysis/crystal_api_calls.tsv`). The words and call-site counts are CONFIRMED bytes (re-read by
-the adversarial review); that the Trainer function behind a word *is* the Crystal function of the same slot is CONFIRMED
-where the body matched byte-for-byte (see `crystal_symbol_map.tsv`) and only PROBABLE/HYPOTHESIS for the short stubs
-(slots 6/7/8/13/14/32/33) and the unverified bodies of slot 23 (`Function1113fe`, 75:540B: only 3 unmasked bytes verified
-from the entry, HYPOTHESIS).
+The words and call-site counts are CONFIRMED bytes (re-read by the adversarial review); that the Trainer function behind a word *is* the Crystal function of the same slot is CONFIRMED where the body matched byte-for-byte (see `crystal_symbol_map.tsv`) and only PROBABLE/HYPOTHESIS for the short stubs (slots 6/7/8/13/14/32/33) and the unverified bodies of slot 23 (`Function1113fe`, 75:540B: only 3 unmasked bytes verified from the entry, HYPOTHESIS).
 
 | i | byte in A | constant | Crystal function | packets referenced in source | Trainer entry | Trainer call sites |
 |---|---|---|---|---|---|---|
@@ -150,16 +125,9 @@ the 16-bit checksum. Commands used by the SDK (Crystal constants; libmobile name
 | $28 | DNS_QUERY | DNS_REQUEST |
 | $6E | ERROR | ERROR |
 
-libmobile's `mobile_serial_transfer` parses exactly this framing (`0x99 0x66`, 4-byte header, data,
-16-bit checksum, device byte `|0x80`, ack) which is independent confirmation that the templates are the
-adapter protocol. The SDK also contains ASCII client code for HTTP/1.0 (`GET `, `POST `, `User-Agent:
-CGB-`, `Content-Length:`, `Authorization: GB00 name="`, `WWW-Authenticate: GB00 name="`, `Gb-Status:`,
-`Gb-Auth-ID:`, `URI-header:`, `Location:`), POP3 (`USER PASS STAT LIST RETR DELE TOP`) and SMTP
-(`HELO`, `MAIL FROM:<`, `RCPT TO:<`, `DATA`, `QUIT`), an MD5 implementation (`MD5_K_Table` 44:7B8E,
-init constants `Unknown_113b7e` = 01 23 45 67 89 AB CD EF FE DC BA 98 76 54 32 10), and the four
-`gameboy.datacenter.ne.jp/cgb/{download,upload,utility,ranking}` URL bodies (44:4FB4..5020).
-`lib/mobile/mail.asm` (bank 0x45, 45:4000-5D98) holds the mail composer/parser (`MIME-Version:`,
-`X-Game-code:`, `X-GBmail-type:`, `Content-Type: text/plain`/`multipart` ..., 45:4062..4232).
+The SDK also contains ASCII client code for HTTP/1.0 (`GET `, `POST `, `User-Agent: CGB-`, `Content-Length:`, `Authorization: GB00 name="`, `WWW-Authenticate: GB00 name="`, `Gb-Status:`, `Gb-Auth-ID:`, `URI-header:`, `Location:`), POP3 (`USER PASS STAT LIST RETR DELE TOP`) and SMTP (`HELO`, `MAIL FROM:<`, `RCPT TO:<`, `DATA`, `QUIT`), an MD5 implementation (`MD5_K_Table` 44:7B8E, init constants `Unknown_113b7e` = 01 23 45 67 89 AB CD EF FE DC BA 98 76 54 32 10), and the four `gameboy.datacenter.ne.jp/cgb/{download,upload,utility,ranking}` URL bodies (44:4FB4..5020).
+
+`lib/mobile/mail.asm` (bank 0x45, 45:4000-5D98) holds the mail composer/parser (`MIME-Version:`, `X-Game-code:`, `X-GBmail-type:`, `Content-Type: text/plain`/`multipart` ..., 45:4062..4232).
 
 ## 5. SDK state (WRAM) as used by the code
 

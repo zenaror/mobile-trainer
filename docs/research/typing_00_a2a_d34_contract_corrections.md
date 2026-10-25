@@ -1,14 +1,4 @@
-# Bank 00: contracts of 00:0A2A and 00:0D34 (2026-10-08)
-
-Status: **PREPARED; routines remain PROBABLE.** Base is published original `010c349c630f7f10db67581e0e3ef90e0c1fe7f7`, following library sourcef450 and its DOC3 publication. This corrects one existing comment in `home/sprites.asm` and four in `home/multiply_divide.asm`. Neither routine is renamed. No build, new execution, forced trace, visual or hardware result is claimed.
-
-## 00:0A2A
-
-The original 27 bytes decode to 17 starts. In ordinary uninterrupted, nonaliasing flow, the routine writes E then D at incoming HL/HL+1, advancing HL twice modulo 65536. It selects7 in hWRAMBank ($FF8D) and rSVBK ($FF70). It overwrites hScratchA ($FFF2) with D and finally reads that scratch into A: ordinary return A=D, contradicting the old preserves-A comment. BC/DE and entry flags are otherwise preserved by the shown instructions under these conditions.
-
-The saved selector is the incoming hWRAMBank shadow, not a hardware rSVBK sample. The final writes restore that shadow to both locations; an incoming shadow/hardware mismatch is not restored to the original hardware selector. Selecting7 does not prove the incoming HL addresses WRAMX. HL may be outside D000-DFFF, wrap, or alias scratch, selector, other I/O, mapper registers or the saved stack; interrupts can also interfere. Those cases invalidate an unconditional output/bank/return contract. The compact header states normal A=D, with these limits here.
-
-The inherited raw refs 4 marker remains historical; its original recipe was not recovered. A new whole-ROM overlapping little-endian word scan measures219 occurrences of 2A 0A, a different metric. None of the standard raw immediate CALL/JP opcode prefixes occurs before these matches; neither search proves absence of computed or RAM-mediated callers. The complete 348 maintained ASM/inc files contain only the routine's symbolic definition.
+# Bank 00: contracts of 00:0A2A and 00:0D34
 
 ## 00:0D34
 
@@ -18,31 +8,16 @@ The code writes hROMBankLo/[$2100] first $F0, then entry A. It does not save the
 
 Six overlapping little-endian 34 0D words were independently measured in the whole ROM; standard raw immediate CALL/JP prefixes occur zero times. The 348 maintained source files contain only the symbolic definition. Purpose, entry contracts and computed callers remain unresolved.
 
-## Evidence and preserved representation
+## Operation alias from an exact structural twin
 
-All 69 natural coverage files, 69 natural merged data-access files, 50 natural callgraphs and the maintained union were read from direct OWN010c. They contain zero starts, overlapping ROM reads or callgraph endpoints in either routine span. This is bounded absence in that corpus; merged data-access ranges do not establish temporal attribution. Forced tracked artifacts were inventoried/copied as opaque bytes and excluded from natural derivation.
+The raw comparison is CONFIRMED; execution of the sibling does not establish execution or a caller of `00:0A2A`.
 
-Independent own raw/static contracts were sealed before opening the historical f450 proposal. The new word/symbol scan is a supplement made afterward from already OWN-sealed bytes, not backdated. A first supplemental symbol lookup omitted the leading 0 and incorrectly returned zero; corrected exact tokens each have one definition, and the negative is preserved. Mandatory  brief was stalef450/pendingDOC; current directGit010c is authority. Historical f450 evidence and Portuguese draft are preserved separately; this public note is English and explicitly rebased.
+`StoreDEAtHL_SelectWramBank7` is a PROBABLE operation alias, retaining `Function_00_0A2A` at its old physical definition line and all instruction locators.
 
-The source owners retain 517/135 lines, all labels/aliases, directives and strict comment-excluded vectors including blank lines. All348 vectors and289 metadata TSV bytes remain exact; no locator remapping occurs. Frozen historical config text is not rewritten. Required make/sym-check/ROM comparison and guarded canonical 37 remain pending ROOT review/approval; there is no rebuilt-ROM equivalence claim for this pass.
-
-## Operation alias from an exact structural twin (2026-10-15)
-
-At published original parent `adf120fb68d2f7fd572fb1fd9f46c007b60e1435`, the complete 27-byte span `00:0A2A..0A45` equals the 32-byte `Sprite_SetHook` span `00:0A45..0A65` after excluding exactly two bytes at `0A45..0A47` (save incoming A at FFB0) and three bytes at `0A58..0A5B` (reload saved A and store the third byte). All 17 surviving instruction starts correspond exactly; the existing sibling coverage reports 6267 hits at each mapped start across 39 scenarios. The raw comparison is CONFIRMED; execution of the sibling does not establish execution or a caller of `00:0A2A`.
-
-`StoreDEAtHL_SelectWramBank7` is a PROBABLE operation alias, retaining `Function_00_0A2A` at its old physical definition line and all instruction locators. It selects bank 7, writes E then D through caller-supplied HL, advances HL twice and ordinarily returns A=D. It restores the incoming software `hWRAMBank` shadow, not a sampled hardware selector. The sibling instead advances HL three times, returns incoming A and writes FFB0; the two complete entries are not equivalent. A coherent shadow, valid stack/scratch and uninterrupted nonaliasing flow remain preconditions; HL need not address WRAMX. The name does not assert a sprite use, natural entry, proved caller or arbitrary alias/interrupt safety. No new runtime evidence or confidence promotion for the entry is supplied.
-
-The source proposal changes no instruction or source line count. Reconstruction equivalence remains subject to the original ROM build/comparison gates; the historical validation paragraphs above describe their dated checkpoints.
-
-
-## Operation alias from the complete static contract of 00:0D34 (2026-10-15)
+## Operation alias from the complete static contract of 00:0D34
 
 `LoadSignedC200E_WriteRomLowF0ThenEntryA` is a PROBABLE operation alias for `Function_00_0D34`. The previous neutral-name recommendation is revised by distinguishing a statically defined operation from an unproved caller or application purpose. The earlier assessment that no additional executed twin or natural caller had been established does not refute the complete local operation already derived from the bytes. This alias rests on that existing derivation; it is not a newly discovered twin, dynamic observation, physical-bank experiment or proof of entry. Entry and application purpose remain HYPOTHESIS. The neutral definition stays on its original physical line, the existing local `.skip` remains under that neutral label, and all instruction/locator positions are retained.
 
 The original 25 bytes are `F5 16 C2 3E F0 E0 8A EA 00 21 1A 5F 16 00 17 30 01 15 F1 E0 8A EA 00 21 C9`, with fifteen instruction starts. In their actual order: PUSH AF saves the incoming A/flags; D becomes C2; A becomes F0; FF8A and2100 receive F0; the byte at WRAM0[$C200+entry E] is read into A and then E; D becomes00; RLA places the read byte's old bit7 into carry; JR NC skips DEC D for nonnegative bytes, while the other path makes D=FF. RLA's dependence on the incoming low carry bit does not affect this sign decision because carry after RLA is the original bit7. POP AF then restores incoming A/flags, FF8A and2100 receive that A, and RET follows. Under the ordinary contract DE is the read byte's signed8-to16 extension, and AF/BC/HL are preserved.
 
-The memory read occurs after PUSH AF and after the first two selector writes, not at function entry. A C2xx address that aliases the just-pushed A/F bytes can therefore observe the saved stack contents rather than a pre-entry byte. Valid stack/return memory and absence of aliases affecting the selector writes, return state or instruction fetch are required. The routine uses no explicit separate scratch buffer; relevant shared scratch/state modified by interrupts can still affect the C2xx value, saved stack or mapper/shadow state, so arbitrary IRQ safety or an atomic entry snapshot is not implied. The description assumes stable original ROM0 execution, a valid nonaliasing conventional stack and no interfering relevant state/mapping changes. It does not extend to arbitrary stack placement in mapper/I/O space.
-
 `WriteRomLowF0ThenEntryA` names the explicit FF8A software-shadow and2100 register writes. The second value is incoming A supplied by the entry state; the code never samples a previous low selector for restoration. It does not sample the high selector and emits no explicit high-selector write. Neither the name nor this contract chooses a physical bank, establishes the high selector asserts a physical F0-to70 wrap. The WRAM0 source address remains C2xx; that fact does not erase the mapper/shadow effects. No mathematical purpose beyond the local sign extension, natural caller or application role is assigned.
-
-This operation-level naming decision adds no new runtime, visual, hardware or reachability evidence. It does not promote the entry confidence or replace the dated A2A twin evidence above. No instruction bytes change; reconstruction equivalence requires the documented build, symbol check and byte comparison against the original ROM rather than static source/byte correspondence alone.

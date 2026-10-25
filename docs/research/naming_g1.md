@@ -1,40 +1,4 @@
-# Naming pass g1: banks 04, 0E, 19, 1A, 1B, 1C, 1D, 1F, 22, 23
-
-> **Historical note.** Written when the source was one generated `src/bankNN.asm` per bank with generic `Label_BB_AAAA` labels.  In the current tree (`home/ engine/ data/ gfx/ audio/ lib/`) a `Label_BB_AAAA` that is only used inside its own function is a local label of that function (`.lAAAA`, `AAAA` = the address, or `.loop`/`.done`/`.skip`); one referenced from elsewhere keeps its global name; `Function_BB_AAAA`, `Data_BB_AAAA`, ... are unchanged, and where a semantic name was adopted the neutral name often remains as an alias label under it.  **Addresses (`bank:addr`) remain valid**: find the code with `grep -rn '; BB:AAAA' --include=*.asm .` or in `build/mobile_trainer.sym`.  Commands of the frozen bootstrap pipeline quoted here (`make regen`, `make verify`, `make tree*`, `tools/gen_asm.py ...`) no longer apply to the source (`gen_asm.py` only runs into a temp dir, `make legacy-check`); see `README.md`, "History", and `docs/README.md`. RAM names quoted here (`wRam_XXXX`, `sSram_XXXX`, `hRam_FFXX`) are the neutral names of `ram/*.asm`; where a semantic name was adopted, its `DEF` line there says `replaces wRam_XXXX`.
-
-Namer 1/8.  Owned files: `config/symbols/bank{04,0E,19,1A,1B,1C,1D,1F,22,23}.tsv` (413 rows), `analysis/naming/ram_g1.tsv` (RAM proposals, not merged
-into `config/ram`) and this note.  Every symbol file was verified on a copy of `config/` with
-`python3 tools/gen_asm.py verify --config <copy>` (IDENTICAL, also `check --strict`), and once more on a copy of the *current* real `config/` plus these ten
-files (the banks of the other namers present at that time: 0F, 24-2F, 48, 57, 5C, 63, 65, 67, 74, 75, 7C-7F; no name collision, checked against `config/symbols`, `config/ram`, `analysis/naming/*.tsv` and the region labels).  `src/` was not touched.
-
-Status vocabulary as everywhere: **CONFIRMED** (executed in a trace and the role is shown by an observed screen, a hardware-register write or a
-byte-exact structure), **PROBABLE** (>= 2 independent clues), **HYPOTHESIS** (generic name kept, the idea is only in the evidence column).
-Rows whose entry was never executed are never CONFIRMED (the table builder downgraded them automatically: the address must be an executed
-instruction start in `analysis/coverage_union.tsv`).  Result (after the adversarial review of section 14): 225 CONFIRMED, 166 PROBABLE, 22 HYPOTHESIS rows (170 functions, 107 labels, 73 data,
-42 tables, 21 strings).
-
-Prefixes chosen to stay clear of the other namers: `Main_`, `Title_`, `TopMenu_`, `MailMenu_`, `MobileDict_`, `MailSrvDel_` / `MailSrvDelHidden_`
-(mail-server delete menus), `SramCheck_`, `DebugFlags_`, `DebugErrorTest_`, `SoundTest_`, `SoundDrv_` (bank 04 sound engine), `SpriteCounter_`,
-`Gfx_/Tilemap_/Palette_<Screen>_` for data.
-
-## 1. Subsystem map
-
-| bank | what it is | entry point | how it is reached | executed in |
-|---|---|---|---|---|
-| 04 | **Sound engine** (music + effects, 8 sequencer tracks, 4 APU channels) | `SoundDrv_*`; entered only through the 13 ROM0 stubs `00:20A0-20E8` | Boot (`00:0300`), frame service `00:0392`, UI code (`call 20AC/20B2/20E8`) | every scenario |
-| 0E | **Title screen**: 'Mobile System GB' logo, then the title menu (スタート / モバイルせってい) | `Title_Run` (0E:4000) | `1C:4007` | 35 of 41 scenarios (not the 6 that stop in the registration wizard / error screens) |
-| 1C | **Main program** (8 instructions + inline dispatch table) | `Main_Run` (1C:4000) | `00:0328` (`farcall 1C:4000 ; jp $0328` forever) | every scenario |
-| 1F | **Top menu** (3 icons: mail / homepage / help) | `TopMenu_Run` (1F:4000) | `7C:7B85` | 28 scenarios |
-| 1D | **Mail menu** (6 plates: send/receive, write mail, mailbox, address book, profile, mail server) | `MailMenu_Run` (1D:4000) | `7C:7BC0` | 22 scenarios |
-| 1A | **Mobile dictionary index** (モバイルじてん: 11 kana-row tabs, 5 entries per page) | `MobileDict_Run` (1A:4000) | `6C:59A8` (help menu entry 4) | 5 monkey scenarios only |
-| 23 | **Mail-server delete menu** (メールのけしかたをえらんでね: 2 buttons) and the delete transactions | `MailSrvDel_MenuRun` (23:4000) | `7C:7D15` (mail menu item 6) | 8 scenarios (mail_server*, monkey_camp_*) |
-| 22 | **Hidden variant** of that menu (3rd button 'かんぜんにけす') + the **SRAM integrity library** (bank-0 mirror pages, bank-1 checksum) | `MailSrvDelHidden_MenuRun` (22:4000); `SramCheck_*` (22:4EF0-50FC) | `7C:7D0C` when SELECT+LEFT is held; library: banks 25 2A 2B 2D 48 54 65 68 | hidden: mail_server_hidden only; library: boot of every scenario |
-| 19 | Unreferenced **debug screens**: 'DEBUG MODE' flag editor (19:4000) and an error-screen tester (19:4980) | `DebugFlags_Run`, `Debug_ErrorScreenTest` | no caller anywhere | never |
-| 1B | Unreferenced **sound test** screen | `SoundTest_Run` (1B:4040) | no caller anywhere | never |
-
-Graphics of the menus are not in these banks: 1F loads its tiles/tilemaps/objects from **bank 1E** (`a=$1E`), 22/23 load the menu art from **bank 28**
-(palettes `$6E00/$6E40`, tiles `$5F20/$6150/$6550/$67E0`, objects `$6E80/$6E90`, tilemaps `$6860/$6B30`).  Bank 22 stores the tilemap and two palettes of the
-communication-progress scene used by bank 26 (`22:5980`, `22:5C50/5C90`).
+# reference g1: banks 04, 0E, 19, 1A, 1B, 1C, 1D, 1F, 22, 23
 
 ## 2. Program flow around these banks (CONFIRMED unless marked)
 
@@ -51,73 +15,13 @@ Boot 00:0328  farcall 1C:4000                      Main_Run
      3 mailbox 25:4000   4 address book 2F:7EBF   5 profile 2A:5495   6 mail server: 23:4000, or 22:4000 when hJoyHeld == SELECT+LEFT ($24)
 ```
 
-The `A` value returned by `TopMenu_Run` / `MailMenu_Run` is the selection (1-3 / 1-6) or 0 for B; both menus remember the last selection in SRAM bank 1
-(`$A8B9` top menu, `$A8B8` mail menu, `$BF00` title menu) and re-select it when they are entered again.
-
-All screens of this group share the same skeleton (seen in 0E, 1A, 1D, 1F, 19, 1B, 22, 23, 57:4000, 5C:5150 ...): clear the screen-local variable block
-`C0D4-C1CF` (`FillBytes hl=$C0D4 bc=$00FC`), `farcall 48:48BB` (a bare `ret` in this build: patched-out hook), LCDC window off, load tiles with HDMA
-(`00:0787`: a=bank, hl=src, de=VRAM dest (bit0 of E = VRAM bank), c=blocks of 16 bytes), palettes to `$D800/$D840` (`4F:4000`, 64 bytes each), a
-20x18 tile + attribute map to `$D000` (`00:08EA`, bc=$1214 -> 720 bytes), sprites (`00:0A82` object from a table, `00:0A65` position), palette fade
-(`4F:42B4` etc.), then a per-frame loop that ends in `call JoypadDispatch` with an inline 5-word table {A, B, Select, Start, no button}.
-`7D:7C00` (`Joypad_SetRepeatTiming`, b=$15, c=3) sets the key-repeat delay/interval used by `hJoyPressedRepeat` (`7D:7BB7` `Joypad_Update` is the per-frame poll).
-
-## 3. Title screen and main program (banks 1C, 0E)
-
-`Title_Run` keeps a state byte `wRam_C27C` (states 0-6 in `Table_Title_States`): 0 load logo (`Title_LoadLogoScreen`, tiles 60A0/64A0, map 68A0,
-palette 6B70; the 'MOBILE SYSTEM GB' logo is on screen at frames 327-476 of the 35 traces that reach the title), 1 wait 180 frames or A/Start, 2 fade out, 3 load the title
-(`Title_LoadTitleScreen`: 7 tile blocks, map 5BC0, palettes 5F30/5F70, objects 5FB0; selection restored from SRAM 1:$BF00), 4 menu (Up/Down toggles
-`wRam_C27D`, sound $29; A/Start sound $2C; idle timeout 10800 frames = 3 min unless `wRam_C280 != 0`), 5 exit, 6 timeout restart (never executed).  The
-result is `C27D+1`.  Title screen art: screenshot `title_settings_f01094` (title 'モバイルトレーナー', items スタート / モバイルせってい).
-
-## 4. Top menu and mail menu (banks 1F, 1D)
-
-Both are 'select a plate/icon, A = enter' screens: the current item is `wRam_C0E5` (1-based), the previous one `wRam_C0E6`, `wRam_C0E7/C0E8` animate the
-selected icon every 30 frames; a description ticker (`48:42D4`, string index at `$43FA` in 1D / bank 1E `$4000` in 1F) scrolls under the menu.  Differences:
-
-* `TopMenu` (1F): 3 icons at fixed positions (`Table_TopMenu_CursorTargets`), a cursor sprite that flies between them with fixed-point interpolation
-  (`TopMenu_StartCursorMove` computes step count and 8.8 deltas with `48:4000` + `Divide16`, `TopMenu_UpdateCursorMove` applies them per frame; A presses during
-  the move are queued in `wRam_C0E3`).  Right -> homepage (ホームページ), Left -> mail, Down -> help, Up (from help) -> the previous item.  Sounds: $2A/$2B move, $2C confirm, $2E cancel.
-* `MailMenu` (1D): 6 plates in a vertical list, drawn by copying 10-column tile rectangles (`00:16A2`) from `Tilemap_MailMenu_PlatesNormal/Selected`;
-  item 2 shows 'メールをかく' or 'メールをかくにん' depending on `[SRAM0 $A000] == 0` (a saved draft exists); an animated envelope icon
-  (`MailMenu_AnimateIcon`, two 6x8 frames).  Up/Down wrap 1 <-> 6.
-
-## 5. Mobile dictionary (bank 1A)
-
-`6C:5987` (help menu) calls `1A:4000` for its 4th entry (モバイルじてん; the menu screenshot `help_f02426` shows the four buttons; `dynamic_tracing.md`
-section 9 says the built-in dictionary is reached from ヘルプ -> モバイルじてん).  The screen has 11 category tabs (kana rows a ka sa ta na ha ma ya ra wa +
-'other'; tab marker sprite x = 8+12*index from `Table_MobileDict_TabPositions`), a list of 5 entry names per page rendered with `48:415A`, Up/Down
-cursor and scrolling, Left/Right change category.  Each category header is `count byte + count string pointers` (`Data_MobileDict_CatNNCount` /
-`Table_MobileDict_CatNNStrings`, 11 headers, all validated against the strings).  A opens the entry page: the page index byte comes from a per-category
-list in **bank 3F** (table at `$40B9`) and `4C:4F56` (a=2) shows it (the built-in `di/*.htm` pages of banks 3D/3E).  Only the monkey scenarios reach it, so the
-page-view call is inferred from the call arguments, not from a screenshot.
-
 ## 6. Mail-server delete menus and the SRAM library (banks 23, 22)
-
-Screens (`mail_server_full`, `mail_server_hidden` screenshots): title 'メールのけしかたをえらんでね', buttons 'かくにんしてからけす' (check then delete),
-'じどうでぜんぶけす' (delete all automatically) and, only in bank 22, 'かんぜんにけす' (delete completely).  Both banks contain the same menu code
-(bank 22 is a copy plus one extra button); the button index is kept in register C (1 = check then delete is the default, 0 = delete all, 2 = hidden).
 
 | button | 23 (normal) | 22 (hidden variant) | what it does |
 |---|---|---|---|
 | check then delete (C=1) | `MailSrvDel_CheckAndDelete` 23:4B51 | `MailSrvDelHidden_CheckAndDelete` 22:4DAD | cost dialog `57:4000` `ConnectDialog_Run` ('つうしんせつぞくします ... よろしいですか？'), timer reset `51:4245`, `MailConnect_Screen` (27:41E3), then `2E:4000` (per-mail check/delete UI), `MailServerStatus_Screen` (29:44F6, C264=2) |
 | delete all (C=0) | `MailSrvDel_DeleteAll` 23:4A06 | `MailSrvDelHidden_DeleteAll` 22:4B17 | confirmation dialog (`MailSrvDel_Confirm`, default 'いいえ'), cost dialog, connect, `MailSrvDel_DeleteAllRun` (23:4C94): login, pass 1 counts 'problem' mails with a TOP request each, pass 2 re-checks each mail and skips the problem ones, DELE for the rest, C264=1 result screen |
 | delete completely (C=2) | - | `MailSrvDelHidden_DeleteCompletely` 22:4C62 | same, but `MailSrvDel_DeleteCompletelyRun` (23:51C7) sends DELE for every mail without any TOP check (executed in `mail_server_hidden`) |
-
-Evidence for the 'problem mail' reading: the hidden button's description reads 'もんだいのあるメールとメールサーバにのこっているすべてのメールをじどうでぜんぶけします'
-(problem mail *and* all mail on the server are deleted), the normal one 'すべてのメールを ... じどうでぜんぶけします', and the code difference is exactly the missing TOP
-pass.  What the API results mean (B==2 = problem mail) is the SDK/bank-54 namers' business (API `$28` = POP3 TOP, `$26` = POP3 DELE per `mobile_candidates.json`, both HYPOTHESIS there).
-
-Progress display: `MailSrvDel_ProgressInit` (bank 23 art) builds the transaction screen; `MailSrvDel_DrawElapsedTime` (23:6F00, called every frame: 594 times in `mail_server_full`, 372 in `mail_server_hidden`, 919 in `monkey_camp_rich`
-(`traces/coverage_*.tsv`), also from `54:5391`) writes the 'MM:SS' timer from `wRam_C2D6`/`C2D5` into the tile buffer; `MailSrvDel_DrawProgressText` prints
-'N通目をチェックしています' (checking mail number N; 'つうめ' = 通目 counter).  Messages: reading (`6E9C`), all deleted (`6DD0`), no mail (`6D8C`), blank (`6E14`).
-
-**Removed code.**  `23:58C4`, `23:5FA2` and `23:6699` are functions whose first byte was replaced by `ret` (`$C9`): the bytes after them (58C5-5FA2,
-5FA3-6699, 669A-6D61) are complete 5-digit *sprite counter* routines (`Divide16` by 10000/1000/100/10, one digit sprite per place from the object table
-`Table_SpriteCounter_Digits` at 23:7990) that can never run.  The callers (this bank and bank 2E) still call the stubs; they are named `SpriteCounter_StubA/B/C`.  Similarly `48:48BB`
-(called at the start of every screen) is a bare `ret`, and 22/23 each contain a dead 'print three numbers from C2D7/C2D6/C2D5' routine after a `ret`
-(22:48CD, 23:47BC; `51:4245` clears `C2D4-C2D7` and `C2D8-C2DB`, so the numbers are probably the timer A hours/minutes/seconds).
-
-**SRAM integrity library (22:4EF0-50FC, CONFIRMED)** - documents `sram_layout.md` section 2:
 
 | routine | function |
 |---|---|
@@ -129,13 +33,7 @@ Progress display: `MailSrvDel_ProgressInit` (bank 23 art) builds the transaction
 | `SramCheck_Bank0Commit` 501D | re-sum page 0, store, mirror to page 1; called after every save from banks 25/2A/2B/2D/54 (10 sites) |
 | `SramCheck_Bank1BlockSum` 5035 / `StoreSum` 5077 / `ClearBlock` 50A0 / `Bank1Commit` 50FC | scheme-1 checksum of SRAM bank 1 $A000-$A683 + $A69D-$A87C, word at $A8D7 |
 
-`SramCheck_Bank0PageSum` and `_Bank0Status` run at frame ~324 at boot (`22:4EF0` in 40 of 41 scenarios, all but `noadapter`; `22:4FF6` in 32 of 41); the repair paths run in `boot_states` (damaged save RAM) and the
-blank-cartridge scenarios.
-
 ## 7. Sound engine (bank 04)
-
-Bank 04 holds a complete 4-channel sequencer.  It is entered through 13 ROM0 stubs that share a re-entrancy guard (`00:2116`: D000 bit7) and switch to ROM bank 4
-(`00:20EE`), and it returns through `00:2141`.  **All its state is in WRAM bank 1** (the stubs are always called with rSVBK=1).
 
 | stub | target | name | notes |
 |---|---|---|---|
@@ -153,88 +51,6 @@ Bank 04 holds a complete 4-channel sequencer.  It is entered through 13 ROM0 stu
 | 00:20E2 | 04:445C | `SoundDrv_GetPlayingId` | no caller |
 | 00:20E8 | 04:42D6 | `SoundDrv_PlayMusicOrResume` | music ids of most screens |
 
-The identification of the stubs is independent of the code reading: the **sound test screen (bank 1B)** documents them in its own text: 'A: MUSIC' calls
-`00:20B2`, 'B: SOUND' calls `00:20AC`, 'Sta: STOP' calls `00:20C4` and `00:20BE` with bc=0 and 'Sel: END' ticks `00:20A6`.
-
-**Structure.**  8 track records of $3C bytes at D040 (tracks 0-3 = effects, group A, tempo D005-D009; tracks 4-7 = music, group B, tempo D00A-D00E) and 4 hardware
-channel records of $18 bytes at D220 (`ldh [c]` register base $12/$17/$1C/$21 = NR12/22/32/42).  Each tick (`SoundDrv_FrameTick`) runs the effect group, then the music
-group, then updates the channels; a group's tempo accumulator gets `tempo*scale>>6` per frame and one sequencer tick (`SoundDrv_StepTrack`) runs (repeatedly)
-while it is >= $4A (74).  An effect that owns a channel (owner byte bit7) overrides music on the same channel; priorities live in the header (`D03E`) and track+8.
-Register writers (CONFIRMED by the APU register writes): `SoundDrv_WriteChannelParams` (duty/length/sweep, wave pattern -> $FF30, noise width),
-`SoundDrv_WriteChannelPitch` (NRx3/NRx4), `SoundDrv_WriteChannelPan` (NR51 masks $EE11/$DD22/$BB44/$7788), `SoundDrv_WriteChannelVolume` (NRx2 + trigger),
-`SoundDrv_SilenceChannel`.
-
-**Data.**  `Table_SoundDrv_Songs` (551D): 70 headers of 8 bytes for ids 1-70 (base `$5515 + 8*id`): stream word, ROM-bank word (4 or 5), priority ($C8; effects $30/$31 = $D2, $35 = $C9),
-flags ($FF in all 70), track count (1-4), spare.  Ids 1-$0D live in bank 4, $0E-$1D (16 songs) and $29-$46 (30 effects) in bank 5, $1E-$28 are eleven copies of the entry of song 1.  A stream header is `dw ?` (2 bytes) + one stream pointer per track.  `Table_SoundDrv_Durations` (5044),
-`Table_SoundDrv_NoteFreq` (5075, 120 x period word + 1 byte), `Table_SoundDrv_Instruments` (51DD, 112 x 6), `Table_SoundDrv_WavePatterns` (547D, 10 x 16).
-
-**Stream format (validated).**  A scratch decoder (not committed) implementing exactly the byte classes of `SoundDrv_ReadNextCommand` (linear decode, calls/returns not followed)
-decodes **all 152 tracks of the 59 distinct headers (ids `$1E-$28` are copies of song 1; banks 4 and 5) to a clean `$B1` end (66 tracks) or `$B2` loop (86 tracks) with no unknown byte
-and no desynchronisation**; 29 of the 59 headers have exactly equal track lengths in this linear decode (song 6: 384 x 4; song 1: 200/200/200/198 ticks); in the others a track repeats a shorter
-pattern or uses `$B3` sub-routines that a linear decode counts differently.  Byte classes: `$81-$B0` = wait (duration from the table, `SoundDrv_CmdRest`), `$D0-$FF` = note
-with length code (`byte-$CF`, `SoundDrv_CmdNote`) followed by optional pitch (`$24-$7F`), modifier (`<$20`) and adjust (`$20-$23`) bytes, data bytes (bit7 clear) after a
-note/command repeat the last opcode >= $BE (running status), commands `$B1` end, `$B2` jump, `$B3` call, `$B4` return (a no-op on an empty stack),
-`$B5` counted loop (never used), `$BC` tempo, `$BE` instrument, `$BF` volume (the songs use `$BD`, `$C1`-`$C5` as well; their targets are in `Table_SoundDrv_Commands`, fields
-partly identified below).  Usage counts over the 152 tracks: wait 4868, note 4324, `$BE` 1109, `$C1` 550, `$B3` 276, `$BF` 152, `$BD` 152, `$B4` 113, `$B2` 86, `$B1` 66, `$BC` 59, `$C2` 19,
-`$C5` 18, `$C3` 17, `$C4` 14, never `$B5`.  Every track starts `BF vv BD 00 ...` (volume, `$BD` = a track byte at +$12); drum tracks use instrument `$64` (per-note instrument mode) and
-`$C1 xx` before each hit (a signed value stored at track+$19, probably a pitch offset).
-
-**Track fields identified so far** (track = D040 + n*$3C): +0 flags (bit7 active, bit6 initialised, bit5 fresh = cold start pending, bit4 per-note instrument mode, bits 0-2 dirty flags pan/volume/pitch; `D019` is the working copy), +1 length counter, +2/3 stream pointer, +4/5 ROM bank, +6/7
-sound id, +8 priority, +$0B note length, +$0C..$11 instrument record (copy of the 6 bytes from the instrument table; +$11 also holds the last opcode >= $BE), +$15 volume base
-(command $BF), +$16 volume scale (fade / SetTrackParam 2), +$26 call depth, +$29 loop counter, output fields +$2C/$2D pitch, +$2E pan bits (NR51), +$2F volume.  Channel record fields: +0 flags (bit7
-active), +1 priority, +2 owner marker (bit7 = effect), +4/5 owner track pointer, +6..$0C copy of the instrument bytes (+8 duty, +9 length, +A sweep), +$0C envelope counter, +$11 envelope/volume.  Everything
-else is unexplained; the rest of the command handlers keep their generic names.
-
-**Sound ids seen at call sites** (bc immediate before the stub call; `analysis` scan of all banks): effects (stub 20AC) $29 cursor move (0E 1A 1D 22 23 and 18 more banks), $2A/$2B (1F only:
-move between top-menu icons), $2C confirm, $2E cancel, $2F-$48 various (2A 2C 2D 2F 4C 4E 55 57 67 68 6C 72 73 7F ...); music (stubs 20B2/20E8): 1 title, 2 top menu, 3 mail menu, 4-6 (2C 2D 2F 24 2A),
-7 (25 28 2B 7C mailbox/compose), 8-$0A (67 68), $0B (27 70), $0C (23 26 2E), $0D (51), $0E (29), $0F (2A), $10 (22 23 mail-server menus), $11 (73), $12 (57), $13 (68), $14 (4E), $15 (5C error screen),
-$16/$17 (6C), $18 (67), $1A (1A dictionary, 7F), $1B (0E logo), $1C (4E), $1D (50).  `SoundDrv_LoadSongHeader` accepts ids 1-$46 only.
-
-## 8. Debug screens (banks 19, 1B) - never executed, no caller
-
-* `19:4000` **DEBUG MODE** editor.  Its help text (`String_DebugFlags_Help`) reads '＝＝ DEBUG MODE ＝＝ / ↑↓:えらぶ ←→:カーソル A:へんこう / Sta:BIT←→DEC Sel/B:しゅうりょう'.  One entry: '【サインアップデバッグフラグ】' at SRAM 1:$B0BF (display modes BIT / DEC / hex, digit cursor, A toggles a bit or adds a
-  place value).  Exit slides the window out and calls `4E:4795` and `68:49B6` (the SRAM checksum refresh routines of banks 4E/68, see `sram_layout.md`).
-* `19:4980` **error-screen tester**: three hex values (kind, number hi, number lo) and A calls the error screen `5C:5150` (used by bank 65's error handlers: `a=kind, hl=number`);
-  text 'A: エラー B+↑↓: しゅるい Sel: END ↑↓(←→): Number'.
-* `1B:4040` **sound test**: a 16-bit id edited as four hex digits; A music, B effect, Start stop, Select end (see section 7).
-
-All three use the same skeleton as the real screens (same `C0D4` clear, `48:48BB`, `00:0787` tile loads, `JoypadDispatch` table), the same palette block (`19:4940` = `1B:4000`) and a
-full-width hex-digit string; their entries were removed from the retail menu flow, not from the ROM.  Status PROBABLE only (unexecuted code, unproven entry).
-
-## 9. Hypotheses and open questions
-
-* **How are the debug screens started?**  No `call`/`jp`/table word/far pointer to `19:4000`, `19:4980` or `1B:4040` exists; the hooks were removed like `48:48BB`.  A `B+SELECT+RIGHT` style hidden
-  input (cf. `wHiddenModeFlag`, `boot_combos` found nothing) is not evidenced.
-* **Sound engine details**: the meaning of commands `$BD`, `$C1`-`$C5`, `$CD` sub-commands, the exact channel-steal rule in `SoundDrv_StartNote`, track fields not listed above, header byte 5 (flags: in all 70 headers $FF = 'start all tracks'; the single-track branch `<4` of
-  `SoundDrv_PlaySfx` is never taken by the data) and `Table_SoundDrv_Instruments` byte meanings.  `SoundDrv_StopAllSfx` (04:4414), `PlayMusicIfNotPlaying`, `ResumeMusic`, `GetActiveMasks`,
-  `SetTrackParam`, `StartFadeOut`, `GetPlayingId` and the `$B5` loop are never executed: PROBABLE by code shape only.
-* **Delete flows**: the semantic of result `B==2` (problem mail) and of the counters `D625-D631` is inferred from the loop structure and the hidden-button text; `Function_23_50CC/5137/54B1` (unexecuted)
-  are guessed to be the 10-minute online-time warning dialog (`dynamic_tracing.md`: '通信時間がまもなく 10ぶんに なります このまま つづけますか?').  `wRam_C1D0/C1D1` (C1D0 = 1 in the confirm flows, 0 in check-and-delete, C1D1 = 0) and `wRam_C264` (1/2 = result screen variant) are shared with other flows.
-* **22:5CD0-66D0** (2560 bytes).  *Retracted:* the first version of this note said this block belongs to the communication-progress scene of bank 26 and that its loader was unknown.  Wrong: `dataaccess.tsv` shows it read only in `mail_addressbook` / `addressbook_full` (+ monkeys), and four bank-2F HDMA loads use it (`2F:459A` hl=$5CD0 and `2F:45AC` hl=$60D0 in `AbookList_SetupScreen`, `2F:6FAE` hl=$61D0 and `2F:6FC0` hl=$65D0 in `AbookAddr_SetupScreen`, all with a=$22).  It is now `Gfx_AddrBook_TilesBank22`; only 22:5980-5CD0 (tilemap + two palettes) belongs to the bank-26 scene (`MailSession_InitScreen` 26:5168).
-* **1A**: the page-view call (`4C:4F56`, a=2) and the bank-3F list layout are not exercised by any named scenario (only the monkey ones run `1A:4000`).
-* **TopMenu_HandleDpad** stores `A` (= `hWRAMBank` after the sound call) into `wRam_C0E6` when going 'Up' from item 3, which looks like a compiler/assembler quirk of the original;
-  the visible behaviour (return to the previous item) is what the trace shows.
-* Rows kept HYPOTHESIS: `Function_22_48CD/4975/4A97/4AF7`, `Function_23_47BC/4864/4986/49E6` (dead h/m/s print), `Function_23_58C5/59DA/5FA3/60D1/669A/6799` (dead sprite counters),
-  `Function_23_6D61/6E58`, `Function_23_50CC/5137/54B1`, `Function_04_415A`, `Data_1C_4016/401C`.
-
-## 10. Names of other namers used in the evidence text
-
-`Mail_OutboxIsEmpty` (27:41BC), `MailConnect_Screen` (27:41E3), `MailDisconnect_Screen` (27:4768), `MailSession_ShowCommError` (26:5067), `MailServerStatus_Screen` (29:44F6),
-`Gfx_StartHDMAAtVBlank` (25:538A), `Mailbox_CountRecords` (25:4A90) come from `config/symbols/bank2[5-9].tsv`; `Ticker_Start` (48:42D4) from `analysis/naming/ram_g4.tsv`; also `Startup_Run` (65:4000), `ConnectDialog_Run` (57:4000), `CommErr_ShowScreen` (5C:5150), `Nav_*` (bank 7C),
-`Joypad_*` (bank 7D), `Stat_EnableScrollSplit/DisableScrollSplit` (7F:7271/72B0), `Gfx_GdmaAtVBlankNoDi` (7F:72C2), `Sprites_SaveSlotsToBank3` (7F:624F).
-The ROM0 stubs `00:20A0-20E8` are left to the ROM0 namer; the `SoundDrv_` names above describe their targets.  My RAM proposals for the sound engine are WRAM-bank-1 specific and can collide with
-`ram_sdk.tsv` / `ram_g7.tsv` rows for the same D0xx addresses in other WRAM banks (mail library = WRAM bank 5, tile buffers = banks 2/3/6/7); the orchestrator has to keep the banked-name
-policy of `ram_names_reconciliation.md`.  `wTimerASeconds/Minutes` (C2D5/C2D6) were proposed identically by g2 and g7, so g1 does not repeat them.
-
-## 11. RAM proposals (`analysis/naming/ram_g1.tsv`)
-
-38 rows: the sound-engine variables D005-D03F (WRAM bank 1), the arrays `wSoundDrv_Tracks` (D040, 8 x $3C) and `wSoundDrv_Channels` (D220, 4 x $18), and four SRAM names
-(`sSram_MailMenuLastItem` A8B8, `sSram_TopMenuLastItem` A8B9, `sSram_TitleLastSelection` BF00 (all SRAM bank 1), `sSram_Bank0Page0Checksum/Page1Checksum` AFFE/BFFE (bank 0),
-`sSram_Bank1BlockChecksum` A8D7, and the HYPOTHESIS `sSram_SignupDebugFlag` B0BF).  The screen-local variable block `C0D4-C1CF` is deliberately **not** named: the same addresses mean different things in every screen
-(`C0E5` = selected item in 1F/1D, scroll offset in 1A, entry index in 19, low id byte in 1B; `C27C-C280` are the title state in 0E but other variables in 63/67/70).
-
-## 12. Function lists
-
 ### Bank 1C - main program
 
 | addr | name | status | summary |
@@ -244,31 +60,6 @@ policy of `ram_names_reconciliation.md`.  `wTimerASeconds/Minutes` (C2D5/C2D6) w
 | `1C:4019` | `Main_TitleChoiceNone` | P | Result 0 of the title dispatch: jp Main_TitleLoop; 0E:4000 returns C27D+1 >= 1 so this entry looks unused (table word only, not executed) |
 | `1C:401D` | `Main_TitleChoiceStart` | C | Title item 1 (Start): farcall Nav_TitleStart (7C:7B7C) (top menu flow: 1F:4000 top menu, mail menu 1D..., browser, help), then A=1 and back to ... |
 | `1C:4028` | `Main_TitleChoiceSettings` | C | Title item 2 (mobile settings screen): farcall Nav_TitleMobileSettings (7C:7D1F) then A=1 and back to Main_TitleLoop; executed in title_settings, ... |
-
-### Bank 0E - title screen
-
-| addr | name | status | summary |
-|---|---|---|---|
-| `0E:4000` | `Title_Run` | C | Title screen (Mobile System GB logo, then title menu Start / mobile settings): A=0 on the first call plays the logo states, A!=0 starts at the title; ... |
-| `0E:405F` | `Title_StateLoop` | C | Per-frame loop: Joypad_Update (7D:7BB7) poll, Title_DispatchState, 00:0956 sprite update, 00:044B wait VBlank; ends when state byte wRam_C27C==$FF, ... |
-| `0E:4083` | `Title_DispatchState` | C | Jump-table dispatch on state wRam_C27C through Table_Title_States (jp hl); states 0-6 |
-| `0E:40A2` | `Title_StateLoadLogo` | C | State 0: Title_LoadLogoScreen (Mobile System GB logo), palette fade 4F:42FF, plays sound id $1B via stub 00:20E8, clears frame counter wRam_C27E/F, ... |
-| `0E:40CA` | `Title_StateLogoWait` | C | State 1: counts wRam_C27E/F up to 180 frames ($00B4) then state++; A or Start (hJoyPressedRepeat bit0/bit3) fades 4F:4370 and skips to state 3 |
-| `0E:410C` | `Title_StateLogoFadeOut` | C | State 2: palette fade via 4F:43B8, state++ |
-| `0E:411A` | `Title_StateLoadTitle` | C | State 3: reads last selection from SRAM bank 1 $BF00 into wRam_C27D, Title_LoadTitleScreen, fade-in 4F:42B4, plays sound id 1 (title music) via ... |
-| `0E:417B` | `Title_StateMenu` | C | State 4: title menu; unless wRam_C280!=0 the idle timer wRam_C27E/F counts to $2A30 (10800 frames) then state 6; Up/Down toggle selection, A/Start ... |
-| `0E:419F` | `Title_MenuHandleButtons` | C | State 4 button test on hJoyPressedRepeat: A (bit0) or Start (bit3) -> Title_MenuConfirm, Up (bit6) or Down (bit7) -> Title_MenuToggleSelection, else ... |
-| `0E:41B3` | `Title_MenuTimeout` | P | Idle timer reached $2A30: sets state 6 (Title_StateTimeoutRestart); not executed in any trace |
-| `0E:41BA` | `Title_MenuToggleSelection` | C | Up/Down pressed: resets the idle timer wRam_C27E/F, plays sound id $29 (stub 00:20AC), toggles wRam_C27D (xor 1), redraws highlight ... |
-| `0E:41E6` | `Title_MenuConfirm` | C | A/Start pressed: plays sound id $2C via stub 00:20AC, state++ (state 5) |
-| `0E:41FE` | `Title_StateExit` | C | State 5: fade out 4F:4370 and sets state $FF, ending Title_StateLoop (Title_Run then stores/returns the selection) |
-| `0E:420A` | `Title_StateTimeoutRestart` | P | State 6 (entered only by Title_MenuTimeout): fade out 4F:4370 and state:=0 so the logo sequence restarts; never executed |
-| `0E:4215` | `Title_LoadTitleScreen` | C | Loads the title screen: HDMA of 7 tile blocks (Gfx_Title_*), palettes to $D800/$D840, tilemap 5BC0 to $D000, two sprite objects (5FB0), highlight ... |
-| `0E:4311` | `Title_DrawMenuHighlight` | C | Copies the 4x10 highlight tilemap (bc=$040A) of the selected item from Table_Title_HighlightTilemaps[wRam_C27D] to the tile buffer at $D185 (00:08EA) |
-| `0E:4334` | `Title_PlaceCursor` | C | Moves sprite slot $DA10 (00:0A65) to the position of the selected item taken from Table_Title_CursorPositions[wRam_C27D] |
-| `0E:434F` | `Title_LoadLogoScreen` | C | Loads the Mobile System GB logo screen: HDMA tiles 60A0/64A0, palette 6B70, tilemap 68A0; called by the first title state (first at frame 327; 35 of 41 scenarios) |
-
-Data: `Table_Title_States` (4094), `Table_Title_HighlightTilemaps` (4330), `Table_Title_CursorPositions` (434B), `Gfx_Title_Tiles0` (43C0), `Gfx_Title_Tiles1` (47C0), `Gfx_Title_Tiles2` (4BC0), `Gfx_Title_Tiles3` (4DC0), `Gfx_Title_Tiles4` (4FC0), `Gfx_Title_Tiles5` (53C0), `Gfx_Title_Tiles6` (57C0), `Tilemap_Title_Screen` (5BC0), `Tilemap_Title_HighlightStart` (5E90), `Tilemap_Title_HighlightSettings` (5EE0), `Palette_Title_Bg` (5F30), `Palette_Title_Obj` (5F70), `Objects_Title` (5FB0), `Gfx_TitleLogo_Tiles0` (60A0), `Gfx_TitleLogo_Tiles1` (64A0), `Tilemap_TitleLogo_Screen` (68A0), `Palette_TitleLogo` (6B70)
 
 ### Bank 1F - top menu
 
@@ -307,8 +98,6 @@ Data: `Table_Title_States` (4094), `Table_Title_HighlightTilemaps` (4330), `Tabl
 | `1D:4374` | `MailMenu_GetPlateIndexB` | C | Duplicate of MailMenu_GetPlateIndexA for the selected plates (A=1 or 7) |
 | `1D:439B` | `MailMenu_AnimateIcon` | C | Every $1E frames toggles wRam_C0E8 and copies the 6x8 mail icon frame (Tilemap_MailMenu_IconFrames $4C51 or $4C81) to $D0C1 (00:16A2), then sprites + ... |
 
-Data: `Table_MailMenu_Buttons` (41A0), `Table_MailMenu_PlateBufferOffsets` (430D), `Data_MailMenu_PlateOffsets` (431D), `Table_MailMenu_SelectedBufferOffsets` (4383), `Data_MailMenu_SelectedPlateOffsets` (4393), `Data_MailMenu_StringIndexBank` (43FA), `Table_MailMenu_Strings` (43FB), `Table_MailMenu_StringsTail` (4413), `String_MailMenu_Items` (4417), `Tilemap_MailMenu_Screen` (45C1), `Tilemap_MailMenu_PlatesNormal` (4891), `Attrmap_MailMenu_PlatesNormal` (4981), `Tilemap_MailMenu_PlatesSelected` (4A71), `Attrmap_MailMenu_PlatesSelected` (4B61), `Tilemap_MailMenu_IconFrames` (4C51), `Attrmap_MailMenu_IconFrames` (4CB1), `Gfx_MailMenu_Tiles0` (4D20), `Gfx_MailMenu_Tiles1` (4EB0), `Gfx_MailMenu_Tiles2` (52B0), `Gfx_MailMenu_Tiles3` (56B0), `Gfx_MailMenu_Tiles4` (5AB0), `Gfx_MailMenu_Tiles5` (5E30), `Palette_MailMenu_Bg` (6230), `Palette_MailMenu_Obj` (6270), `Data_MailMenu_ObjectRecords` (6320), `Table_MailMenu_Objects` (63B6)
-
 ### Bank 1A - mobile dictionary
 
 | addr | name | status | summary |
@@ -329,8 +118,6 @@ Data: `Table_MailMenu_Buttons` (41A0), `Table_MailMenu_PlateBufferOffsets` (430D
 | `1A:42DE` | `MobileDict_DrawRowHighlight` | C | Copies the 5-row entry text buffer ($D4A1) to VRAM tiles and highlights the row wRam_C0D6 (00:091C, bc=$0A10 / $0210) |
 | `1A:4317` | `MobileDict_UpdateTabSprites` | C | Places the category tab marker (slot $DA40, x from Table_MobileDict_TabPositions[wRam_C0D4]) and the up/down scroll arrows (slots $DA20/$DA30) ... |
 | `1A:4391` | `MobileDict_LoadPage` | C | Clears the text tile buffer (WRAM bank 2) and renders up to 5 entry names of category wRam_C0D4 from offset wRam_C0E5 with TextTiles_RenderGridRows ... |
-
-Data: `Table_MobileDict_Buttons` (4163), `Table_MobileDict_TabPositions` (437B), `Table_MobileDict_Categories` (4439), `Data_MobileDict_Cat01Count` (444F), `Table_MobileDict_Cat01Strings` (4450), `Data_MobileDict_Cat02Count` (44C7), `Table_MobileDict_Cat02Strings` (44C8), `Data_MobileDict_Cat03Count` (44E0), `Table_MobileDict_Cat03Strings` (44E1), `Data_MobileDict_Cat04Count` (453F), `Table_MobileDict_Cat04Strings` (4540), `Data_MobileDict_Cat05Count` (456B), `Table_MobileDict_Cat05Strings` (456C), `Data_MobileDict_Cat06Count` (45A8), `Table_MobileDict_Cat06Strings` (45A9), `Data_MobileDict_Cat07Count` (4608), `Table_MobileDict_Cat07Strings` (4609), `Data_MobileDict_Cat08Count` (46F9), `Table_MobileDict_Cat08Strings` (46FA), `Data_MobileDict_Cat09Count` (4705), `Table_MobileDict_Cat09Strings` (4706), `Data_MobileDict_Cat10Count` (471E), `Table_MobileDict_Cat10Strings` (471F), `Data_MobileDict_Cat11Count` (4736), `Table_MobileDict_Cat11Strings` (4737), `Tilemap_MobileDict_Screen` (47B5), `Gfx_MobileDict_Tiles0` (4A90), `Gfx_MobileDict_Tiles1` (4C90), `Gfx_MobileDict_Tiles2` (5090), `Palette_MobileDict_Bg` (5390), `Palette_MobileDict_Obj` (53D0), `Objects_MobileDict` (55A0)
 
 ### Bank 23 - mail-server delete menu and transactions
 
@@ -496,124 +283,11 @@ Data: `Palette_DebugScreens1B` (4000), `Table_SoundTest_Buttons` (41C3), `String
 
 ### Bank 04 - sound engine
 
-| addr | name | status | summary |
-|---|---|---|---|
-| `04:4000` | `SoundDrv_Init` | C | Sound driver init, called only from Boot via stub 00:20A0: clears state D001-D03F (keeps saved ROM bank), tempos $4A/$40, 8 track records (D040, ... |
-| `04:4082` | `SoundDrv_FrameTick` | C | Per-frame sound engine tick, entered through stub 00:20A6 from the frame service 00:0392 (once per frame, all scenarios): SFX group tempo/track ... |
-| `04:40AC` | `SoundDrv_SfxTickLoop` | C | SFX (track group A) tempo accumulator D008/D009 reached the threshold $4A: SoundDrv_ServiceChannelSfx for all channels, SoundDrv_StepTrack for the 4 ... |
-| `04:40D0` | `SoundDrv_MusicPhase` | C | End of the SFX phase (clears D000 bit5) and start of the music (track group B) phase: adds the music tempo step D00C to the accumulator D00D/D00E and ... |
-| `04:40F5` | `SoundDrv_MusicTickLoop` | C | Music tempo accumulator reached $4A: SoundDrv_ServiceChannelMusic for all channels, SoundDrv_StepTrack for the 4 music tracks, repeat while >= $4A |
-| `04:4119` | `SoundDrv_ChannelPhase` | C | Final phase of the tick: SoundDrv_UpdateChannel for the 4 channels, decrements the 16-step divider D01A, builds the active-track bit mask D024 from ... |
-| `04:414C` | `SoundDrv_SelectSfxTracks` | C | Sets the track iterator to the 4 SFX tracks (count 4, first record D040); companion of SoundDrv_SelectMusicTracks |
-| `04:4153` | `SoundDrv_SelectMusicTracks` | C | Sets the track iterator to the 4 music tracks (count 4, first record D130 = D040+4*$3C) |
-| `04:415A` | `Function_04_415A` | H | Unreferenced sibling of 414C/4153 (ld de,$D040 ; ld a,8): would iterate all 8 tracks; lands on the executed tail 415F |
-| `04:415F` | `SoundDrv_SetTrackIterator` | C | Shared tail: D00F = track count A, D010/D011 = first track record pointer DE |
-| `04:4167` | `SoundDrv_NextTrack` | C | Decrements the track counter D00F, advances the track pointer D010/D011 by $3C; returns Z when all tracks were visited |
-| `04:4177` | `SoundDrv_SelectChannel1` | C | Channel iterator = channel 1 only (record D220, count 1, register base NR12 $12) |
-| `04:4180` | `SoundDrv_SelectChannel2` | C | Channel iterator = channel 2 only (record D238, register base NR22 $17) |
-| `04:4189` | `SoundDrv_SelectChannel3` | C | Channel iterator = channel 3 (wave) only (record D250, register base NR32 $1C) |
-| `04:4192` | `SoundDrv_SelectChannel4` | C | Channel iterator = channel 4 (noise) only (record D268, register base NR42 $21) |
-| `04:419B` | `SoundDrv_SelectAllChannels` | C | Channel iterator over the 4 hardware channels (record D220, count 4, register base $12) |
-| `04:41A2` | `SoundDrv_SetChannelIterator` | C | Shared tail: D012 = count, D013/D014 = channel record pointer, D015 = register base (NRx2 low address) |
-| `04:41AC` | `SoundDrv_NextChannel` | C | Decrements D012, advances the channel record pointer by $18 and the register base by 5 ($12 -> $17 -> $1C -> $21); returns Z at the end |
-| `04:41C0` | `SoundDrv_PlaySfx` | C | Start effect BC (0 = stop all): loads its header (430A), starts its tracks on the SFX tracks by priority; via stub 00:20AC; UI sounds $29-$2E; ... |
-| `04:4219` | `SoundDrv_PlaySfxAllTracks` | C | Header flags bit7 set (all 70 headers have $FF, so this is the path every effect takes): starts every track of the effect on free SFX tracks and ... |
-| `04:4287` | `SoundDrv_PlayMusic` | C | Start music BC (0 = pause): remembers the id in D01B/D01C, resets fade and pause flags, loads header 430A, starts its tracks on the 4 music tracks, ... |
-| `04:42C0` | `SoundDrv_PlayMusicIfNotPlaying` | P | Like PlayMusic but returns at once when the same id is already playing (D01B/D01C match and D024 high nibble non-zero); entered via stub 00:20B8 ... |
-| `04:42D6` | `SoundDrv_PlayMusicOrResume` | C | Same id and no music track active -> SoundDrv_ResumeMusic; same id still playing -> return; other id -> SoundDrv_PlayMusic; via stub 00:20E8 ... |
-| `04:42EC` | `SoundDrv_ResumeMusic` | P | Clears D025 and re-activates every music track whose flags have bit5/6 set (sets bit7): resume after SoundDrv_PauseMusic; entered via stub 00:20CA ... |
-| `04:430A` | `SoundDrv_LoadSongHeader` | C | Validates id BC (< $47) and loads the 8-byte entry at Table_SoundDrv_Songs+8*(id-1): stream ptr (D017/18), ROM bank word (wBank4ReadBank), priority ... |
-| `04:434C` | `SoundDrv_StartTrack` | C | Initialises the track record at D010/D011 from the loaded header (flags $A0, stream ptr, bank, id D038/D039, priority) and continues with ... |
-| `04:4374` | `SoundDrv_NextHeaderTrack` | C | Decrements the header track count D03C and advances the header stream pointer D017/D018 by 2; returns Z when done |
-| `04:4386` | `SoundDrv_InitTrackRuntime` | C | First step of a started track: flags := $C0, reads the first stream word (00:216F), stores it and resets the runtime fields (counters, envelope, ... |
-| `04:43DC` | `SoundDrv_StopSfxById` | P | Stops the SFX tracks playing id BC (matching D038/D039 at track+6/7), BC=0 stops all (SoundDrv_StopAllSfx); entered via stub 00:20BE ... |
-| `04:4414` | `SoundDrv_StopAllSfx` | P | Clears the flags byte of the 4 SFX tracks (SoundDrv_SelectSfxTracks loop); target of BC=0 in PlaySfx and StopSfxById |
-| `04:4429` | `SoundDrv_PauseMusic` | C | Stub target of 00:20C4 (also PlayMusic with BC=0, SoundTest_OnStart/OnSelect): SoundDrv_PauseMusicCore then return via 00:2141 |
-| `04:442F` | `SoundDrv_FadeFinished` | P | Fade-out end (from SoundDrv_UpdateFade when the level underflows): clears D020, falls into PauseMusicCore |
-| `04:4433` | `SoundDrv_PauseMusicCore` | C | Sets D025=$FF and clears bit7 (active) of the 4 music track flags; tracks keep bit6, so SoundDrv_ResumeMusic can restart them; channels are released ... |
-| `04:444B` | `SoundDrv_GetActiveMasks` | P | Returns D = SFX active mask (D024 low nibble), E = music active mask (D024 high nibble); stub 00:20D0 has no caller |
-| `04:445C` | `SoundDrv_GetPlayingId` | P | A=0: BC = current music id if a music track is active else 0; A=1-4: BC = id of the effect on SFX track A via Table_SoundDrv_SfxTrackPtrs (offset ... |
-| `04:44B1` | `SoundDrv_SetTrackParam` | P | Set a parameter of selected tracks: A = parameter index (0-6), BC = value, D = SFX track mask, E = music track mask; via stub 00:20D6, no caller |
-| `04:44B7` | `SoundDrv_SetTrackParamCore` | P | Stores BC/DE in D038-D03B and jumps through Table_SoundDrv_ParamHandlers[A] with SoundDrv_JumpTable; also called by SoundDrv_UpdateFade with A=2 |
-| `04:44CF` | `SoundDrv_SetTrackFieldByte` | P | For each track selected by the mask: sets the update flag D03C and stores byte D039 at track+BC (mask built by SoundDrv_BuildTrackMask) |
-| `04:44EC` | `SoundDrv_SetTrackFieldWord` | P | Same as SoundDrv_SetTrackFieldByte but stores the word D038/D039 at track+BC |
-| `04:450D` | `SoundDrv_BuildTrackMask` | P | Combines D03B (SFX mask, low nibble) and D03A (music mask, moved to the high nibble) into the 8-bit track mask in D, E=8 tracks, HL=D040 |
-| `04:4522` | `SoundDrv_NextTrackRecord` | P | HL += $3C, E -= 1 (used by the mask loops); Z when the 8 tracks were visited |
-| `04:452C` | `SoundDrv_StartFadeOut` | P | A = speed: D020=D021=A, D022=$40 (fade level); stub 00:20DC has no caller; SoundDrv_UpdateFade then lowers the level by 4 every A ticks |
-| `04:453A` | `SoundDrv_UpdateFade` | P | Per-tick fade-out step called from SoundDrv_FrameTick; only its D020==0 early return ever ran: every D021 ticks lowers D022 by 4 and applies it via SetTrackParam A=2; no trace starts a fade |
-| `04:455A` | `SoundDrv_ApplyTrackUpdates` | C | For an active track (flags >= $C0): copies the update flags to D019 and applies pitch/pan/volume changes (SoundDrv_ComputeTrackOutput); used between ... |
-| `04:456C` | `SoundDrv_StepTrack` | C | One sequencer tick of the track at D010/D011: cold-starts it (4386) if needed, counts down the length counter (track+1), then reads bytes from the ... |
-| `04:459B` | `SoundDrv_ReadNextCommand` | C | Reads the next stream byte through 00:216F (bank-aware read via wBank4ReadBank) into D01F/A and dispatches: >= $D0 note, < $B1 rest/length, else ... |
-| `04:45CD` | `SoundDrv_JumpTable` | C | Generic dispatcher used by the sequencer and by SetTrackParam: BC = table base, A = index; loads the word (sla a ; add a,c ...) and jp hl |
-| `04:45DB` | `SoundDrv_CmdEnd` | C | Command $B1 (and default of unused commands): clears the track flags (track ends); ends 66 of the 152 tracks of the 59 distinct song/effect headers, ... |
-| `04:4668` | `SoundDrv_ComputeTrackOutput` | C | Converts the dirty flags of the track (D019 bit2 pitch, bit0 pan, bit1 volume) into output fields: pitch word -> track+$2C/2D, pan -> +$2E, volume ... |
-| `04:473E` | `SoundDrv_CmdExtended` | P | Command $CD: reads a sub-command byte (< $0C) and dispatches through Table_SoundDrv_ExtCommands; larger values end the track |
-| `04:4756` | `SoundDrv_CmdRest` | C | Stream bytes $81-$B0 (below the command range): length counter (track+1) = Table_SoundDrv_Durations[byte-$80]-1, stream pointer saved, back to the ... |
-| `04:4777` | `SoundDrv_CmdCall` | C | Command $B3: pushes the return stream pointer on the track call stack (depth byte track+$26, max 5 entries) and jumps to the address that follows; ... |
-| `04:479B` | `SoundDrv_CmdJump` | C | Command $B2: reads a 16-bit address from the stream (00:216F) and continues there (86 uses = track loops); also the tail of Call and Repeat |
-| `04:47A3` | `SoundDrv_CmdReturn` | C | Command $B4: pops the pointer pushed by Call (113 uses ending the song subroutines); with an empty call stack (track+$26 = 0) it is a no-op (jp 459B) |
-| `04:47C5` | `SoundDrv_CmdRepeat` | P | Command $B5: counted loop: count byte (0 = forever), counter at track+$29; jumps to the address that follows until the count is reached, then skips ... |
-| `04:47E3` | `SoundDrv_CmdSetTempo` | C | Command $BC: stores the tempo byte in D00A (music) or D005 (SFX while D000 bit5 is set) and recomputes the step (SoundDrv_UpdateTempoStep) |
-| `04:47FB` | `SoundDrv_UpdateTempoStep` | C | Tempo step = tempo byte (HL) * scale byte (HL+1) via 5007, >> 6, capped at $FF and at least 1; stored at HL+2 (D007 for SFX, D00C for music) |
-| `04:4819` | `SoundDrv_ParamTempoScale` | P | Table_SoundDrv_ParamHandlers[0]: stores D039 as tempo scale (D006 for the SFX group if D03B != 0, D00B for music if D03A != 0) and recomputes the ... |
-| `04:484E` | `SoundDrv_CmdSetInstrument` | C | Command $BE: selects instrument A (from Table_SoundDrv_Instruments, 6 bytes each) and copies its record into track+$0C..$11; index $64 only clears ... |
-| `04:4889` | `SoundDrv_GetInstrumentPtr` | C | HL = Table_SoundDrv_Instruments + 6*A |
-| `04:492A` | `SoundDrv_CmdSetVolume` | C | Command $BF: track+$15 = stream byte*2 (rlca) and dirty bit1 (volume) in D019; SoundDrv_ComputeTrackOutput multiplies +$15 and +$16 into the output ... |
-| `04:4947` | `SoundDrv_ParamVolumeScale` | P | Table_SoundDrv_ParamHandlers[2]: sets volume-dirty flag (D03C bit1) and stores D039 at track+$16 for the selected tracks (04:44CF); used with A=2 by ... |
-| `04:4A2B` | `SoundDrv_CmdNote` | C | Stream bytes $D0-$FF: note with length code (byte-$CF): b = Table_SoundDrv_Durations[...], stored at track+$0B, followed by optional pitch/modifier ... |
-| `04:4A81` | `SoundDrv_StartNote` | C | Starts the note: picks the hardware channel from the instrument type byte (<8 ch1, <$10 ch2, <$40 ch3, else ch4), arbitrates with the current channel ... |
-| `04:4BC9` | `SoundDrv_ServiceChannelSfx` | C | Per-tick check of a channel owned by an SFX track (channel+2 bit7 = SFX owner; other channels return): frees and silences it when the owner track ... |
-| `04:4BDB` | `SoundDrv_ServiceChannelMusic` | C | Same as SoundDrv_ServiceChannelSfx for channels owned by a music track (returns for SFX-owned channels) |
-| `04:4BFC` | `SoundDrv_NoteGateExpired` | P | Channel timer (channel+7) reached 0: if the release flag (channel bit6) is already set the channel is freed and silenced (SoundDrv_SilenceChannel), ... |
-| `04:4C14` | `SoundDrv_UpdateChannel` | C | Per-channel hardware update: releases and silences the channel when its owner track stopped (flags < $C0), else runs the envelope state machine and ... |
-| `04:4E4B` | `SoundDrv_WriteChannelParams` | C | Note-start register setup of the channel D015: NRx1 duty/length + NR10 sweep for square, NR31/NR34 + wave pattern (4EA9) for channel 3, NR41/NR43 ... |
-| `04:4ECA` | `SoundDrv_WriteChannelPitch` | C | Adds the track pitch offsets, converts the note to a period through SoundDrv_NoteToIndex/LookupFrequency and writes NRx3/NRx4 (noise channel: NR43 ... |
-| `04:4F4F` | `SoundDrv_WriteChannelPan` | C | Updates NR51 for the channel: masks $EE11/$DD22/$BB44/$7788 for channels 1-4, left/right bits from track+$2E bits 7/6 |
-| `04:4F97` | `SoundDrv_WriteChannelVolume` | C | Writes the channel envelope/volume (NRx2 from channel+$11; NR32 level for the wave channel) and sets the trigger bit (NRx4 bit7, NR30 for wave) |
-| `04:4FD4` | `SoundDrv_SilenceChannel` | C | Silences channel D015: NRx2=$08, NRx4=$80 (wave: NR30=0) |
-| `04:4FEA` | `SoundDrv_NoteToIndex` | C | A = note - $24 clamped to 0..$77 (index into Table_SoundDrv_NoteFreq), falls into SoundDrv_LookupFrequency |
-| `04:4FF5` | `SoundDrv_LookupFrequency` | C | DE = 11-bit period word and A = extra byte from Table_SoundDrv_NoteFreq + 3*A |
-| `04:5007` | `SoundDrv_Mul8x8` | C | HL = B * C (unsigned 8x8 -> 16 bit shift-and-add multiply); used for the tempo step, pitch and volume scaling |
-| `04:502B` | `SoundDrv_MulNibbles` | C | A = (B >> 4) * (C >> 4): 4-bit x 4-bit shift-and-add product; callers add $0F and mask $F0 to scale a volume/pan byte |
-
 Data: `Table_SoundDrv_SfxTrackPtrs` (449B), `Table_SoundDrv_ParamHandlers` (44A3), `Table_SoundDrv_Commands` (46E8), `Table_SoundDrv_ExtCommands` (4726), `Table_SoundDrv_Durations` (5044), `Table_SoundDrv_NoteFreq` (5075), `Table_SoundDrv_Instruments` (51DD), `Table_SoundDrv_WavePatterns` (547D), `Table_SoundDrv_Songs` (551D), `Data_SoundDrv_Streams` (574D)
 
-## 13. Reproduce
-
-```
-cp -r config /tmp/g1cfg                      # scratch copy, then drop config/symbols/bank{04,0E,19,1A,1B,1C,1D,1F,22,23}.tsv into it (or use config/ once merged)
-python3 tools/gen_asm.py verify --config /tmp/g1cfg          # RESULT: IDENTICAL
-python3 tools/gen_asm.py check --strict --config /tmp/g1cfg
-python3 tools/gen_asm.py regen --config /tmp/g1cfg --out /tmp/g1out   # look at the renamed sources
-```
-
-Method notes: far-call graph from the `farcall` macro lines of `src/*.asm` (`Function_BB_AAAA` targets), execution status from `analysis/coverage_union.tsv` /
-`traces/coverage_*.tsv`, screens identified from `.cache/trace/shots/*/*.png` (frame numbers in the evidence), loaders (`00:0787`, `00:08EA`, `4F:4000`, `00:0A82`) parsed from the
-call sites to attribute tile/tilemap/palette/object blocks, song streams decoded with a small scratch decoder.  Nothing outside the files listed at the top was written.
-
-## 14. Adversarial review (verifier pass)
-
-A second pass tried to refute the names.  Checked independently (ROM bytes, `src/` regenerated from the current `config/`, `analysis/coverage_union.tsv`, `traces/detail/*/{callgraph,dataaccess,adapter.log}.tsv`,
-screenshots in `.cache/trace/shots`): every CONFIRMED function/label row is an executed instruction start and every CONFIRMED data row is read in some scenario; every `BB:AAAA` cited in an evidence
-column is a label or executed instruction start and the `from BB:AAAA` caller claims decode to a call of the row; all decoded Shift-JIS strings match the quoted text; the 10 callers of
-`SramCheck_Bank0Commit`, the 13 ROM0 stubs, the 70 song headers, the 11 dictionary categories (bank 1A tables and the bank-3F id lists agree), the `Table_SoundDrv_Durations` / `CmdNote` / `CmdRest` indexing, the
-command dispatch indices ($B1 end, $B2 jump, $B3 call, $B4 return, $B5 repeat, $BC tempo, $BE instrument, $BF volume), the NR51 pan masks, `MulNibbles`, the SRAM page/checksum arithmetic, the
-`hJoyHeld xor $24` test of 7C:7CF6 (SELECT+LEFT) and the help-menu button order (4th button 'モバイルじてん' -> `1A:4000`) were re-derived and hold.  `adapter.log` gives independent proof of the mail-server flows:
-`mail_server_full` delete-all sends `TOP 1 0`..`TOP 3 0` (pass 1), then `TOP n 0` + `DELE n` per mail (pass 2), the hidden 'delete completely' button sends only `DELE 1`..`DELE 4` (no TOP), the check-then-delete flow sends TOP/DELE per mail.
 No debug-screen entry (`19:4000`, `19:4980`, `1B:4040`) has a call, jp, far pointer or table reference; the only `00 40 19` byte matches are `ld hl,$4000 ; add hl,de`.
 
-Changes made by this review
-
-* **Retracted:** `Data_CommProgress_Tiles` (22:5CD0, 'communication-progress tiles read in send/receive') was wrong; the block is address-book tile data loaded by four bank-2F HDMA calls (see section 9).  Renamed `Gfx_AddrBook_TilesBank22`.
 * Evidence of `Tilemap_CommProgress_Screen`, `Palette_CommProgress_Bg/Obj` cited `26:51C4`, which is only a fill-loop label; the loader is `MailSession_InitScreen` (26:5168).
-* Downgraded CONFIRMED -> PROBABLE: `SoundDrv_UpdateFade` (only its `D020==0` early return ever ran, no trace starts a fade), `MobileDict_ScrollUp` (only the scroll-offset==0 early return ran),
-  `SpriteCounter_StubA/B/C` (the stubs are bare `ret`; the sprite-counter role is inferred from the dead bodies only).
-* Numbers corrected: `MailSrvDel_DrawElapsedTime` call counts (594 / 372 / 919, not 594-919 for all), `22:4EF0` runs in 40 of 41 scenarios and `22:4FF6` in 32 (not 'every scenario'), the title screen runs in 35 of 41.
-* Wording: top-menu item 2 is labelled ホームページ (homepage) on screen, called 'homepage' now; `MailConnect_Screen` results in `MailSrvDel_DeleteAll` are `$FF/$80` error path, `$20` cancelled, anything else continues (it was 'A=0 ok');
-  stale generic labels in three evidence strings replaced by the current names.
-* The evidence of `MailSrvDel_DeleteAllRun` / `DeleteCompletelyRun` now says that POP3 TOP/DELE are visible in `adapter.log` but that the meaning of API result `B==2` ('problem mail') is still an inference from the hidden button text and the loop structure.
-* `analysis/naming/ram_g1.tsv`: `D03A/D03B` (`wSoundDrv_ReqDE`) are also scratch bytes in `SoundDrv_StartNote` and `SoundDrv_PlaySfxAllTracks`; noted.  No proposal contradicts `config/ram` semantically (they all replace HYPOTHESIS `wRam_*` rows or the
-  ROM0 `wBank4*` rows are untouched); the banked-WRAM caveat of section 10 stands, and the 2-byte rows `D008/D00D/D010/...` overlap separate one-byte `wRam_*` rows that the merge has to fold.
 
 Still not proven (unchanged, stated for the record): that `MobileDict_*` shows a dictionary (no screenshot of the screen exists; the help button label, the glossary strings and the bank-3F id lists are the evidence), the debug screens' entry
 conditions, the meaning of sound commands `$BD`, `$C1`-`$C5`, `B==2` = problem mail, and everything in the HYPOTHESIS rows.

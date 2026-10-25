@@ -1,9 +1,5 @@
 # Tile staging windows, account work area, dialog tile stage and palette fade buffers (ramop9): 20 names, 941 pointer operands
 
-> Status: **reference (current)** for the operands it rewrites.  Follows [`naming2_ramop8.md`](naming2_ramop8.md) (the bank proof, the rule file and the effect table are described in [`naming2_ramop7.md`](naming2_ramop7.md)).
-> Records: [`analysis/naming2/wramx_consumers.tsv`](../../analysis/naming2/wramx_consumers.tsv), [`analysis/naming2/wramx_calls.tsv`](../../analysis/naming2/wramx_calls.tsv), [`analysis/naming2/ramop9_manual.tsv`](../../analysis/naming2/ramop9_manual.tsv);
-> tools: `tools/apply_ram_operands.py --areas wramx`, `tools/apply_manual_sites.py`; independent verification: [`naming2_verify_ramop9.md`](naming2_verify_ramop9.md).
-
 ## 1. Result
 
 | item | count |
@@ -17,29 +13,7 @@
 | left numeric | **549** of the 1,490 banked WRAM pointer operands that were numeric before: 336 without a consumer rule (221 with no call in the straight line), 103 whose bank is shown but has no name, 65 whose bank is not shown, 20 marked `; raw` with the reason, 14 values (the number -10000), 10 of another family, 1 refused by a `CAVEAT`; and 176 + 63 uses of `wRam_Dxxx` |
 | ROM | byte-identical (`make compare`: `RESULT: IDENTICAL`; `sym-check`, all audits and the 58 + 5 tool tests pass; every changed line is an operand replaced by an expression of the same value, or a comment) |
 
-The pass was done in two parts that were verified by two independent readers in parallel.  Part A (17 names, 675 operands) came from an executor that read the staging windows of banks 2 and 3;
-part B (3 names, the new proof mechanisms, 266 operands, 60 neutral uses, 44 more by hand and 12 words) is the work of the coordinator.
-
-## 2. What the new objects are
-
-### 2.1 The tile staging windows of banks 2 and 3 (`$D000-$DFFF`)
-
-Banks 2 and 3 hold the tiles of the text that the screens draw.  Text is rendered into WRAM and then sent to VRAM tile memory by HDMA (general-purpose DMA, which the project calls HDMA):
-
-* `TextTiles_RenderLine`, `TextTiles_RenderGrid` and `TextTiles_RenderGridRows` (48:403E, 48:40A9, 48:415A) take the destination bank from `hTextTiles_DestBank`, which the callers store just before the call (bank 2, 3 or 7: 123, 10 and 14 of the 147 destination operands), and write 8x16 glyph tiles through `Font_BlitGlyph8x16` (48:4748), whose store loops run only
-  under banks 2, 3 and 7.  The destinations are `bc` and `de` of the call (for example `ld bc, wTileStage2 + $780 / ld de, wTileStage2 + $8C0`: lines are `$280` bytes apart, 20 tiles of 16 bytes for each of the two rows of a text line).
-* The pixel canvas of the browser and the mail screens (`Canvas_BlitGlyphNoRemap` 7F:42CA, `TileCanvas_FillRect` 4F:4604) has rows of 20 tiles = `$140` bytes: rows 0-11 are `$D000-$DEFF` of bank 2 and the next rows continue in bank 3 (the blitter changes bank when H >= `$DF`).
-* The uploaders send `$D000`, `$D400`, `$D800` and `$DC00` of bank 2 to VRAM bank 0 `$9000`, `$9400`, `$8800`, `$8C00` (`Mailbox_UploadTextTiles` 25:534C, `MailDraft_UploadTextTiles` 2B:46E5, `MailView_BodyPage_UploadTextTiles` 2B:7D92, `PageList_UploadTextTiles` 24:4A00, ...) with `Gfx_StartHDMAWithService` or one of 17 local starters (15 of them ever ran, all with bank 2 selected).
-* `TextTiles_ClearBuffers` (2D:4E06) clears `$1000` bytes of bank 2 and `$0780` of bank 3.
-
-**`wTileStage2`** (W2 `$D000`, 4,096 bytes) is the whole bank 2 window and **`wTileStage3`** (W3 `$D000`, 2,304 bytes) the part of bank 3 that the executed code uses: six canvas rows to `$D77F`, the 1bpp raster of inline images (`Bmp_ConvertToTiles` 51:7177) and the zeroes that the help screens send to VRAM (`HelpScript_ShowPicture` zero-fills `$0900` bytes so that the live
-`wSpriteSlotBackup` at `$D900` survives).  Each screen lays its own rows out inside the window (20 tiles per row, `$280` per text line, 16 tiles per row, 32-tile strips, decimal fields at `$D800`), so an offset means something only per screen: the names are those of the windows, with the offsets in the code.
-Only the unreferenced `debug_flags.asm` (never executed) reaches `$DBFF` of bank 3, and the debug screens build Shift-JIS strings at `$D000` of bank 2 before they render them: those pointers are string scratch, not tile staging, and stay numeric with `; raw`.
-**`wKbdGlyphPreviewTiles`** (W3 `$DE00`, 32 bytes) is the one 8x16 glyph (two 8x8 tiles) that the on-screen keyboard previews: `Kbd_DrawGlyphPreview` (55:6C16) renders it and sends the 32 bytes by HDMA to VRAM bank 1 `$8240`.
-
 ### 2.2 The account work area of bank 3 (`$DE80-$DFFF`)
-
-The registration and settings screens keep their text in bank 3 behind the `TextBuf` library (`TextBuf_Init` 67:6731 ... `TextBuf_GetLength` 67:6842: each routine selects bank 3 and restores the bank): a `TextBuf` is a 3-byte header (capacity, free slots, cursor) followed by the characters.
 
 | name | address | size | role | status |
 |---|---|---|---|---|
@@ -56,13 +30,6 @@ The registration and settings screens keep their text in bank 3 behind the `Text
 | `wAcctMailAddress` (older name) | `$DFAA` | | the full mail address | |
 | `wAcctHostScratch` | `$DFC3` | 21 | `"pop."` or `"mail."` + sub-domain + `".dion.ne.jp"` (`Config_BuildImageFromAccount`) | PROBABLE |
 
-The sizes are contiguous from `$DEAB` to `$DF0F` and equal the `TextBuf_Init` capacities and the SRAM field sizes.  The two tables of addresses `Dial_EntryNumberBuffers` (68:4594) and `SettingsPhone_SlotMenu_FieldTable` (67:50A5) hold `wDialEntries + $00/$33/$66/$11/...` (12 words, now written so);
-their old header said "WRAM1 addresses", which is wrong: both are dereferenced under bank 3.
-
-### 2.3 The dialog tile stage of bank 7 (`$DC00-$DFFF`)
-
-**`wDialogTileStage`** (W7 `$DC00`, 1,024 bytes): `Dialog_Open` (72:402A) clears it, renders two 8x16 text lines at `$DC00/$DD00` and `$DE00/$DF00` with `hTextTiles_DestBank` = 7 and sends it by HDMA to VRAM bank 1 `$8C00`; `BrowserMenu_Open*` does the same with one line (40 blocks).  Nothing else in the tree touches bank 7 `$DC00-$DFFF`.
-
 ### 2.4 The palette fade buffers of bank 7 (`$D880-$D9FF`)
 
 The fade routines (`PalFade_*`, `engine/gfx/palette.asm`) blend the live palette buffer `wPaletteBufBg` (64 colours of 2 bytes: BG palettes 0-7, then OBJ palettes 0-7) between two colours for every entry:
@@ -77,24 +44,22 @@ The fade routines (`PalFade_*`, `engine/gfx/palette.asm`) blend the live palette
 The mechanism is that of `naming2_ramop7.md` and `naming2_ramop8.md`; the pass adds (details in the docstring of `tools/apply_ram_operands.py`, the headers of the two rule files and `STYLE.md`):
 
 * **`needs = dest`** (`TextTiles_RenderLine bc|de`, `RenderGrid de`, `RenderGridRows de`): the bank is the constant stored in `hTextTiles_DestBank` by the nearest `ldh [hTextTiles_DestBank], a` with `ld a, $0N` before it, scanning back from the consumer call: the store may lie between the load of the pointer and the call (32 of the 147 operands).
-  The dereference is `Font_BlitGlyph8x16` (`call BankSwitch_H` at 48:47CD and 48:47E9 with the bank word that `RenderLine` pushes from the variable).
-* **Bank `*`** in a rule: the bank that the proof shows (any of W1-W7); refused with `needs = -`.
-* **`--observed` for `switch` rows and for `a` rows with A = 0**: when the backward scan cannot show the bank, the replays can: every replayed execution of the instruction ran under one bank only, and the idiom (if any) agrees (part A: 26 operands rest on this alone and 192 have both; part B: 35 of the 138 direct uses).
-* **The pseudo consumer `(direct)`** (needs `switch` only): a pointer that the first instruction using the register dereferences (`ld a, [hl]`, `ld [de], a`, `ld a, [hli]`): nothing between the load and that instruction may touch a bank register, so the bank is the one in force at the load (138 operands).
+
+The dereference is `Font_BlitGlyph8x16` (`call BankSwitch_H` at 48:47CD and 48:47E9 with the bank word that `RenderLine` pushes from the variable).
+
 * **`CAVEAT` in a `DEF` line**: the tool never writes a name whose definition says that the address has other meanings elsewhere (`wMailComposeMode`: `$D524` is also the digit scratch of other screens; `wEditBodyBuf`: bank 2E reuses `$D400-$D4FF` as the POP3 header summary; `wMail_ItemListPointer`: the parse routines use `$D00D/$D00E` as bytes).
-* **Every spelling of the bank register** ends a proof, including a store through `[c]`, the short numeric spellings `[$70]`, lower-case hex, and an instruction that names `rSVBK`, `hWRAMBank`, `$FF70` or `$FF8D` as an operand (a following `ld [de], a` could write it).  The source has only `ldh [rSVBK], a` (2,437 times) and `ldh [hWRAMBank], a` (1,522), and in the 41 bank-observed replays a write watch saw
-  1,734 writers of `rSVBK`, all `ldh [$FF70], a`.
-* **By-hand rows** (`analysis/naming2/ramop9_manual.tsv`, `tools/apply_manual_sites.py`): computed destinations, clear loops, far idioms, base registers, the base pointers of the fade buffers, the neutral name uses that a dominating bank idiom proves, address tables.  Each row has the proof and a context check (the previous, the own and the next line); the tool also evaluates the proposed name against the `DEF` lines (the name must exist, `name + offset` must be the operand and the bank must be the row's).
-  A site that was looked at and stays numeric is a row too, with its reason, and the line carries `; raw: <reason>`.
+
+* **Every spelling of the bank register** ends a proof, including a store through `[c]`, the short numeric spellings `[$70]`, lower-case hex, and an instruction that names `rSVBK`, `hWRAMBank`, `$FF70` or `$FF8D` as an operand (a following `ld [de], a` could write it).
+
+The source has only `ldh [rSVBK], a` (2,437 times) and `ldh [hWRAMBank], a` (1,522), and in the 41 bank-observed replays a write watch saw   1,734 writers of `rSVBK`, all `ldh [$FF70], a`.
 
 ## 4. What the independent readers changed
 
-**Part A** (reader of the 17 names and the 675 operands): names 16 upheld and 1 corrected (`wDialogTileStage`: `BrowserMenu_Open*` sends 40 blocks, not 41), rules 65 of 67 upheld (the `FillBytes hl` family let `wAcctNumberInternet` through for a wipe of three fields; the proof of `TextTiles_HdmaBlock` said it writes no bank register, but it saves `rSVBK`, selects bank 1 to read `wStatSplitLine`
-and writes both registers back), effects 42 of 43 upheld (the same row), operands 674 of 675 upheld (`phone_number_entry.asm:292`, the wipe, went back to `$DEDD ; raw`).  Re-derived by the reader: the consumer of all 597 tool rows at ROM level, 0 contradictions between the scan and the replays, 78 manual rows, a property test of 21,000 random programs (0 false accepts),
-12 mutants of the new logic (2 survived: tests added), 29 corrections in all (wording of four `DEF` lines, the headers of the rule files, `read_rules` crashed on a `(direct)` row that needs a bank: now refused, `LCDOn` is at 00:05B6 and not 00:05C4, the stale "29" of the count of `dest` operands that need the scan from the call: 32).
-**Part B** (reader of the fade names, the `(direct)` mechanism and the 335 changed lines): names 3 upheld, 329 of 335 lines upheld, 6 went back to numeric: three `wEditBodyBuf`/`wEditAddressBuf` pointers in `tidy_screen.asm` (the data is the POP3 TOP summary that bank 54 stages: date, source label, subject, sender) and three `wTileStage2` pointers in the debug screens (string scratch); the row `MailServerMgr_DrawFieldText` and
-the `Body` alternative of the drawer family were dropped; the tool got the spellings of the bank register that a scan could miss (false accepts R1-R3 in synthetic programs, none in the tree) and the reader's tests; the reader proved 44 neutral uses by hand (`menus.asm`, `tidy_screen.asm`: a bank idiom that dominates the local labels); the `CAVEAT` convention was applied to `wEditBodyBuf` and `wMail_ItemListPointer`.
-After both rounds the coordinator also marked 17 lines `; raw` (the 14 sites that stay numeric, the two uses of the number-to-dial scratch `wAcctNumberSelfPage` in `password_change.asm`, and the phone wipe) so that no later rule renames them, and wrote the 3 pointer loads of the library's item list and the 12 table words by hand with their proofs.
+**Part A** (reader of the 17 names and the 675 operands): names 16 upheld and 1 corrected (`wDialogTileStage`: `BrowserMenu_Open*` sends 40 blocks, not 41), rules 65 of 67 upheld (the `FillBytes hl` family let `wAcctNumberInternet` through for a wipe of three fields; the proof of `TextTiles_HdmaBlock` said it writes no bank register, but it saves `rSVBK`, selects bank 1 to read `wStatSplitLine` and writes both registers back), effects 42 of 43 upheld (the same row), operands 674 of 675 upheld (`phone_number_entry.asm:292`, the wipe, went back to `$DEDD ; raw`).
+
+Re-derived by the reader: the consumer of all 597 tool rows at ROM level, 0 contradictions between the scan and the replays, 78 manual rows, a property test of 21,000 random programs (0 false accepts), 12 mutants of the new logic (2 survived: tests added), 29 corrections in all (wording of four `DEF` lines, the headers of the rule files, `read_rules` crashed on a `(direct)` row that needs a bank: now refused, `LCDOn` is at 00:05B6 and not 00:05C4, the stale "29" of the count of `dest` operands that need the scan from the call: 32).
+
+**Part B** (reader of the fade names, the `(direct)` mechanism and the 335 changed lines): names 3 upheld, 329 of 335 lines upheld, 6 went back to numeric: three `wEditBodyBuf`/`wEditAddressBuf` pointers in `tidy_screen.asm` (the data is the POP3 TOP summary that bank 54 stages: date, source label, subject, sender) and three `wTileStage2` pointers in the debug screens (string scratch); the row `MailServerMgr_DrawFieldText` and the `Body` alternative of the drawer family were dropped; the tool got the spellings of the bank register that a scan could miss (false accepts R1-R3 in synthetic programs, none in the tree) and the reader's tests; the reader proved 44 neutral uses by hand (`menus.asm`, `tidy_screen.asm`: a bank idiom that dominates the local labels); the `CAVEAT` convention was applied to `wEditBodyBuf` and `wMail_ItemListPointer`.
 
 ## 5. Findings and open points
 
@@ -120,7 +85,4 @@ After both rounds the coordinator also marked 17 lines `; raw` (the 14 sites tha
 
 Of the neutral names, 176 uses of `wRam_Dxxx` have no proof of the bank (115 in `lib/mobile/mail.asm`, 61 in `audio/engine.asm`) and 63 have no name in the proven bank.  Not rewritten: the ten wrapper pointers above, the `Kbd_TypeWaitsWithService` pattern (4 sites in `keyboard.asm`) and two in `dialog.asm`.
 
-## 7. Reproduce
-
 `python3 tools/apply_ram_operands.py --areas wramx --observed --dry-run [--report FILE]` lists what the rules prove and, by consumer, what has no rule (the report has the consumer and the proven bank of every operand); `--neutral --observed` does the same for the neutral names; `--check` audits what is still numeric although a rule proves it.
-`python3 tools/apply_manual_sites.py [--dry-run]` writes (or checks, idempotently) the rows of `analysis/naming2/ramop9_manual.tsv`.  Tests: `python3 tools/test_ram_operands.py` (58) and `python3 tools/test_manual_sites.py` (5).

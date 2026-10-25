@@ -1,4 +1,4 @@
-# CR/LF bytes in Japanese text sources (2026-10-23)
+# CR/LF bytes in Japanese text sources
 
 ## Finding for `19:447C`
 
@@ -11,7 +11,3 @@ The same renderer is the direct consumer for the CR/LF text records in `data/tex
 The main `TextEngine_Run` control table at `00:0EF0` still maps `$0A` to `TextEngine_Cmd00_End` at `00:0F9D`. If that interpreter receives `$0A` as its next control byte, it takes the end handler; `$0A` is not a second newline in that table. This does not describe the strings above because their proven callers use `TextTiles_RenderGrid`.
 
 The built-in HTML pages use the HTML parser instead: its ordinary text path has separate CR and LF handling (`engine/html/parser.asm:288-304`), and the parser's preformatted path consumes CRLF explicitly (`engine/html/tags.asm:1553-1564`). SMTP and other protocol strings in `lib/mobile/` are network data, not text-engine input. No conclusion here changes the bytes or claims that every `$0D,$0A` pair in every ROM region has the same consumer.
-
-## Evidence level
-
-The byte advancement, control dispatch and identified call/data relationships are CONFIRMED by current assembly. This is a static dataflow conclusion; no new emulator trace, rendered screenshot or hardware observation was made in this pass.

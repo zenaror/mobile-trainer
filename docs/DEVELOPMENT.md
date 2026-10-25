@@ -1,8 +1,8 @@
 # Development reference
 
 Build outputs, validation commands, source layout and bootstrap history.
-For installation, see [INSTALL.md](../INSTALL.md); for accepted Japanese status,
-see the [closure record](research/japanese_closure_audit_20261023.md#accepted-japanese-closure-2026-10-25).
+For installation, see [INSTALL.md](../INSTALL.md); for ROM interpretation limits,
+see the [ROM reference](research/japanese_remaining_semantics_batch_20261024.md).
 
 The `.asm` tree is **hand-maintained source**: it was produced once by a bootstrap generator from the analysis tables in `config/`
 (that *pipeline* is frozen, see "History" below), and from now on the `.asm` files are edited directly.  Assembly sources are not regenerated at build time and the
@@ -136,14 +136,9 @@ Graphics are built from their PNGs: edit the PNG (tile sheets `gfx/**/*.png`, fo
 
 ## Translation
 
-English work remains paused until separate explicit Operator approval. The
-commands below document the existing build interface; they are not a resumption instruction.
-
-
 See `docs/TRANSLATION.md` (text, images, fonts, limits) and `gfx/previews/README.md` (what each screen/sprite preview shows and how it was checked against the emulator).
 
 `make english` builds the pinned English overlay separately under `build/en`, using explicit file overrides in `languages/en/` and pinned original files where no English override is selected. The default `make` reconstructs the original Japanese ROM byte for byte. Overrides include text and source, sprites, tiles, box layouts, tilemaps, attributes, palettes and editable PNGs. Run `make english-check` for the locale checks. See [docs/LANGUAGE_BUILDS.md](../docs/LANGUAGE_BUILDS.md) for the selected inputs, cache and tool options, and [docs/TRANSLATION.md](../docs/TRANSLATION.md) for translation history and reuse limits. ZIP reuse remains incomplete; only the bounded first FullHelp page is adapted in its 63-byte slot, and complete WholeHelp is not adopted. English natural execution, rendering, translation fidelity and hardware remain unvalidated.
-
 
 ## Optional analysis dependencies
 
@@ -161,10 +156,8 @@ The Crystal reference directory has `eng/pokecrystal.gbc`, `eng/pokecrystal.sym`
 source tree. The optional Japanese reference is `jp/baserom-jp.gb`, overridable
 with `--jp`. External ROMs and dependency checkouts are not bundled.
 
-### Reading historical research
+### ROM reference notes
 
-Current status is summarized in `REVERSE_ENGINEERING.md`; dated validation
-records are collected in `research/japanese_delivery_history.md`. Research
-notes retain addresses, original hashes, assumptions and bounded results.
-Review artifact names and checksums identify supporting evidence; a named
-private review artifact is not a file distributed by the repository.
+`REVERSE_ENGINEERING.md` summarizes source coverage and interpretation limits.
+The reference notes describe ROM behavior and public source definitions.
+Build, tooling and table-format instructions are kept in the development guides.

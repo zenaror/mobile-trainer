@@ -1,23 +1,4 @@
-# Bank 53 names and PNG/frame follow-up (2026-10-20)
-
-This is a bounded Japanese-original audit of the bank53 name table, the candidate
-frame windows, and the active PNG extraction inventory. The detailed per-window
-and per-ordinal matrices, commands, source locations, and hashes are retained in
-`BANK53_PNG_FOLLOWUP.md` (review artifact) (SHA-256
-`3d34bd60cc6960cf687ea9bbdb95e74d0c1d2bd546808cfa38dd168cdbd54bf7`).
-
-The report authenticated its private source snapshot against commit
-`a3e01214e534394febc371e70759e492261822f0`: 4,356 Japanese-tree Git blobs
-matched, with no missing or differing blobs. All 565 `languages/` blobs were
-excluded. Comparing the repository changes since that commit shows only the
-Song 03 alias source edit and documentation changes; no graphics or PNG-rule
-inputs changed. The original ROM used by the audit is 2,097,152 bytes with
-SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
-
-The 25 ordinal strings at `53:4000–4171` re-emit their original 369 bytes
-exactly. No demonstrated reader/producer chain links a name ordinal to a frame
-selection, so all 25 name-to-image relationships remain **HYPOTHESIS**. This
-does not mean that 25 PNGs are missing.
+# Bank 53 names and PNG/frame follow-up
 
 For the finite physical-window inventory, all 24 legacy bank41–46 previews and
 the editing view for `47:68F0` exist. Seventeen of the 25 candidate windows
@@ -43,15 +24,7 @@ similarity do not replace a producer-to-reader chain. Keep the eight omissions
 and all 25 name/frame associations open until original selection state and
 consumers are demonstrated.
 
-## Eight KEEP placement recheck (2026-10-21)
-
-An independent static placement audit fixed its inputs to
-`bef896d02a0476acfc92d32dfe615f3dbd0b34fa` and the original ROM SHA above. It
-checked only these eight KEEP windows. The existing descriptor table has 27
-style words and five distinct descriptors whose far pointers select bank 47.
-The loader preserves `LCDC.bit4`. No selector source path was found for
-these bank41–46 windows, and the scan found zero symbolic code references to
-their labels.
+## Eight KEEP placement recheck
 
 | KEEP window | signed prefix model | after hypothetical clear/upload |
 |---|---:|---:|
@@ -72,10 +45,3 @@ VRAM bank 1 tile `$E7` at `$8E70`. One contact in the 32 far-pattern checks,
 frame reference. No byte is missing from the maintained ROM-backed assets,
 but none of the eight windows gains a justified original editing view. Preserve
 their `KEEP` status and all 25 unproved name-to-image associations.
-
-The detailed report, matrix and result are retained in the ignored
-`agent-keep-frame-placement-20261021` (review artifact) directory; result SHA-256
-`6cc28e19009428e51be45c56da1ec0c9963a952047bcabc9bc42fa37da2e001e`. The
-audit made no source, build, emulator tracked-file changes. This finite
-negative result does not prove global reader absence or that any frame is
-unused.

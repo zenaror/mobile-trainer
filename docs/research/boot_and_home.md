@@ -1,35 +1,8 @@
 # Boot path and ROM0 ("home") of Mobile Trainer (Japan)
 
-> **Historical note.** Written when the source was one generated `src/bankNN.asm` per bank with generic `Label_BB_AAAA` labels.  In the current tree (`home/ engine/ data/ gfx/ audio/ lib/`) a `Label_BB_AAAA` that is only used inside its own function is a local label of that function (`.lAAAA`, `AAAA` = the address, or `.loop`/`.done`/`.skip`); one referenced from elsewhere keeps its global name; `Function_BB_AAAA`, `Data_BB_AAAA`, ... are unchanged, and where a semantic name was adopted the neutral name often remains as an alias label under it.  **Addresses (`bank:addr`) remain valid**: find the code with `grep -rn '; BB:AAAA' --include=*.asm .` or in `build/mobile_trainer.sym`.  Commands of the frozen bootstrap pipeline quoted here (`make regen`, `make verify`, `make tree*`, `tools/gen_asm.py ...`) no longer apply to the source (`gen_asm.py` only runs into a temp dir, `make legacy-check`); see `README.md`, "History", and `docs/README.md`.
+In the current tree (`home/ engine/ data/ gfx/ audio/ lib/`) a `Label_BB_AAAA` that is only used inside its own function is a local label of that function (`.lAAAA`, `AAAA` = the address, or `.loop`/`.done`/`.skip`); one referenced from elsewhere keeps its global name; `Function_BB_AAAA`, `Data_BB_AAAA`, ... are unchanged, and where a semantic name was adopted the neutral name often remains as an alias label under it.
 
-Scope: everything that lives in bank 00 (`0000-3FFF`, only 5799 non-zero bytes) plus the RAM code it builds.
-Evidence vocabulary: **CONFIRMED** (bytes/disassembly/trace you can cite), **PROBABLE**, **HYPOTHESIS**.
-Addresses are CPU addresses (`bank:addr`, bank 00 = `0000-3FFF`, others `4000-7FFF`).
-This file was adversarially re-verified (independent re-disassembly, the mGBA build with Mobile Adapter support driven through its CLI debugger, whole-ROM byte scans):
-what was corrected or downgraded is listed in section 15; the statuses below already include those corrections.
-
-Everything below is reproducible:
-
-```
-python3 tools/test_cfg.py                 # unit tests of the explorer (synthetic ROMs + real ROM + regs_written vs interpreter)
-python3 analysis/rom0_selftest.py         # executable checks of the claims below (interpreter runs the ORIGINAL bytes)
-python3 analysis/rom0_analysis.py         # regenerates analysis/proposals/*bank00*, ram_symbols, xrefs, entrypoints.json, farcall_targets.tsv
-python3 tools/cfg.py --seed 00:0100 --inline 00:06D1=3:far --banks 00 --listing 00:0100-0340   # the tool itself
-python3 tools/gen_asm.py verify --config <dir with the proposals>                                # byte-identical rebuild (checked, see 12)
-```
-
-## 1. Summary of findings
-
-| # | finding | status |
-|---|---|---|
-| 1 | Entry `0100: nop ; jp $0278`. The five interrupt vectors `0040/48/50/58/60` are `jp $CBF1/F4/F7/FA/FD ; reti`: **RAM stubs** written by `00:04A0` (called from `4F:4783`). Defaults: VBlank -> `00:03BA`, STAT -> `reti`, Timer -> `00:01ED`, Serial -> `00:01B7`, Joypad -> `reti`. | CONFIRMED (bytes + interpreter, `rom0_selftest`) |
-| 2 | Boot: CGB test on the value of A at entry (`$11`), CGB double-speed request, SRAM off, VRAM/WRAM/HRAM cleared, OAM-DMA routine copied to HRAM, `04:4000` initialised (APU registers), second stage `4F:4717`, ROM bank 1, then the **main loop `call FarCall(1C:4000)` forever**. Non-CGB hardware loops on `6B:4C80` and never reaches the main loop. | CONFIRMED (static + interpreter + mGBA: `PC=00:0328` with ROM bank 1 is reached from reset; forcing `A=$01` at `0100` ends in `6B:4C80`) |
-| 3 | There is **no copy loop for interrupt code**: `00:04A0` stores the 13 bytes of the vector stubs one immediate at a time; `00:059F` copies the 10-byte OAM DMA routine (`00:05AC`) to `$FF80`; `00:0684` builds the 8-byte far-call trampoline at `$FFA8`. Banks 48/57/6B/7F patch the stubs at run time (table in 5). | CONFIRMED (bytes; mGBA memory at `00:0328`: `CBF1..CBFD = C3 BA 03 D9 00 00 C3 ED 01 C3 B7 01 D9`, `FF80..FF89 = 3E C0 E0 46 3E 28 3D 20 FD C9`); "no *other* writer of RAM code" is PROBABLE (a whole-ROM literal scan finds writes to `CBF7-CBFD` only at `00:04B6-04D4`, but indirect writes cannot be excluded) |
-| 4 | ROM bank switching (MBC5) is centralised in ROM0: mirrors `FF8A/8B` (ROM lo/hi), `FF8C` (SRAM), `FF8D` (WRAM, rSVBK); the primitives `00:0622/063D/0658` pick the register from the **address region** of H/D/B; **`FarCall` (`call $06D1 ; dw addr ; db bank`)** is the universal far call (5274 raw byte-pattern matches of `CD D1 06`, 439 distinct `(bank,addr)` targets, 44 distinct bank bytes; 2239 matches have bank byte 0 = a ROM0 routine; the counts are exact but a match is only a *site* where the bytes really are code: 2189 of the matches were seen executing in mGBA with the inline target equal to the bytes, and only 23 are reached by structural links alone, see 7.7). | CONFIRMED (mechanism, primitives); the counts are a byte-pattern census |
-| 5 | In the ROMX code reached by `tools/cfg.py` the only direct ROM-bank write is `68:424E` (inside a private copy of the tail of the bank-switch routine at `68:4239`, *without* the `or a ; ret z` A=0 shortcut). A whole-ROM byte scan for `ld [$2000-$3FFF],a` finds exactly one more sequence, `29:510F` (`ld [$2000],a ; xor a ; ld [$3000],a ; ret`), in unreferenced code of bank 29 (no `call/jp $510F` inside bank 29). SRAM, in contrast, is switched/enabled directly by ROMX code (257 RAM-enable and 165 SRAM-bank writes in reached code). | PROBABLE (register-indirect writes such as `ld [hl],a` with `hl=$2xxx` were not excluded) |
-| 6 | ROM0 is a *library*: frame wait/service, LCD on/off, bank switching, far calls, HDMA/tilemap upload, a 14-slot sprite-object engine, arithmetic, PRNG, a byte-stream text interpreter with Shift-JIS-style lead bytes, string helpers, far read/copy helpers, and a 13-stub gateway into bank 04. | CONFIRMED (disassembly); purposes of groups are PROBABLE |
-| 7 | The serial and timer interrupt handlers and the `MobileAPI` entry (`00:0150`) are thin shims that switch to **bank 75** (`75:56D2`, `75:58EA`, `75:4030`). They are structurally identical to `MobileReceive/MobileTimer/MobileAPI/ReturnMobileAPI` of pokecrystal `home/mobile.asm`, and `75:4030` matches pokecrystal `_MobileAPI` (`44:4030`) instruction for instruction (checked byte-wise against `pokecrystal.gbc`: 64 bytes, differing only in WRAM addresses, the `$018D` return address and one immediate, `ld a,$35` here vs `$36`). ROM0 itself never touches `rSB` and reads `rSC` only in the timer handler. (`tools/crystal_match.py`, `analysis/crystal_symbol_map.tsv`, places `MobileAPI`, `ReturnMobileAPI`, `MobileTimer` at the same addresses but only rates the ROM0 shims HYPOTHESIS: 18/23, 14/17 and 31/40 instructions aligned; it rates `_MobileAPI` at 75:4030 PROBABLE.) mGBA executes `00:0150 -> 75:4030 -> 00:018D`, `00:01B7 -> 75:56D2` and `00:01ED -> 75:58EA` within the first 3 M instructions. | PROBABLE (structural match with pokecrystal), roles of the shims CONFIRMED (disassembly + mGBA) |
-| 8 | Bank 04 (`04:4000`, `04:4082` and 11 stub targets) is entered only through ROM0 stubs at `20A0-20EB`; `04:4000` programs the APU registers and clears 8x`$3C` + 4x`$18` byte structures. | PROBABLE: bank 04 is the sound driver |
+**Addresses (`bank:addr`) remain valid**: find the code with `grep -rn '; BB:AAAA' --include=*.asm .` or in `build/mobile_trainer.sym`.
 
 ## 2. Layout of bank 00
 
@@ -60,14 +33,7 @@ python3 tools/gen_asm.py verify --config <dir with the proposals>               
 | `20A0-2182` | bank-04 gateway: 13 stubs, bank save/restore helpers, far-byte readers | CONFIRMED code, role PROBABLE |
 | `2183-3FFF` | zero | CONFIRMED |
 
-Classification of all 16384 bytes (`analysis/proposals/bank00.tsv`, tiling verified, see 12): code 5502 (2276 CONFIRMED by a
-structural path from proven entries, 3226 PROBABLE), data 341 (palette 64, PRNG table 256, 7 inline far-call argument blocks 21),
-words 70 (`Table_00_0EF0`, `Table_00_161A`), ramcode 10, header 76, zero 10385.
-
 ## 3. Boot flow (`Boot` = `00:0278`)
-
-Traced statically and on the interpreter (`analysis/rom0_trace.py`, checks in `rom0_selftest.py`).  Interpreter model: MBC5, SVBK/VBK banks,
-LY synthesized, LCDC=`$91` at entry (boot-ROM state), a VBlank IRQ delivered at each `halt`.
 
 1. `0100 nop ; jp $0278`.
 2. `0278`: `nop ; ldh [$FFA3],a` (A at entry: `$11` on a CGB); `call LCDOff` (`05BD`): LCD is on after the boot ROM, so it waits for
@@ -94,9 +60,6 @@ LY synthesized, LCDC=`$91` at entry (boot-ROM state), a VBlank IRQ delivered at 
     `FarCall 0E:4000` -> `call JumpTableInline` (A = index, no bounds check) with words `4019, 401D, 4028`: 0 = `jp 4007` (loop), 1 = `FarCall 7C:7B7C ; ld a,1 ; jp 4007`, 2 = `FarCall 7C:7D1F ; ld a,1 ; jp 4007`. CONFIRMED (bytes; `tools/cfg.py --seed 1C:4000 --table 00:0545` decodes it the same way).
     That `0E:4000` returns only 0..2 is an inference (HYPOTHESIS): `JumpTableInline` does not check the range. `A` is passed through `FarCall` into `0E:4000` (0 on the first call, `$19` after state 0 because `JumpTableInline` leaves `A=L` of the target, 1 after states 1/2); whether `0E:4000` reads it is unknown.
     Bytes `4016-4018` (`jp $4007`) and `401C` (`ret`) are unreferenced.
-
-Facts derived for later work: the WRAM clear at step 7 runs with the vector stubs **not yet installed** (RAM vectors are written in step 10);
-`IE` is set to VBlank only at the end of the second stage; nothing in ROM0 enables the serial or timer interrupt bits, so that is done by other banks: found during verification, `75:4390` = `ld c,$FF ; ldh a,[c] ; or $0C ; ldh [c],a ; ret` (`IE |= $0C`, timer|serial; a write watchpoint on `[$FFFF]` in mGBA sees IE go `01 -> 0D` on the write at `75:4395` and back to `01` right after a write at `75:569A`, PC `75:569C`), and `75:4388` = `ld a,$2D ; ld [$C709],a` sets the timer-shim enable `[C709]` (PROBABLE: roles inferred from these sequences).
 
 ## 4. RAM code
 
@@ -145,21 +108,18 @@ FFAD: jp $06B7        ; FFAE/FFAF = hFarCallTarget   ($06B7 = idle loop: call 04
 | `0058` Serial | `CBFA` | `00:01B7` `Int_Serial` | none found |
 | `0060` Joypad | `CBFD` | `reti` | none found |
 
-* **`Int_VBlank` (`03BA`)**: unless `[C2F5]!=0` (`wOAMDMASuppress`) `call $FF80`; increments `[C2DF]` (`wVBlankFlag`, saturating at `$FF`); two frame->second->minute clocks
-  (`C2D4-C2D6` gated by bit 4 of `[C69F]`: when the minutes reach `$46` they are set back to `$3C`, seconds/frames to 0 and bit 1 of `[C26F]` is cleared; `C266-C268` gated by bit 0 of `[C69F]`: minutes saturate at `[C26D]`); `FFFC` counts frames in which the frame service did not run
-  (`C2BF==0`), `C2BF` cleared every frame. Ends with `reti`. CONFIRMED (disassembly); what the clocks measure is unknown.
-* **Wait routines**: `044B` (wait VBlank flag, then frame service), `0464` (flag only), `047A` (flag, returns with IME=0 right after VBlank).  They `ei ; halt` until `C2DF != 0`, then clear it. If the LCD is off they do not wait.
-* **Frame service `0392`**: runs at most once per frame (`C2BF`), enters `04:4082` through stub `20A6` with `rSVBK=1`.  It is called from every wait routine, `LCDOff`, the text interpreter after each character, the HDMA waits and from other banks (14 call sites in ROM0, 173 raw call/jp patterns elsewhere).
-* **`Int_Serial` (`01B7`)**: save AF/BC/DE/HL, save the 16-bit ROM bank, switch to bank `75`, `call 75:56D2`, restore bank, `reti`. CONFIRMED.
-* **`Int_Timer` (`01ED`)**: `TAC=0`, `IF&=$1B` (clears the timer, and also bits 5-7 of IF); **if `[C709]==0` it returns at once (`01FE jr z,$0242`): `TIMA`/`TAC` are then NOT restarted, the timer stays stopped**. Otherwise, if bit 1 of `[C6C1]` is clear and `rSC` bit 7 is clear: save ROM bank, `call 75:58EA`, restore; in every non-`C709==0` case then `TIMA=TMA`, `TAC=6` (enabled, clock select 10 = 65536 Hz, doubled in the CGB double-speed mode that Boot selects). CONFIRMED (disassembly, `rom0_selftest`; mGBA executes `01ED -> 0227 -> 75:58EA` and the `023A` path). (The first version of this file said the timer was always restarted: retracted.)
-* **Alternative STAT handlers**: `16C4` (if LY==`$80`: SCX=`[C0EF]`), `16DC` (raster effect with WY, `C0F6`, LYC), `0E93` (LY==0: LYC=`[D724]`, SCY=0; else SCY=`[C0D3]`, LYC=0, optional `call 0392` if `[D824]`).
+* **`Int_VBlank` (`03BA`)**: unless `[C2F5]!=0` (`wOAMDMASuppress`) `call $FF80`; increments `[C2DF]` (`wVBlankFlag`, saturating at `$FF`); two frame->second->minute clocks   (`C2D4-C2D6` gated by bit 4 of `[C69F]`: when the minutes reach `$46` they are set back to `$3C`, seconds/frames to 0 and bit 1 of `[C26F]` is cleared; `C266-C268` gated by bit 0 of `[C69F]`: minutes saturate at `[C26D]`); `FFFC` counts frames in which the frame service did not run   (`C2BF==0`), `C2BF` cleared every frame.
+
+* **`Int_Serial` (`01B7`)**: save AF/BC/DE/HL, save the 16-bit ROM bank, switch to bank `75`, `call 75:56D2`, restore bank, `reti`.
+
+* **`Int_Timer` (`01ED`)**: `TAC=0`, `IF&=$1B` (clears the timer, and also bits 5-7 of IF); **if `[C709]==0` it returns at once (`01FE jr z,$0242`): `TIMA`/`TAC` are then NOT restarted, the timer stays stopped**.
+
+Otherwise, if bit 1 of `[C6C1]` is clear and `rSC` bit 7 is clear: save ROM bank, `call 75:58EA`, restore; in every non-`C709==0` case then `TIMA=TMA`, `TAC=6` (enabled, clock select 10 = 65536 Hz, doubled in the CGB double-speed mode that Boot selects).
 
 ## 6. The main loop and frame structure
 
 The ROM0 loop is only `FarCall(1C:4000)` repeated (section 3).  Frames are paced by the wait routines above (`ei ; halt` until the VBlank counter changes), which
 also run the bank-04 service once per frame.  There is no polling of `rP1` in ROM0 (`hFFA5/hFFA7` are consumed by `JoypadDispatch` but produced in bank 7D / other banks, see 13).
-
-## 7. MBC5 bank switching
 
 ### 7.1 Registers and mirrors (CONFIRMED)
 
@@ -226,7 +186,6 @@ return to bank 4. Bank 04 looks like a sound driver (APU writes in `04:4000`, pe
 
 ### 7.5 Call sites of the primitives inside ROM0
 
-<!--CALLSITES-->
 | routine | ROM0 sites (`addr` = call/jp instruction; constant arguments recovered by back-scan) |
 |---|---|
 | `BankSwitch_H` (`0622`) | `0540`, `0551`, `0566`, `06F9`, `0709`, `0728`, `0743`, `074B`, `0782`, `0789`, `07C6`, `08CA`, `08EA`, `091C`, `0EDA`, `131A`, `1408`, `168E`, `16A2`, `1742` |
@@ -242,11 +201,8 @@ return to bank 4. Bank 04 looks like a sound driver (APU writes in `04:4000`, pe
 | `JoypadDispatch` (`056A`) | (none in ROM0) |
 | `FarJump` (`072E`) | (none in ROM0) |
 | `FarJump_Inline16` (`0716`) | (none in ROM0) |
-<!--/CALLSITES-->
 
 ### 7.6 Other direct bank switching in ROM0
-
-Straight-line "literal bank" sequences (`ld a,N ; ldh [FF8A],a ; ld [$2100],a`) select fixed banks for a call or a table access (all are seeds for later analysis; see `analysis/farcall_targets.tsv`, `analysis/proposals/xrefs_bank00.tsv`):
 
 | ROM0 site | bank | target | use |
 |---|---|---|---|
@@ -263,13 +219,6 @@ Straight-line "literal bank" sequences (`ld a,N ; ldh [FF8A],a ; ld [$2100],a`) 
 | `1556` | `65` | data `65:567F` (word table) | `153D` |
 | `159C` | `68` | data `68:67AE` (word table) | `1586` |
 | `171C` (`1711`) | `4F` | `4F:47A5` | wrapper |
-
-### 7.7 Direct MBC writes and usage statistics
-
-ROM0 writers (from `analysis/rom0_hw_accesses.tsv`): `[0000]`: `0296, 06AD, 15D7, 1614, 164E, 1658`; `[2000]`: `0182, 01A1, 01CD, 01E1, 021F, 0233, 2101`; `[2100]`: 35 sites; `[3000]`: `0187, 01A5, 01D2, 01E5, 0224, 0237, 025F, 0271, 0324, 2107`; `[4000]`: `0299, 0633, 064E, 0669, 06A7, 15D0, 160A, 1647, 1660`.
-Reached ROMX code contains **one** ROM-bank write (`68:424E`, inside a private copy of the tail of `BankSwitch_H` at `68:4239` that lacks the `or a ; ret z` shortcut; mGBA only ever executes its SRAM path `68:4246-424B`), plus `29:510F` in unreferenced bank-29 code found by a whole-ROM scan (PROBABLE, see finding 5), 257 RAM-enable writes and 165 SRAM-bank writes (banks 0E, 0F, 22-2F, ...): SRAM is managed directly by the banks (helpers such as `0E:4030` "write B to `[HL]` in SRAM bank 1"), not through ROM0.
-Static `FarCall` census (`analysis/farcall_targets.tsv`): 5274 sites, 439 distinct targets, 44 distinct bank bytes (00 = ROM0 target); top targets `00:0A82, 00:0787, 00:0956, 4F:4370, 4F:4000, 00:08EA, 00:0D67, 7F:72B0, 7D:7BB7`.
-Confidence: 23 sites CONFIRMED (in code reached by structural links only), 3861 PROBABLE (site in code reached through inferred links: bank guessed from an MBC write, heuristic table), 1390 HYPOTHESIS (byte pattern only).
 
 ## 8. Hardware register accesses in ROM0 (from `analysis/rom0_hw_accesses.tsv`)
 
@@ -304,17 +253,12 @@ Character test (`0F30`, `1028`, `10B1`, `1408`): **lead bytes `$81-$9F`, `$E0-$E
 Glyph drawing goes through far calls into bank 7F (`7F:405F`, `7F:42C3`, `7F:4007`) with coordinates in `FFBC/FFBD` and parameters in `FFBA/FFBB` (`hTextY`, `hTextX` are PROBABLE names).
 `1119/10E9` scan an ASCII-like stream (`>`=`$3E` and `=`=`$3D`, quotes `$22/$27`) with case-insensitive keyword lists: HYPOTHESIS that this is an HTML-like tag parser (the product is known to ship HTML-like web pages, see `MobileAdapterGB/Mobile_Trainer_Web_Pages.7z`; nothing here proves it).
 
-## 10. RAM map fragments (justified names in `analysis/proposals/ram_symbols.tsv`)
-
 HRAM: `FF8A ROM lo`, `FF8B ROM hi`, `FF8C SRAM`, `FF8D WRAM`, `FFA3 A-at-boot`, `FFA8-FFAF trampoline`, `FFF2 A scratch`, `FFF3 far-bank arg`, `FFF4 VBK mirror`, `FFF5 SRAM-enable mirror`, `FFFC/FFFD/FFFE` service starvation counter / PRNG index / PRNG state,
 `FFBA-FFC6` text cursor/limits, `FFB0/FFB1/FFB9/FFBF` scratch/state of the text interpreter, `FFF0/FFF1` (added by `0A1A`, cleared by the sprite reset).
 WRAM0: `C000-C09F` shadow OAM (`C004` first slot written by the sprite engine), `C0A0-C0CF` glyph half buffers (`0E7E`, `1044`, `10B1`), `C0D3/C0EF/C0F6` STAT-handler variables, `C10E-C11D` 16-byte copy buffer (`172D`), `C12E` scratch (`1620`),
 `C130-C135` saved vector stubs, `C266-C268/C26D` and `C2D4-C2D6` clocks, `C2BF/C2DF/C2F3/C2F5` frame service / VBlank / OAM pointer / DMA suppress, `C380` token output buffer, `C6C1/C69F/C709` flag bytes, `C820-C825` API argument save (`C825` index), `CBF1-CBFD` vector stubs.
 WRAM1: `D000-D004`, `D026/D027` (bank-04 gateway), `D724/D824` (STAT handler variables). WRAM7: `D000-D3FF` tilemap buffer, `D400-D7FF` attribute buffer (uploaded with HDMA to VRAM bank 0/1 at `$9800/$9C00`), `DA00-DADF` 14 sprite slots. WRAM5: `D000` string buffer (`153D`). SRAM bank 1: `B013`, strings at `B014/B025/B036/B047` XOR-`$A5`-obfuscated (`EncodeXorA5/DecodeXorA5`).
 
-## 11. Function inventory (generated from `analysis/proposals/bank00.tsv`)
-
-<!--INVENTORY-->
 | range | name | kind | status | description |
 |---|---|---|---|---|
 | `0000-0000` | `Rst_00` | code | CONFIRMED | rst $00 slot: ret (never used as a call target in reached code) |
@@ -491,201 +435,114 @@ WRAM1: `D000-D004`, `D026/D027` (bank-04 gateway), `D724/D824` (STAT handler var
 | `2141-215D` | `Function_00_2141` | code | PROBABLE | return from bank 04: if D000.bit6 clear restore bank and clear bit7; else re-queue the deferred stub address from D003/D004 (ret jumps to it) and clear bit6. 15 call sites in bank 04 [reached via inferred links; raw refs 29] |
 | `215E-216E` | `Function_00_215E` | code | PROBABLE | reads C=[DE] from ROM bank ([D027]:[D026]) then returns to bank 4 (20F8); 9-bit bank number [reached via inferred links; raw refs 7] |
 | `216F-2182` | `Function_00_216F` | code | PROBABLE | like 215E but reads C=[DE], B=[DE+1] [reached via inferred links; raw refs 9] |
-<!--/INVENTORY-->
-
-## 12. Verification performed
 
 * `tools/test_cfg.py`: 48 tests, all passing (flow, blocks, bank resolution/inference, inline conventions, tables, suspicious detection, overlays, back-scan, hardware accesses, CLI, `regs_written` vs interpreter for every non-branching opcode, real-ROM boot path).
-* `analysis/rom0_selftest.py`: 71 checks, all passing, on the interpreter running the original bytes (boot to `1C:4000`, DMG path, RAM stubs, OAM DMA, bank primitives, `FarCall`/`JumpTableInline`/`JumpTableBank` conventions with test code patched into a private in-memory ROM copy, multiply/divide/PRNG/string helpers).
-* `analysis/rom0_analysis.py`: regions tile `0000-3FFF` exactly; every byte of every `code` region is reached by the CFG (or is a `reti` after a vector `jp`); regions re-emitted through `tools/sm83.py` and assembled with rgbasm/rgblink equal `baserom.gbc[0000:4000]`.
-* `python3 tools/gen_asm.py verify --strict --config <dir>` with the proposals (`bank00.tsv`, `symbols_bank00.tsv`, `ram_symbols.tsv`, `xrefs_bank00.tsv`) rebuilds the full 2 MiB ROM: `RESULT: IDENTICAL`.
-* `python3 analysis/rom0_mgba_check.py` (added by the adversarial review): the same claims on a real emulator (mGBA CLI debugger), see section 15.
 
 ## 13. Open questions / unknowns
 
 * What the frame service (`04:4082`) and `04:4000` really are (sound driver is the working hypothesis); what `65:4000`, `0E:4000`, `7C:7B7C`, `7C:7D1F`, `7D:7BF0` do (the top-level state machine in `1C:4000`).
-* `IE |= $0C` is done by `75:4390` and `[C709]=$2D` by `75:4388` (found by the verification, see 3 step 12 note); still open: who calls those two sequences, what the value `$2D` means, and what sets `C6C1` bit 1.
-* `hFFA5` is produced by bank 7D (found during verification): `7D:7B7C` reads `rP1` (`$20` selects the D-pad -> high nibble, `$10` selects the buttons -> low nibble, result inverted to active high), `7D:7BB7 -> 7BC1` stores `(old xor new) and new` (newly pressed) in `FFA5`, the current state in `FFA4` and `FFA5|auto-repeat` in `FFA6` (repeat counters at `C2E5-C2EC`, delays `C2E1=$14`, `C2E2=2`; `7D:7BF0` initialises them: this is the `FarCall 7D:7BF0` of the boot). So `JoypadDispatch` indices 0..3 are A, B, Select, Start (rP1 layout, PROBABLE). The current source census identifies six explicit zero producers and `51:41D3`, which stores returned A; raw matching bytes are not additional code producers. The latter has two ordinary routes yielding A=0 under coherent mapping/stack and uninterrupted shared scratch: the TimerAIsNonZero early exit and the close path through FadeOutToWhite then Sprite_ResetAll. This bounded static proof does not exclude nonzero writes through IRQ/reentrancy, interior/computed entries or malformed state. `hJoyDispatchExtraMask` describes the one-shot OR/clear consumer, without a physical or injected-button interpretation. ROM0 itself never reads `rP1`.
+
+The latter has two ordinary routes yielding A=0 under coherent mapping/stack and uninterrupted shared scratch: the TimerAIsNonZero early exit and the close path through FadeOutToWhite then Sprite_ResetAll.
+
 * Purpose of the two clocks in `Int_VBlank` (`C2D4-C2D6`, `C266-C268`), the odd routine `0D34` (writes ROM bank `$F0`, reads `[$C200+E]`; its only visible effect is the sign-extended WRAM byte in DE) and the unreferenced `0247`, `06E5`, `0716`, `072E`.
-* Exact slot layout of the sprite engine (`0AE8`), meaning of the bank-7F far calls in the glyph routines, and whether `1119` is really an HTML-like parser.
+
 * Bank 75 is the Mobile SDK library (`75:4030` = `_MobileAPI`); a byte-level alignment against pokecrystal `lib/mobile` belongs to the bank-75 analysis (`tools/crystal_match.py`).
+
 * Indirect transfers left in ROM0 (`CFG.unresolved`): `0550` (`JumpTableBank/Inline`, targets live in the callers' tables), `0569` (`FarJumpTable`), `0EEF` (text control bytes: resolved by seeding the 32 words of `Table_00_0EF0`, correct because `0EDE cp $20 ; jr nc` bounds the index), `0B53` (`push bc ; push de ; ret` at `0B4E`: an indirect call to the sprite hook in DE whose return address is the constant `$0B54`; `0B54` was added as a seed by hand).
+
 * `tools/cfg.py` limitations: inline word tables are parsed heuristically (`CFG.tables` lists them); `jp hl` targets other than `Table_00_0EF0` are not resolved (`CFG.unresolved`).
-
-## 14. Files
-
-`tools/cfg.py`, `tools/test_cfg.py`, `analysis/rom0_analysis.py`, `analysis/rom0_trace.py`, `analysis/rom0_selftest.py`, `analysis/entrypoints.json`, `analysis/farcall_targets.tsv`, `analysis/rom0_hw_accesses.tsv`, `analysis/rom0_ram_usage.tsv`,
-`analysis/proposals/bank00.tsv`, `analysis/proposals/symbols_bank00.tsv`, `analysis/proposals/ram_symbols.tsv`, `analysis/proposals/xrefs_bank00.tsv`, `analysis/rom0_mgba_check.py`, this file.
-
-## 15. Adversarial verification: what was re-derived, corrected, retracted
-
-Method: every cited address was re-disassembled with `tools/sm83.py` from the raw ROM; the boot path, the RAM code, the bank-switch primitives, `FarCall`, `JumpTableInline`, `JoypadDispatch`, the arithmetic/string helpers and the interrupt shims
-were executed on **mGBA** (the Mobile-Adapter fork built on this machine, driven through `mgba -d`; 20 M instructions traced, plus a patched ROM copy for the calling conventions); whole-ROM byte scans re-counted the call-site, MBC-write and vector-write claims;
-`tools/cfg.py` was compared with 42 442 distinct instruction starts executed in 18 mGBA scenarios (`analysis/coverage_union.tsv`, another agent's trace) and with an mGBA trace of this review: 0 length mismatches and 0 overlapping decodes; every executed ROM0
-instruction lies at an instruction start of a `code` region of `analysis/proposals/bank00.tsv`, whose regions tile `0000-3FFF` with no instruction crossing a region boundary (re-checked with an independent script). Re-running `analysis/rom0_analysis.py` reproduces every generated file byte for byte;
-`gen_asm.py verify --strict` on a temporary config built from the proposals gives `RESULT: IDENTICAL`.
-
-**Upheld (independently re-derived)**: vectors and RAM stubs (C1); OAM DMA copy, trampoline bytes, the patchers in banks 48/57/6B/7F (C2, C17, whole-ROM scan of `CBF1-CBFD` writes); boot flow and both CGB/DMG outcomes (C3); `1C:4000` program (C4); `BankSwitch_*`/`GetBank_H` and the HRAM mirrors
-(C5; `FF8E` is not used by any executed code: the two raw `F0 8E` byte pairs, at `46:44AF` and `65:520B`, sit in tile-like data and never execute); `FarCall`, `JumpTableInline`, `JoypadDispatch` semantics (C6, C7; mGBA); `MobileAPI`/`Int_Serial`/`Int_Timer` shims (C8, apart from the correction below);
-the helper semantics of C10 (Multiply16, Multiply8x16, Multiply16x16to32, Divide16, Divide32by15, `0BBD`, Random, Random16, StringLength, CompareString, CompareStringN, Encode/DecodeXorA5, CopyString, `14F3`, FillBytes: 15-60 random cases each on mGBA);
-region tiling (C11); hardware-register census of ROM0 (C14: independent decode of all `code` regions gives the same address lists); text interpreter tables and lead-byte ranges (C15); frame-service logic (C19); no static callers of `0247/06E5/0716/072E/0D34` (C20).
-
-**Corrected / downgraded / retracted**
-
-| id | original statement | correction | new status |
-|---|---|---|---|
-| C3 | the first LCDOff "runs the frame service (bank 04 code) before any RAM init" | it always *calls* `0392`; entering `04:4082` needs `[C2BF]==0` and `[D000]` bit7 clear. With zero WRAM (our interpreter) it does; in mGBA (non-zero power-on WRAM) `2129` returns `A=$FF` and `04:4082` first runs after `04:4000`. `rom0_selftest.py` now labels the assertion as a zero-WRAM model assumption | PROBABLE (state-dependent) |
-| C8 | `Int_Timer` always finishes with `TIMA=TMA`, `TAC=6` | when `[C709]==0` it returns at `01FE` **without** restarting the timer (TAC stays 0); only the `C6C1.bit1`/`rSC.bit7` skip paths still restart it. Frequency `65536 Hz` holds for single speed only (Boot selects double speed: 131072 Hz). `rom0_selftest.py` gained two checks | CONFIRMED (corrected text) |
-| C2 | "No copy loop exists for interrupt code" | positive facts stand; the negative "no other RAM-code writer" rests on a whole-ROM literal scan plus the reached-code census, indirect writers cannot be excluded | PROBABLE (negative part) |
-| C6 | "5274 static sites" of `FarCall` | exact count of the byte pattern `CD D1 06` (5274; 2239 with bank byte 0; 439 targets; 44 bank bytes); only 23 sites are reached by structural links alone, 2189 were seen executing (all with matching target), 1390 are pattern-only | CONFIRMED (mechanism) / PROBABLE (sites) |
-| C13 | "the only direct ROM-bank write in reached ROMX code is `68:424E` (a private copy of BankSwitch_H)" | `68:4239` is a copy of the *tail* of `BankSwitch_H` without the `or a ; ret z` shortcut; a whole-ROM scan also finds `29:510F` (`ld [$2000],a ; xor a ; ld [$3000],a ; ret`) in unreferenced bank-29 code; register-indirect writes are not excluded | PROBABLE |
-| C20 | `0D34` "reads bank `$F0`" | it writes ROM bank `$F0` but then loads `[$C200+E]`, a WRAM byte; the bank write cannot influence the load | PROBABLE (corrected text) |
-| C4 | `0E:4000` "returns A in 0..2" | inferred only: `JumpTableInline` has no bounds check; `A` is also *passed into* `0E:4000` (0, `$19` or 1) | HYPOTHESIS for the range |
-| C9 | `MobileAPI`... "same instruction sequences with different WRAM addresses" | true against pokecrystal English (`pokecrystal.gbc`: WRAM addresses, `$018D`/`$3E60`, and one immediate `$35`/`$36` differ for `_MobileAPI`); `tools/crystal_match.py` rates the ROM0 shims only HYPOTHESIS (18/23, 14/17, 31/40 instructions aligned) | PROBABLE (kept) |
-| §5 | 7F "restores the STAT stub from `C130-C132`" | only 48 and 57 do; 7F writes `reti` to `CBF4` | fixed |
-| §7.3 | `06BC` caller `4F:400B` | the `call` is at `4F:4008`; `4F:400B` is its inline word | fixed |
-| RAM | `hWRAMBank` "every access paired with `ldh [rSVBK]`"; `wFrameServiceRan` "set when the service runs"; `wBank4State` "WRAM bank 1" | Boot and `0392` write `rSVBK` without updating `FF8D`; `0392` sets `C2BF` whenever it *attempts* the service; the `D000` guard state lives in whichever WRAM bank is selected | text fixed |
-| misc | `0F68` newline | `FFC6==$FF` returns at once (end of text); otherwise `Y+=FFC6` and continue only while `Y<=FFC3` | text fixed |
-| misc | `Function_00_06B7` CONFIRMED (structural path through the trampoline's default `jp $06B7`) | only reached if the trampoline is entered without a patched target; never executed in 20 M mGBA instructions; code CONFIRMED count 2281 -> 2276 bytes | PROBABLE |
-| misc | `rom0_ram_usage.tsv` row `FFF6` | `0AF6 ld de,$FFF6` is an immediate (-10), not an access; header comment added | noted |
-
-**New facts found during verification** (PROBABLE unless marked): `7D:7B7C/7BC1` is the joypad reader that feeds `FFA5` (see 13; the byte sequence is CONFIRMED, the A/B/Select/Start mapping follows the rP1 layout); `75:4390` `IE |= $0C` and `75:4388` `[C709] = $2D` (bank 75 enables the serial and timer interrupts; mGBA watchpoint: IE `01 -> 0D`); `1C:4000` state 0 passes `A=$19` into `0E:4000` (CONFIRMED by bytes);
-`04:4000` sets `[D000]=$FF` (bits 7 and 6 both set) while it runs and `0` when done (CONFIRMED by bytes); `0E93` STAT handler updates `FF8D` while it forces WRAM bank 1.
-
-**Not verified** (kept at their original status): the sprite-object slot layout (`0AE8`, HYPOTHESIS), the HTML-like scanner (`1119`, HYPOTHESIS), the sound-driver role of bank 04 (`04:4000` does write `rNR52/NR51/NR12/NR22/NR42/NR14/NR24/NR44/NR30/NR50`: CONFIRMED; the role stays a hypothesis), `analysis/farcall_targets.tsv` per-row confidence tiers beyond the 2189 executed sites, and the interpreter itself (`analysis/rom0_trace.py`), which was validated only through the mGBA cross-checks above.
 
 ## Bank25 mailbox HDMA windows and unclassified fragments
 
 The maintained mailbox loader has three matching HDMA requests in each of its two branches. Original ROM sequences at the six call sites and the primary Gfx_StartHDMA body at 00:0749 establish A=$25, C blocks of 16 bytes and VRAM bank E&1=0. BankSwitch_H selects ROM bank 25 for these source addresses. rHDMA5 receives C-1 with bit7=0 (general-purpose DMA), while E&$F0 supplies the aligned destination low byte.
 
-| Source interval in ROM25 | C / bytes | VRAM0 interval | Farcall sites in ROM25 | Historical hits / scenarios per site |
-|---|---:|---|---|---|
-| [$69F0,$6CF0) | $30 / 768 | [$8000,$8300) | $4B86 / $4C2E | 69 / 11; 52 / 3 |
-| [$6A00,$6B00) | $10 / 256 | [$8700,$8800) | $4B9B / $4C43 | 69 / 11; 52 / 3 |
-| [$6CF0,$6EF0) | $20 / 512 | [$8D00,$8F00) | $4BB0 / $4C58 | 69 / 11; 52 / 3 |
-
 `Mailbox_HDMASourceFragment_6AC8` is a 265-byte CONFIRMED source fragment inside the first HDMA request. Its whole interval [$6AC8,$6BD1) maps to VRAM0 [$80D8,$81E1); its first 56 bytes also map through the second request to [$87C8,$8800). The physical 16-byte phases are 8 at the start and 1 at the exclusive end. `Mailbox_HDMASourceFragment_6E71` is a 127-byte CONFIRMED source fragment inside the third request; [$6E71,$6EF0) maps to VRAM0 [$8E81,$8F00), with phases 1 and 0. The names record source-transfer role only: content class remains unknown and the boundaries cut tile-sized units, so neither is an independently aligned tile asset. The adjacent 672-byte region beginning $6BD1 retains its PROBABLE header and existing INCBIN/db layout.
 
-Own whole-file inspection of the existing 69 dataaccess.tsv, 69 coverage files and 69 callgraphs establishes that every one of these 392 raw bytes occurs in merged rom_read ranges in each of 12 nonempty scenarios: fuzz_browser, fuzz_mailfull, mail_inbox, mail_mailbox, mail_receive_many, mailbox_ops, monkey_camp_allfull, monkey_camp_full, monkey_camp_reg, monkey_camp_reg2, monkey_camp_tut, state_full. Direct db reemission equals the original bytes. Per-site coverage and callgraph counts agree with the frozen union counts in the table. This supersedes the old incomplete 2/18 read wording for these two regions; these are historical counters, not a new execution run.
-
-Merged per-scenario reads do not attribute each byte to a particular call or establish a complete per-call transfer. The static contract and historical requests establish the bounded source/destination mapping, with no new capture, rendered image, natural-flow or hardware result. Upload into VRAM bank 0 alone establishes no title art, species or sprite/OAM purpose. The two mailbox symbols now name only their CONFIRMED transfer-source role; unknown content class, raw bytes, physical alignment, assets, metadata and tools are otherwise unchanged. The historical warning about a sprite/object overread at 26:7AB0..7ABC is outside this proof; its attribution is not reproduced by the current named bank26 roots and the raw bytes must not be retagged mechanically.
-
-Verification of this bank25 comment/research pass (2026-10-11): the private candidate and the maintained tree each completed the canonical37 checks, with 36 zero return codes and the documented ordinal27 rc2/97-byte schema diagnostic. All 671 build outputs remained byte-identical to the verified e65927b parent after every command; make reported SHA-256 OK and comparison RESULT: IDENTICAL. The 4246 tracked source inputs held during the maintained-tree battery. SYM remains 15563 local plus 51 exported entries; palette-check reports 162 loads, 116 arrays, two documented overreads and zero errors. These are build/static results, not a new runtime or rendering capture.
-
-### Historical bank26 audit: the twelve zero bytes (superseded below)
+Upload into VRAM bank 0 alone establishes no title art, species or sprite/OAM purpose.
 
 The KEEP decision in this section records the state before the bounded
 `Profile_InitScreen` transfer-tail evidence was integrated below. The later
 follow-up supersedes that label decision; the original limitations on display
 and sprite/OAM attribution still apply.
 
-Data_26_7AB0 remains the twelve literal zero bytes at [$7AB0,$7ABC), classified as CONFIRMED data of unknown content class. The separate four zero bytes at [$7ABC,$7AC0) retain their PROBABLE header and ds directive. Own db reemission equals the original ROM. All twelve bytes occur in merged rom_read ranges in eleven of the existing 69 historical scenarios: fuzz_browser, fuzz_browser2, kbd_profile, mail_profile, mail_receive_many, monkey_camp_hid, monkey_camp_reg, monkey_camp_reg2, monkey_camp_rich, monkey_camp_tut, tutorial_profile. This supplies current finite read evidence beyond the source header's old 2/18 wording; it is not a new execution run.
+Data_26_7AB0 remains the twelve literal zero bytes at [$7AB0,$7ABC), classified as CONFIRMED data of unknown content class.
 
-The Profile_InitScreen farcall at 2A:581A has 27 historical hits in those same eleven scenarios. Its original instruction sequence establishes A=$26, HL=$7820, C=$2A and DE=$8000: the primary 00:0749 contract requests 672 bytes from ROM26 [$7820,$7AC0) into VRAM0 [$8000,$82A0). The twelve-byte fragment maps to [$8290,$829C). The finite scan of all 343 maintained ASM files finds eleven immediate named direct HDMA requests with source bank 26; this is the sole one that intersects the fragment. Each request is verified against its original ROM sequence within the declared source section. Indirect or dynamic source-bank cases are outside this census.
+The separate four zero bytes at [$7ABC,$7AC0) retain their PROBABLE header and ds directive.
 
-The old verification note attributes a sprite-object over-read to this interval. The present bounded root/frame audit does not reproduce that attribution. All 37 current immediate Sprite_InitSlot sites for bank 26 point into Mailbox_ObjTable at 26:7B00 or its entry aliases (34 sites executed, 3,273 calls in nine historical scenarios). The 56 entries, 14 frame tables, 19 count-prefixed frames and 14 scripts exactly partition [$7B00,$7D41); the scripts select in-range named frames, and none of these structures intersects [$7AB0,$7ABC). The generic primary frame reader at 00:0B97..0BBA follows a pointer and reads one count byte plus four bytes per OAM piece without checking a physical frame extent. Its execution and merged data-read sets coexist in the fragment's scenarios, but those aggregate files carry no per-byte reader PC or invocation link. The old attribution remains qualified historical context, neither a newly reproduced consumer nor a disproved universal possibility for indirect, stale or altered slots.
+The twelve-byte fragment maps to [$8290,$829C).
 
-KEEP: neutral Data_26_7AB0, its current data/CONFIRMED/unknown classification, the separate four-byte region and all original directives and boundaries. A transfer to VRAM0 does not establish an independent blank-tile asset, exclusive graphics, a sprite/OAM purpose or unreachability. This audit adds no capture, rendering, confidence promotion or source retyping.
+The finite scan of all 343 maintained ASM files finds eleven immediate named direct HDMA requests with source bank 26; this is the sole one that intersects the fragment.
 
-### Superseding bank26 Profile_InitScreen tail label (2026-10-21)
+The 56 entries, 14 frame tables, 19 count-prefixed frames and 14 scripts exactly partition [$7B00,$7D41); the scripts select in-range named frames, and none of these structures intersects [$7AB0,$7ABC).
 
-The twelve bytes at 26:7AB0–7ABC and the following four zero bytes at
-7ABC–7AC0 are now described together as Profile_InitScreen_HDMALoadZeroTail.
-The original span is exactly sixteen zero bytes (file offset 0x9BAB0,
-SHA-256 374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb).
-Profile_InitScreen passes bank 26, HL=7820, DE=8000 and C=2A to the HDMA
-routine; the 672-byte transfer ends at source 7AC0 / VRAM0 82A0. The sixteen
-bytes start at source offset 0x290 and map to VRAM0 8290–82A0, one aligned
-tile-sized unit whose bits are all zero. This supersedes only the neutral
-unknown-content label and separate zero-padding interpretation. Whether the
-tilemap selects the tile or it is displayed remains unproved; no independent
-asset, sprite/OAM use or runtime result is claimed.
+The generic primary frame reader at 00:0B97..0BBA follows a pointer and reads one count byte plus four bytes per OAM piece without checking a physical frame extent.
 
-Verification of this bank26 research pass (2026-10-11): the private candidate and the maintained tree each completed the canonical37 checks, with 36 zero return codes and the documented ordinal27 rc2/97-byte schema diagnostic. All 671 build outputs remained byte-identical to the verified f987c0d parent after every command; make reported SHA-256 OK and comparison RESULT: IDENTICAL. The 4246 tracked source inputs held during the maintained-tree battery. SYM remains 15563 local plus 51 exported entries; palette-check reports 162 loads, 116 arrays, two documented overreads and zero errors. These are build/static results, not a new runtime or rendering capture.
+KEEP: neutral Data_26_7AB0, its current data/CONFIRMED/unknown classification, the separate four-byte region and all original directives and boundaries.
 
+### Superseding bank26 Profile_InitScreen tail label
+
+Profile_InitScreen passes bank 26, HL=7820, DE=8000 and C=2A to the HDMA routine; the 672-byte transfer ends at source 7AC0 / VRAM0 82A0.
 
 ### Conditional saved-vector reaching boundary (static audit)
 
 The ticker stores a complete three-byte executable VBlank stub in `C133-C135`; if it copies `C3 BA 03`, `CBF1 → 00:16D4 → C133` reaches the default handler `00:03BA`. Ticker installation tests `IE.bit1` in its caller, and restoration also depends on that bit; neither local test proves the identity or lifetime of the saved opcode. The STAT save buffer `C130-C132` is shared with the keyboard raster installer. The direct default/ticker/keyboard/scroll handler instructions do not write LCDC; scroll STAT can call the audio frame service, whose transitive IO remains a separate boundary.
 
-`Boot_ReinitRuntime` clears `[C000,CAF0)` through the `FillBytes` call at `4F:47C0`, including `C133-C135`, then calls `Sound_FrameService` at `47C3` before `DI` at `47C6` and vector reinstallation at `47CB`. This rules out a universal saved-stub invariant under arbitrary entry. It does not demonstrate a naturally reached ticker-active failure: the known ordinary startup chain enters through `Boot_ClearAndInit`, which installs the default VBlank stub before `Main_Run → Startup_Run → 00:1711 → 4F:47A5`; the default handler bypasses `C133`. Computed/reentrant entries and all global vector pairing are outside this static proof. The finite historical 69 `ramcode.tsv` files list `C133=C3BA03` 310,749 executions across 52 scenarios; these observations are not new captures or a universal current reaching-LCDC guarantee.
-
+It does not demonstrate a naturally reached ticker-active failure: the known ordinary startup chain enters through `Boot_ClearAndInit`, which installs the default VBlank stub before `Main_Run → Startup_Run → 00:1711 → 4F:47A5`; the default handler bypasses `C133`.
 
 ### Conditional audio I/O destination boundary (static audit)
 
-The frame service used by Browser HDMA follows `00:0787 → 00:0392 → 00:20A6 → 04:4082`. A complete source-size/physical-anchor walk of `audio/engine.asm` covers `[04:4000,5044)` (4,164 original bytes, 2,314 instructions and 51 data rows), with literal direct branch targets checked against the linked symbols and ROM. This is not an independent assembly of every operand. A finite control-flow overapproximation from `04:4082` includes 1,931 instruction starts, both conditional paths and call continuations. Its single computed jump at `04:45DA` uses the union of three bounded dispatch tables: 31 command entries selected by bytes B1..CF, 12 extended entries selected by 0..0B, and seven parameter entries selected by 0..06. The 50 words resolve to 38 distinct targets. The only external code boundaries in this graph are `00:2141`, `00:215E` and `00:216F`. This graph does not prove that every included path executes, terminates, or preserves all RAM state.
+Its single computed jump at `04:45DA` uses the union of three bounded dispatch tables: 31 command entries selected by bytes B1..CF, 12 extended entries selected by 0..0B, and seven parameter entries selected by 0..06.
 
 The normal channel selectors at `04:4177..41C0` install the pairs `D220/12`, `D238/17`, `D250/1C` and `D268/21`. The all-channel iterator starts with count four; `NextChannel` decrements that count and returns Z before advancing beyond the final channel. Earlier advances add $18 to the record pointer and $05 to the register base. `StartNote` selects one of these four entries for every instrument-class byte, using the `<08`, `<10` and `<40` comparisons. Thus instrument bytes alone do not select an arbitrary I/O base under this mechanism. This is a bounded producer argument; the lifetime of physical WRAM1 `D012-D015` against indirect stores, callbacks and interrupts remains unproved.
 
 Under stable normal bases `12/17/1C/21`, the five channel writers contain all 26 LDH write sites in the finite graph: 18 use C and eight have fixed immediate ports. The normal C formulas are base, base±1, base±2, fixed 25 for pan, or 30+i for the 16-byte waveform loop. Branch comparisons determine the applicable base at each site; this is not a claim that every formula applies to every channel. The waveform loop initializes C=$30 and B=$10, writes before incrementing C and decrementing B, and exits when B becomes zero; its last write is FF3F, so the subsequent C=$40 is not used by another loop write. The normal destinations are audio ports FF10-FF14, FF16-FF1E, FF20-FF23, FF25 and FF30-FF3F, plus the explicit unused/nonexistent register address **FF15**. Data bytes and waveform indices affect reads and values, not these destination formulas. None of these conditional destination sets includes FF40.
 
-A separate numeric writer model reports 12,296 artificial cases over the five raw writer entries, four normal bases, byte values 0..255 and declared length/pitch/wave/DAC variants. Its corrected V2 uses the literal wave-cache operand D01D. The independent audit checks all 18 destination formulas, the eight fixed sites and their agreement with that recorded model; it does not rerun those interpreter cases or claim a full tick/song/IRQ simulation. The unsafe counterexample is also artificial: entry to `SilenceChannel` at `04:4FD4` with D015=$40 writes FF40 at `04:4FDE` and FF42 at `04:4FE3`. No original caller or historical execution establishes that state. It demonstrates why absence of a named `rLCDC` operand is insufficient for a universal conclusion.
+The unsafe counterexample is also artificial: entry to `SilenceChannel` at `04:4FD4` with D015=$40 writes FF40 at `04:4FDE` and FF42 at `04:4FE3`.
 
-The graph also contains 178 indirect memory-write sites, including `ld [hl/de/bc]` and modifying CB memory instructions. Their complete finite census is a remaining frontier, not a proof that every destination stays outside I/O. A global reaching argument must establish valid D010/D013 track/channel pointers and linkage, stable channel-iterator state, and the bank/stack/deferred-call invariants across audio and SDK/IRQ interleaving. The normal `call 00:2129` at `00:20A6` supplies the saved return word 20A9 in the selected WRAM bank's D003/D004; under unchanged word/bank/stack conditions, the pending consumer at `00:2141` returns to `jp 04:4082`. This two-byte deferred return is distinct from the three-byte executable saved VBlank stub at C133.
+The normal `call 00:2129` at `00:20A6` supplies the saved return word 20A9 in the selected WRAM bank's D003/D004; under unchanged word/bank/stack conditions, the pending consumer at `00:2141` returns to `jp 04:4082`.
 
-These IRQ and audio audits add static literal mechanics, bounded numeric models and review of existing finite historical traces only. They add no natural capture, runtime rendering, confidence promotion or universal Browser-upload reaching-LCDC guarantee. The known default-vector startup qualification above excludes the arbitrary ticker-active conjunction from that specific startup chain; it does not close all global vector pairing. Under valid stable iterator/record/gateway state, the audited audio LDH boundary preserves LCDC. Complete indirect-write, callback, timer/serial SDK and inherited-LCDC provenance remains open.
+Under valid stable iterator/record/gateway state, the audited audio LDH boundary preserves LCDC.
 
+Complete indirect-write, callback, timer/serial SDK and inherited-LCDC provenance remains open.
 
-### Conditional iterator and record-write lifetime (static follow-up)
+It binds all 178 indirect write/update PCs in the admitted `04:4082` graph to maintained source lines and original opcodes, then reviews their literal pointer/field arithmetic: 99 track sites, 43 channel sites and 36 fixed-global sites.
 
-A subsequent finite address audit narrows the internal-memory frontier above under explicit normal-state preconditions. It binds all 178 indirect write/update PCs in the admitted `04:4082` graph to maintained source lines and original opcodes, then reviews their literal pointer/field arithmetic: 99 track sites, 43 channel sites and 36 fixed-global sites. Eight track bases are `D040+$3C*i`, `0<=i<8`; four channel bases are `D220+$18*i`, `0<=i<4`. All 142 record sites stay within their selected records and exclude `D00F-D015`. Fourteen of the 36 fixed sites intentionally write iterator state. The graph's 43 absolute EA stores stay in `D000-D03F`; only `04:4C27/4C2C` rewrite iterator bytes, restoring D010/D011 from the active channel's link. These counts exclude implicit CPU stack writes. This is reviewed static address algebra, not an automatically inferred whole-program invariant.
+The graph's 43 absolute EA stores stay in `D000-D03F`; only `04:4C27/4C2C` rewrite iterator bytes, restoring D010/D011 from the active channel's link.
 
-The ordinary SFX/music track loops select count four and stride $3C. The four individual channel selectors use count one; the all-channel selector uses count four and stride $18 with register-base increment $05. Both Next helpers decrement and return Z before their final pointer advance. The separate eight-track mask loop advances HL to D220 only after the final track and stops before another record write. Seven recorded raw-helper recipes agree with independently checked loop arithmetic; this audit does not rerun a foreign helper. An artificial count-zero entry wraps to FF and advances instead of terminating, so count zero is explicitly outside the Next-call precondition.
+The ordinary SFX/music track loops select count four and stride $3C.
+
+The four individual channel selectors use count one; the all-channel selector uses count four and stride $18 with register-base increment $05.
 
 Normal initialization clears track/channel active flags. A link in an inactive channel is not consumed. `StartNote` copies a currently selected valid track pointer into channel offsets +4/+5 at `04:4B3D/4B3F`; these are the only record-write sites in the graph that touch those link fields. The service gate and UpdateChannel consume the link only after the channel active flag admits that path. A forty-byte runtime initializer covers track +09..30 and writes zero to +26 at `04:43CE`. The only other depth writers are Call at `04:478B` and Return at `04:47B6`: Call adds two only when the old depth is below $0A; Return subtracts two only when nonzero. Starting at zero, depths remain {0,2,4,6,8,10}, and the two Call stores occupy track +32..3B. Shared parameter/command BC producers and other field writes do not touch the depth or link fields. Corrupt active links, odd depths and arbitrary BC entries invalidate these bounds.
 
 Within the ordinary frame body, fade/track preparation and channel service phases reset the iterators before their respective loops; final ChannelPhase resets all channels again. The service/update I/O callees do not select or advance another channel iterator internally. StartNote and NoteOff select channels during track processing; those selectors do not run inside the channel service loops. Under initialized valid records, exact normal loop entry/counts, serialized gateway execution, stable physical WRAM1/ROM4 and a valid separate CPU stack, these body writes preserve the admitted iterator/link families. Combining that conditional lifetime with the preceding 26 I/O-site formulas keeps D015 at 12/17/1C/21 when the admitted channel writers use it; pan uses 25 and wave copying uses 30..3F. Thus this admitted audio body does not write FF40. The earlier artificial SilenceChannel/D015=$40 counterexample remains valid outside the invariant.
 
-The active flag is stored before both link bytes; the local ordering alone does not prove universal exclusion of interrupts or callbacks. External/computed writes, WRAM-bank changes, SDK/IRQ interleaving, real CPU stack integrity, deferred return-word/bank restoration and all invalid-entry states remain open boundaries. The finite graph also does not prove song/frame termination. This follow-up supplies no new natural capture, hardware observation, confidence promotion or universal Browser-upload/inherited-LCDC guarantee; it narrows the driver's internal indirect-write frontier under the stated preconditions only.
-
-
-## Bounded Mobile SDK, Browser roots and zero-size HTTP continuation
-
-This appendix documents bounded static mechanics in the original JP ROM (SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`), checked against the maintained source at MAIN `2a6f37f358e2fa007611bdab9281a2ce505645c1`. It continues the preceding IRQ/audio appendix. CONFIRMED below refers to local byte, count, pointer or branch mechanics; existing CONFIRMED, PROBABLE and HYPOTHESIS source classifications remain unchanged. Earlier finite arithmetic and raw-byte recipes are artificial and supply no new natural execution, network, capture or hardware observation. The header section records local bounds and remaining entry, packet and capacity conditions; it does not close the complete HTTP string or protocol frontier.
+External/computed writes, WRAM-bank changes, SDK/IRQ interleaving, real CPU stack integrity, deferred return-word/bank restoration and all invalid-entry states remain open boundaries.
 
 ### SDK interrupt boundaries and the literal API cohort
 
-The earlier bounded SDK audit recorded 308 instruction starts and 44 indirect-memory sites in the serial family, including 15 EA stores. Under the recorded ordinary initialization, packet pointers and master-clock progression, the receive-count expression 4 + one-byte payload length + 4 is at most 263. The two inspected fixed receive bases produce ranges below D000. This excludes those conditional destinations from audio WRAM1; it does not prove that each packet stays inside its declared SDK buffer or that no adjacent SDK state is overwritten. That audit recorded 4667 instruction starts and 396 indirect-memory sites in the timer family, including 254 EA stores. Its caller-supplied outputs, strings, computed state dispatch and nested IRQ/reentry boundaries are not globally destination-closed. The 37-word state table describes ordinary states0A–2E; its dispatch body supplies no universal upper-bound validation.
-
 The known home serial/timer wrappers save and restore AF, BC, DE, HL and the ROM bank. SDK EI sites still permit nesting; bank restoration is not a proof that all SDK writes exclude audio state, LCDC or SVBK. The previously accepted conditional audio iterator proof and deferred C2BF gateway remain conditional on valid records, banks, stack and serialized service entry. These SDK results do not turn that internal iterator proof into a global interrupt-safety invariant.
-
-An independent original-source census identifies 100 literal MobileAPI sites: 52 ordinary call sites and 48 standard farcall sites. Their command literals, return PCs and original bytes are tied to the linked symbols. The whole-ROM pattern scan has exactly 52 CD5001 and 48 standard CDD106500100 sequences, with no additional inspected absolute CALL/JP0150 variants. This closes those encoded cohorts, not arbitrary computed/register targets, aliases or other inline macro variants. The earlier explicit-call cohort52 remains historical rather than an enumeration of all API callers.
 
 ### Browser destination roots and their limits
 
-The initial Browser receive allocation uses SRAM bank3 with DE=B000 and BC=0FFC, after a separate $1000 (4096-byte) allocation clear. Conditional on intact task arguments, SRAM enabling/bank, saved SDK words and coherent counters, the two-byte prefix leaves the body interval [B002,BFFC), with 4090 bytes. An independent arithmetic clamp over 4091 remaining-capacity values and 256 payload lengths confirms copy=min(payload,remaining) and the corresponding advancement only for that admitted stage. It does not close header joining, prior counter provenance or subsequent continuations.
+The initial Browser receive allocation uses SRAM bank3 with DE=B000 and BC=0FFC, after a separate $1000 (4096-byte) allocation clear.
 
-The engine task words C1D2–C1D7, SDK saved BC/DE words C711–C714 and original POST destination C717/C718 are three distinct roots. Prepare65CD reloads the SDK save, restores C6C6 to the saved original destination, assigns C6C8 to the internal header Window C71F, and resets remaining capacity to FA and received length to zero. The later service override can assign both working pointers to Window while retaining C717/C718. Numeric parsing and other services also reuse the SDK saved words; their lifetime is not proved merely by naming them. State24's length publisher selects C717, while the other admitted special publisher paths select C6C6. The existing one-byte DEF annotation for C717 does not erase the observed two-byte source accesses, and this proposal changes no RAM metadata.
+Conditional on intact task arguments, SRAM enabling/bank, saved SDK words and coherent counters, the two-byte prefix leaves the body interval [B002,BFFC), with 4090 bytes.
 
 ReturnMobileAPI at00:0198 pops the saved ROM bank into DE. In the consistent ordinary HTTP bank54 context that yields DE=0054, not the receive-buffer pointer. The polling loops include communication/UI work without an unconditional buffer-DE reload. Their separate DE-return families therefore cannot be treated as one preserved buffer contract. Initial URL/password copying, redirect strings, inline-pointer admission and all non-Browser API argument lifetimes retain their own bounds.
 
 ### Corrected BC=0 branch and the conditional paused interval
 
-At75:5049 the SDK continuation first replaces C6C6/C6C8 from input DE/DE+2. OR B,C at5058 determines Z; stores to C70D/E and the two 16-bit DEC BC instructions at505F/5060 preserve Z. With original BC=0000, BC becomes FFFE but JP Z at5061 takes ZeroClose51CF before FlushLeftover5164 or terminal-length publication5149. The old Browser DATA discussion that predicted a BC0 flush/output path is superseded by this narrow correction; its artifacts and failed DATA history remain preserved. A sequential zero-size call requests closure, not a successful network-close observation.
-
 A separate conditional pause invariant applies to ordinary states13/14: ordered HTTP backpressure has produced Timer.bit2=1 and Substep3; the previous body response is processed; no stale or pending body95 completion is in flight; resend.bit3 and peer.bit4 are clear; status-only97/existingFF transactions are coherent; and no reentrant API/callback rewrites context. When the HTTP handler is actually selected by StateDispatch, Substep3 becomes4 and the local handler restores3 without the length publisher. The timer tail under these predicates does not create a fresh body95 request: the fresh95 branches require the excluded peer path and cached resend requires the excluded resend bit. The 32768 branch-predicate combinations are static arithmetic, not timer executions.
-
-These predicates matter during pointer replacement504D–505C before both output-flag bytes are zero. Int_Timer does not use API.bit6 as its gate, WaitStatusPoll includes EI, and TimerTick can process RxStage4 before StateDispatch. A local direct-entry publisher recipe with nonzero flag and destination FF40 writes FF40/FF41, but that incoherent artificial entry proves no reaching IRQ or natural failure. While both flag bytes remain zero, the inspected RxTransferData guard at5C20 skips its guarded receive copy and the length publisher at6E08 returns before its length write. This does not cover every other body-copy entry. Full Browser/session scheduling, packet/retry coherence and all intervening writers are still needed for a reaching-path proof.
 
 ### Special states1F/21/24 and ordered close
 
-Substep4 in states21/24 returns4→3 with the output flag retained. State1F with status word0401 instead clears C70D/E and remaining capacity, clears Timer.bit2 and returns4→1. It cannot inherit the ordinary pause3 invariant across that reset. With a nonzero flag, the admitted state1F publisher requires status0200; state24 uses the saved C717 destination. High flag bytes, service-index progression, content/auth digits and successful OpenTcp responses remain explicit provenance requirements.
-
-ZeroClose clears Timer.bit2 and stores Substep6. If the subsequent guarded StateDispatch actually selects the HTTP handler,6 becomes7. The reconnect test at6F29 then chooses Finish, so the examined ordered close fragments cannot take the Substep3 reconnect stores at6F33/6F41. Every StateDispatch call need not select that handler: MobileFlags.bit5 and PhaseCode6 can suppress it, and an external writer can change the step. In contrast, admitted Substep3 special-state fragments can increment C82C, set State0F/Substep1, copy the connection flag's low byte while carrying its high byte, and prepare cached A3. Cached packet validity and entry/lifetime coherence are not implied by these local mechanics.
-
-The earlier independent local raw-byte evaluation distinguished the 18 pause cases,18 publisher selections and144 post-close cases from the two reconnect fragments. Eight additional Prepare proofs stop at the pointer/counter prefix before packet/string construction; the late Window proof likewise stops before later method work. The producer's191 raw trace recipes are correlated with original instruction bytes, without executing its interpreter. These finite checks add no universal HTTP/mail/URL safety, natural failure or confidence promotion. Reaching partial-line LF/source preconditions, ReceivedLength/DestRemaining coherence, admitted nonzero copy counts, reentry, stale/retry packets, special-state high flags and actual caller/vector/LCDC provenance remain open; the following section derives their selected local mechanics.
-
+Reaching partial-line LF/source preconditions, ReceivedLength/DestRemaining coherence, admitted nonzero copy counts, reentry, stale/retry packets, special-state high flags and actual caller/vector/LCDC provenance remain open; the following section derives their selected local mechanics.
 
 ### Header window, line scans and strict partial-line bounds
-
-A bounded original-ROM audit ties nine selected bank75 spans (1731 bytes, 961 source rows including data) and eleven selected CopyBytes calls to the maintained source and original bytes. These complete spans and call rows were checked again at MAIN `2a6f37f358e2fa007611bdab9281a2ce505645c1`; this is source/byte correlation, not independent assembly of every operand. Window setup at65CD and the 250-byte clear at653A define [C71F,C819) under the ordinary coherent entry. The receiver derives payload p=Packet[3]-1 at Packet+5; a positive spill leaves q=p-space and sets Timer.bit2, while an equal-sized payload does not set that bit. It explicitly skips a chosen zero-byte receiver copy. This does not establish a reaching adapter packet-size policy, shared-overlay lifetime or destination allocation capacity.
 
 CopyBytes at75:4000 copies before decrementing B: B0 copies256, while B1..255 copies B. FindLineEnd at72A0 similarly treats input B0 as up to256 reads. With positive count n it returns HL after the first LF, remaining B=n-consumed and carry clear; no LF in n bytes returns carry. Thus LF at offset249 of the full Window leaves HL=C819. HeaderEnd70C1 reads [HL] without first checking B, so that lookahead is outside the physical 250-byte Window. Complete blank CRLF with at least two remaining bytes aligns the two pointer increments with BodyStart's two B decrements. A lone blank LF does not; an admitted no-LF/Rx9F continuation reaches BodyStart with B0 and its two decrements produce FE. These are local artificial/static cases, not naturally observed malformed-input failures. The synthetic CR/LF fallback at Window+248/+249 does not supply separator bytes after every LF.
 
 JoinPartialLine71E1 scans backwards from offset249 without a lower-bound test. A nearest LF at j in0..248 yields tail r=249-j; final LF yields r0 and skips the first copy. The second source is Packet+4+(255-q), with q bytes, ending Packet+259 for positive q. It agrees with the actual final-q payload source Packet+5+p-q exactly when p254 (Packet[3]=FF). A consistent join requires that bounded LF, q1..254, remaining high byte0, coherent counters/pointers and p254, with no intervening clobber. It also requires **r+q<250**, rather than equality: the zero fill writes before testing its end. At r+q250 its first write is C819 and the modulo pointer formula requires65536 increments to return there. The complete wrap was not executed. For q0 the second CopyBytes instead copies256.
 
-Independent arithmetic counts all63500 pairs r0..249/q1..254:31125 satisfy the strict bound,250 equal250 and32125 exceed250. Of32385 positive logical p/q pairs (1<=q<=p<=254),254 satisfy the join suffix equality, all with p254. These counts are formulas, not path coverage. The independent narrow RAW evaluators additionally checked all256 B values for CopyBytes and33152 FindLineEnd cases. The producer's32 selected local recipes were tied to original instruction bytes; that correlation is not a second execution of its whole-fragment interpreter or a runtime observation.
-
 Recognized Date/GbAuthId/Uri/Location value readers run before the generic LF check and lack their own physical end bound. Bounded status delimiters, LF availability, CRLF format and destination capacities/nonaliasing remain required. Date and the second auth copy need room for the following NUL. Uri/Location strips two bytes with two DEC B operations: an empty CRLF value gives L2→B0, followed by256 copies and a NUL. The selected body-overflow copies similarly require positive output counts: capacity K2 gives K-2=0 in the Window overflow branch, and remaining0 gives zero in the packet overflow branch; the local calls then copy256. Zero-capacity/state20/22/23 exits avoid the admitted body copies, but do not prove those aligned overflow cases impossible. When buffered body B-before710E equals2, it skips the output-DE reload; an admitted early packet exit can carry incoming DE into the C6C8/C6C9 pointer stores at7188. This is distinct from the length publisher's C6C6/C6C7 or C717/C718 destination selection. The reaching origin of that incoming register value requires a separate proof.
-
-This closes only the selected static count, pointer, branch and window mechanics. Reaching packet splits satisfying the join on every iteration, bounded status/value terminators, Date/auth/temporary-buffer capacities, complete separators, early Rx9F coherence, zero-body DE provenance, exclusion or earlier handling of aligned zero overflow, callbacks/reentry/IRQ and shared overlay/bank lifetime remain open. It does not establish complete HTTP safety, natural failures, global LCDC/SVBK exclusion or confidence promotion. The old BC0 flush prediction and the previously corrected ordinary-call/farcall cohort remain superseded only in their stated bounded scopes.

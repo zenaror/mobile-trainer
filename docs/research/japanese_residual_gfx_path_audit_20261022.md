@@ -1,8 +1,4 @@
-# Japanese residual graphics path audit (2026-10-22)
-
-This checkpoint resolves the final 44 exact address-only graphics filename stems found in the Japanese tree. Three static audits covered the disjoint Bank 71 account/registration owners, Bank 50 CommNotice owner, and Bank 5F keyboard panel owner. All proposed names are bounded to existing source labels, readers, transfer extents, destinations, and formats. They describe static associations; they do not prove natural execution or complete visual composition.
-
-The audits used private exports of `zenaror/mobile-trainer` at `6340fbe61bc5a03512ad7e666acc95a343388be6` and checked the supplied immutable Japan ROM (2,097,152 bytes; SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`). The private exports excluded `.git`, build, and `.tmp`; the agents made no edits, ran no builds, and did not open the English tree or ZIP.
+# Japanese residual graphics path reference
 
 ### Bank 71 account, registration delete, and password-save confirmation
 
@@ -26,7 +22,11 @@ The audits used private exports of `zenaror/mobile-trainer` at `6340fbe61bc5a035
 | `tilemap_6c68` | `registration_delete_execute_bgmap_6c68` | CONFIRMED |
 | `tilemap_6f6f` | `password_save_confirm_variant_nonzero_bgmap_6f6f` | PROBABLE |
 
-The 17 files had positive static owner/reader links; all 23 payloads exactly match their declared ROM slices and manifest lengths. The Bank 71 resources include overlapping/shared sources, so names use `shared_source` or `slice` where needed. `tiles_4500` is 57 tiles/912 bytes with seven display-sheet padding slots; `tiles_4890` is 0x3C0 bytes while its transfer continues for 0x400 bytes into the adjacent palette. `tiles_5dc0` also participates in execution uploads. `tilemap_6f6f` is selected in the nonzero password-save-confirm branch but remains PROBABLE because natural execution is unobserved. The other 16 payload/path associations remain CONFIRMED at the static owner/transfer level.
+The Bank 71 resources include overlapping/shared sources, so names use `shared_source` or `slice` where needed.
+
+`tiles_4500` is 57 tiles/912 bytes with seven display-sheet padding slots; `tiles_4890` is 0x3C0 bytes while its transfer continues for 0x400 bytes into the adjacent palette.
+
+`tilemap_6f6f` is selected in the nonzero password-save-confirm branch but remains PROBABLE because natural execution is unobserved.
 
 ### CommNotice / Bank 50
 
@@ -70,12 +70,4 @@ The seven tilemap/attribute pairs are named by keyboard type and keep paired for
 
 ### Bank 4A retained byte-view
 
-The remaining `tiles_5860` legacy pair was renamed `settings_menu_cursor_frames_anim_script_byteview_4a_5860` (`.2bpp` and `.png`). It is a 16-byte byte-view of two OAM frames, a two-step animation script, and five trailing zero bytes at `4A:5860–5870`; it is not tile art and remains outside the active asset catalogue. SHA-256 values are unchanged: raw bytes `68801625e95363bd79c1370472e8ccad7f9b93e2e929930f78610232787fbd91`, PNG `5680705a91e0e2fb90a25f993d78cf21be4cda9ef69dee7d95492cb10c716716`.
-
-### Reproducibility and limits
-
-The 43 stems in the three groups above moved 84 physical files (46,451 bytes). Every new path matches its PRE_MOVE size and SHA-256. The two Bank 4A byte-view files also retain their recorded hashes. `gfx/assets.tsv`, `gfx/screens.tsv`, `gfx/png_rules.tsv`, `gfx/png.mk`, generated `gfx/README.md`, four source owners, and the historical path map were synchronized. The strict maintained-tree filename scan now finds zero stems matching `tiles_XXXX`, `tilemap_XXXX`, `attrmap_XXXX`, or `palette_XXXX`.
-
-Validation on the integrated tree: `make` returned SHA-256 OK and `RESULT: IDENTICAL` to the original ROM; `make sym-check` passed (335 source files, 12,177 labels, 51 constants); `make palette-check` passed (162 loads, 116 arrays, two documented overreads, zero errors); `make png-check` passed (408 tile sheets, four raw views, 37 font sheets, 95 screens); `python3 tools/gfx_export.py check`, `python3 tools/png_rules.py mk-check`, and `git diff --check` passed. The build output SHA-256 is `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
-
-The ordered migration manifest is `PRE_MOVE.json` (review artifact) (SHA-256 `6028dbc30ea9deefe3e3beae2a246591cf3091dea36132e45a67a09c762ecc71`) and its verified counterpart is `POST_MOVE.json` (SHA-256 `9f5bec1ebd222aa818d6a680a844144b89394972e7dc64241e1711e6c24c3486`). These static path checks do not establish natural runtime selection, sprite meaning beyond existing labels, or hardware behavior. No ROM source bytes or graphic payload bytes changed.
+It is a 16-byte byte-view of two OAM frames, a two-step animation script, and five trailing zero bytes at `4A:5860–5870`; it is not tile art and remains outside the active asset catalogue.

@@ -1,33 +1,12 @@
 # Sound data format (banks 04 and 05) and its macro form
 
-The sound driver of bank 04 (`audio/engine.asm`, `SoundDrv_*`) plays 70 sound ids from 59 stream headers: 13 songs in bank 04 (ids `$01`-`$0D`), 16 songs in bank 05
-(`$0E`-`$1D`), 30 sound effects in bank 05 (`$29`-`$46`), plus ids `$1E`-`$28`, which are eleven copies of the record of song 1.  This note re-derives the
-format from the driver, records what is proven and what is only inferred, and documents the macros of [`constants/audio_macros.inc`](../../constants/audio_macros.inc)
-in which every byte of the sound data is now written: `audio/music/*.asm`, `audio/sfx.asm`, `audio/music_pointers.asm` (streams and song table) and, since the second
-pass, `audio/notes.asm`, `audio/instruments.asm` and `audio/wave_samples.asm` (the tables the driver indexes).  The bytes are unchanged: `make` still ends in `SHA-256 OK`.
+The sound driver of bank 04 (`audio/engine.asm`, `SoundDrv_*`) plays 70 sound ids from 59 stream headers: 13 songs in bank 04 (ids `$01`-`$0D`), 16 songs in bank 05 (`$0E`-`$1D`), 30 sound effects in bank 05 (`$29`-`$46`), plus ids `$1E`-`$28`, which are eleven copies of the record of song 1.
 
 Status words as in `STYLE.md`.  The earlier description is `naming_g1.md` section 7 (written by one agent from the same code); everything below was re-checked against the driver,
 including by *running the driver code* (section 9), and the differences are listed in section 12.  The first pass (sections 1-4, stream format, song table) and the second pass
 (sections 5-8: what the commands, instrument bytes and tables do to the hardware) are kept in one document.
 
-Second verification (2026-10-05).  Two independent reviewers re-checked this note, the macros and the audio names: one by reading the code and the data ([`audio2_verify_static.md`](audio2_verify_static.md)), one by running the
-ROM's own driver on mGBA, with the real songs and with synthetic streams ([`audio2_verify_dynamic.md`](audio2_verify_dynamic.md); `analysis/audio2_verify_dyn/reproduce.sh` repeats it in about three minutes).  Both confirmed every command
-boundary (35,351 commands executed on mGBA, 0 divergences) and the contents of the tables; the wrong statements they found were in the prose and in some status words, and are corrected below (list at the end of section 12).
-Status rule used from here on: what the ROM's own data runs is CONFIRMED when a run shows it; a construct that no song or caller uses (`$B5`, `$C0`, `$C6`, `$C9`, `$CD`, note adjust bytes, the `<$80` flags branch, `Param`, the end opcodes)
-is at most PROBABLE even where the interpreter or a synthetic stream on mGBA showed its effect, written "demonstrated (synthetic)": synthetic and forced execution do not raise a status (`dynamic_tracing.md` section 11).
-
-## 1. Summary of the evidence
-
-| question | result | status |
-|---|---|---|
-| layout of the 8-byte song record | `dw header, dw bank, db priority, db flags, db track count, db spare` | CONFIRMED (`SoundDrv_LoadSongHeader` 04:430A, `SoundDrv_StartTrack` 04:434C) |
-| how a track's stream bytes are consumed (waits, notes, running status, flow commands, one-byte commands) | see section 4 | CONFIRMED for every construct the data uses (the driver decoded 35,351 commands of all 152 tracks on mGBA, 0 divergences from the independent decode); PROBABLE for the constructs it does not use (`$B5`, note adjust bytes, the end opcodes, calls deeper than 1), demonstrated (synthetic) |
-| every byte of the stream ranges (04:574D-7E8C, 05:4000-68C3) explained | yes: 11916 commands + 59 headers, no unknown byte, no overlap, no ambiguous decoding | CONFIRMED (tool run) |
-| what the commands `$C0`-`$C6`, `$C9`, `$CF` and the note bytes do to the sound | pan, pitch bend (+ scale), vibrato (rate, delay, depth, disable), detune, note off, note volume, note gate time: section 5 | CONFIRMED for the note bytes, `$C1`-`$C5` and the bare `$CF` (the data runs them: 17,165 pitch writes, 13,057 gate times and 53,592 tempo frames of the real runs on mGBA equal the formulas of section 5); PROBABLE for `$C0`, `$C6`, `$C9` (no song uses them; demonstrated (synthetic): all 256 values of `$C0` and `$C9` on mGBA) |
-| `$CA` and `$CD` | `$CA` stores a byte nothing reads; `$CD` 1-5, 10, 11 patch the instrument copy of the track; 6, 7 set the level and the length of a constant-volume tail after the note | `$CA`: no reader in the driver (code; 0 reads in 59 real runs and in a 256-value synthetic run): CONFIRMED for the driver, effect unknown; `$CD` 1-7, 10, 11: PROBABLE, demonstrated (synthetic) (field map exact in 63 cases, tail model equal in 48 of 48 combinations); no song uses `$CA` or `$CD` |
-| layout of the 6-byte instrument record (`Table_SoundDrv_Instruments`) | channel class + duty/wave/width, length, NR10, two envelope bytes, per-note pitch: section 6 | CONFIRMED for bytes 0, 3, 4 and 5 (run by the data: 13,326 note starts write the registers of section 6, and all 16,774 NRx2 values of the 59 real runs are values of the envelope formulas of section 7); PROBABLE for byte 1 (`$00` in all 112 records; demonstrated (synthetic)); byte 2 is CONFIRMED as to its destination, non-zero values demonstrated (synthetic); the wave channel's level (NR32) and the noise pitch formula (04:4F2D) are CONFIRMED (section 7) |
-| the 3-byte note record (`Table_SoundDrv_NoteFreq`), duration table, wave patterns | 11-bit period + interpolation step, ticks, 32 4-bit samples: section 8 | CONFIRMED |
-| two extra pointer sets in 22 headers (loop point, address after the final jump) | present in all 86 tracks of those headers | PROBABLE (never read by the driver; pattern in the data) |
+Status rule used from here on: what the ROM's own data runs is CONFIRMED when a run shows it; a construct that no song or caller uses (`$B5`, `$C0`, `$C6`, `$C9`, `$CD`, note adjust bytes, the `<$80` flags branch, `Param`, the end opcodes) is at most PROBABLE even where the interpreter or a synthetic stream on mGBA showed its effect, written "demonstrated (synthetic)": synthetic and forced execution do not raise a status (`dynamic_tracing.md` section 11).
 
 ## 2. Where the data is
 
@@ -43,8 +22,6 @@ is at most PROBABLE even where the interpreter or a synthetic stream on mGBA sho
 
 A header is stored **after** the streams of its song (the last bytes of each file), and the song record points at the header; the track pointers in the header point back at
 the streams, which are in the same ROM bank.
-
-## 3. Song record and stream header
 
 ### 3.1 Song record (CONFIRMED)
 
@@ -69,13 +46,13 @@ Macro: `sound_song Header, priority, flags, tracks` emits `dw Header`, `dw BANK(
 
 The data shows more (PROBABLE; the driver never reads it):
 
-| bytes | content | evidence |
-|---|---|---|
-| +0 | the track count | equal to the count of the song record in all 59 headers |
-| +1 | `0` (37 headers) or `2` (22 headers) = number of further word sets | the header size is exactly `2 + 2 * tracks * (extra + 1)` in all 59 cases; nothing else separates it from the next stream |
-| set 0 | the stream address of each track | CONFIRMED (read by the driver) |
-| set 1 (extra = 2) | the loop point of each track | it is the operand of the `sound_jump` that ends the track, in all 86 tracks (`start + 4`, i.e. behind `BF vv BD vv`, in 79 of them) |
-| set 2 (extra = 2) | the address right behind that final `sound_jump` | in all 86 tracks; 83 tails are a single `$B1`, three are short codas that no path reaches (05:4535, 05:4766, 05:52D7) |
+| bytes | content |
+| --- | --- |
+| +0 | the track count |
+| +1 | `0` (37 headers) or `2` (22 headers) = number of further word sets |
+| set 0 | the stream address of each track |
+| set 1 (extra = 2) | the loop point of each track |
+| set 2 (extra = 2) | the address right behind that final `sound_jump` |
 
 Read watch (mGBA, the 59 headers played): header byte +1 and sets 1 and 2 are never read; byte +0 is fetched in 37 headers only as the pre-fetched argument of the `$B1` that precedes the header (`Bank4_ReadStreamWord` always reads two bytes), and nothing uses it.
 
@@ -148,11 +125,9 @@ Durations used: 39 different values in waits, 27 (0 included) in notes.  Operand
 
 ## 5. The commands `$C0`-`$CF`: what they do
 
-How this was established: the handler code (`audio/engine.asm`) gives the track field each command writes and the flag bit it sets; `SoundDrv_TickVibrato` (04:45E6),
-`SoundDrv_ComputeTrackOutput` (04:4668) and `SoundDrv_UpdateChannel` (04:4C14) turn the fields into channel registers.  Every claim below was then checked by
-running the whole frame tick on synthetic songs (`tools/audio_driver_check.py`, section 9) and comparing the APU writes with a model of that code, and later again on mGBA (section 9, item 6): the constructs the data uses against the real runs,
-the others with synthetic streams.  Status: CONFIRMED only for what the data runs; a command or field that no song or caller uses is PROBABLE, its case count written "demonstrated (synthetic)".  Names
-(macros, and the `SoundDrv_Cmd*` labels proposed in `analysis/naming2/audio2_renames.tsv`) describe the demonstrated *effect*; none of them is known to be the original author's name.
+How this was established: the handler code (`audio/engine.asm`) gives the track field each command writes and the flag bit it sets; `SoundDrv_TickVibrato` (04:45E6), `SoundDrv_ComputeTrackOutput` (04:4668) and `SoundDrv_UpdateChannel` (04:4C14) turn the fields into channel registers.
+
+Every claim below was then checked by running the whole frame tick on synthetic songs (`tools/audio_driver_check.py`, section 9) and comparing the APU writes with a model of that code, and later again on mGBA (section 9, item 6): the constructs the data uses against the real runs, the others with synthetic streams.
 
 ### 5.1 Commands
 
@@ -232,13 +207,13 @@ accumulator and runs a tick for every `$4A` in it (04:4082-4119); CONFIRMED by t
 channel record (channel+8..+`$C`), where `SoundDrv_WriteChannelParams` (04:4E4B) writes them to the registers at the start of the note.  In the per-note mode (`$BE $64`) `StartNote` instead
 takes record `pitch + $40` (pitch including the pitch add) and also byte 5.
 
-| byte | meaning | evidence | status |
-|---|---|---|---|
-| 0 | channel class and, for the register write, duty / wave / width.  `< $08`: pulse 1, `$08-$0F`: pulse 2 (both: bits 0-1 = duty, written to bits 7-6 of NRx1), `$10-$3F`: wave channel (byte - `$10` = pattern index, section 8), `>= $40`: noise (bit 0 = NR43 bit 3, the 7-bit counter) | class: `StartNote` 04:4ABE-4ADA (`cp $10`, `cp $08`, `cp $40`); duty, wave, width: `WriteChannelParams`; synthetic records | CONFIRMED |
-| 1 | length: 0 = none; else NRx1 length bits = -length, NRx4 bit 6 set (NR31 = -length for the wave channel, NR41 for noise) | `WriteChannelParams` 04:4E7D-4EA9; synthetic records (pulse 1, pulse 2, noise; the data has 0 in all 112 records) | PROBABLE: demonstrated (synthetic); the real runs write the value 0 (no length, no NRx4 bit 6) |
-| 2 | written to the register two below NRx1 for both pulse channels: NR10 (pulse 1: sweep) and FF15 (pulse 2: the non-existent NR20); the wave and noise paths do not write it.  `$00` in all 112 records | `WriteChannelParams` 04:4E8F; the real runs write the value 0 on every pulse note (13,326 note starts equal the model); synthetic record (`$5A` -> NR10) | CONFIRMED for the destination, non-zero values demonstrated (synthetic) |
-| 3, 4 | the volume envelope (section 7) | `UpdateChannel`; 80 records simulated in the interpreter; 16,774 NRx2 values of the 59 real runs and 2,824 grid / random notes on mGBA | CONFIRMED for the fields below |
-| 5 | pitch byte that replaces the note's own pitch in the per-note mode; read only there (`StartNote` copies it to channel+`$0E`); `$3C` in the 100 ordinary records, the drum pitches in records `$64`-`$6F` | `StartNote` 04:4AAE-4ABB; the data plays pitches `$24`-`$27`, `$29`, `$2A`, `$2C`-`$2F` in per-note tracks (walk over all tracks), i.e. records `$64`-`$67`, `$69`, `$6A`, `$6C`-`$6F` | CONFIRMED |
+| byte | meaning | status |
+| --- | --- | --- |
+| 0 | channel class and, for the register write, duty / wave / width.  `< $08`: pulse 1, `$08-$0F`: pulse 2 (both: bits 0-1 = duty, written to bits 7-6 of NRx1), `$10-$3F`: wave channel (byte - `$10` = pattern index, section 8), `>= $40`: noise (bit 0 = NR43 bit 3, the 7-bit counter) | CONFIRMED |
+| 1 | length: 0 = none; else NRx1 length bits = -length, NRx4 bit 6 set (NR31 = -length for the wave channel, NR41 for noise) | PROBABLE: demonstrated (synthetic); the real runs write the value 0 (no length, no NRx4 bit 6) |
+| 2 | written to the register two below NRx1 for both pulse channels: NR10 (pulse 1: sweep) and FF15 (pulse 2: the non-existent NR20); the wave and noise paths do not write it.  `$00` in all 112 records | CONFIRMED for the destination, non-zero values demonstrated (synthetic) |
+| 3, 4 | the volume envelope (section 7) | CONFIRMED for the fields below |
+| 5 | pitch byte that replaces the note's own pitch in the per-note mode; read only there (`StartNote` copies it to channel+`$0E`); `$3C` in the 100 ordinary records, the drum pitches in records `$64`-`$6F` | CONFIRMED |
 
 Distribution in the data: pulse 1 (byte 0 < `$08`) 11 records, pulse 2 63, wave 20 (patterns 0, 1, 3, 4, 5, 7, 8, 9), noise 18; byte 1 and byte 2 are `$00` in all records.
 
@@ -277,31 +252,17 @@ times in 62 scenarios; the formula was measured with synthetic wave notes).  The
   (`wSoundDrv_WaveCache`).  The hardware plays the high nibble of each byte first, so the macro `sound_wave_pattern s0 .. s31` takes the 32 samples in playing order (mechanically unpacked from the bytes).  By looking at the samples: pattern 0 is sine-like, 1 a triangle (0 up to F and back), 2 a falling ramp, 3 a falling shape with a plateau, 4-7 are pulse shapes with 4, 8, 12 and 16 high samples out of 32, 8 a sine-like shape with a flat step at the middle level, 9 a five-level stepped bump (0, 4, 8, B, F).  CONFIRMED (effects run: every wave instrument of records `$00`-`$63`, 20 records, writes its
   pattern to `$FF30-$FF3F`).  The real runs (13,326 note starts on mGBA) copy the pattern only when it changes, and the 16 bytes equal the ROM bytes.  Which patterns the data uses: 0, 1, 3, 4, 5, 7, 8, 9.
 
-## 9. How the decoding was verified
+**Static, whole ROM** (`tools/audio_to_macros.py`): decodes every track of every header by simulating the control flow of `SoundDrv_ReadNextCommand` (state = address, running status, call    stack; jump taken, call pushes, return pops, `$B5` both ways) starting at every set-0 pointer, then at the set-2 addresses.
 
-1. **Static, whole ROM** (`tools/audio_to_macros.py`): decodes every track of every header by simulating the control flow of `SoundDrv_ReadNextCommand` (state = address, running status, call
-   stack; jump taken, call pushes, return pops, `$B5` both ways) starting at every set-0 pointer, then at the set-2 addresses.  Result: 70 records, 59 headers, 11916 commands, 19716 bytes = the two stream ranges
-   04:574D-7E8C and 05:4000-68C3 completely, no unknown opcode, no overlap, no address decoded two ways, no command of size 0.  Every decoded command re-encodes from its fields to the ROM bytes.  The same tool writes the three table
-   files and checks their invariants (duration list, equal temperament and step of the note table, record classes of the instruments).
-2. **Dynamic, driver code** (`tools/audio_driver_check.py`, about a minute; `--quick` runs fewer commands per track (about 20 s with part 4); `--no-effects` skips part 4): a small SM83 interpreter runs `SoundDrv_Init` and `SoundDrv_StepTrack` of the original ROM on all
-   152 tracks (the bank-switching stream readers `00:215E/216F` are replaced by plain reads).  The command addresses the driver starts to decode and the (counter, stream pointer) it stores after every
-   wait are **identical** to the decoder's for all 152 tracks (about 300000 commands run by the driver code); 5867 + 5956 of the 11916 commands are executed, the other 93 are exactly the ones behind a track's final jump
-   (86 `$B1` and 7 further commands in three codas).  66 tracks run into `$B1`; 86 loop through their `$B2`.
-3. **Synthetic streams** (same script): 36 hand-made streams check the constructs the data does not use - adjust bytes, byte order and duplicate classes of notes, `$CE`, `$CF` (with and without pitch), `$B5`
-   (count 0, 1, 3), `$CD` sub-commands, the ten opcodes without handler, `$80`, `$B4` on an empty stack, running status after `$BE`/`$C1`, opcodes < `$BE` not updating it, and a call depth of 4-7 (limit 5).
-   The driver and the decoder agree on all of them.
-4. **Effects** (same script, function `check_effects`; new in the second pass): `SoundDrv_PlaySfx` and `SoundDrv_FrameTick` run on a synthetic song (placed in ROM bank 6 of an in-memory copy, its record replacing id `$46`), every write to
-   `$FF10-$FF3F` is recorded per frame, and the values are compared with small models written from the driver code: track volume x note volume -> NR22 (36 combinations); gate time of 7 durations; held note and `$CF` (same /
-   other pitch / bare); `$C0` (32 values) -> NR51; `$C1` x `$C2` (60 pairs), `$C9` (6), `sound_pitch_add` (4) -> period; vibrato (6 settings x 40 ticks, an exact LFO model); `$C6`; the envelope of 80 pulse/noise records
-   (first write, sustain write, final silence) and the release write of the records that have one; synthetic instrument records (duty, length, sweep, noise width); the wave pattern copy of the 20 wave records; `$CD` probes; and a
-   read watch over the track record (`CPU.rd`) that shows +`$1E` is never read.  All of them agree.  (At the first run three of the expectations written into the script were wrong - a held note simply ends with the track, the phase preset of `$C3 $00`, and the
-   length of the run; the driver was right each time and the script was corrected.)
-5. **Build**: `make` -> `SHA-256 OK`, byte compare `IDENTICAL`, no new `rgbasm` warning; `make sym-check` OK.
-6. **mGBA, independent (second verification, 2026-10-05)**: [`audio2_verify_dynamic.md`](audio2_verify_dynamic.md) (harness `tools/trace/apu_probe.c`, scripts `tools/trace/audio2_*.py`, results and `reproduce.sh` in `analysis/audio2_verify_dyn/`, about three minutes).
-   The harness boots the ROM, then calls the ROM's own sound stubs every frame and logs every APU write, command decode, note start and gate expiry.  All 59 headers were played: 35,351 executed commands, 0 divergences from an independent decode of the
-   macro source; the register writes were compared with models written from the code for pitch (17,165 writes), gate time (13,057 notes), tempo (53,592 frames), volume (8,192 notes), envelope (16,774 NRx2 values) and noise pitch (5,029 writes);
-   synthetic songs in private ROM copies covered the constructs the data never uses.  It corrected five statements of this note (section 12) and measured the wave level, the noise pitch and the note-end tail.  The reading of the same claims without
-   running anything is [`audio2_verify_static.md`](audio2_verify_static.md).
+Result: 70 records, 59 headers, 11916 commands, 19716 bytes = the two stream ranges    04:574D-7E8C and 05:4000-68C3 completely, no unknown opcode, no overlap, no address decoded two ways, no command of size 0.
+
+**Dynamic, driver code** (`tools/audio_driver_check.py`, about a minute; `--quick` runs fewer commands per track (about 20 s with part 4); `--no-effects` skips part 4): a small SM83 interpreter runs `SoundDrv_Init` and `SoundDrv_StepTrack` of the original ROM on all    152 tracks (the bank-switching stream readers `00:215E/216F` are replaced by plain reads).
+
+The command addresses the driver starts to decode and the (counter, stream pointer) it stores after every    wait are **identical** to the decoder's for all 152 tracks (about 300000 commands run by the driver code); 5867 + 5956 of the 11916 commands are executed, the other 93 are exactly the ones behind a track's final jump    (86 `$B1` and 7 further commands in three codas).  66 tracks run into `$B1`; 86 loop through their `$B2`. 3.
+
+**Synthetic streams** (same script): 36 hand-made streams check the constructs the data does not use - adjust bytes, byte order and duplicate classes of notes, `$CE`, `$CF` (with and without pitch), `$B5`    (count 0, 1, 3), `$CD` sub-commands, the ten opcodes without handler, `$80`, `$B4` on an empty stack, running status after `$BE`/`$C1`, opcodes < `$BE` not updating it, and a call depth of 4-7 (limit 5).
+
+**Effects** (same script, function `check_effects`; new in the second pass): `SoundDrv_PlaySfx` and `SoundDrv_FrameTick` run on a synthetic song (placed in ROM bank 6 of an in-memory copy, its record replacing id `$46`), every write to    `$FF10-$FF3F` is recorded per frame, and the values are compared with small models written from the driver code: track volume x note volume -> NR22 (36 combinations); gate time of 7 durations; held note and `$CF` (same /    other pitch / bare); `$C0` (32 values) -> NR51; `$C1` x `$C2` (60 pairs), `$C9` (6), `sound_pitch_add` (4) -> period; vibrato (6 settings x 40 ticks, an exact LFO model); `$C6`; the envelope of 80 pulse/noise records    (first write, sustain write, final silence) and the release write of the records that have one; synthetic instrument records (duty, length, sweep, noise width); the wave pattern copy of the 20 wave records; `$CD` probes; and a    read watch over the track record (`CPU.rd`) that shows +`$1E` is never read.
 
 Limits: the emulation starts from a freshly initialised driver with all other tracks inactive and proves how stream bytes are consumed and what the registers are written with in the cases tried, not what the sound is like.
 The interpreter is only tested by this agreement (and by the exact match of models written from the code: a wrong interpreter would have to be wrong in the same way as the reading).  The wave channel's level and the noise
@@ -329,36 +290,19 @@ SoundSong02_Track0_AfterJump:: ; 04:593C
 	sound_end                       ; never reached: behind the final jump (address listed in the header)
 ```
 
-* `sound_rs <macro>` omits the opcode byte of the macro that follows; the driver re-uses the last opcode >= `$BE`.  The tool writes it only where the decode shows that this opcode is the one the
-  macro stands for (same decoding in every flow state), and the assembler refuses it for opcodes < `$BE`.
-* Macro names (second pass): `sound_note_mod` is now `sound_note_vol`, `sound_cmd_CF` is `sound_note_off`, `sound_cmd_C0`..`C6`, `C9` are `sound_pan`, `sound_pitch_bend`, `sound_pitch_bend_scale`,
-  `sound_vibrato_rate`, `sound_vibrato_delay`, `sound_vibrato_depth`, `sound_vibrato_disable`, `sound_detune`; `sound_cmd_CA` and `sound_cmd_CD` keep their opcode.  Macro names are not labels: the build hash proves the bytes.
-* Table macros: `sound_durations`, `sound_note_freq period, step`, `sound_instr_pulse1 duty, length, sweep, env_a, env_b, pitch` / `sound_instr_pulse2` / `sound_instr_wave` / `sound_instr_noise` (byte 2 is `$00` in
-  the last three; `sound_instr_raw` exists for a record none of them writes, and is not used), `sound_wave_pattern` (32 samples).  A comment per record gives the id and the decoded envelope fields.
-* Labels: every header, track start, loop target, jump/call target and pointer word uses a label.  Labels that already existed were kept (and used); the 333 that were missing were `Data_BB_AAAA:: ; BB:AAAA`
-  in the file that contains the address (only targets got one); 316 of them have a structural name since the audio6 pass (`analysis/naming2/audio6_renames.tsv`, `naming2_audio6.md`: `SoundSongNN_TrackK_Loop`, `_AfterJump`, `_SubN`, `SoundSongNN_TrackPtrs`,
-  `SoundSfxNN_TrackPtrs`; the old name stays below as an alias) and 8 interior labels stay neutral.  In `music_02` ... `music_0d` and `sfx` the section start has a label now.  `analysis/naming2/audio2_renames.tsv` applied `SoundSongNN_Header` /
-  `SoundSongNN_TrackK` to the 59 headers and the 151 track starts (the name carries the id of the first song record that uses it; ids `$1E`-`$28` share the header of song 1); `analysis/naming2/verify_audio2_fixes.tsv` then renamed the 30 effects
-  (ids `$29`-`$46`) to `SoundSfxNN_*` and the track 0 of song 1 (`Data_SoundDrv_Streams`) to `SoundSong01_Track0`.  The prefix follows what the callers use the ids for (`Sound_PlayMusic*` for `$01`-`$1D`, `Sound_PlaySfx` for `$29`-`$46`): PROBABLE,
-  no title is known.  The converter prefers a `SoundSong*` / `SoundSfx*` label when it exists, so it keeps producing the same files.
-* The region header comments (`; ---- data $A-$B ... [PROBABLE] ... content of individual commands unknown`) are kept unchanged; they record the state before the decode and are superseded by this note.  The headers of
-  the three table files were rewritten (`[CONFIRMED]` + evidence, the earlier note kept after `superseded note:`).
-* **No byte is left as `db` any more.**  First pass: 15 bytes in 7 commands were cut by pre-existing label boundaries (`Data_05_5B34`, `5BCB`, `5C9E`, `5D69`, `5F09`, `5FF1`, `68BE`).  These labels were artifacts of the coverage
-  pieces (`config/regions/bank05.tsv`: "unread interior", "UNCLASSIFIED"); nothing referenced them (no stream pointer, jump, call, header word or source line), so the second pass removed them and merged the block that each one started
-  into the block before (the merged header keeps the text of both headers, and its status is the weaker of the two).  `tools/audio_to_macros.py` does this itself (`merge_cut_blocks`): a boundary that cuts a command is removed
-  when the label is unreferenced; a referenced one would be kept and its command written as `db` (none is left).  The two-byte header of effect `$46` (`02 00`, 05:68BD) is now one `sound_stream_header 2, 0`.  The evidence files `config/regions/bank05.tsv`
-  and `analysis/mapper/bank05.tsv` are frozen and still list the old pieces.
+* `sound_rs <macro>` omits the opcode byte of the macro that follows; the driver re-uses the last opcode >= `$BE`.
 
-### Regenerating and checking
+The tool writes it only where the decode shows that this opcode is the one the   macro stands for (same decoding in every flow state), and the assembler refuses it for opcodes < `$BE`.
 
-```
-python3 tools/audio_to_macros.py --check       # decode + verify; exit 1 when a file is not in the form the tool writes
-python3 tools/audio_to_macros.py               # rewrite, make, SHA-256 + sym_check, restore every file on failure
-python3 tools/audio_to_macros.py --names FILE  # (with any mode) also write the SoundSongNN_* / SoundSfxNN_* rows for tools/apply_renames.py
-python3 tools/audio_driver_check.py [--quick] [--no-effects]   # run the driver code on the streams (section 9)
-```
+* Table macros: `sound_durations`, `sound_note_freq period, step`, `sound_instr_pulse1 duty, length, sweep, env_a, env_b, pitch` / `sound_instr_pulse2` / `sound_instr_wave` / `sound_instr_noise` (byte 2 is `$00` in   the last three; `sound_instr_raw` exists for a record none of them writes, and is not used), `sound_wave_pattern` (32 samples).
 
-The tool is idempotent (a second run changes nothing) and works on a copy with `--root DIR`.  It reads the original ROM (`baserom.gbc`, must match `roms.sha256`) and never writes it.
+The prefix follows what the callers use the ids for (`Sound_PlayMusic*` for `$01`-`$1D`, `Sound_PlaySfx` for `$29`-`$46`): PROBABLE,   no title is known.
+
+* **No byte is left as `db` any more.**  First pass: 15 bytes in 7 commands were cut by pre-existing label boundaries (`Data_05_5B34`, `5BCB`, `5C9E`, `5D69`, `5F09`, `5FF1`, `68BE`).
+
+`tools/audio_to_macros.py` does this itself (`merge_cut_blocks`): a boundary that cuts a command is removed   when the label is unreferenced; a referenced one would be kept and its command written as `db` (none is left).
+
+The two-byte header of effect `$46` (`02 00`, 05:68BD) is now one `sound_stream_header 2, 0`.
 
 ### How to add a song or an effect (a deliberate ROM change)
 
@@ -367,25 +311,7 @@ The hash of the ROM changes, so work on a copy of the tree/branch and keep the r
 1. Write the streams and the header in a new file with its own section; a section that is not in `layout.link` floats into free space, in any ROM bank (the song record carries the 9-bit bank, `BANK(Header)`; all
    streams of a song and the header must be in that one bank, and `sound_jump` / `sound_call` targets must be in the same bank as the stream):
 
-   ```asm
-   SECTION "audio/music/new_song", ROMX
-
-   NewSong_Header::
-   	sound_stream_header 2, 0          ; track count, 0 extra pointer sets (set 1 / 2 are optional and never read)
-   	dw NewSong_Track0, NewSong_Track1
-
-   NewSong_Track0::
-   	sound_volume $7F                  ; every existing track starts with volume and pitch add
-   	sound_pitch_add $00
-   	sound_tempo $4A                   ; one tick per frame
-   	sound_instrument $00              ; record 0: pulse 2, duty 3
-   .loop
-   	sound_note 8, $40, $1F            ; gate 8 ticks, pitch $40 (E4), note volume $1F
-   	sound_wait 8                      ; the next note starts 8 ticks later
-   	sound_note 8, $43
-   	sound_wait 8
-   	sound_jump .loop
-   ```
+@@CODE2@@
    (assembled with the project flags in a scratch copy: no warning).  A wait value must be in the duration list; a note's duration too; a pitch is a MIDI number (`$24`-`$7F`); use `sound_instrument $64` for the drum kit of
    records `$64`-`$6F` (the pitches `$24`-`$2F` then select the drum) and one of the 100 other records otherwise.
 2. Give the song a record: either change one of the 70 lines of `audio/music_pointers.asm` (`sound_song NewSong_Header, $C8, $FF, 2`: priority, flags `$FF`, track count; the ids `$1E`-`$28` are copies of song 1
@@ -409,38 +335,33 @@ The hash of the ROM changes, so work on a copy of the tree/branch and keep the r
 
 ## 12. Differences from earlier notes
 
-* `naming_g1.md`: "a stream header is `dw ?` (2 bytes) + one stream pointer per track" - the two bytes are `db tracks, db extra_sets` and the header is followed by 0 or 2 further word sets (section 3.2).
-  "adjust (`$20`-`$23`)" - it adds 0-3 to the note's duration field.  The decode statistics agree (86 loops, 66 ends; wait 4868 and `$BE` 1109 in that note, 4871 and 1110 here because the 93 unreachable commands behind the
-  final jumps are counted).  `SoundDrv_CmdRest` (04:4756) waits, it does not rest: no silence is produced by it; a note does not block the track.  It is named `SoundDrv_CmdWait` since b939965.
-  The hypothesis that `$C1` is a pitch offset (flag bit 2 = pitch update) was right and is now CONFIRMED (section 5); the earlier "modifier" byte of a note is the note's volume.
-* First-pass statements that the second pass replaced: "the first operand of a note is `duration`, the third `mod`; how they are used when the gate ends is not proven" -> duration is the gate time, the third byte the note volume (section 4.3);
-  "`sound_cmd_C0` .. `CA` neutral" -> named by effect except `$CA` (section 5); "the layout of a record of `Table_SoundDrv_Instruments` and of the third byte of `Table_SoundDrv_NoteFreq` entries unknown" -> sections 6 and 8.
-  Nothing of the first pass was contradicted.
-* `config/regions` / region headers of the music files: "content of individual commands unknown" and "data read as data by executed code": superseded by the decode above.
+* `naming_g1.md`: "a stream header is `dw ?` (2 bytes) + one stream pointer per track" - the two bytes are `db tracks, db extra_sets` and the header is followed by 0 or 2 further word sets (section 3.2).   "adjust (`$20`-`$23`)" - it adds 0-3 to the note's duration field.
+
+The hypothesis that `$C1` is a pitch offset (flag bit 2 = pitch update) was right and is now CONFIRMED (section 5); the earlier "modifier" byte of a note is the note's volume.
+
+* First-pass statements that the second pass replaced: "the first operand of a note is `duration`, the third `mod`; how they are used when the gate ends is not proven" -> duration is the gate time, the third byte the note volume (section 4.3);   "`sound_cmd_C0` ..
+
+`CA` neutral" -> named by effect except `$CA` (section 5); "the layout of a record of `Table_SoundDrv_Instruments` and of the third byte of `Table_SoundDrv_NoteFreq` entries unknown" -> sections 6 and 8.
+
 * `music_pointers.asm` region header: the record is described as words (`$FFC8`, `0001-0004`); as bytes it is priority `$C8`, flags `$FF`, track count, spare (the driver reads single bytes).
-* Corrections made after the independent verification of 2026-10-05 (`audio2_verify_static.md`, `audio2_verify_dynamic.md`); none changes a byte of the ROM:
-  * `$C1`: +`$1B/$1C` is `(2*(+$19) + 1) * (+$1A)` when +`$19` < 0 (the one's complement of 04:48B9-48C5), so for v < `$40` the bend is that of the old formula plus scale / 256 semitone (the first text had the product without the "+ 1"; the
-    interpreter's check had modelled the code correctly).
-  * Track record +`$C`..+`$10` start as `0, 0, 0, FF, FF`, not `0, 0, FF, FF, 0`; the effects `$2A` and `$2B` play their first note with that default record.
-  * Envelope decay code 0 is not "`$F0`": the note starts at the sustain level (the same only for sustain level 15).  Instrument byte 2 is also written (to FF15) by pulse 2.
-  * `$CF` compares the given pitch like a note's (it gets the pitch add), releases the first matching channel only, and a following byte `$00`-`$23` hangs the driver.  The flags field has a bit 5 (`$A0` from `StartTrack`).
-  * `+$27` / `+$28`: the earlier "HYPOTHESIS: a tail after the note" is now PROBABLE with the measured model of section 5.1.  The static reviewer first wrote that the code contradicts it (the age counter "cannot count down to 0"); that conclusion is wrong:
-    the counter rises by one every 15 ticks, wraps at 256 and reaches 0 after about `(256 - +$28) * 15` ticks, which is the length mGBA shows; it is withdrawn in `audio2_verify_static.md`.
-  * Attack: the only record in the data with an attack is the wave record `$4B` (effect `$42`); `$68`, which the first text used as evidence, is never selected.  Record 119 of the note table is a rounding, not a clamp; wave pattern 9 is a five-level
-    stepped bump; ids `$1E`-`$28` are reachable only from the sound-test screen.
-  * Status words: `$B5`, `$C0`, `$C6`, `$C9`, `$CD`, note adjust bytes, instrument byte 1 and the `Param` entries were "CONFIRMED" from the interpreter's runs; they are PROBABLE now (demonstrated (synthetic)), by the rule at the top.  The wave level (NR32),
-    the noise pitch (NR43) and the priority rule moved from "not simulated" / open to measured.
-  * Names: `Label_04_4BEB` is `SoundDrv_ServiceChannelGate`, `Function_04_4E34` is `SoundDrv_WaveLevelChanged`, `SoundDrv_CmdRest` is `SoundDrv_CmdWait`; the effects carry `SoundSfx` instead of `SoundSong`.
 
+* Track record +`$C`..+`$10` start as `0, 0, 0, FF, FF`, not `0, 0, FF, FF, 0`; the effects `$2A` and `$2B` play their first note with that default record.
 
-## 13. Contracts of four named envelope helpers (2026-10-15)
+* `$CF` compares the given pitch like a note's (it gets the pitch add), releases the first matching channel only, and a following byte `$00`-`$23` hangs the driver.
 
-These four routines already had the semantic names below. Their missing adjacent contract
-comments were a documentation gap, not four newly discovered functions. The four unused
-`Function_04_*` definitions are replaced by comments on their existing physical lines;
-the semantic definitions and every instruction row stay in place. This follows the current
-operator instruction to remove generic function aliases. The older alias-retention convention
-and historical naming tables do not require retaining these four active definitions.
+The flags field has a bit 5 (`$A0` from `StartTrack`).
+
+* `+$27` / `+$28`: the earlier "HYPOTHESIS: a tail after the note" is now PROBABLE with the measured model of section 5.1.
+
+The static reviewer first wrote that the code contradicts it (the age counter "cannot count down to 0"); that conclusion is wrong:     the counter rises by one every 15 ticks, wraps at 256 and reaches 0 after about `(256 - +$28) * 15` ticks, which is the length mGBA shows; it is withdrawn in `audio2_verify_static.md`.
+
+* Attack: the only record in the data with an attack is the wave record `$4B` (effect `$42`); `$68`, which the first text used as evidence, is never selected.
+
+Record 119 of the note table is a rounding, not a clamp; wave pattern 9 is a five-level     stepped bump; ids `$1E`-`$28` are reachable only from the sound-test screen.
+
+* Status words: `$B5`, `$C0`, `$C6`, `$C9`, `$CD`, note adjust bytes, instrument byte 1 and the `Param` entries were "CONFIRMED" from the interpreter's runs; they are PROBABLE now (demonstrated (synthetic)), by the rule at the top.
+
+## 13. Contracts of four named envelope helpers
 
 | Original neutral definition | Maintained name | Original extent | CPU starts |
 |---|---|---|---|
@@ -448,24 +369,6 @@ and historical naming tables do not require retaining these four active definiti
 | `Function_04_4DDF` | `SoundDrv_ComputeTargetVolume` | 04:4DDF..4E04 | 21 |
 | `Function_04_4E04` | `SoundDrv_ComputeSustainVolume` | 04:4E04..4E34 | 27 |
 | `Function_04_4E34` | `SoundDrv_WaveLevelChanged` | 04:4E34..4E4B | 13 |
-
-**Evidence and limits.** These operation roles are **CONFIRMED** by their original instructions,
-their actual channel-update consumers and existing execution evidence. The current historical
-`analysis/coverage_union.tsv` entry rows4044/4051/4072/4099 record respectively474377,903228,
-903216 and2763107 instruction hits, each in67 scenarios. All seven/21/27 starts of the first
-three routines have the corresponding whole-path counts. Those finite observations do not
-show every byte value, every channel state, or arbitrary pointer/mapper inputs. General formulas
-and flag cases below are static contracts under the stated assumptions, not new runtime results.
-No new interpreter, mGBA, rendering or hardware test was run for this documentation change.
-
-Existing independent verification remains separately classified: [audio2_verify_dynamic.md](audio2_verify_dynamic.md)
-V1.2 reports the original-stream NRx2 values and synthetic volume/envelope sweeps; V1.4 reports
-the synthetic wave-level measurements. These establish the previously documented envelope roles
-in their admitted cases. The historical `audio2_renames.tsv` rows for LoadSustainField and
-WaveLevelChanged began as PROBABLE; V1.4 already superseded the latter's "wave not simulated"
-limitation. Here the LoadSustainField comment confirms the narrow nibble read and its zero test,
-with both actual callsites and complete existing instruction coverage; it does not promote
-unobserved instrument inputs or general hardware behavior.
 
 ### Inputs, mapping and shared arithmetic
 
@@ -510,11 +413,6 @@ B=V,C=hi(N). Only that channel field and the transient stack words are written.
 PUSHHL plus the nested multiplier CALL need at most four extra stack bytes beyond the
 helper-entry SP; both are balanced before the final RET.
 
-The unconditional caller04:4C73 prepares the attack target on note initialization;
-04:4CB3 is a conditional volume-update call. A coverage row for the latter's CALLNZ
-instruction reports visits to the instruction, not the number of taken calls. In particular,
-its204 visits in5 scenarios must not be presented as204 observed recomputations.
-
 ### Twice-rounded sustain target at04:4E04
 
 Input HL=Q and T/V/N are as above; let S=`byte[Q+0Ch]` be instrument byte4.
@@ -544,45 +442,3 @@ If R!=1Ch it returns without reading[HL] or writingD019. Otherwise it computes
 `delta=(X xor byte[P])&C0h`; only delta!=0 reads/modifies D019 to set bit1, preserving
 the other flag bits. This marks a volume update when wave output-level bits7-6 change;
 it does not write NR32 or update the mirror itself.
-
-Every path returns A=X,B=X, with C/DE/HL unchanged and no local stack save. Nonwave
-flags remain those of `CP1Ch` (Z0,N1,H iff the selector low nibble is belowCh,C iff R<1Ch).
-For wave R=1Ch, flags remain those of ANDC0h: Z iff delta=0,N0,H1,C0, even when the
-dirty-bit path loads a different A before restoring X. Thus nonwave NZ is not a returned
-boolean meaning "level changed". Existing coverage records447722 wave-path visits in66
-scenarios at4E3C/4E49, and93971 dirty-mark stores in66 scenarios at4E46; entry2763107
-does not mean that many changes. These are finite historical path observations.
-
-The only local symbol scope affected by removing these aliases is4E49:
-`Function_04_4E34.skip` becomes `SoundDrv_WaveLevelChanged.skip`. Its local branch stays
-`.skip` at4E3F and its address is unchanged. A scan of maintained ASM/inc code found no
-qualified reference to the old local symbol and no active operand use of any of these four
-neutral names; the four definitions were their only code occurrences. Historical research
-and metadata retain their old spellings as provenance. Reconstruction equivalence is not
-claimed by these static checks; the required make, original-ROM comparison and symbol check
-belong to the later independently reviewed integration.
-
-## Current-source follow-up (2026-10-20)
-
-The audio6 description above that says a neutral name remains below structural
-aliases records the original pass state. Since then, commit `cf9b7a7e` retired
-76 redundant `Data_05_*` aliases in `audio/sfx.asm`, including
-`Data_05_68BF`; their `SoundSfx*` labels remain, and the rename TSVs preserve
-historical spellings. No bytes or earlier confidence levels changed.
-The redundant `Data_04_574D` alias was also retired from
-`audio/music/music_01.asm`; `SoundSong01_Track0` is now the sole maintained
-label at 04:574D. Earlier audit prose and analysis ledgers preserve the old
-spelling as historical evidence.
-The same current-source cleanup retired 35 redundant `Data_05_*` aliases in
-`audio/music/music_17.asm`; the existing `SoundSong17_*` identities remain.
-The old spellings persist only in historical/frozen ledgers and do not assert
-that the removed names are current source symbols.
-The following `music_05.asm` cleanup retired 31 redundant `Data_04_*` labels;
-the `SoundSong05_*` identities remain at those addresses. Older config and
-analysis ledgers retain their original spellings as frozen evidence.
-The paired music owners `music_12.asm` and `music_0e.asm` next retired 20
-redundant `Data_05_*` labels apiece, retaining existing `SoundSong12_*` and
-`SoundSong0E_*` names. No audio semantics or runtime claims changed.
-The following `music_14.asm` pass retired 18 redundant `Data_05_*` labels;
-four positions without same-file descriptive co-aliases remain neutral. No
-audio semantics or runtime claims changed.

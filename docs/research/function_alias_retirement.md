@@ -1,55 +1,14 @@
 # Retirement of colocated Function aliases
 
-This pass retires 483 generic aliases already colocated with descriptive names in the
-original-ROM source. The position proof is CONFIRMED by the baseline symbol map and
-the exact adjacent label runs. It is not a claim that 483 previously unknown functions
-have been identified, that all entries execute naturally, or that every existing name
-expresses a complete ABI. Names and addresses are recorded below for historical lookup.
+The 3-instruction entry calls `Glyph_AsciiAddr` (7F:400E), `Glyph_CopyAsciiRowsSingle` (00:0DCE), then returns.
 
-The source baseline is `e958ff4f39018412c7a2716dc92029f5d93e27d8`.
-The maintained source supplies the operation/evidence comments. Historical rename and
-coverage records remain evidence of the earlier analysis, not current entry guarantees.
-No historical manifest or frozen generator was rewritten. Existing source lines are
-preserved physically; each retired alias line becomes a blank line. Current operands,
-source comments and RAM replay scopes use current identities. The 1,391 qualified local
-symbols inherit the retained preceding global name; the exact old/current/address map is
-recorded in the private proposal's DATA/LOCAL_SCOPE_MAP.json for ROOT's linked-symbol gate.
+The address helper selects effective B in $20..$7F, otherwise $3F, and computes source ROM76:$67A8 + 12 * (effectiveB - $20).
 
-## Two bounded name corrections
-
-`Function_7F_4000` / `Glyph_LoadAsciiSinglePlane` becomes
-`Glyph_LoadContiguous12Bytes`. Entry remains HYPOTHESIS: the prior whole-ROM caller,
-pointer and far-call search found no entry evidence. The 3-instruction entry calls
-`Glyph_AsciiAddr` (7F:400E), `Glyph_CopyAsciiRowsSingle` (00:0DCE), then returns.
-The copy operation is PROBABLE under the mapper, window, destination and stack
-prerequisites, with no new natural execution claimed. The address helper selects
-effective B in $20..$7F, otherwise $3F, and computes source
-ROM76:$67A8 + 12 * (effectiveB - $20). It transfers input DE into destination HL.
-The home helper copies 12 consecutive bytes, advances both pointers by 12 and selects
-low ROM bank $7F after selecting $76; it updates hROMBankLo and $2100, without proving
-all other mapping state or interrupt ownership. The output is not an interleaved
-24-byte two-buffer layout. The old ASCII/plane wording did not establish such a layout
-or a character-set contract. Sibling 7F:4007 and callee coverage does not prove 7F:4000.
-
-`Function_7F_61FC` / `Stub_Nop_7F_61FC` becomes
-`Stack_PushPopAFAndReturn`. The exact entry consists of PUSH AF / POP AF / RET at
-7F:61FC..61FE. Historical entry execution remains CONFIRMED, while the old comment's
-10-instruction extent included the neighboring Timer_ResetClockB at 7F:61FF and must
-not be attributed solely to this 3-instruction entry. PUSH writes at entry SP-1 and
-SP-2; matching AF restoration requires those writes and reads to address coherent,
-visible writable memory. RET still consumes the return address. No unconditional AF,
-stack visibility, interrupt-state or write-free-nop contract is asserted. Both maintained
-call operands now use the operation name.
+The home helper copies 12 consecutive bytes, advances both pointers by 12 and selects low ROM bank $7F after selecting $76; it updates hROMBankLo and $2100, without proving all other mapping state or interrupt ownership.
 
 ## Retained limitations
 
-The other 7F holds are retained. 7F:4042 has BC-code/DE-base setup distinct from
-7F:405F's HL-code/BC-left/DE-right setup. Coordinate remap and buffer ownership at
-7F:42C3/49AE remain bounded; 7F:4AAF's F0..F4 top clipping can schedule wrapped or
-zero counters, and early bottom return prevents an all-rows or safe-clipping promise.
-The demo/prototype family does not establish chronology, natural root entries or all
-paths; 7F:5CB4 returns before its legacy body and the known CALL NZ at 7F:61E6 has a
-dead flag condition. Bank29 family entry/live-bank mapping remains unproved.
+Coordinate remap and buffer ownership at 7F:42C3/49AE remain bounded; 7F:4AAF's F0..F4 top clipping can schedule wrapped or zero counters, and early bottom return prevents an all-rows or safe-clipping promise.
 
 7F:70FD's repeated subtraction terminates only for Y congruent to $0D modulo 4;
 the resulting D must also fit the eight-row Up3 table. Scroll tables use unchecked D/E.
@@ -60,33 +19,7 @@ Mode1 zero-result behavior and Mode0 business meaning remain limited by existing
 evidence. Mapper, stack, IRQ and input domains stay conditional. Mail-library Base64
 size quirks remain unchanged; a calculation name is not an ideal-formula guarantee.
 
-## Current replay identity and historical erratum
-
-The two RAM scope endpoints and the ramop10/ramop11 manual proof/context references
-track the current name. The old audit classified 334 generic metadata occurrences as
-HISTORICAL_RENAME_OR_PROOF_RECORD. One is operational by identity:
-analysis/naming2/ram12_residual_overlays.tsv line 6, column 5 says which function the
-scope excludes, and must follow the line's column-3 endpoint. Thus 333 historical
-occurrences remain literal and this one operational proof reference changes. This
-corrects the classification; it does not erase the old audit or rewrite historical
-rename manifests. Existing long comments retain their lines. The scope parser needs
-the complete endpoint on ram/overlays.asm line 620 (105 columns), an explicit exception
-to new-comment wrapping. New contract comments fit 100 columns with tabs counted as 4.
-
-Two earlier stale source comments in engine/mail/body_editor.asm (lines 2213 and 2323)
-also now use MailBody_ApplyDakutenU. They were outside the 483-alias cohort: no extra
-alias is retired here. The maintained definition, baseline linked position 2D:553D and
-config/symbols/bank2D.tsv's position/name row prove the identity; the frozen table and
-historical research records remain unchanged.
-
-The private proposal performs deterministic static checks only. ROOT must run the
-native build, sym-check, original-ROM comparison and expected-symbol comparison before
-claiming byte identity. Static success is not natural execution or hardware evidence.
-
 ## Old-to-current position map
-
-Status below is the inherited adjacent source status; ABSENT means no adjacent tag,
-not a newly assigned confidence. Existing qualified hypotheses remain in the source.
 
 | Old alias | Current name | Bank:address | Inherited status |
 |---|---|---|---|

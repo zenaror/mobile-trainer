@@ -1,8 +1,8 @@
-# Japanese tile-resource ordinal follow-up (2026-10-23)
+# Japanese tile-resource ordinal follow-up
 
 ## Result
 
-A complete owner/consumer review resolved the 41 `*_Tiles0..6` definitions in 11 GFX owners. **All 41 labels now name their statically proven VRAM destination and CGB VRAM bank**: 38 single-destination labels and three explicit multi-destination labels. All 41 matching `.2bpp`/PNG pairs were renamed with them. Two names explicitly identify partial `TileSlice` loads; one 16-byte source prefix is named `Prefix` so it cannot be confused with a longer transfer beginning at the same address. Five MailServerMgr tilemap labels were also reviewed and retained as owner-qualified names.
+**All 41 labels now name their statically proven VRAM destination and CGB VRAM bank**: 38 single-destination labels and three explicit multi-destination labels.
 
 `CONFIRMED` here means the source symbol is statically tied to a transfer whose destination/bank arguments are explicit. It does not claim the transfer executed naturally, identify the picture's visual subject, or establish hardware behavior. The common transfer decoding is in `home/gfx_upload.asm:7–40`: C counts 16-byte blocks, `E & $F0` supplies the destination low byte, and `E & 1` selects VRAM bank 0/1.
 
@@ -54,8 +54,6 @@ A complete owner/consumer review resolved the 41 `*_Tiles0..6` definitions in 11
 
 ## Multi-destination names and deliberate KEEP decisions
 
-The three formerly ordinal tile labels now state the full-span destination and the additional reuse destination(s). The naming does not imply a visual subject or unique art role.
-
 | Retained name | Why it remains owner-qualified |
 |---|---|
 | `Tilemap_MailServerMgr_Main` | Already identifies the main 20×18 tilemap/attribute pair and its `$D000` destination. |
@@ -63,9 +61,3 @@ The three formerly ordinal tile labels now state the full-span destination and t
 | `Tilemap_MailServerMgr_InfoB/C/D` | Keep the three owner-qualified variants. They share format/destination; content semantics are not established strongly enough to replace the variant names. Existing confidence on C/D remains `PROBABLE`. |
 
 The MailServerMgr prefix row is deliberately bounded: `Gfx_MailServerMgr_Tiles1` is exactly 16 bytes and is read alone by `engine/mail_server/tidy.asm:92`. Two screen transfers request 1024 bytes from the same start and include the separately named 1008-byte tail. The new name applies only to the 16-byte definition span.
-
-## Updated dependencies and validation
-
-The change updates 11 GFX owners, 12 engine consumers, all 41 `.2bpp`/PNG path pairs, `gfx/assets.tsv`, regenerated `gfx/png_rules.tsv` and `gfx/png.mk`, screen/preload manifests, `tools/render_screens.py` (including its functional preload filter), the asset README generator example, style documentation, and the test fixture. Historical research ledgers retain the old symbols as evidence of the names used at their checkpoints; this note is the current migration map.
-
-A review of bank/destination literals rejected address-only false positives: equal CPU addresses in another ROM bank or sprite coordinates are not references to these resources. No consumer based on computed references was newly established. Validation passed: `make` and reference comparison report `SHA-256 OK` and `RESULT: IDENTICAL`; `make sym-check` reports 335 files, 12,185 labels, and 51 constants; `make palette-check` reports 162 loads, 116 arrays, two documented over-reads, and zero errors; `make png-check` checks 408 tile sheets, four raw byte views, 37 font sheets, and 95 screen PNGs; `python3 tools/png_rules.py mk-check`, `python3 tools/gfx_export.py check`, 35 `tools/test_apply_renames.py` tests, and `git diff --check` pass. A separate hash comparison confirmed all 82 renamed `.2bpp`/PNG files are byte-identical to their pre-rename contents.

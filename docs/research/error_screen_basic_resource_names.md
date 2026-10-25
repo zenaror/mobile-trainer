@@ -80,12 +80,6 @@ de banco/HRAM/scratch; nenhuma implementação ou estado dessa ABI muda.
 
 ## Linhas, metadados e previsão
 
-O levantamento atual dos seis roots reencontrou42 registros literais:20
-definições (dez antigas+dez retidas) e22 operandos dos onze carregamentos.
-Nenhum alias antigo tem operando ativo fora da definição. Os dois owners GFX
-não têm labels locais; deixar suas dez linhas em branco mantém todas as outras
-linhas byte a byte, inclusive macros, ASSERTs e os sete KEEP.
-
 Os12 registros de `gfx/assets.tsv` e os onze de `gfx/previews/screen_ops.tsv`
 relacionados à unidade já usam os nomes descritivos retidos. Não há alteração
 nem SOURCE/BEFORE de TSV neste pacote. Uma rechecagem futura deve confirmar que
@@ -93,19 +87,3 @@ isso continua verdadeiro, sem copiar catálogo/screen_ops de um baseline antigo.
 Os contextos ramop9/10/11 não tinham referências antigas selecionadas no scout
 selado. Config/análises/notas históricas mantêm suas identidades antigas como
 proveniência, sem substituição global.
-
-Foram rechecados os hashes atuais dos dois owners GFX, dois consumidores e12
-componentes contra o scout selado, além das dez emissões e onze vetores na ROM
-original. O SYM fresco congelado GFX20 `2b84a91d...` é só evidência de coordenadas
-de coaliases; não é build ativo nem total absoluto de um parent futuro. O saldo
-isolado previsto é-10 nomes globais, nenhum novo nome, local, constante ou
-endereço. A prova do build completo ainda depende dos gates posteriores do ROOT.
-
-A proposta e a seleção foram preparadas pelo mesmo executor; não há autoaceite
-nem revisão cega alegada. Nenhum teste, checker, import de helper, compilador,
-exporter, renderização ou emulador foi executado. Apenas scripts próprios de
-análise estática leram fonte/dados/ROM. Não há prova natural/hardware nova,
-fechamento universal de ponteiros computados/consumidores externos ou eliminação
-dos neutros/KEEP. Settings17,5510,guardas e todos os pacotes anteriores continuam
-intactos; idioma e R4 não são retomados. ROOT compõe REVERSE/README vigentes em
-fase própria, após revisão e rebase, sem importar resumos antigos.

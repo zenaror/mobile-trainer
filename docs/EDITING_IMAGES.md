@@ -78,30 +78,31 @@ black and pure white inside glyph cells.  Cell = glyph + 1 pixel grid.
 padding, font type, glyph counts) and the hash of each binary in the original ROM state; `gfx/png.mk` is generated from it and included by the
 `Makefile`.  Without `rgbgfx` or `python3` the rules are skipped and the committed binaries are used.  Tests: `python3 tools/test_png.py`.
 
-## 6. Bank42 fragmented conditional composition (historical93-row stage)
+## 6. Resources with special formats
 
-The additional `frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tilemap` catalogue entry combines four existing tile sheets: 27 tiles at42:4D50,60 at42:4F00,2 at42:52C0 and71 at42:52E0. Its editing-view path is `gfx/frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tilemap.screen.png`. The composition uses unsigned tile numbers, VRAM bank1 and the first32 words of `palette_5a20.pal`; all360 map cells resolve under those assumptions. Its status remains HYPOTHESIS: this layout supplies no original loader, LCDC.bit4 or species/name association.
+### Conditional frame compositions
 
-This entry updates the earlier catalogue counts to93 rows:20 PROBABLE and73 HYPOTHESIS. All92 earlier rows and their PNGs are retained. It addresses one of the eleven bank41–46 omissions described above; ten remain, and87 of the180 tilemaps still have no catalogue entry. Import uses the existing four sheets and preserves the map, attributes and physical asset sizes. The last sheet contains71 physical tiles; its nine padding tiles cannot become source tiles. Export or import only this view with `python3 tools/screen_png.py export frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tilemap` or `python3 tools/screen_png.py import --dry-run --palette frame_designs/metal_flame_and_creature_borders_42/flame_jagged_border_42_4d50_tilemap`.
+Some frame previews combine several tile sources under an assumed addressing,
+VRAM-bank and palette context. Their PROBABLE/HYPOTHESIS status applies to that
+composition. A fully resolved preview does not establish an original loader or
+a Pokémon-name association. Eight compositions retain incomplete placement or
+consumer contracts; keep their original backing bytes.
 
-## 7. Current original-asset catalogue
+The Bank42 jagged/flame view combines sources at `42:4D50`, `4F00`, `52C0` and
+`52E0` under an unsigned/VRAM1 model. Use its declared entry in `gfx/screens.tsv`
+when exporting or importing, and retain the physical source extents.
 
-The current catalogue has994 assets/627530 logical ROM bytes and993 active PNG rules. Its11 JIS12x12 binaries total131976B; all font formats together have39 binaries in37 sheets. The424 tile-sheet PNGs,4 RAW byte-view PNGs (80B) and37 font sheets are465 unique editable source PNG paths. The validity bitmap is a separate view-only picture. The RAW files preserve HYPOTHESIS/UNKNOWN purpose and use an explicit reversible byte codec; a byte-view is not a new tile classification.
+### Object records and byte views
 
-The current95 screen rows are20 PROBABLE and75 HYPOTHESIS;86 of181 tilemaps have no screen row. The preceding92/93 counts describe earlier stages, not current omissions. Among the25 finite candidate physical windows,17 editing compositions and24 legacy previews exist: every window has some existing PNG representation. Eight editing views remain KEEP; this is not missing ROM art or proof of natural loading. The completed bank7C sheet shares three contiguous spans6083+10+9135B without a new PNG path. No species/name-to-image association or ALL asset-completeness claim follows.
+A legacy byte-view PNG can show bytes that are actually object/frame/script
+records. The AdapterCheck span at `4A:68D0` and the settings cursor span at
+`4A:5860` are represented by Assembly/macros. Edit those structures in their
+`.asm` owners rather than treating their legacy byte views as active tile art.
+Zero bytes following a record do not by themselves prove padding or unused data.
 
+### HelpScript pictures
 
-### AdapterCheck object-data legacy view (2026-10-18)
-
-`gfx/settings/screens_bank4a/tiles_68d0.2bpp` and its unchanged40x8PNG are retained as legacy evidence, outside the active asset/rule catalogue. They no longer feed4A:68D0 through INCBIN: edit the PROBABLE object table/frame list/frames/script in ASM/macros instead. The final11zero bytes have UNKNOWN purpose; neither tile art nor unused/padding follows from their old byte view. Paths/hashes and the original80B layout are recorded in [the typing/provenance note](research/adapter_check_object_data_80b.md). Removing one false active tile interpretation changes catalogue counters, not the ROM bytes or the number of preserved physical files.
-
-
-### Localização dos legados AdapterCheck após a migração 4A (2026-10-18)
-
-Os arquivos legados atuais são `gfx/settings/adapter_check_and_phone_entry_bank4a/legacy_byteviews/adapter_check_object_data_4a_68d0.2bpp` (80 B) e `gfx/settings/adapter_check_and_phone_entry_bank4a/legacy_byteviews/adapter_check_object_data_4a_68d0.png` (PNG 40×8, 184 B). Os bytes, pixels e hashes são os mesmos dos caminhos históricos `gfx/settings/screens_bank4a/tiles_68d0.2bpp` e `gfx/settings/screens_bank4a/tiles_68d0.png`. Eles ficam fora do catálogo e das regras ativas; a região PROBABLE em 4A:68D0 é editada em ASM/macros, e seus 11 zeros finais continuam UNKNOWN. O parágrafo datado anterior registra a localização no passe de tipagem, antes desta migração. O mapa [antigo→atual](research/gfx_resource_path_map.tsv) preserva essa proveniência; consulte [a unidade de caminhos](research/adapter_check_and_phone_entry_4a_resource_paths.md). Para os 15 componentes ativos, edite os PNGs/paletas/mapas da nova coleção; nenhum PNG novo é criado.
-
-O byte-view `gfx/account/settings_menu_and_manual_confirm_bank4a/settings_menu_cursor_frames_anim_script_byteview_4a_5860.2bpp` (16 B, SHA-256 `68801625e95363bd79c1370472e8ccad7f9b93e2e929930f78610232787fbd91`) e sua visualização PNG `settings_menu_cursor_frames_anim_script_byteview_4a_5860.png` (SHA-256 `5680705a91e0e2fb90a25f993d78cf21be4cda9ef69dee7d95492cb10c716716`) ficam fora do catálogo/regras ativas. A faixa foi reclassificada em `gfx/account/settings_menu_and_manual_confirm_bank4a.asm`: dois frames, script e cinco zeros. Use as macros ASM para editar a estrutura; a posição do antigo byte-view não implica pixels usados pelo jogo.
-
-## 8. HelpScript picture objects
-
-The26 table-backed HelpScript pictures use12×6-tile (96×48-pixel) editable grayscale PNGs, each backed by1152 bytes and an individual four-colour `.pal`. Their IDs and original-bank bounds come from the static picture table, not a natural-display claim. See [the resource contracts and range migration](research/help_script_picture_assets.md). Do not crop, resize or add tiles.
+The table-backed HelpScript pictures use 12×6 tiles (96×48 pixels), 1,152-byte
+backings and four-colour palettes. Their IDs and source ranges are defined by
+the picture table. Preserve dimensions and glyph/tile order. See
+[HelpScript picture resources](research/help_script_picture_assets.md).

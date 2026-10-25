@@ -28,30 +28,3 @@ tile PNG rules. No ROM bytes were changed; the payload remains the original
 1,792-byte span followed by the 128-byte `$FF` tail.
 
 The strings visible in the first 112 tiles read approximately:
-
-- `メールをセーブしてしゅうりょうします` — save the mail and exit;
-- `かいたメールをみることができます` — view the mail that was written;
-- `メールをかくのをやめます` — stop writing the mail.
-
-These readings identify the visible design, not proof of an observed menu
-selection. Trace coverage reports execution of the loader, but does not prove
-that all three values or screen states occurred naturally. Preserve that
-distinction in filenames, inventory notes, and future runtime claims.
-
-## Prior neutral labels
-
-The earlier data-name audit retained `Data_66_6A90` as heuristic-only and
-`Data_66_7190` as unknown. That was appropriately conservative before the
-three exact consumer windows were consolidated. The new typed resource covers
-both spans because the confirmed loader selects and transfers across them;
-only the semantic claim about the three exit choices remains PROBABLE. The
-frozen analysis outputs were not regenerated or edited.
-
-## Reproduction and verification
-
-The source is `gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm`; catalog and path migration are
-in `gfx/assets.tsv` and `docs/research/gfx_resource_path_map.tsv`. The prior
-112-tile PNG view was retained under `jp-gfx-mail-draft-exit-20261021` (review artifact)
-for provenance. Verify the exact payload and PNG with `make png-check`, then
-run the protected Japanese `make`, `make sym-check`, and `make palette-check`
-gates. The expected ROM result is byte-identical to the source ROM.

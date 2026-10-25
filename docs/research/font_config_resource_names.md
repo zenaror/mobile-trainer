@@ -1,9 +1,6 @@
 # Font glyph-run and default configuration resource names
 
-This bounded original-ROM source migration retires 33 historical aliases while retaining
-the existing semantic labels, addresses, bytes and evidence levels. It moves 27 glyph
-binary/PNG pairs without rendering them. The mapping below and
-[glyph-run path map](font_glyph_run_path_map.tsv) preserve original provenance.
+The mapping below and [glyph-run path map](font_glyph_run_path_map.tsv) preserve original provenance.
 
 ## Glyph storage and caller contract
 
@@ -21,54 +18,21 @@ bank word, destination2 pointer, destination2 bank word. It skips the high byte 
 each bank word. The positive text renderer callers in `engine/text/text_tiles.asm`
 push five words and remove10 argument bytes after the farcall.
 
-The search chooses a descending lower-bound key and scales the trail-byte difference
-by16. There is no per-run upper-bound check: arbitrary SJIS values are not established
-as safe. All27 record bank bytes are48. The byte is read intoD, which is later
-overwritten by the destination bank before `BankSwitch_H`; this is not an established
-general source-bank-switching table ABI. Source reads throughBC require ROM48 to
-remain selected, including during destination switches and interrupts. The supported
-caller destinations are RAM; selecting a ROM destination that switches away from48
-is outside this proved contract.
+The byte is read intoD, which is later overwritten by the destination bank before `BankSwitch_H`; this is not an established general source-bank-switching table ABI.
 
-Two eight-byte loops duplicate each source byte into equal2bpp planes (32 writes for
-16 source bytes). SRAM is enabled during the copy and disabled on exit; previous
-WRAM/SRAM banks are restored from their HRAM shadows. Shadow/hardware coherence,
-destination accessibility and interrupt continuity remain caller/state assumptions;
-this migration repairs none of those behaviors. An executed renderer entry does not
-prove natural reads of every run. The preserved PNG hashes prove an exact file move,
-not a new render or original display observation. Earlier rendered-content evidence
-in `naming2_verify_data2a.md` remains historical.
+SRAM is enabled during the copy and disabled on exit; previous WRAM/SRAM banks are restored from their HRAM shadows.
 
 ## Default configuration images
 
-`data/account/default_config_images.asm` retains four192-byte immutable source images
-at68:67E0,68A0,6960,6A20. Existing image0 storage has historical **CONFIRMED** read
-evidence; images1-3 retain **PROBABLE** storage evidence. The default-image role is
-**PROBABLE**, supported by the existing table and its static consumers; no new image2
-read or natural execution is claimed.
+`data/account/default_config_images.asm` retains four192-byte immutable source images at68:67E0,68A0,6960,6A20.
 
-`Config_DefaultImageTable` at68:67D8 has four pointer words. Static
-`Config_BuildImageFromAccount` (68:6CF0 in `engine/account/register_config.asm`) indexes
-it using `wMobileAdapterType`, copiesC0 bytes to `sConfigImage` under callers' SRAM2
-enable/bank setup, then modifies account fields and restores the prior byte+3.
-The built SRAM result is not necessarily identical to its immutable template.
-ROM68 must remain mapped while table/image bytes are read. Index0..3 is a precondition:
-no range guard is present in the shown consumers; the SDK's type-minus88 handling
-does not establish validation. SRAM shadow/hardware coherence and interrupt continuity
-remain assumptions.
+`Config_DefaultImageTable` at68:67D8 has four pointer words.
 
-`Dial_LoadDefaultsForAdapterType` (68:46C8, `engine/account/helpers.asm`) also indexes
-the table, reads interior+76 for the number conversion and+7E for the bounded comment
-copy. Images0/1 are equal and images2/3 are equal; pair equality does not identify a
-provider, model, color undisclosed field. No sample account/dial/password contents
-are reproduced here. See the historical `naming_g7.md` record for earlier interpretation.
+Static `Config_BuildImageFromAccount` (68:6CF0 in `engine/account/register_config.asm`) indexes it using `wMobileAdapterType`, copiesC0 bytes to `sConfigImage` under callers' SRAM2 enable/bank setup, then modifies account fields and restores the prior byte+3.
 
-## Historical alias map
+SRAM shadow/hardware coherence and interrupt continuity remain assumptions.
 
-Retirement replaces only each obsolete alias declaration with a blank line; no locals
-belong to these33 aliases. Active font INCBIN paths, asset labels/paths and PNG rules
-are updated together. Frozen configuration, earlier analysis, fixtures and translation
-history remain receipts of their original state.
+`Dial_LoadDefaultsForAdapterType` (68:46C8, `engine/account/helpers.asm`) also indexes the table, reads interior+76 for the number conversion and+7E for the bounded comment copy.
 
 | old alias | retained name | original address |
 |---|---|---|

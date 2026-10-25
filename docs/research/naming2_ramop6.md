@@ -1,8 +1,5 @@
 # RAM pointer operands (ramop6): WRAM0, HRAM and hardware register operands written as names
 
-> Status: **reference (current)** for the operands it rewrites.  Follows [`naming2_ram3.md`](naming2_ram3.md) (operands that matched a ROM label) and [`naming2_sram4.md`](naming2_sram4.md) (SRAM).  Mapping record:
-> [`analysis/naming2/ramop6_names.tsv`](../../analysis/naming2/ramop6_names.tsv); tool: `tools/apply_ram_operands.py` (`--check` audits); independent verification: [`naming2_verify_ramop6.md`](naming2_verify_ramop6.md).
-
 ## 1. Result
 
 | item | count |
@@ -12,8 +9,6 @@
 | operands left numeric on purpose | 65: 5 at an overlay alias base inside the alias's files, **39 values** (36 negative numbers in HRAM and the hardware registers, 3 sprite position pairs), 21 marked `; raw` with a reason |
 | RAM definitions corrected | `wMobileSDK_PopServerName` size 24 -> 20 and a new 4-byte object `wMobileSDK_ServerIp` (`$C705`, PROBABLE); four phantom HRAM objects removed (`hRam_FF9C`, `hRam_FFA0`, `hRam_FFFA`, `hRam_FFFB`: no access anywhere, only loaded as numbers) |
 | ROM | byte-identical (`make`: `RESULT: IDENTICAL`; `sym-check`, `tidy_comments --check`, `localize_labels --check`, `tree_check`, the overlay and banked audits and the tool tests pass) |
-
-## 2. Method and rules
 
 The generator wrote RAM names where code reads or writes a variable (`ld a, [wTimerEnable]`) but left every pointer *immediate* numeric (`ld hl, $C0A0`), because an immediate can be a constant.  `tools/apply_ram_operands.py` rewrites
 the operand only (`ld hl, $C0A0` -> `ld hl, wGlyphBufLeft`, `ld de, $C0A3` -> `ld de, wGlyphBufLeft + $03`): the name is the same number, so no ROM byte changes.  Rules (the tool's docstring is the specification):
@@ -25,13 +20,6 @@ the operand only (`ld hl, $C0A0` -> `ld hl, wGlyphBufLeft`, `ld de, $C0A3` -> `l
 * an address that has a screen-local alias in `ram/overlays.asm` stays numeric inside the files of that alias (a window base such as `ld hl, $C0D4` clears 252 bytes, it is not the byte the alias names); a line whose trailing comment
   starts with `; raw` is a human decision and says why (21 lines: 8 more window wipes, 7 dead loads of `$C0A9` whose DE nobody reads, 2 scratch uses of `$C0A0` that are not glyph data, 2 bases of a mail-address string buffer at `$C27F`,
   2 bases of a 16-byte buffer at `$C10E`).
-
-## 3. What the first version got wrong
-
-The first version assumed that an immediate in HRAM is never a count and rewrote 1,431 operands.  The independent reader found 46 wrong ones: 30 HRAM/hardware-register constants (`ld bc, hRandomState ; add hl, bc` in the sound driver was the worst:
-the number -2), three `wShadowOAM + $28/$40/$58` that are the X of a sprite position, seven dead loads written as `wGlyphBufLeft + $09`, two scratch uses of `$C0A0` (a password source, nine bytes copied from `$D524`), three `PopServerName + $14`
-that are really a server IP, and one end-of-window pointer that had picked the name of a different variable.  The rules of section 2 came from those findings (the tool's first version had none of them); the corrected tree equals the reader's list
-site by site, except that the three `$C705` operands use the new name `wMobileSDK_ServerIp` instead of staying numeric.  A phantom-object check followed: four HRAM names (`hRam_FF9C`, `hRam_FFA0`, `hRam_FFFA`, `hRam_FFFB`) existed only because the census had read those constants as addresses.
 
 ## 4. Findings on the way (the objects, not the operands)
 
@@ -47,12 +35,4 @@ site by site, except that the three `$C705` operands use the new name `wMobileSD
 
 ## 5. Not covered, and why
 
-* **Banked WRAM `$D000-$DFFF`** (3,328 raw operands, 275 distinct values, about 2,000 at an address that has some name): the name depends on the bank, and for a pointer handed to a routine that switches the bank itself (`Sprite_InitSlot` with `hl = $DAxx`)
-  the bank that counts is the callee's, not the site's; it needs the per-consumer reading of the SRAM pass and a proof of the bank (`analysis/rambank/observed_banks.tsv`, `config/ram_context.tsv`), not a rule.
-* **ROM-range immediates** (3,954 operands, 767 distinct values): pointers into data that has no label at that address, or plain constants; the 43 that equal a label were read in `naming2_ram3.md` section 4.
 * **VRAM** (709 operands): tile destinations carry the VRAM bank in bit 0 (`$8801` = `$8800` bank 1) and tilemap positions are addresses inside `$9800/$9C00`: a different, macro-sized question.
-
-## 6. Reproduce
-
-`python3 tools/apply_ram_operands.py --areas wram0,hram,io --dry-run` shows what it would do; without `--dry-run` it rewrites, builds, checks the SHA-256 and `sym_check` and restores every file on failure; `--check` lists the raw operands that are neither
-values, overlay bases nor marked `; raw`; `python3 tools/test_ram_operands.py` runs the 14 tests.

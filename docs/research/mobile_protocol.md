@@ -10,10 +10,6 @@ encode, e.g. the game-side behaviour) is the Dan Docs text copy in
 `<GB>/MobileAdapterGB/MAGB-TestSuit/gbdk/docs/dandocs-magb.md` (public domain). Where a claim is also visible in the
 Trainer ROM the ROM evidence is given as `bank:addr` (see `docs/research/mobile_trainer_serial.md`).
 
-`<GB>` = `$REFERENCE_ROOT`.
-
----------------------------------------------------------------------------------------------------------------
-
 ## 1. Roles on the wire
 
 | topic | fact | source | status |
@@ -26,10 +22,6 @@ Trainer ROM the ROM evidence is given as `bank:addr` (see `docs/research/mobile_
 | CGB clock | Dan Docs: the GBC uses the fastest serial mode (SC bits 0 and 1 set), "approximately 64 K(B)/s"; GBA uses NORMAL8 at 256 kHz. Note the arithmetic: 524288 Hz shift clock = 64 KiB/s, i.e. the "64 Kbit/s" in the source text is very likely "64 KB/s". The Trainer runs in CGB double speed (`00:0292 call z,$0602`), so SC=$83 shifts at 524288 Hz. | Dan Docs "Serial mode"; ROM `00:0602` | PROBABLE (Dan Docs figure), CONFIRMED (SC=$83, double speed) |
 | pacing | The console must not clock bytes back-to-back; between bytes the Game Boy SDK waits for a timer interrupt (see trainer doc, section on timing). libmobile has no minimum inter-byte time on its side (state machine runs in the ISR, config/commands in a main loop that must run "at least every 100 ms", `mobile.h:483-486`), which is why slow commands are answered lazily with idle bytes. | `mobile.h:481-491` | CONFIRMED (libmobile), PROBABLE (real hardware) |
 | wake-up | A sleeping real adapter returns garbage for the first transfer; Dan Docs recommend one dummy transfer then about 100 ms wait. After about 3 s without any serial byte the real adapter sleeps: cancels the running command, closes connections, ends the session. libmobile models this with a 3000 ms serial timer. | Dan Docs "Wake and sleep behavior"; `mobile.c:173-176`, `mobile.c:180-184` ("Timeout has been verified on hardware.") | CONFIRMED (libmobile comment), PROBABLE otherwise |
-
----------------------------------------------------------------------------------------------------------------
-
-## 2. Packet framing
 
 ### 2.1 Layout (8-bit mode, the only mode the Trainer uses)
 
@@ -74,8 +66,6 @@ next 2      ack bytes   2 bytes exchanged simultaneously in BOTH directions (sec
 * The Trainer ROM has no `0x18` template or command constant (the SDK only builds the commands of section 6 marked "Trainer SDK"). CONFIRMED absence in the
   packet template table (`75:5FFB-6083`), HYPOTHESIS that no other code builds it.
 
----------------------------------------------------------------------------------------------------------------
-
 ## 3. Acknowledgement, error bytes, retries
 
 After the checksum both sides exchange two bytes. Because the adapter answers one byte late (section 1) the sequence of exchanges is:
@@ -87,20 +77,7 @@ After the checksum both sides exchange two bytes. Because the adapter answers on
 | N+2 | `0x00` (sender's ack byte 2) | `command ^ 0x80` on success, or `F0`/`F1` | `serial.c:159`: this byte is skipped ("skip at least one byte") |
 | N+3.. | `4B` idle polls | `D2` | `serial.c:162-177`: `4B` required, then `RESPONSE_WAITING` |
 
-* **Sender's ack bytes**: `[device_id | 0x80, 0x00]`. **Receiver's ack bytes**: `[device_id | 0x80, command ^ 0x80]` (Dan Docs "Acknowledgement signal").
-* Device ids (`mobile.h:36-46`): `00` GameBoy, `01` GBA, `08` Blue (PDC), `09` Yellow (cdmaOne), `0A` Green (PHS, never released), `0B` Red (DDI).
-  Wire values (`| 0x80`): 80, 81, 88, 89, 8A, 8B. Adapter device id learned by the Trainer SDK from the Begin Session reply (`75:5D5A-5D5E`: accepts `$80..$8F`).
-* **Transport-level error codes** returned in ack byte 2 (`serial.h:37-47`): `F0` unknown/unsupported command, `F1` checksum mismatch, `F2` internal error
-  ("transfer buffer full" or command cancelled after a serial timeout > 2 s but < 3 s).
-  When the *adapter* is the receiver and sees an error it does not process the packet (`serial.c:162-166`).
-* Retries: when the console is the receiver and gets a bad checksum it answers `F1` (Trainer: `75:5B26`) and the adapter resends
-  (`serial.c:240-269`: on `F0/F1/F2` from the console the adapter goes back to `RESPONSE_START`). Dan Docs: sender retries immediately, up to four attempts.
-  Trainer SDK: `$F1` is sent on each of the first three consecutive checksum failures, the third also latches SDK error `$15` (`75:5AD5-5B28`; verifier correction of "at most 3 re-requests"); after `F2` up to 10 resends, after `F0/F1` up to 3 (`75:57A3/57AD`).
-* The blue adapter does not check the console's device id byte; the others do not check it in 32-bit mode; the received value cannot be verified in 32-bit mode (`serial.c:134-143`, `serial.c:288-293`).
-* Unknown commands: the adapter still consumes the whole packet and then answers `F0` (`serial.c:75-78`).
-* Any command other than `10` Begin Session is ignored (packet parsing aborted at the header) until a session has been started (`serial.c:60-67`, marked "TODO: Re-verify on hardware").
-
----------------------------------------------------------------------------------------------------------------
+**Receiver's ack bytes**: `[device_id | 0x80, command ^ 0x80]` (Dan Docs "Acknowledgement signal").
 
 ## 4. Complete exchange choreography (adapter view, `serial.c`)
 
@@ -132,8 +109,6 @@ Notes:
   This is what the Trainer SDK timer/response time-out counters wait for (see trainer doc).
 * Because a `NULL` command (`0F`) finishes with the ack exchange and returns to `WAITING`, `0F` serves as a no-reply ping (`serial.c:162-166`); Dan Docs: "Likely a ping. Not observed in released games."
 
----------------------------------------------------------------------------------------------------------------
-
 ## 5. Adapter timers and timeouts (libmobile)
 
 | what | value | where |
@@ -151,8 +126,6 @@ Notes:
 
 Game-side limits worth remembering (Dan Docs): responses to slow commands may take many seconds; the SDK in the Trainer polls for up to
 about 1 s x `$20`..`$60` repeats before giving up (derived, see trainer doc section 7).
-
----------------------------------------------------------------------------------------------------------------
 
 ## 6. Command table
 
@@ -197,8 +170,6 @@ Command-specific notes:
 * **ISP login (`21`)**: login id / password are length-prefixed (max 0x20). If a DNS address in the request is all zero the adapter substitutes the one from its configuration.
 * **Configuration read/write**: only 0x100 bytes are game-visible (`commands.c:16-18`), reads/writes larger than 0x80 bytes or crossing offset 0x100 fail with error 2 (whole operation cancelled).
 
----------------------------------------------------------------------------------------------------------------
-
 ## 7. Connection states (libmobile `commands.h:34-43`) and transitions
 
 ```
@@ -212,8 +183,6 @@ DISCONNECTED --(12 to ISP number)--> CALL_ISP --(21 PPP_CONNECT)--> INTERNET
 * `check_status` mapping (`commands.c:695-711`): `CALL`, `CALL_ISP`, `INTERNET` -> 4; `CALL_RECV` -> 5; everything else -> 0.
 * Peer-to-peer data is relayed over TCP (port `1027` default, `mobile.h:29-30`) or a relay server (extension, not in the original adapter).
 * Up to `MOBILE_MAX_CONNECTIONS = 2` simultaneous internet connections (`mobile.h:19`); connection 0 doubles as the P2P socket (`commands.c:26`).
-
----------------------------------------------------------------------------------------------------------------
 
 ## 8. Configuration memory (what `19`/`1A` address)
 
@@ -234,8 +203,6 @@ DISCONNECTED --(12 to ISP number)--> CALL_ISP --(21 PPP_CONNECT)--> INTERNET
 
 * Real adapters may overwrite the configuration with garbage if a console with an unknown device id talks to them (Dan Docs).
 
----------------------------------------------------------------------------------------------------------------
-
 ## 9. Typical console sequences
 
 Startup (Dan Docs "Common startup sequence"; the Trainer SDK reproduces it: `75:5FFC` BeginSession, `75:6041/604D` ReadConfig x2, `75:6028` TelephoneStatus, `75:6018` Dial, `75:6032` ISP Login):
@@ -246,31 +213,4 @@ Startup (Dan Docs "Common startup sequence"; the Trainer SDK reproduces it: `75:
 17 Telephone Status -> 12 Dial -> 21 ISP Login -> 28 DNS -> 23 TCP connect -> 15 Data ... -> 24 TCP disconnect -> 22 ISP logout -> 13 hang up -> 11 End
 ```
 
-HTTP, POP3, SMTP are implemented by the **game** on top of `15 Data` frames; the adapter only provides dial-up + TCP/UDP (Dan Docs "Flow of Communication").
-
----------------------------------------------------------------------------------------------------------------
-
-## 10. Discrepancies and open points
-
-| point | detail | status |
-|---|---|---|
-| sender magic | Dan Docs' flow table prints `96 66` for the sender magic, the packet-format section and libmobile (`serial.c:29-31`) use `99 66`; the Trainer ROM templates use `99 66` | CONFIRMED `99 66` |
-| Read Config length | libmobile allows 0x80 per read; the Trainer SDK reads 2 x 0x60 in the connect state (templates `75:6041/604D`; adapter log: `offset 00 size 60`, `offset 60 size 60`) but 0x80 + 0x40 for API `$38` (SRAM mirror; adapter log: `offset 00 size 80`, `offset 80 size 40`) | CONFIRMED (both, static + adapter log of `traces/detail/*/adapter.log`) |
-| Blue dial first byte | libmobile requires `0` for Blue (`commands.c:222-224`), Dan Docs also mentions decimal 16 | libmobile CONFIRMED, extra value HYPOTHESIS |
-| `0x4B` in libmobile | Not a named constant; literally `c != 0x4B` (`serial.c:169`) | CONFIRMED |
-| byte 3 of header | Always `00`; purpose unknown ("Unknown/unused") | HYPOTHESIS (unused) |
-| `0x16`, `0x18`, `0x25`, `0x26`, `0x3F` | Not used by the Trainer SDK templates | CONFIRMED (no templates); HYPOTHESIS (no other builder) |
-| `Error 25/14` on the console | SDK error numbers shown to the user are *console-side* codes derived from adapter errors (`GetErrorCode`), not packet codes; see trainer doc | PROBABLE |
-
-Related files: `docs/research/mobile_trainer_serial.md` (Trainer implementation), `analysis/mobile_candidates.json` (machine readable candidates),
-`docs/research/mobile_trainer_product_notes.md` (background, URLs, strings).
-
----------------------------------------------------------------------------------------------------------------
-
-## 11. Verifier notes (adversarial review, 2026-09-29)
-
-* libmobile citations spot-checked against the checkout (`serial.c:29/31/169/191/197/272`, `mobile.h:27-28,42-45,507-520`, `commands.c:43,215-238,385,393,630,999,1172`, `mobile.c:139,172-195`, `commands.h:9-32`, `config.c:37-49`): all correct. The command table ids match `commands.h`.
-* ROM-side facts in this file re-derived from bytes: `99 66` / `D2` / `4B` / `80` / `F1` / `F0-F2` constants (`75:580B/580F/5816/5A4A/5AC3/5B26/5706-5713`), the 16-template block `75:5FFB-6083` and the checksum `02 77` of the BeginSession template (0x18 + 0x25F = 0x277), the footer builder `75:5F6C` (emulated on every template).
-* Dynamic corroboration from the emulator adapter logs (`traces/detail/*/adapter.log`, made by another agent, libmobile in mGBA): the Trainer sends `10` with `NINTENDO`, `11`, `17`, `19`, `1A`, `12` (first byte 0 = Blue, number `#9677`), `21`, `28`, `23`, `15` (connection 0), `13`, `22` and receives `1F`; HTTP requests carry `User-Agent: CGB-B9AJ-00`.
-  Only the Blue adapter type was exercised, so the Yellow/Red first dial byte (2 / 1) and pacing rows are derived from code only.
 * Corrections made: address `68:4E46` for the test number; Read Config sizes (see section 10 row); checksum-failure wording above.

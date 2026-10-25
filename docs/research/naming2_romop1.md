@@ -1,26 +1,6 @@
 # ROM pointer operands (romop1): 708 pointers written as labels, 1,367 bank loads written as `BANK(label)`
 
-> Status: **reference (current)** for the operands it rewrites.  First pass over the raw `ld hl|de|bc, $XXXX` operands whose value is an address below `$8000` (the ROM); the RAM operands were done in
-> [`naming2_ramop6.md`](naming2_ramop6.md) to [`naming2_ramop10.md`](naming2_ramop10.md).  The idea is the same as in the banked WRAM passes: a number proves nothing, a *consumer rule* that says how the routine
-> receiving the register reads it does.
-> Record: [`analysis/naming2/rom_consumers.tsv`](../../analysis/naming2/rom_consumers.tsv) (23 rules); tools: `tools/apply_rom_operands.py`, `tools/test_rom_operands.py` (47 tests), `tools/sprite_chain_check.py` (reads
-> `BANK(label)` and checks the new labels), `tools/render_screens.py` (reads `BANK(label)`); independent verification: [`naming2_verify_romop1.md`](naming2_verify_romop1.md).
-
 ## 1. Result
-
-| item | count |
-|---|---|
-| ROM pointer operands (`ld hl\|de\|bc, $XXXX`) written as labels | **708** (606 in DE, 99 in HL, 3 in BC): 705 by the tool, 3 by hand (section 5); 701 in `$4000-$7FFF` with the bank shown, 7 in ROM0; 431 of them lie in code that ran in the natural traces |
-| by consumer | `Sprite_InitSlot` 592, `Palette_LoadToBuffer` 22, `Gfx_StartHDMA` 14, `Sprite_SetHook` 13, `SampleData_CopyString` 13, `MobileSDK_CopyString` 9, `StringAppend` 7, `TextTiles_RenderGrid` 5, `TextTiles_RenderLine` 4, `Gfx_StartHDMAWithService` 3, `CopyString` 3, `MobileSDK_CopyBytes` 3, `Html_ScanAttributes` 3, `Mobile_PacketSendBytes` 3, `CopyBytes` 2, `Mail_FindKeywordValue` 2, `Mail_EmitStringAndSuffix` 2, `Mobile_PacketSendEmptyBody` 2, `Mobile_PacketSendReadConfig` 2, `Tilemap_CopyRectAndAttr` 1, `Tilemap_CopyRectAndAttrPtr` 1, `Mobile_PacketSendExpect` 1, `MobileSDK_MatchPrefix` 1 |
-| bank loads `ld a, $NN` written `ld a, BANK(Label)` | **1,367**: 648 next to a pointer that this pass wrote, 719 next to a pointer that already was a label (`Gfx_StartHDMAWithService` 296, `Tilemap_CopyRectAndAttr` 132, `Sprite_InitSlot` 120, `Palette_LoadToBuffer` 101, `TextTiles_RenderLine` 33, `Gfx_StartHDMA` 32, `Tilemap_CopyRectAndAttrPtr` 5); 634 of the 719 ran in the natural traces |
-| new labels | **161**: 159 `<Table>_Entry<N>` (22 parent tables: `MailSession_ObjTable_72FB` 38, `Mailbox_ObjTable` 13, `MailResult_ObjTable` 13, `MailConnect_ObjTable` 11, ...) and 2 neutral `Table_BB_AAAA` names for object-table entries kept as `db` / `ds` |
-| files changed | 109: 86 of code (`engine/` 84, `lib/` 2) and 23 of `gfx/` that received labels |
-| rules | `analysis/naming2/rom_consumers.tsv`: 23 rows: 9 of bank kind `A` (the routine takes the ROM bank in A), 10 of kind `mapped` (it reads the bank that is mapped), 4 of a fixed bank (`75`) |
-| left numeric | 82 `no label`, 18 `not a table entry`, 3 `vector null` among the operands of a consumer that has a rule (section 6); 3,143 operands whose consumer has no rule: 1,449 of them lie in `$0150-$7FFF` (1,694 below), most are counts, pairs and divisors |
-| tests | `python3 tools/test_rom_operands.py`: 47 tests (a synthetic tree in memory and `main()` on a mini tree: no build needed) |
-| ROM | byte-identical (`make compare`: `RESULT: IDENTICAL`; `sym-check`, the form checks, `sprite_chain_check`, `apply_banked_names --check`, `invariants_check` and every other audit of the repository pass); every changed line is an operand or a bank load replaced by an expression of the same value, or one of the 161 inserted labels |
-
-Example (`gfx/mail/draft_menu.asm` and its caller):
 
 ```
 	ld de, Table_MailDraftMenu_Anims_Entry16        ; was: ld de, $5210
@@ -34,8 +14,6 @@ Table_MailDraftMenu_Anims_Entry16:: ; 2B:5210
 
 ## 2. What the rules say
 
-The proof of a rule is the code of the consumer, read in the source and decoded from the ROM bytes (`tools/sm83.py`); the last column is the evidence that the consumer ran in the natural traces
-(`analysis/coverage_union.tsv`: executions in how many of the 64 scenarios).  A rule is a statement about the *register*: where the register is a pointer into the ROM, the operand is the address of a label.
 A consumer that never ran (`SampleData_CopyString`, `Mail_EmitStringAndSuffix`) gives a rule that is as good as the reading, and the labels it writes are as good as the data they name (PROBABLE).
 
 | consumer | register | bank | what the routine does with it | executed |
@@ -77,12 +55,7 @@ A consumer that never ran (`SampleData_CopyString`, `Mail_EmitStringAndSuffix`) 
    `ld b, a`, `cp a, c`, `push af`: the constant may then be a number of its own), becomes `ld a, BANK(Label)`; for an operand that already was a label (`ld hl, Label`) only the `ld a, $NN` is rewritten when the
    consumer takes A as the bank and its value is the bank of the label.  `; raw` lines are never rewritten, the `ld a` line included.
 
-Why the bytes cannot change: the label is the same number (the linker puts it there), `BANK(Label)` is the bank of the section that holds it; `make` compares the SHA-256 and the tool restores the files when it differs
-and also when it is interrupted or fails while building.  `--check` exits 1 when a rule still proves an operand, 2 when the lines could not be mapped.  Idempotent: a second run writes nothing.
-
-The label names a *position*: `<Table>_Entry<N>` is the address of entry N of that table, used as the base DE of a call; the call starts entry `N + (B & $3F)`, not entry N (in 653 of the 704 sites with a constant B
-the object that starts is the entry after the labelled one, and in `Kbd_ObjTable` the labelled entries 3, 8, 14, 16 and 18 are the null entries that open each set).  `tools/sprite_chain_check.py` checks every
-`<Table>_Entry<N>` against its parent (address = parent + 4 N in the same bank) and the `BANK(Label)` loads against the table that DE names.
+The label names a *position*: `<Table>_Entry<N>` is the address of entry N of that table, used as the base DE of a call; the call starts entry `N + (B & $3F)`, not entry N (in 653 of the 704 sites with a constant B the object that starts is the entry after the labelled one, and in `Kbd_ObjTable` the labelled entries 3, 8, 14, 16 and 18 are the null entries that open each set).
 
 ## 4. What the independent readers changed
 
@@ -95,24 +68,24 @@ three live object-table entries kept as `db` / `ds` were left numeric; 7 consume
 
 ## 5. Findings and open points
 
-* **The id of an object is 6 bits.**  `Sprite_LoadObjectEntry` (00:0AB8) computes `DE + ((4 * (id & $7F)) mod 256)`: an id of 64-127 reads the entry of id - 64 (no site uses one: the largest constant is 11).  A table of
-  more than 64 entries (`MailSession_ObjTable_72FB` has 164, `..._6F20` 72, `Table_SpriteCounter_Digits` 80) is reachable only through bases that start at an entry N: that is why 38 + 9 + 9 of the new labels exist.
-  Bit 7 of the id is stored at slot `+$0F` and decides whether the script restarts (set) or stops on its last frame (clear); 499 of the 706 constant ids have it set.
-* **Dynamic evidence of the rule `Sprite_InitSlot`** (reader R2, a tracer hook at 00:0A82 in 21 of the natural scenarios, byte-identical coverage): 33,739 executions of 435 sites, every one with DE = the label address,
-  A = its bank and HL = the slot, and the slot filled with the entry read at `DE + ((4 * (B & $7F)) & $FF)` of bank A.  The 277 pointer operands in code that never ran rest on the static proof.
-* **Three object-table entries kept as `db` / `ds`** were refused by the tool (the line is not a `sprite_object_entry`) and are live code (`register_config.asm:63`, `help_menu.asm:128`, `mobile_dictionary.asm:415`):
-  they are written by hand with `Table_5D_7318` (the all-zero entry 0 of a table whose entry 1 is `Data_5D_731C`), `Table_6A_64AE` (an entry that crosses the end of its block: three bytes here, the fourth in the next
-  block) and `Objects_MobileDict_Entry2` (entry 2 of the 13 entries of `Objects_MobileDict`).  Two roots of `sprite_chain_check` that had no entries walked now have 2 and 1.
-* **Blocks typed as tiles that also hold a palette or a tilemap** (reader R3, R4): `Palette_LoadToBuffer` and `Tilemap_CopyRectAndAttr` read their source inside a `.2bpp` block that its own `Gfx_StartHDMA` loads whole: 13
-  palette and 9 tilemap pointers lie in such blocks (for example 5E:72C0 is +800 and 5E:7300 is +864 of the 1,024-byte block at 5E:6FA0, `gfx/account/screens_bank5e.asm:139`; all of them were retyped afterwards, see `naming2_retype1.md`).  Four labels have the wrong kind of block
-  behind them: `Data_4D_5510` (`gfx/settings/screens_bank4d.asm:55`: tiles, then the BG palette `$5510`, the OBJ palette `$5538` and a tilemap `$5540`), `Palette_Account_ConfirmScreen_Bg` (5D:65F0) and
-  `Palette_Account_ConfirmManualScreen_Bg` (4A:5C70) declared as `.2bpp`, and `Tilemap_ConnectDialog_ConnectConfirm_56_526A` (a 20x2 tilemap declared as `.2bpp`).  They are not renamed here: the next graphics pass
-  splits the blocks by the evidence of their consumers.
-* `ld hl, $013F` (`lib/mobile/main.asm`, copied by `MobileSDK_CopyBytes`) is the 4-byte game code of the cartridge header: below `$0150`, so a number; the header has the single label `Header` (00:0104), and
-  `Header + $3B` is the faithful spelling for a later pass.
+* **The id of an object is 6 bits.**  `Sprite_LoadObjectEntry` (00:0AB8) computes `DE + ((4 * (id & $7F)) mod 256)`: an id of 64-127 reads the entry of id - 64 (no site uses one: the largest constant is 11).
+
+A table of   more than 64 entries (`MailSession_ObjTable_72FB` has 164, `..._6F20` 72, `Table_SpriteCounter_Digits` 80) is reachable only through bases that start at an entry N: that is why 38 + 9 + 9 of the new labels exist.
+
+Bit 7 of the id is stored at slot `+$0F` and decides whether the script restarts (set) or stops on its last frame (clear); 499 of the 706 constant ids have it set.
+
+* **Three object-table entries kept as `db` / `ds`** were refused by the tool (the line is not a `sprite_object_entry`) and are live code (`register_config.asm:63`, `help_menu.asm:128`, `mobile_dictionary.asm:415`):   they are written by hand with `Table_5D_7318` (the all-zero entry 0 of a table whose entry 1 is `Data_5D_731C`), `Table_6A_64AE` (an entry that crosses the end of its block: three bytes here, the fourth in the next   block) and `Objects_MobileDict_Entry2` (entry 2 of the 13 entries of `Objects_MobileDict`).
+
+* **Blocks typed as tiles that also hold a palette or a tilemap** (reader R3, R4): `Palette_LoadToBuffer` and `Tilemap_CopyRectAndAttr` read their source inside a `.2bpp` block that its own `Gfx_StartHDMA` loads whole: 13   palette and 9 tilemap pointers lie in such blocks (for example 5E:72C0 is +800 and 5E:7300 is +864 of the 1,024-byte block at 5E:6FA0, `gfx/account/screens_bank5e.asm:139`; all of them were retyped afterwards, see `naming2_retype1.md`).
+
+Four labels have the wrong kind of block   behind them: `Data_4D_5510` (`gfx/settings/screens_bank4d.asm:55`: tiles, then the BG palette `$5510`, the OBJ palette `$5538` and a tilemap `$5540`), `Palette_Account_ConfirmScreen_Bg` (5D:65F0) and   `Palette_Account_ConfirmManualScreen_Bg` (4A:5C70) declared as `.2bpp`, and `Tilemap_ConnectDialog_ConnectConfirm_56_526A` (a 20x2 tilemap declared as `.2bpp`).
+
+* `ld hl, $013F` (`lib/mobile/main.asm`, copied by `MobileSDK_CopyBytes`) is the 4-byte game code of the cartridge header: below `$0150`, so a number; the header has the single label `Header` (00:0104), and   `Header + $3B` is the faithful spelling for a later pass.
+
 * ROM0 hooks (`ld de, Sprite_HookAddSlideOffset / ld a, $00`, 7 sites) keep `ld a, $00`: A = 0 means "keep the bank" for `Gfx_StartHDMA` and `Tilemap_CopyRect*`, and a hook of ROM0 needs no bank.
-* 51 calls pass an HL that was derived from a table (`ld hl, Table / add / ld a, [hli] / ld h, [hl]`) and about 25 pairs store the two halves of a ROM pointer as bytes (`ld a, LOW(...)` into `wRam_C10E/C10F`,
-  the attribute source of `Tilemap_CopyRectAndAttrPtr`): neither is an immediate that a rule can name.
+
+* 51 calls pass an HL that was derived from a table (`ld hl, Table / add / ld a, [hli] / ld h, [hl]`) and about 25 pairs store the two halves of a ROM pointer as bytes (`ld a, LOW(...)` into `wRam_C10E/C10F`,   the attribute source of `Tilemap_CopyRectAndAttrPtr`): neither is an immediate that a rule can name.
+
 * `MailResult_SetReceivedSprite` (29:4374) keeps HL (push/pop) and reads the pointer after the call: a pass-through consumer, not written.
 
 ## 6. Left numeric
@@ -128,16 +101,3 @@ three live object-table entries kept as `db` / `ds` were left numeric; 7 consume
   added, 8 attribute-map sources stored in WRAM, 4 return addresses, 5 behind a join); about 44 of those pointers already have an exact label.  They need new proof classes (a direct read of the mapped ROM bank, a
   base added to an index, a pushed address, a conditional call in front of a consumer) and are the work of the next pass, with the far pointer of `ConnectDialog_Run` (bank in D, 1 site) and the interior pointers of
   `Dialog_SlideIn` / `Dialog_SlideOut` (2 sites).
-
-## 7. Reproduce
-
-```
-make && python3 tools/apply_rom_operands.py --check      # exit 0: nothing left that a rule proves
-python3 tools/apply_rom_operands.py --dry-run --report out.tsv   # what a run would write, one row per candidate (builds a marked copy in a temp directory, needs rgbasm; writes nothing in the tree)
-python3 tools/test_rom_operands.py                       # 47 tests (no build needed)
-python3 tools/sprite_chain_check.py                      # exit 0: the 712 sites, the 49 roots and the 159 entry labels
-```
-
-On the tree of commit 1c16727 (before the pass): the three manual sites (a patch of `gfx/` and `engine/`, section 5) and `python3 tools/apply_rom_operands.py` (it needs rgbasm, builds a marked copy and the tree) write the 705
-pointers, 1,367 - 3 bank loads and 158 labels and end with `SHA-256 OK`.  `gfx/previews/` is not regenerated (it needs emulator captures); its `screen_ops.tsv` would differ from `render_screens.py ops` only in the
-label column of the loads that this pass names.

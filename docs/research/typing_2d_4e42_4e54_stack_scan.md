@@ -1,10 +1,4 @@
-# Static contracts and naming history at 2D:4E42 and 2D:4E54
-
-This note preserves the original neutral-name review and later proposal history. Its opening neutral-label recommendation was superseded in published commit `c6236d0635b4639811435565a6944ed0e4820438`: the current Japanese source names the wrapper `MailBody_LocateCell` and the helper `MailBody_LocateCellInMappedWram` (see `engine/mail/body_editor.asm`). The names describe the statically observed operation, not a proved natural entry or complete API contract. The scan and local stack contracts remain **PROBABLE static**; runtime entry, valid input domain, application purpose, and the intent of the early return remain **HYPOTHESIS**. Current reconciliation is in `REVERSE_ENGINEERING.md` and `docs/research/original_closure_followup_20261021.md`.
-
-## Boundaries and entry evidence
-
-The historical source baseline is `aa61d89314329fccea3c4543b3fcfb23ec60444c`. `engine/mail/body_editor.asm` has SHA-256 `39dff311f1e219f59ceb8a001b4f35f7a96bc39a80e777a48fe74b72f0b56a6d` before the four comment replacements. Original bytes, source labels and SYM agree on these boundaries:
+# Static contracts and reference at 2D:4E42 and 2D:4E54
 
 | Original span | Bytes | Instruction starts |
 | --- | ---: | ---: |
@@ -12,98 +6,22 @@ The historical source baseline is `aa61d89314329fccea3c4543b3fcfb23ec60444c`. `e
 | `[2D:4E54,4E8C)` | 56 | 38 |
 | Combined `[2D:4E42,4E8C)` | 74 | 49 |
 
-The preceding routine ends at `4E41 RET`; the wrapper ends at `4E53 RET`. The helper has `RET` at `4E72` and `4E8B`; `4E8C` starts the next labeled function. There are no inline fields, gaps or overlaps inside this bound. The decoded `2D:4E49 CALL 4E54` is a real local static reference, but does not establish natural execution of either entry.
-
-The full-ROM bounded scan found 555 raw little-endian word candidates, 31 opcode-like absolute operands and zero recognized bank-2D inline far triples. Only two absolute candidates were in bank2D or ROM0: the real call at `4E49`, and bytes `DA 4F 4E` at `2D:60C2`. The latter belongs to `Tilemap_MailBody` graphics data, not proved code. Seven bank-2D relative candidates are decoded internal branches. Other banks' matching words are not bank-2D callers. These scans do not exhaust computed tables, RAM-created control or stack transfers, and cannot establish global unreachability.
-
-## Scan and ordinary return
-
-The helper saves original BC at `4E54 PUSH BC`, initializes HL to `wEditBodyBuf` (`$D400`), and uses B/C as zero-based row/cell requests under the static interpretation. INC followed by DEC means request `$FF` still traverses 255 units; wrap does not turn it into request zero.
-
-Each prior row reads only the first byte of each two-byte cell (`LD A,[HLI]` then `INC HL`). `$0D` ends that row after consuming the cell. D begins at `$0C`; width exhaustion starts another row. **Twelve is the cell width of each prior row, not a limit of twelve rows.** The `$00` comparison follows `DEC D / JR Z`: NUL in cell12 takes the width branch and bypasses the early-return path. NUL in cells1..11 can take that path. The second byte has no LF or encoding check.
-
-For the selected row, C controls advancement by two. `$0D` stops at its cell; `$00` advances and then backs up by two to its own cell. Requested-offset exhaustion selects the current address without prechecking its byte. This phase has no 12-cell bound. At `4E85..4E8B`, E becomes original C minus remaining C, A becomes `[HL]`, and `POP BC / RET` restores original BC and consumes the real caller return. Thus the **ordinary path** yields position HL, first byte A, offset E and preserved input BC. D has no uniform output/preservation contract.
-
-The final F comes from `SUB C`, not from returned A: Z means offset zero, N=1, H is low-nibble subtraction borrow, and C=0 for this unsigned static scan. These are local contracts assuming normal execution with no intervening stack or bank-state alteration. No proved caller supplies an input register/flag contract.
-
-`wEditBodyBuf` is a bank1 WRAM label at `$D400` with size `$C0`. The code enforces neither the resulting eight-row storage bound nor a selected-row width. A hypothetical all-width input B=C=`$FF` reaches `$D400 + 255*24 + 255*2 = $EDE6`, beyond WRAMX. This conditional calculation is not an executed observation or a valid-input-domain assertion.
-
-## Early RET consumes saved BC
-
-On the NUL path at `4E6B..4E72`, the code loads A=`$FF`, E=`$FF`, HL=`$FFFF`, then executes `RET` **without undoing `PUSH BC4E54`**. Let S be SP on helper entry, with its caller return at `[S,S+1]`. PUSH stores original C/B at `[S-2,S-1]`. Early `RET4E72` consumes that saved word: **PC=original entry BC, SP=S**, while the real caller return remains unconsumed at S. The target is saved input BC, not the live decremented BC.
-
-For the wrapper's local call, the unconsumed return is `4E4C`, followed by the wrapper's own saved BC and caller return. The ordinary wrapper continuation is not reached by a balanced helper return on this path. A/E/HL=`FF/FF/FFFF` are values immediately before this transfer, not guaranteed sentinel results returned to the caller. CP0 leaves local F=`$C0` before the transfer.
-
-The common path instead executes `4E8A POP BC; 4E8B RET`, so it restores the save and consumes the actual return. The early path's stack effect is a mechanical static fact under an ordinary CALL-entry stack. Whether it is an unintended bug, an intentional computed transfer, or an artifact of an unknown entry domain is **HYPOTHESIS**. No intentional recovery, runtime failure or repair is asserted.
-
-## WRAM and RAM gate
-
-The wrapper writes 1 to `hWRAMBank=$FF8D` and `rSVBK=$FF70`. After an ordinary helper return, it saves AF, writes zero to `rRAMG=$0000`, then restores that AF and input BC. It leaves WRAM1 selected and does not restore a prior WRAM bank. The RAM-gate write does not update `hSRAMEnable=$FFF5`; a previously enabled shadow can therefore remain stale. No ROM bank switch or SRAM enable/bank restoration is provided here.
-
-Direct helper entry does not select WRAM1; reads at D400 use the mapped bank. ROMX execution requires bank2D. No far caller was established. A hypothetical ordinary FarCall cleanup can overwrite local F through its bank-switch trampoline; local flags are not a proved far-caller contract. Early RET does not prove normal FarCall cleanup is reached.
-
-## Finite natural evidence and provenance
-
-The sealed historical canonical set has 189 inputs: 69 coverage, 69 dataaccess, 50 callgraphs and one coverage union. It contains zero target instruction-start coverage rows, overlapping bank2D dataaccess rows or from/to callgraph rows in `[4E42,4E8C)`. Nearby executed routines do not establish these entries. Finite absence proves neither global unreachability nor any input domain, intended behavior occurrence of the early RET.
-
-The independent original-byte/source/natural analysis was sealed before opening the authorized foreign census. Its own seal SHA-256 is `c3b45fed8d51056b2ff09ab3e0cb0ce0da93101e933683f3c07fe918ce682168`; report SHA-256 is `01c64e5f10b7ed80aa4c30b30e4274f5de315e66764ce86560d717fc48b93573`. The subsequent confrontation seal is `3f516394aca2c6617dfeda03153c1f84312552da2b90fe9975fa0fd7e5306daf`, with report `8d95c6207a66f0f83daf8d383f00fd6409bc720417c62695fd048ed59fb14398`. Full foreign JSON SHA-256 `74bb05797e99facb3e35dc5a3163306453302b52c7646d9967dcf44f95b63b3c` was compared only at priority5; raw bytes, source and bounded natural results agree. ROOT receipt `90db93d1fb6e22e5cfeabd67e09fbff4112ed72401170fefe33a2cb2204656ba` records foreign-before-RAW chronology and makes no independent-before-foreign claim.
-
-The sealed own report's earlier heading “stack defect” is restricted by its confrontation addendum to failure of an ordinary-return stack contract; it is not proof of original intent or an observed bug. The public description above uses the explicit stack effect.
-
-Future parent, owner materialization and gates remain NULL. This is a private historical comment/document proposal, with no actual source build, translation or ROM-equivalence claim. See [the verification note](typing_2d_verify_4e42_4e54_stack_scan.md).
-
-
-## Current private implementation after RET, 55, 6C and 7C
-
-The preceding aa61 proposal is historical. This private implementation uses the guarded 7C SOURCE4198 candidate (manifest 37ed7e6f) as its private predecessor; the published parent, ROOT/independent adoption, actual integration and publication remain NULL. Scope5 replaces only comment rows 1004–1007 in body_editor.asm and appends the two index suffixes plus two new notes. Four comments were shortened within 100 columns. Owner 3119 lines, 2801 noncomment rows including blanks and 2617 significant rows stay exact. All 348 ASM/inc noncomment vectors and line counts, all 1248 TSVs including 289 metadata files, and the 4195 old files outside scope remain exact. All prior RET/55/6C/7C/2C4F source changes are preserved. Two notes give SOURCE4200.
-
-Own original-ROM decoding was sealed before reading proposal facts: 74 bytes and 49 starts, comprising wrapper 18 bytes/11 starts and helper 56 bytes/38 starts, with no inline bytes. The seven internal branches and local CALL4E49→4E54 agree with the independent full decode. On early NUL, RET4E72 consumes the saved entry BC as PC, restores SP only to helper-entry SP and leaves the real caller return on the stack. For the wrapper call that return is 4E4C. A/E/HL=FF/FF/FFFF are pre-transfer register values, not a normal sentinel return; intent and occurrence are unproved. The ordinary path uses POPBC4E8A/RET4E8B and restores input BC, returning A at HL and traversed offset E. Local F comes from SUBC, not the returned byte; hypothetical far-return flags require separate wrapper qualification.
-
-The first phase counts twelve two-byte cells per prior row, not twelve rows. Width exhaustion precedes NUL comparison, so a NUL in cell12 bypasses the early RET; cells1..11 can reach it. The selected-cell phase has no twelve-cell or buffer bound. Pure unsigned arithmetic confirms FF means 255 requested units, not zero; no infinite numeric-loop claim is made. With no markers, B=C=FF can hypothetically reach EDE6 beyond WRAMX. Wrapper E08D/E070 selects WRAM1, not SRAM1; direct helper entry uses the currently mapped bank. Only after ordinary helper return does the wrapper write RAMG0000=0 while preserving local AF. FFF5 is not written and can remain stale. Previous WRAM/SRAM gate/bank state is not restored. Entry, input domain, purpose and early-RET intent remain HYPOTHESIS; scan mechanics remain PROBABLE static. Historical canonical 189 data have no observed scoped entry; missing callgraphs, computed entry and actual occurrence of the early transfer remain unresolved.
-
-One new private literal 37 pipeline completed 36 rc0 plus ordinal 27 rc2 with the exact 97-byte historical schema diagnostic. Ordinal 1 was the only top-level make build; make/compare/sym-check/palette-check succeeded and whole ROM is IDENTICAL to the original reference. All 671 raw outputs, SYM 15538 labels/51 constants and MAP equal the guarded private 7C outputs. No aliases changed. Raw D334 and 10912 rules remain identical; 5623 current bindings rebind only body_editor.asm with parent BEFORE SOURCE4198 separate from current AFTER SOURCE4200. All 147 frozen .py source byte hashes/sizes/timestamps were preserved; no source .pyc was copied. Native/tool membership remains historical data, with no fresh native/actual-owner capture. No closed pipeline was replayed or foreign helper run.
-
-These private checks provide byte verification without adding natural runtime, visual, hardware or English evidence, changing the abnormal stack path, or authorizing actual integration. The two new notes receive this documentation-only appendix after the pipeline; code and outputs remain unchanged. ROOT will bind the future actual parent, canonical DOC suffixes, fresh checks and publication separately.
-
-
-## Operation aliases with the saved-BC transfer explicit (2026-10-15)
-
-`SelectWram1_Call4E54_IfBalancedReturnWriteRamGate0` and `ScanD400RowCell_OrRetToSavedBCOnEarlyNul` are PROBABLE conditional operation aliases for `Function_2D_4E42` and `Function_2D_4E54`. They replace only the earlier neutral-name recommendation for these local operations. Entry, natural callers, valid input domain, application purpose and early-RET intent remain HYPOTHESIS. The names do not describe a safe getter, a normal sentinel-return API, a repair or an intentional recovery. The aliases occupy existing blank physical rows1002/1019; the neutral definitions stay on1003/1020 and every instruction/data/locator row and local-label scope is preserved. Earlier KEEP decisions, provenance and contradictions remain historical.
-
-The immutable original wrapper[2D:4E42,4E54) is18 bytes/11 starts: `C5 3E 01 E0 8D E0 70 CD 54 4E F5 AF EA 00 00 F1 C1 C9`. The helper[2D:4E54,4E8C) is56 bytes/38 starts: `C5 21 00 D4 04 05 28 17 16 0C 2A 23 FE 0D 28 F5 15 28 F2 FE 00 20 F3 3E FF 1E FF 21 FF FF C9 59 0C 0D 28 0D 7E FE 0D 28 08 23 23 FE 00 20 F2 2B 2B 7B 91 4F 7E 59 C1 C9`. Combined74-byte SHA-256 remains `36f3b7d11ef1c2be1e5df127efb8260753cf8b968224733e490d24839b0eaa29`. The wrapper has one direct same-bank CALL4E49->4E54, and the helper has no CALL or farcall. The ordinary helper tail is POPBC4E8A/RET4E8B; earlyRET4E72 is a distinct transfer.
-
-The helper PUSHes BC and begins atD400. B and C operate as zero-based prior-row and cell-distance counters. For each prior row it reads the first byte of two-byte cells, consuming the cell before testing CR. CR ends that row. Otherwise DEC D/JR Z applies the12-cell width before CP0, so NUL in cell12 bypasses the early transfer; NUL in cells1..11 can take it. The second byte is not validated as LF or a character-encoding component. Twelve is a prior-row width, not a limit on row count. INC/DEC counter wrapping does not turn inputFF into zero: it represents255 requested units.
-
-At the selected row, C governs two-byte advancement without a12-cell bound. CR stops at its own cell. A NUL encountered during this phase advances then backs up two bytes, selecting that same cell. Exhausting the requested offset selects the current address without prechecking its byte. The balanced tail computes distance as saved requested C minus remaining C, reloads A=[HL], puts distance in E, POPs original BC and RETs through the real caller return. HL is the resulting position and BC is preserved; D has no uniform preservation/output contract. Local flags come from SUB C, not the returned byte: Z means distance zero, N=1, H is the low-nibble subtraction borrow and C=0 under the ordinary stable scan. No arbitrary far-caller flag ABI follows.
-
-The declared WRAM1 body storage is192 bytes atD400, but neither entry enforces that buffer bound, the corresponding eight-row limit or the selected-row width. For a hypothetical marker-free B=C=FF traversal, arithmetic reaches D400+255*24+255*2=EDE6, outside the buffer and WRAMX. This is a static bound illustration, not an executed input case or a safe-domain claim. Reads beyond the declared buffer are not made safe by the operation name.
-
-On the prior-row early-NUL path, the helper sets A=FF, E=FF and HL=FFFF, then RETs at4E72 without undoing PUSH BC. With S=SP on helper entry and the real return word at[S,S+1], the pushed original C/B occupy[S-2,S-1]. EarlyRET therefore sets PC=original entry BC and SP=S, leaving the real return at[S,S+1]. It does not restore BC through POP and does not conventionally return the apparent FF/FF/FFFF tuple. Those are register values before the transfer, with local F=C0 from CP0. Whether this behavior is intended, a bug, or excluded by an unknown input domain is not inferred.
-
-For wrapper entry SP=W, its PUSH BC leaves saved BC atW-2; CALL4E54 places return4E4C atW-4, the helper-entry S. The helper's own save is atW-6. EarlyRET consumes the latter as PC and leaves SP=W-4, with return4E4C, wrapper-saved BC and the outer return still stacked in that order. The ordinary cleanup is not established by that transfer; jumping to a numerically matching continuation does not by itself balance the stack. Direct helper balanced return instead yields SP=S+2 and the intended caller continuation. The locally known maximum extra stack is two bytes for direct helper entry, or six bytes through the wrapper before helper completion, excluding the caller's return and unknown interrupt/other-entry effects.
+## Operation aliases with the saved-BC transfer explicit
 
 Only after a balanced helper return does the wrapper PUSH the helper's AF, XOR A, write0 toRAMG at0000, POP that AF, POP its own input BC and RET. Thus it preserves helper AF and input BC on that ordinary completion, not incoming AF. It explicitly selects WRAM1 throughFF8D/FF70 before the call and leaves that selection in place. RAMG0 is a hardware write without an update to FFF5 (`hSRAMEnable`), so an earlier enabled software shadow can remain stale. It does not restore previous WRAM selection, RAM-gate state or SRAM-bank state. The IfBalancedReturn clause does not promise that the abnormal path reaches or completes cleanup.
 
-Positive existing context is `MailBody_GetRowPtr` at2D:4EC0 in the same maintained owner: it selects WRAM1, starts atD400 and scans two-byte cells with width12. `analysis/coverage_union.tsv:29646-29651` records5350 hits/11 scenarios at its six entry/setup starts; its later repeated-row starts have distinct aggregate counts. This supports the local row/cell format only. That routine tests NUL before width exhaustion, has different output/restore paths and does not establish equivalent behavior execution of either candidate. No natural counts are transferred from it to4E42/4E54.
+Positive existing context is `MailBody_GetRowPtr` at2D:4EC0 in the same maintained owner: it selects WRAM1, starts atD400 and scans two-byte cells with width12.
 
-Both interpretations require coherent ROM2D fetching, valid nonaliasing stack/state and no relevant IRQ/mapper interference. Direct4E54 entry uses whichever WRAM bank is mapped atD400; only4E42 selects WRAM1. Neither has a local farcall, and a hypothetical external FarCall's bank restoration/trampoline can alter local flags or fail to be reached after the saved-BC transfer; no far-return contract is proved. No new runtime, caller, visual or hardware evidence is supplied. All original instruction bytes remain preserved; reconstruction equivalence requires the documented build, symbol check and original-ROM byte comparison.
+Direct4E54 entry uses whichever WRAM bank is mapped atD400; only4E42 selects WRAM1.
 
-
-## Mail-body locator roles and distinct E results (2026-10-15)
+## Mail-body locator roles and distinct E results
 
 The current function names are `MailBody_LocateCell` at2D:4E42 and `MailBody_LocateCellInMappedWram` at2D:4E54. Their domain roles are PROBABLE, supported by the actual mail-body format consumers: InsertChar5198..519B stores (writes at5199/519B) a two-byte cell, Backspace5413..5418 copies pairs, and GetRowPtr4EC0 scans D400 under WRAM1 with CR/twelve-cell rows. The helper uses the currently mapped WRAM; only the wrapper selects WRAM1. This domain evidence supports proper operation names without claiming a natural caller, a caller-enforced input domain, author intent or a repaired early return.
 
-The two former long operation names and the two historical Function aliases are retired from active source, following the Operator's requirement for mapped, descriptive function names. Address comments and this old-to-current mapping retain provenance. This supersedes earlier recommendations above to retain those aliases; historical observations, hypotheses and instruction bytes remain. The sole same-bank CALL4E49 now names MailBody_LocateCellInMappedWram. No instruction position is moved.
-
-|Old label/operation alias|Current function|Original address|
-|---|---|---|
-|Function_2D_4E42 / SelectWram1_Call4E54_IfBalancedReturnWriteRamGate0|MailBody_LocateCell|2D:4E42|
-|Function_2D_4E54 / ScanD400RowCell_OrRetToSavedBCOnEarlyNul|MailBody_LocateCellInMappedWram|2D:4E54|
+The sole same-bank CALL4E49 now names MailBody_LocateCellInMappedWram.
 
 The locator returns E=actual two-byte positions traversed in the selected row, stopping at an encountered CR/NUL or exhaustion of input C. It preserves input BC on the ordinary POP/RET path. This differs from the actively used MailBody_GetCharPtr4E8C: GetRowPtr computes the complete row length capped at11 in E, and GetCharPtr preserves that result. In a coherent two-row body with three ordinary cells plus CRLF in row0 and an ordinary cell plus NUL in row1, the B0/C0 lookup returns E0 from the locator but E3 from GetCharPtr. The real CursorLeft consumer at48CE/48CF/48D2 decrements B, calls GetCharPtr with C0, then copies E to C to move to the preceding row's end. Substituting the locator would put C0 there. This is a static counterexample from original instructions, not a new runtime observation.
 
 A sufficient conditional domain requires coherent body rows, an existing requested row, all traversed/selected bytes within WRAM1:D400..D4BF, a valid nonaliasing stack, coherent ROM2D and no interfering mapping/IRQ changes. The code does not enforce eight-row, twelve-cell or192-byte bounds. Nominal B0..7/C0..11 alone do not validate malformed row contents. Input FF means255 requested units; it is not zero. C0 selects the row start without a marker pretest. On ordinary completion HL is the selected cell, A is its first byte, E is traversed distance, BC is restored, and the final SUB supplies N1/C0/Z(distance0) with H from the low-nibble borrow. D has no uniform preservation contract.
 
 Prior-row NUL in cells1..11 follows the original abnormal RET4E72: A/E/HL=FF/FF/FFFF immediately before PC becomes saved entry BC; SP returns only to helper-entry SP and the real return remains stacked. NUL in cell12 instead takes the width branch. Through the wrapper, the real return4E4C and its saved BC/outer return remain on the stack after that transfer. Only an ordinary helper return reaches wrapper RAMG0 cleanup; that path preserves helper AF/input BC, leaves WRAM1 selected, and does not update FFF5. The name does not make the exceptional transfer a normal missing-row return.
-
-Independent raw review supports the role, the two-row counterexample and the saved-BC transfer: report SHA-25690fd091800b3f47e220f07563ac76bcad26173fa5c3415392a119b49b88aad10; original wrapper/helper spans18+56B, SHA-25636f3b7d11ef1c2be1e5df127efb8260753cf8b968224733e490d24839b0eaa29. Natural entry, caller domain and early-RET intent remain HYPOTHESIS. These static findings do not establish whole-ROM identification or native reconstruction parity for an unbuilt proposal; build/comparison is a separate adoption gate.

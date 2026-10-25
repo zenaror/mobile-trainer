@@ -12,11 +12,3 @@ At `19:4821`, `DebugFlags_ObjAnimData` contains the frame-table pointer to
 step selecting frame 0 for four ticks. The frame, script, and table boundaries
 are CONFIRMED by the source layout and macros. Their association with the debug
 cursor is PROBABLE from the initializer, table, and cursor update code.
-
-The former neutral labels `Table_19_481D`, `Data_19_4821`,
-`SpriteFrame_19_4823`, and `SpriteScript_19_4828` were retired after checking
-maintained-source references. Their addresses and replacement names are
-recorded in `analysis/naming2/debug_sprite_renames.tsv`; frozen analysis/config
-snapshots retain historical spellings. The debug-flags routine is documented
-as forced execution only in the current traces. This naming pass adds no claim
-that the screen or cursor runs naturally.

@@ -9,14 +9,6 @@ fecha todas as dúvidas sobre a tela ou sobre outras leituras da região.
 
 ## Contratos delimitados
 
-Intervalos abaixo são semiabertos. Os nomes já existiam antes desta proposta.
-A classe e o uso são verificados pelos consumidores e seus argumentos, não pela
-mera existência do nome. Endereços de chamada incluem o `call FarCall` e seus
-três bytes inline; `A` seleciona o banco da fonte, enquanto o banco do helper é
-independente. Os 17 intervalos de recurso e as 25 sequências consumidoras foram
-comparados estaticamente aos bytes da ROM original; isto não é um novo build,
-execução natural, renderização nem teste de hardware.
-
 | Alias retirado → nome retido | Intervalo / bytes | Contrato observado | Nível herdado |
 |---|---|---|---|
 | `Data_4A_5F80` → `Gfx_AdapterCheck_Tiles8000` | 4A:5F80..6080 / 256 | HDMA C=$10, DE=$8000; VRAM0:$8000; 1 chamada(s) | CONFIRMED |
@@ -111,13 +103,7 @@ de execução nem estabelece a aparência da variante.
   (`Tiles_4B_5B90`, `Data_4B_6590`, `Data_4B_70B0`, `Table_4B_76C0`,
   `Data_71_723F`, `Data_71_7271`) também ficam.
 
-## Bank-71 span names follow-up (2026-10-21)
-
-The two bank-71 labels above now read `Settings_Candidate2bppFragment_723F`
-and `Settings_ReadData_UnknownContent_7271`. The first remains a probable
-clipped tile fragment; the second remains content-unknown despite confirmed
-data reads. The earlier names are retained in this dated migration note as
-historical identifiers.
+The two bank-71 labels above now read `Settings_Candidate2bppFragment_723F` and `Settings_ReadData_UnknownContent_7271`.
 
 ## Catálogo, linhas e limites de adoção
 
@@ -128,43 +114,15 @@ da linha attrmap é o começo do componente, não o começo do coalias. A paleta
 5D e os dois tiles 5E já têm nomes corretos no catálogo e não mudam. O cabeçalho
 histórico do catálogo gerado permanece; nenhum exporter foi executado.
 
-As definições antigas têm zero operandos ativos literais nos seis roots; os nomes
-retidos já são usados pelos 25 consumidores. Não há locais nos cinco owners.
-Os 84 registros literais são 34 definições e 50 operandos; nenhum código de
-consumidor muda. As 25 linhas operacionais de `screen_ops.tsv` já usam os nomes
-retidos; não há célula antiga selecionada em ramop9/10/11. Tabelas `config/` e
-notas históricas não são reescritas. Isto é uma busca finita de referências
-literais, não uma prova universal de inexistência de ponteiros computados ou
-outros consumidores; as leituras cruzadas conhecidas são mantidas acima.
-
-A previsão isolada é somente -17 nomes globais: nenhum nome novo, local,
-constante ou endereço muda. O SYM fresco congelado do passe109d serve para
-conferir as duas identidades no mesmo banco/endereço; não fixa o parent nem uma
-contagem absoluta de um futuro passe combinado. ROOT deve reaplicar as 19
-edições por chave/célula no catálogo então atual, conferir os BEFORE dos cinco
-ASM e compor os docs atuais, sem copiar um catálogo ou resumo antigo por inteiro.
-A proposta fica queued; revisão independente e gates futuros do ROOT são
-separados. Não há aceite próprio, adoção, equivalência de build nem retomada de
-idioma ou instrumentação R4.
-
-Evidência privada durável: `DATA` (review artifact) contém
-`RESOURCE_ROM_PROOF.json`, `CONSUMER_ROM_PROOF.json`, `ACTIVE_REFERENCE_PROOF.json`,
-`METADATA_REFERENCE_SURVEY.json`, `CATALOG_CELL_EDIT_PLAN.json`, `ASSETS_HELD.json`,
-`SYMBOL_DELTA.json` e readset com hashes. O scout precedente permanece selado em
-`jp-settings-resources-next-scout-20261017` (review artifact).
-
-
-## Adendo de escopo: coalias do prefixo AdapterCheck (2026-10-18)
-
-O KEEP anterior permanece como registro do escopo daquele passe. Nesta unidade de caminhos, `Data_4A_6480` é aposentado como grafia redundante de `Gfx_AdapterCheck_Tiles9400Vb1`, ambos em 4A:6480. A definição vira uma linha vazia e somente a célula label do asset de 256 B passa a usar o nome próprio; não há operandos antigos ou locais dependentes no censo finito do parent. A confiança CONFIRMED do prefixo e os bytes/pixels permanecem.
+## Adendo de escopo: coalias do prefixo AdapterCheck
 
 A chamada continua com C=$40, DE=$9401 e 1.024 B em 4A:6480..6880: 256 B de tiles, 64 B BG, 64 B OBJ, 360 B de tilemap e 280 B de attrmap. A retirada do alias não reduz essa janela nem a torna homogênea ou exclusiva. `Data_4B_70B0` e `Data_4B_7AD0` ficam fora desta decisão e intactos.
 
-O outro KEEP histórico, `Data_4A_68D0`/`AdapterCheck_ObjTableAndAnimData`, foi resolvido na [tipagem publicada dos 80 bytes](https://github.com/zenaror/mobile-trainer/commit/0c02c5369e47597f022df0663a2749acb3bfb12c), descrita na [nota de estrutura e proveniência](adapter_check_object_data_80b.md). A raiz foi refinada para `AdapterCheck_ObjTable`, com seis globais próprios e 11 bytes finais UNKNOWN. Este adendo de caminhos retira apenas o alias de 6480; não repete o delta de símbolos daquele passe.
+A raiz foi refinada para `AdapterCheck_ObjTable`, com seis globais próprios e 11 bytes finais UNKNOWN.
 
 O escopo combinado é 27 movimentos, 72 células ativas e delta previsto de -1 símbolo; os planos/aceites de 27/71 anteriores permanecem históricos e não substituem a revisão e QA deste candidato. Os [contratos e limites de caminhos](adapter_check_and_phone_entry_4a_resource_paths.md) não alegam nova exibição natural, hardware ou cobertura universal.
 
-## Adendo de escopo: cabeçalhos de aviso e recursos 4B (2026-10-20)
+## Adendo de escopo: cabeçalhos de aviso e recursos 4B
 
 Os KEEP anteriores registram corretamente as decisões dos passes em que foram escritos. Nesta unidade posterior, quatro nomes são substituídos por descrições sustentadas pelo consumidor estático: `Tiles_4B_5B90` → `Notice_HeaderGfxSources10To13` (PROBABLE), `Data_4B_6590` → `Notice_HeaderGfxSources14To15` (mantém CONFIRMED como fonte lida, sem classificar pixels), `Data_4B_70B0` → `Gfx_SettingsPhone_ConfirmScreen_TileSlice9020Vb1` (CONFIRMED) e `Table_4B_76C0` → `SettingsPhone_ConfirmScreen_SlotCellRecords` (PROBABLE). São quatro renomes únicos. `Data_4B_7AD0` e `Data_65_4A81` são retirados apenas como coaliases dos labels descritivos já existentes; os bytes e os consumidores permanecem. Nenhum rótulo, constante ou operando é inferido a partir de semelhança do nome.
 

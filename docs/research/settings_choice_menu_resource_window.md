@@ -18,13 +18,6 @@ A janela semiaberta4D:5510..5810 tem768 bytes, compostos por:
 | 5540..56A8 | índices do mapa20×18 | 360 | CONFIRMED |
 | 56A8..5810 | atributos desse mapa20×18 | 360 | CONFIRMED |
 
-Os macros RGB dos dois arquivos `.pal` emitem20+4 palavras de15 bits, little
-endian. Esses48 bytes e os dois componentes de360 bytes foram comparados
-estaticamente à ROM original. O SHA-256 da janela768 é
-`619d587bd1a4adb3bb86269a5fed307aa97d4c500204dbe2b556b4ab386b0cf0`.
-A divisão BG40 continua `PROBABLE` por adjacência, como diz seu cabeçalho; o
-comprimento do leitor BG é64 e não prova um limite semântico de40.
-
 Em `engine/settings/choice_menu.asm`, quatro vistas têm argumentos distintos:
 
 | Visto pelo código | Fonte / destino | Comprimento e condição |
@@ -41,12 +34,6 @@ que o mapa em5540 seja também copiado pelo ramo de variante zero. O ramo não
 zero posteriormente copia seu outro mapa em5810, fora da janela; isso não muda.
 A razão original de transferir paletas/mapa como bytes de tiles continua uma
 pergunta aberta. Não inferimos intenção, aparência ou exclusividade desse uso.
-
-As quatro sequências consumidoras atuais, incluindo banco e farcall, conferem
-com vetores únicos da ROM dentro de `SettingsPhone_ChoiceMenu_Setup`. A mudança
-de nome não altera instruções, registradores ou tamanhos previstos. Essa
-comparação limitada de bytes não é build novo nem prova de equivalência da ROM
-reconstruída completa; make/compare/sym-check futuros pertencem ao ROOT.
 
 ## Banco, estado e chamadas
 
@@ -74,8 +61,6 @@ valores de entrada, ponteiros empacotados ou fluxos computados.
 
 ## Alterações específicas e metadados
 
-A proposta tem três arquivos existentes alterados e esta nota nova:
-
 - `gfx/settings/screens_bank4d.asm`: somente a definição da linha56 troca o
   nome. O alias BG na linha55 e todos os cabeçalhos/componentes são mantidos.
 - `engine/settings/choice_menu.asm`: somente HL/BANK das linhas126/127 do
@@ -85,13 +70,7 @@ A proposta tem três arquivos existentes alterados e esta nota nova:
   da janela; a linha826 da paleta147 recebe o alias BG que a instrução já usa.
   Nenhum outro campo, linha, contador ou tipo é modificado.
 
-`gfx/assets.tsv` já registra o `.pal` BG como paleta40 `PROBABLE` com label
-`Palette_SettingsPhone_ChoiceMenu_Bg` na linha841. Os outros componentes também
-mantêm suas identidades. Por isso não há edição do catálogo nem cópia desse
-arquivo no SOURCE/BEFORE final. O nome da janela não deve substituir labels de
-assets menores. O plano `DATA/METADATA_CELL_PLAN.json` documenta as duas
-alterações operacionais e zero alterações do catálogo, com chaves e linhas
-completas para rebase posterior. Nenhum exporter foi executado.
+`gfx/assets.tsv` já registra o `.pal` BG como paleta40 `PROBABLE` com label `Palette_SettingsPhone_ChoiceMenu_Bg` na linha841.
 
 Uma inspeção dos registros e de um SYM fresco congelado, sem executar checker
 ou helper, confirmou igualdade de todos os162 tuples de paleta por linha e
@@ -103,30 +82,4 @@ fora do domínio, e nenhuma cobertura total de paletas da ROM é prometida.
 
 ## Censo e limites da proposta
 
-O censo finito de ASM/INC dos seis roots, ram, constantes e arquivos de topo
-reencontrou18 referências simbólicas às identidades/callers estudados. As únicas
-referências ativas a Data_4D_5510 são a definição e os dois operandos HDMA. Não
-apareceram imediato `$5510`, expressão explícita alias+offset ou colisão com o
-nome novo nesse escopo. Não há locais no owner GFX; os locais do consumidor são
-preservados exatamente. A busca não interpreta todo db como ponteiro, não
-prova ausência de aritmética implícita nem promove os relatos históricos de
-execução a nova observação.
-
-O saldo de nomes previsto é -1 global antigo +1 global novo =0, com o coalias BG
-retido, zero mudança de locais/constantes/endereço e nenhum total absoluto ou
-parent futuro de SYM/commit. Trata-se de renomeação estrutural, não de remoção
-de um alias sem reposição. Os bytes de assets, caminhos, IDs, layouts e linhas
-físicas são preservados. As notas/config/análises históricas que diziam KEEP,
-HYPOTHESIS ou relatavam a tipagem anterior permanecem como proveniência; a nota
-atual de Settings7 mantém o seu escopo anterior. ROOT deverá compor a situação
-atual nos docs vigentes quando e se adotar esta unidade, sem copiar REVERSE ou
-README antigos. As fixtures negativas da guarda de metadados, quando adotadas,
-devem conservar a string antiga Data_4D_5510 como contracaso de nome ausente;
-não são operandos operacionais a renomear.
-
-Esta proposta requer revisão independente e validação futura do ROOT. O executor
-é o autor do estudo5510 anterior e das propostas Settings7/17/guarda, portanto
-não há autoaceite nem alegação de revisão cega. A coorte17, os estudos e todos os
-selos anteriores ficam intactos. Nenhum fonte mantido, TSV, catálogo, asset,
-idioma, Git foi editado. Não se executou teste, checker, compilador ou
-emulador. R4 continua estacionado.
+Não apareceram imediato `$5510`, expressão explícita alias+offset ou colisão com o nome novo nesse escopo.

@@ -1,7 +1,8 @@
 # Graphics retyping (retype1): palettes, tilemap pairs and tile sheets typed from their consumers (ROM unchanged)
 
-> Status: **reference (current)**.  The graphics blocks had been typed by heuristics and by the ranges of the HDMA requests, not by what the code reads.  Eleven blobs had HDMA windows that mixed tiles, palettes and/or tilemap bytes (an HDMA request copies the whole 768 or 1,024 bytes into VRAM, so the blob looked like tiles), palette arrays were cut into fragments or typed as tiles, and a 20 x 2 tilemap pair was typed as five tiles.  The reviewed immediate palette loads now lie in single palette blocks (with two explicit over-read exceptions), and the eleven blobs and three special cases have the boundaries shown below. This is not a claim that all graphics in the ROM have a proven type: computed tilemap pointers and mixed blocks remain (section 5).  Every statement of a header about a load (the bytes the call takes, the buffer, the address of the call, whether it ran in a natural scenario) is **generated from the code**, not typed.  `make palette-check` guards the extracted immediate-load boundary contract; coverage and semantics still require review.
-> Records: the blocks of `gfx/**/*.asm`, `gfx/assets.tsv`; independent verification: [`naming2_verify_retype1.md`](naming2_verify_retype1.md).
+The graphics blocks had been typed by heuristics and by the ranges of the HDMA requests, not by what the code reads.
+
+Eleven blobs had HDMA windows that mixed tiles, palettes and/or tilemap bytes (an HDMA request copies the whole 768 or 1,024 bytes into VRAM, so the blob looked like tiles), palette arrays were cut into fragments or typed as tiles, and a 20 x 2 tilemap pair was typed as five tiles.
 
 ## 1. Result
 
@@ -34,10 +35,9 @@ Before = one `INCBIN` typed `tiles-vram` over the whole length of the HDMA windo
 | `4D:5510` | 0 | `Palette_SettingsPhone_ChoiceMenu_Bg / _Obj` | BG `$5510` 40 (the call takes 64), OBJ `$5538` 8 | `Tilemap_SettingsPhone_ChoiceMenu_4D_5540` `$5540` |
 | `63:6CC0` | 768 | - | - | `NoAdapter_Tilemap` `$6FC0` (the pair was formerly split into 256 + 464 bytes) |
 
-Two of the BG palettes are over-read by their call: `slot_menu.asm` and `choice_menu.asm` load the BG palette with `bc = $40` although the array is shorter; the call takes 24 bytes past the end of the block (the OBJ palette at `$7598` / `$5538` and the first 16 bytes of the tilemap pair land in BG palettes 5-7).  The 40-byte length is therefore **by adjacency** (the OBJ palette is read at the next 8 bytes, the pair after it; the words behind are not RGB555), not by the call: PROBABLE, and the header of the block says so (`the call takes 24 bytes past the end of this block`); `palette-check` allows exactly this exception.
-At `4D:5510` the same label `Data_4D_5510` is the source of an HDMA request of `$300` bytes **and** of the BG palette load: the request copies the palette array and the tilemap into VRAM as tiles (the original does that; the first bytes are blank tiles), so the old label stays as an alias of the palette block and the code is unchanged.
+Two of the BG palettes are over-read by their call: `slot_menu.asm` and `choice_menu.asm` load the BG palette with `bc = $40` although the array is shorter; the call takes 24 bytes past the end of the block (the OBJ palette at `$7598` / `$5538` and the first 16 bytes of the tilemap pair land in BG palettes 5-7).
+
 The 32-byte block `Data_4A_51B0` is four copies of the colours `0000 294A 56B5 7FFF` (a grey ramp that occurs 55 times by non-overlapping `bytes.count` in the ROM as a default palette block): HYPOTHESIS that it is the unread OBJ palettes 1-4; no code read was found.
-The names say the screen (the routine that loads them) and `Bg` or `Obj` (the buffer the call loads: `wPaletteBufBg` / `wPaletteBufObj`); a tilemap is named by its bank and address.  The plain names `Tilemap_SettingsMenu` (4A:54A0, the hidden-mode pair) and `Tilemap_Account_ActionConfirmPage` (5E:75D0, the pair of the variant that is not 0) belong to the **non-default** variants; the pairs of the default variants carry the address suffix.  Both names are true; a later naming pass may swap them.
 
 ## 3. The 23 palette arrays of part 2
 
@@ -69,24 +69,19 @@ A palette load takes `bc` bytes from `hl`.  Each array below is the union of the
 | `73:5DE0` `BrowserStart_Palettes` | 64 | bc=$40 into wPaletteBufBg | 4 | CONFIRMED |
 | `73:5E20` `BrowserStart_ObjPalettes` | 64 | bc=$40 into wPaletteBufObj | 3 | CONFIRMED |
 
-CONFIRMED means that every load of the array ran in a natural scenario (`analysis/coverage_union.tsv`) and that no call takes more bytes than the block holds; `2E:7590` and `51:5880` have a second load that no natural scenario reached.  The two over-read blocks of section 2 and the arrays that no load reaches through an immediate address (tables, computed pointers) are outside this rule.
-
 ## 4. Tools, checks and what changed in them
 
-* `tools/retype_blobs.py`, `tools/retype_palettes.py`, `tools/retype_lib.py` (a one-shot pass: on the retyped tree `retype_palettes.py` finds nothing left and `retype_blobs.py` stops at an assertion): the headers are generated from `gfx/previews/screen_ops.tsv` (the loads), `tools/line_addresses.py` (the address of each call) and `analysis/coverage_union.tsv` (did it run).  An earlier version wrote the size of the block as the `bc` of the call; the reader found it false at `4D:7570`, which is why the generator now takes everything from the code. The historical bank 71 transform still recognizes the old input spelling `Palette_71_66C0`, but no longer emits that generic alias in its output.
-* `tools/palette_reads_check.py` (`make palette-check`): every extracted immediate palette load reads exactly one palette block, except the two independently reviewed BG over-reads at `4D:5510` and `4D:7570`. Their headers must state the exact excess, their regions must be contiguous without overlaps, and their tails must include non-palette data; a comment cannot register another exception.  It fails on the commit before this one (38 arrays) and passes now (116 arrays, 2 documented over-reads).
-* `tools/gfx_export.py`: a region header that says "content class unknown" above an exported asset now says the kind (`gfx_export headers`, run by `export`; `check` fails while one is left: 10 were left by earlier passes).  The counts of `gfx/README.md` (tile sheets, palettes, maps, screens) are computed, not typed.
-* `tools/png_rules.py rules --rebaseline` after the pass: the baseline hashes of the truncated sheets were the old ones, so `png_rules.py edited` listed them and `make` printed "EDITED GRAPHICS" on an untouched tree (found by the reader).
+* `tools/palette_reads_check.py` (`make palette-check`): every extracted immediate palette load reads exactly one palette block, except the two independently reviewed BG over-reads at `4D:5510` and `4D:7570`.
+
+* `tools/gfx_export.py`: a region header that says "content class unknown" above an exported asset now says the kind (`gfx_export headers`, run by `export`; `check` fails while one is left: 10 were left by earlier passes).
 
 ## 5. What was not done
 
-* The 14 HDMA windows whose sheet label states another VRAM destination stay numeric (`naming2_romop2.md`); one window (`engine/settings/confirm_screen.asm:42`) starts inside a neighbouring sheet and runs through the retyped blocks and stays numeric; 2 `CopyString` pointers have no label; 3 vectors.
-* A tilemap or palette block that no code of a natural scenario reads keeps the status of its old header.
-* The round-2 reader found inherited mixed blocks outside the pass: `5C:6350-$6420` contains three separate 64-byte palette assets and a 16-byte object record under an old tile header; the browser start-choice maps at `73:438F` / `$43F3` have explicit attribute sources at `$43D5` / `$4439`, and its five animated 5 x 7 maps at `$447F-$452E` have attributes at `$452E-$45DD`, partly inside a block exported as tiles. These are recorded for a separate consumer-driven retyping pass; this pass did not retype them.
-* `25:69F0-$6AC8` contains a kept tile asset and eight raw bytes, not the old palette heuristic. `25:6E71-$6EF0` is a 127-byte generic data fragment that fails RGB555 validation. Round 2 corrected their generated notes and added regression tests; the inherited executed-data status is not proof of a palette role or of every byte in the fragment.
-* The tile sheets `abook_addr_tiles8800` and `profile_tiles8000` were converted by the same `gfx_export export` run (their labels said tiles; the bytes round-trip); nobody had looked at what they show.
+* The round-2 reader found inherited mixed blocks outside the pass: `5C:6350-$6420` contains three separate 64-byte palette assets and a 16-byte object record under an old tile header; the browser start-choice maps at `73:438F` / `$43F3` have explicit attribute sources at `$43D5` / `$4439`, and its five animated 5 x 7 maps at `$447F-$452E` have attributes at `$452E-$45DD`, partly inside a block exported as tiles.
 
-## 6. Reproduce
+* `25:69F0-$6AC8` contains a kept tile asset and eight raw bytes, not the old palette heuristic.
+
+* The tile sheets `abook_addr_tiles8800` and `profile_tiles8000` were converted by the same `gfx_export export` run (their labels said tiles; the bytes round-trip); nobody had looked at what they show.
 
 ```
 make                                      # a built tree (the scripts read build/mobile_trainer.sym)

@@ -28,6 +28,12 @@ O objetivo é um código-fonte RGBDS legível que reconstrói a ROM original **b
   Leia antes de um trabalho de análise.
 - Editar imagens: `docs/EDITING_IMAGES.md`. Tradução de idioma: `docs/TRANSLATION.md` (só começa quando o Operador pedir).
 
+## Documentação pública
+
+- Descreva comportamento, formatos, endereços e limites da ROM de forma objetiva.
+- Use o código e as ferramentas distribuídas pelo projeto como referências reproduzíveis.
+- Não publique cronologias de execução, protocolos internos de revisão, recibos de tarefas ou dependências de artefatos privados.
+
 ## Continuidade e revisão
 
 - Comece pelo estado atual do checkout, pelos documentos de referência e pelas evidências verificáveis. Notas históricas não substituem a revisão do código e do build.

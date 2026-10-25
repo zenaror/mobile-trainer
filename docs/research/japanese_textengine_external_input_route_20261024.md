@@ -1,14 +1,6 @@
-# External browser input into `TextEngine_Run` (2026-10-24)
+# External browser input into `TextEngine_Run`
 
-## Question and scope
-
-The generic text interpreter treats bytes below `$20` as commands. Command
-`$01` consumes `{address_lo, address_hi, bank}` and reads another string, so a
-dynamic title or URL containing `$01,xx,40,$53` could in principle reach the
-Bank 53 Pokémon-name block. This review follows the natural browser-page path
-from HTML source and URL storage into `Browser_DrawTitleBar`; it is not a proof
-about arbitrary callers of `TextEngine_Run`, corrupted SRAM, or external API
-descriptors.
+Command `$01` consumes `{address_lo, address_hi, bank}` and reads another string, so a dynamic title or URL containing `$01,xx,40,$53` could in principle reach the Bank 53 Pokémon-name block.
 
 ## Findings
 
@@ -37,8 +29,6 @@ it is not copied into `wAttrUrlBuf`. `HtmlUrl_Resolve` at
 slashes, dot segments, query and fragment delimiters; neither decodes a
 percent-escaped `%01` into byte `$01`.
 
-The remaining ordinary URL origins found in maintained source are bounded:
-
 * the homepage URL is the ROM constant `String_Browser_HomeUrl`
   (`engine/browser/session_start.asm:48–62`);
 * the usage-time and usage-fee URLs are ROM constants copied to `sNetStartUrl`
@@ -57,10 +47,4 @@ contracts).
 
 ## Limits and disposition
 
-This does not prove that `TextEngine_Run` cannot read Bank 53 from another
-caller, that every API producer is safe for arbitrary inputs, or that SRAM
-cannot be corrupted. It also does not establish any Pokémon-name/frame
-association. The whole-ROM exact-pointer census and this source-level input
-route are complementary bounded checks; computed/split pointer construction
-and unrelated generic readers remain open. No source code, ROM bytes, assets,
-or English/ZIP files were changed, and no runtime or hardware claim is made.
+This does not prove that `TextEngine_Run` cannot read Bank 53 from another caller, that every API producer is safe for arbitrary inputs, or that SRAM cannot be corrupted.

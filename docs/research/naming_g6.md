@@ -1,23 +1,4 @@
-# Naming pass 6/8: banks 57, 5C, 63, 65, 67
-
-> **Historical note.** Written when the source was one generated `src/bankNN.asm` per bank with generic `Label_BB_AAAA` labels.  In the current tree (`home/ engine/ data/ gfx/ audio/ lib/`) a `Label_BB_AAAA` that is only used inside its own function is a local label of that function (`.lAAAA`, `AAAA` = the address, or `.loop`/`.done`/`.skip`); one referenced from elsewhere keeps its global name; `Function_BB_AAAA`, `Data_BB_AAAA`, ... are unchanged, and where a semantic name was adopted the neutral name often remains as an alias label under it.  **Addresses (`bank:addr`) remain valid**: find the code with `grep -rn '; BB:AAAA' --include=*.asm .` or in `build/mobile_trainer.sym`.  Commands of the frozen bootstrap pipeline quoted here (`make regen`, `make verify`, `make tree*`, `tools/gen_asm.py ...`) no longer apply to the source (`gen_asm.py` only runs into a temp dir, `make legacy-check`); see `README.md`, "History", and `docs/README.md`.
-
-Scope: `config/symbols/bank57.tsv`, `bank5C.tsv`, `bank63.tsv`, `bank65.tsv`, `bank67.tsv` (407 rows), the RAM proposals in
-`analysis/naming/ram_g6.tsv` (26 rows) and this document.  Every row keeps the evidence vocabulary of `docs/FORMATS.md`
-(CONFIRMED = executed in a trace and tied to a screen / string / documented routine, PROBABLE = static or structural evidence
-only, HYPOTHESIS = idea recorded under the generic name).  `python3 tools/gen_asm.py verify --config <dir>` prints
-`RESULT: IDENTICAL` with all five files, `check --strict` passes.
-
-Evidence sources used (all reproducible from the repository):
-
-* the **screenshots** of the 41 trace scenarios (`.cache/trace/shots/<scenario>/*.png`, frame numbers in the file names) matched
-  against the first executed frame of an address (`traces/coverage_<scenario>.tsv`);
-* **rendered screens**: the tile/tilemap loads of the code (HDMA calls `00:0787`, tilemap copies `00:08EA`) were replayed
-  with a small script (tiles into a fake VRAM, 20x18 tilemap, grayscale) to read the header text of screens that no scenario
-  screenshot shows (e.g. the phone-number screens, `57` dialog modes 5-10);
-* the decoded Shift-JIS strings (`analysis/strings.tsv`, re-decoded with cp932 for the tables) and the ROM0 library semantics of
-  `docs/research/boot_and_home.md`;
-* the SDK/API tables of `docs/research/mobile_trainer_serial.md` for the `call $0150` (MobileAPI) argument values.
+# reference 6/8: banks 57, 5C, 63, 65, 67
 
 ## 1. What these banks are
 
@@ -44,9 +25,6 @@ Evidence sources used (all reproducible from the repository):
    Startup_VerifySaveData: 22:4FF6, 48:4899, 4E:46CF; failure -> error F0/01/11 (5C) + reinitialise (22:4FA9, 48:4920, 4E:4749)
 ```
 
-`Registration_Run` (65:41DA) is the wizard.  Steps with the first frame at which they run in the `register` scenario (shot names in
-`.cache/trace/shots/register`):
-
 | step | code | frame | shot |
 |---|---|---|---|
 | intro page 0 (`NoticeText_RegistrationStart`); B+Select+Right held here selects the hidden variant (`C28C`) | `65:42A3` | 333 | - |
@@ -56,59 +34,6 @@ Evidence sources used (all reproducible from the repository):
 | **password save confirm** | `67:6536` (`PwSaveConfirm_Run`) | 3278 | `password_save_confirm` |
 | summary, connect confirm, communication, result | `68:6AE0`, `68:6E1A`, `68:7019`, `68:766E` | 4226, 4545, 4849, 5482 | `register_summary`, `connect_confirm`, `registration_result` |
 | welcome pages 5, 6 | `65:46B6` | 5892 | `welcome_1/2` |
-
-### 1.2 Settings flows (bank 67)
-
-The settings dispatcher `7C:7D5D` (`Nav_MobileSettingsJumpTable`) calls: 1 `PasswordChange_Run`, 2 `UsageTime_Run`, 3 `UsageFee_Run`, 4 `68:7951` (delete
-registration, not in these banks), 5 (hidden, B+Select+Right) `SettingsPhone_Run`.  Each starts with a `Notice_ShowPage` page
-($0F/$10, $13, $15, $0C) and ends with a result page ($11/$12, $14, $16, $0D/$0E).  The three network flows use kind ids 1/2/3
-for the bank-68 helpers `68:7401`/`68:766E`.
-
-* **PasswordChange_Communicate** (`67:5A3E`): state machine on `C27D` (`PasswordChange_StateTable`): 0 `MobileAPI $02` init; 1 `$0E`
-  export login ID to SRAM3:A200; 2 `$3E` connect with the DNS pair `192.168.40.2` x2 (`Net_DefaultDnsPair`) and the ISP login built
-  at `$A100` (login ID from `00:1586`, "guest" twice); 3 build the CGI URL (`Net_PwdChgCgiUrl`) and the body
-  `PPP_ID=<id>&PASSWD=<old>&NEWPASSWD=<new>` (`PasswordChange_BuildRequestBody`), `MobileAPI $2C`; 4 wait, check the 5-minute
-  communication budget (`C26D`=5, error 26-000) and the communication-time limit `C26E` (starts at 9, +10 per step up to `$45`, then dialog `50:4000`), parse the answer
-  (`OK` -> disconnect `$0A`; anything else -> category `$40` with the 4 ASCII digits as code); 5 reset `$36`.  HTTP errors
-  arrive as category `$32` (status 301/302 are followed via `HttpRedirect_ResolveUrl` + `MobileAPI $2A`).  The title_settings shots show
-  the resulting `32-404` screen (frame 7167).
-* **UsageTime_Request / UsageFee_Request** (`67:6171`, `67:62D5`): clear SRAM3:A000.., copy the CGI URL, call the HTTP helper
-  `4E:488D`; URLs `daa_gb_jikan.cgi` (DION, body from `Net_BuildLoginPostBody` = `PPP_ID=<id>&PASSWD=<pw>`) and
-  `http://gameboy.datacenter.ne.jp/cgb/utility?request=summary`.
-* **SettingsPhone_Run** (`67:4000`): edits the three dial slots stored in the adapter configuration image (SRAM bank 2 `A000`,
-  slot stride `$18`: number at `A076/A08E/A0A6`, comment at `A07E/A096/A0AE`): `SettingsPhone_ReadAdapterConfig` (API `$38`),
-  `SettingsPhone_ChoiceMenu` (2 items: change / select default; auto / manual), `SettingsPhone_SlotMenu` (3 tabs 登録場所1-3 with
-  インターネット用 / セルフページ用 / コメント), `PhoneKeypad_Run` x2 and `PhoneComment_KeyboardRun`, `SettingsPhone_ConfirmScreen`,
-  `SettingsPhone_WriteAdapterConfig` (`SettingsPhone_PatchConfigImage` rewrites the image and recomputes the 16-bit sum at
-  `A0BE/A0BF`, API `$04`), `SettingsPhone_ContinuePrompt`.  The self-page number is also mirrored (xor `$A5`) in SRAM bank 1
-  `B014/B025/B036`.
-
-### 1.3 Common screen skeleton of bank 67
-
-Every screen module follows the same pattern, which made the helper functions nameable by pattern (`<Screen>_Setup`, `_Loop`,
-`_PlaceCursor`, `_BuildTextMap`, `_PrintText/_PrintPrompt/_PrintFields`, `_UploadTextTiles`, `_LoadTilemap`):
-
-* result in `C27C` (0 = B / cancel, n = choice, 1 = ok), cursor state in `C27D`, variant argument in `C27E` (all three are
-  reused with other meanings by the other screens and by `65:487C`, so they are not proposed as RAM names);
-* setup: `7D:7C00 (b=$15,c=3)`, sprite reset `00:09B6`, HDMA tile loads (`00:0787`), palettes into the staging buffers `D800/D840`
-  (`4F:4000`), tilemap copy `00:08EA`, text in three steps: `4F:45C6` (tilemap indices of the text rectangle), `4F:4604` (clear
-  the rectangle in the text tile buffer) + text engine registers `FFBA..FFC7` + `00:0ED3`, `4F:4572` (HDMA of the rendered tiles);
-  then `4F:42B4` (fade in), loop, `4F:4370` (fade out);
-* the loop: sprites `00:0956`, VBlank `00:044B`, pad `7D:7BB7`, sound requests through the bank-4 stub `00:20AC`
-  (`bc=$2C` A button, `$2E` B button, `$29` cursor move, `$31` refused, `$38`/`$39` character typed/erased).
-
-### 1.4 Text entry buffer ("TextBuf", 67:6731..6842)
-
-Object in WRAM bank 3, used by both keypads (`DE80`, capacity `$11`) and by bank 68:
-
-```
-+0 capacity (B given to TextBuf_Init)     +2 number of characters
-+1 free slots (capacity-1 after init)     +3.. NUL-terminated text (DE83 for the buffer at DE80)
-```
-
-`TextBuf_AppendChar` inserts at the cursor `+2` (tail shifted), `TextBuf_DeleteLast` removes the character before it (the shifting loop
-is only correct with the cursor at the end, which the UI guarantees), `TextBuf_GetCount/GetFree/GetLength` return `+2`, `+1`,
-`capacity-free-1` in `B` and `A`.
 
 ### 1.5 Communication error screen (bank 5C)
 
@@ -130,61 +55,15 @@ the timer stops.
 with count 4).  Return `B=$FF` when cancelled, `B=0` after writing the password (NUL-terminated) to the destination.
 State `C0D8` (previous `C0E6`, requested `C0D6`):
 
-| mode | screen (`ConnectDialog_DrawScreen`) | input handler | notes |
-|---|---|---|---|
-| 0 | - | - | cancel (`B=$FF`) |
-| 1-4 | "つうしんせつぞくします" + "通話料と接続料がかかります。よろしいですか?" [はい][いいえ] (`56:4000`) | 1: `412A`, 2: `4189`, 3/4: `41CA` | Yes -> 9 if a password is stored (SRAM1:A880 !=0) else 5; mode 4 shows the mail count; modes 1/2 never used |
-| 5 | "パスワードをにゅうりょくしてください" (`56:4047`) | `4237` | A -> 6 |
-| 6 | same screen + on-screen keyboard (`55:5C8F`, raster split via the `00:16DC` STAT handler) | `426B` | 8 chars max, validation `4-8` chars with digit+letter |
-| 7 | "パスワードをほぞんします" + attention text (`56:406A`) [する][しない] | `43BC` | する -> 8 |
-| 8 | "パスワードをほぞんしました" (`56:40BF`) | `4421` | entering stores to SRAM (`SavedPassword_Store`) |
-| 9 | "パスワードがほぞんされています" (`56:410A`), Select: パスワードのほぞんをやめる | `4443` | entering loads it (xor `$5A`); A accepts |
-| 10 | "パスワードの ほぞんをやめます。よろしいですか?" (`56:4159`) | `4481` | leaving to any mode but 9 clears the stored password |
-| `$10` | - | - | accept |
-
-Screenshots: `mail_send_f02696_send_receive_2` (mode 3/4 confirm), `mail_send_f02801_password_saved` (mode 9), coverage frames 2096/2696/2801.
-
 ### 1.7 Font validity bitmap and no-adapter screen (bank 63)
 
-`Font_ValidateSjisCode` is called by the double-byte glyph routine (`00:1044` -> `7F:405F`) with HL = Shift-JIS code; the 8 KiB
-bitmap at `63:407A` has 7332 bits set (lead bytes 81-84, 87-9F, E0-EA; trail 40-7E/80-FC) and an invalid code becomes `$81A1` ("■").
-`NoAdapter_ShowScreen` is the screen of scenario `noadapter` ("モバイルアダプタGBがささっていません / でんげんスイッチをOFFにして ... もういちど
-ONにしてください"), it waits for A/Start and `Startup_NoAdapterScreen` then soft-resets.
-
+`Font_ValidateSjisCode` is called by the double-byte glyph routine (`00:1044` -> `7F:405F`) with HL = Shift-JIS code; the 8 KiB bitmap at `63:407A` has 7332 bits set (lead bytes 81-84, 87-9F, E0-EA; trail 40-7E/80-FC) and an invalid code becomes `$81A1` ("■").
 
 ## 2. Named symbols by subsystem
 
 Full evidence per row: `config/symbols/bank<NN>.tsv`.  Status C = CONFIRMED, P = PROBABLE, H = HYPOTHESIS.
 
 ### Bank 65 (startup, registration wizard, notice pages)
-
-**Startup (boot paths)**
-
-| addr | name | | summary |
-|---|---|---|---|
-| `4000` | `Startup_Run` | C | First program run by the main loop (1C:4000 far-calls it once): inits (00:1711, 4E:4658, 48:4AAB, 68:4A0F), clears comm timers C2D1-C2D7, runs Adap... |
-| `403C` | `Startup_StatusJumpTable` | C | 3 code pointers 4042/4078/40CF indexed by the AdapterCheck_Run result (0 no adapter or error, 1 adapter config valid, 2 config invalid/blank); read... |
-| `4042` | `Startup_NoAdapter` | C | AdapterCheck result 0: 68:4870 classifies the SRAM state (0-4) and jumps through Startup_NoAdapterJumpTable (0,2,3 -> no-adapter screen 4063; 1 ->... |
-| `4063` | `Startup_NoAdapterScreen` | C | far-calls NoAdapter_ShowScreen (63:732F), then A=$11 and jp Entry (00:0100 soft reset); noadapter scenario f68 |
-| `406E` | `Startup_NoAdapterJumpTable` | P | 5 code pointers 4063,4058,4063,4063,4055 indexed by the SRAM state class returned by 68:4870; first word read in traces |
-| `4078` | `Startup_ConfigValid` | C | AdapterCheck result 1 (adapter configuration valid): 68:4870 state -> Startup_ConfigValidJumpTable; executed in 32 scenarios at frame 324 after the... |
-| `408B` | `Startup_ConfigValid_Continue` | P | state 4 of the valid-config table: jp 416C (verify save data, then return to the main program) |
-| `408E` | `Startup_ConfigValid_ShowInfoError` | P | state 1: error screen F0/01/10 (5C) then start registration path; not executed |
-| `40A6` | `Startup_ConfigValid_Fresh` | P | state 0: C277=C278=0 then Registration_Run and return; not executed (adapter valid but cartridge never registered) |
-| `40B3` | `Startup_ConfigValid_Resume` | P | state 2: Registration_ReadStage then Registration_Run (resume) and return; not executed |
-| `40BC` | `Startup_ConfigValid_ResumeCopy` | P | state 3: identical to 40B3; not executed |
-| `40C5` | `Startup_ConfigValidJumpTable` | P | 5 code pointers 40A6,408E,40B3,40BC,408B indexed by 68:4870; last word read in traces |
-| `40CF` | `Startup_ConfigBlank` | C | AdapterCheck result 2 (config invalid/blank): 68:4870 state -> Startup_ConfigBlankJumpTable; executed in register*, monkey_blank, resume_registrati... |
-| `40E2` | `Startup_ConfigBlank_ShowInfoError` | C | states 1 and 4: error F0/01/00 (adapter registration info error, data initialized) via 5C:5150, then C277=C278=0 and Registration_Run; executed in... |
-| `40FA` | `Startup_ConfigBlank_Fresh` | C | state 0: C277=C278=0, Registration_Run, return; the normal first-run path of the register scenarios (8 scenarios) |
-| `4107` | `Startup_ConfigBlank_Resume` | C | state 2: Registration_ReadStage then Registration_Run (resume); executed in monkey_camp_blank, boot_states |
-| `4110` | `Startup_ConfigBlank_ResumeCopy` | C | state 3: identical to 4107; executed once |
-| `4119` | `Startup_ConfigBlankJumpTable` | P | 5 code pointers 40FA,40E2,4107,4110,40E2 indexed by 68:4870 |
-| `416C` | `Startup_VerifySaveData` | C | checks the three SRAM areas (22:4FF6, 48:4899, 4E:46CF); any failure -> 418A; otherwise falls to the return; executed in 32 scenarios |
-| `418A` | `Startup_SaveDataError` | C | error F0/01/11 ('cartridge save data error, data will be initialized') via 5C:5150, then reinitialises the areas (22:4FA9, 48:4920, 4E:4749); execu... |
-| `41A9` | `Startup_Return` | C | common ret of the startup paths (back to the main program in 1C:4000) |
-
-**Registration wizard**
 
 | addr | name | | summary |
 |---|---|---|---|
@@ -215,8 +94,6 @@ Full evidence per row: `config/symbols/bank<NN>.tsv`.  Status C = CONFIRMED, P =
 | `47EA` | `Registration_SavePassword` | C | copies the password DEB9 to C28F, StringLength, then SavedPassword_Store (57:541C): stores it in SRAM1:A880/A88D for the connect dialog; executed a... |
 | `481A` | `Function_65_481A` | H | dead variant of Startup_VerifySaveData: 68:48DE state 2/3 -> 4852/485D, else 48:4899/4E:46CF checks; its 'call $21A0' targets ROM0 padding (stale),... |
 
-**Notice pages**
-
 | addr | name | | summary |
 |---|---|---|---|
 | `487C` | `Notice_ShowPage` | C | A=page id 0-23: draws a full-screen notice page (header gfx, page n/m counter, body text from Notice_PageTable, footer, sound) and waits: A -> retu... |
@@ -236,8 +113,6 @@ Full evidence per row: `config/symbols/bank<NN>.tsv`.  Status C = CONFIRMED, P =
 | `4BA8` | `Notice_RequestPageSound` | C | reads Notice_PageSoundTable[C27C] and passes it as BC to the bank-4 audio stub 00:20E8 (WRAM bank 1 selected) |
 | `4BC6` | `Notice_PageSoundTable` | P | 24 bytes indexed by the page id: $09 for most pages, $19 for pages 5/6 (welcome), $13 for page 11; argument of 00:20E8 |
 | `4BDE` | `Notice_PageTable` | P | 24 six-byte records per page id: [header gfx index, footer/button mode (0-6; 2=locked, 1/5=B allowed), page n, page count m, text pointer] |
-
-**Notice page texts**
 
 | addr | name | | summary |
 |---|---|---|---|
@@ -266,8 +141,6 @@ Full evidence per row: `config/symbols/bank<NN>.tsv`.  Status C = CONFIRMED, P =
 | `5602` | `NoticeText_UsageFeeCancelled` | C | notice page 22 text (Shift-JIS, NUL-terminated, word 1 of record 22 of Notice_PageTable): the usage fee check was cancelled |
 | `5624` | `NoticeText_ResumeRegistration` | C | notice page 23 text (Shift-JIS, NUL-terminated, word 1 of record 23 of Notice_PageTable): the previous initial registration did not finish; press A... |
 
-**Prompt texts**
-
 | addr | name | | summary |
 |---|---|---|---|
 | `567F` | `PromptText_Table` | P | 20 word pointers to the prompt strings 56A7-5A49; 00:153D copies string [A] of this table to D000; callers 67:4887 (A=8/9), 67:5732 (A=10), 68 (inp... |
@@ -294,8 +167,6 @@ Full evidence per row: `config/symbols/bank<NN>.tsv`.  Status C = CONFIRMED, P =
 
 ### Bank 67 (adapter check, settings, text buffer)
 
-**Adapter check**
-
 | addr | name | | summary |
 |---|---|---|---|
 | `6369` | `AdapterCheck_DrawScreen` | C | draws the 'checking Mobile Adapter GB' screen (モバイルアダプタGBをチェックしています): bank-4A tiles/tilemap/palettes, animated adapter sprite, LCD on; executed in... |
@@ -307,93 +178,6 @@ Full evidence per row: `config/symbols/bank<NN>.tsv`.  Status C = CONFIRMED, P =
 | `64C7` | `AdapterCheck_State_ReadConfig` | C | state 1: when idle (wTimerEnable bits 0/1 clear) MobileAPI $38 reads the $C0-byte adapter configuration into SRAM bank 2 $A000, C27D:=2; bit1 set -... |
 | `64F5` | `AdapterCheck_State_Finish` | C | state 2: SRAM off, MobileAPI $36 (reset SDK), 68:431A validates the configuration image: C27C:=1 valid, 2 invalid |
 | `6520` | `AdapterCheck_Abort` | C | API failure (wTimerEnable bit1): 68:4F71, SRAM off, MobileAPI $36, C27C:=0 |
-
-**Settings: phone number change (hidden entry)**
-
-| addr | name | | summary |
-|---|---|---|---|
-| `4000` | `SettingsPhone_Run` | C | Hidden settings entry 5 (電話番号の変更, 7C:7D5D state 5): read adapter config (53DC), choice menu, slot menu, number keypads + comment keyboard, confirm... |
-| `4156` | `SettingsPhone_ResetTopCursor` | C | writes 0 to SRAM1:BF02 (remembered cursor of the top choice menu, saved by SettingsPhone_ChoiceMenu a=0) with SRAM enable/bank saved and restored |
-| `418E` | `SettingsPhone_ResetSlotCursor` | C | writes 0 to SRAM1:BF03 (remembered cursor of the slot menu, saved by SettingsPhone_SlotMenu) |
-| `41C6` | `SettingsPhone_ResetMethodCursor` | C | writes 0 to SRAM1:BF04 (remembered cursor of the input-method choice menu, saved by SettingsPhone_ChoiceMenu a=1) |
-| `41FE` | `SettingsPhone_ClearEntryBuffers` | P | WRAM bank 3: zero-fills the $33 bytes DEDD.. (internet number, self-page number, comment: 3x17 bytes) and clears bits 3 and 5 of C278; also called... |
-| `422B` | `PhoneKeypad_Run` | C | A=0 internet phone number, 1 self-page number: numeric keypad screen editing a TextBuf at DE80 (17 slots), result copied to DEDD/DEEE; returns C27C... |
-| `424A` | `Function_67_424A` | H | unreferenced: decodes SRAM1:B08B/B09C (xor $A5) and compares with DEDD/DEEE, clearing bit3/bit4 of C278 when they differ (idea: 'phone number chang... |
-| `431F` | `PhoneKeypad_Setup` | C | sets up the keypad screen: TextBuf_Init(DE80,$11), loads the current number from DEDD/DEEE (68:4127), tiles from banks 5E/4A, tilemap 4A:7120/71E8,... |
-| `443C` | `PhoneKeypad_Loop` | C | polls the keyboard (55:5C8F, C=[C27E]): 1 append digit (TextBuf_AppendChar, sfx $38; $31 if full), 2 delete (sfx $39; cancels if empty), 7 accept i... |
-| `4559` | `PhoneKeypad_StoreResult` | C | copies the TextBuf text at DE80 into DEDD (C27D=0) or DEEE (C27D=1) with 68:417F |
-| `4571` | `Function_67_4571` | H | unreferenced: C27E := 1 when bit3 (C27D=0) or bit4 (C27D=1) of C278 is set, else 0; idea: 'number field is set' flag for the keypad |
-| `4593` | `PhoneKeypad_UpdateFullFlag` | P | C27E := 1 when TextBuf_GetFree(DE80) is 0 (buffer full) else 0; argument C of the keyboard poll |
-| `45AB` | `PhoneKeypad_UpdateNonEmptyFlag` | P | C27E := 1 when TextBuf_GetLength(DE80)>=1 else 0 |
-| `45C4` | `PhoneKeypad_BuildTextMap` | P | 4F:45C6 with HL=D044, DE=0, BC=$020C: writes ascending tile numbers for the 2x12 text field into the tile map buffer |
-| `45D4` | `PhoneKeypad_PrintText` | P | clears the 2x12 text field (4F:4604 DE=$FFFF), sets the text engine box (x=$20,y=$15) and prints the NUL-terminated string at HL (WRAM bank 3, DE83... |
-| `4621` | `PhoneKeypad_UploadTextTiles` | P | 4F:4572: uploads the rendered 2x12 text tiles to VRAM $9000 |
-| `4631` | `SettingsPhone_ChoiceMenu` | C | A=0: menu 電話番号変更内容選択 (change phone number / select the normally used number); A=1: menu 電話番号入力方法選択 (auto / manual). Returns C27C: 0 = B, n = choice... |
-| `4688` | `SettingsPhone_ChoiceMenu_Setup` | C | restores the cursor from SRAM1:BF02/BF04, loads tiles/tilemap of bank 4D for the variant in C27E, prompt text, cursor sprite |
-| `47DC` | `SettingsPhone_ChoiceMenu_Loop` | C | frame loop: A -> C27C=cursor+1 (sfx $2C), B -> 0 (sfx $2E), up/down toggles the cursor (sfx $29) and redraws |
-| `4855` | `SettingsPhone_ChoiceMenu_PlaceCursor` | C | cursor sprite slot DA00 := SettingsPhone_ChoiceMenu_CursorPos[C27D] (00:0A65) |
-| `486D` | `SettingsPhone_ChoiceMenu_CursorPos` | P | 2 (X,Y) pairs of the cursor sprite for the two choices ($10,$17 / $10,$2F) |
-| `4871` | `SettingsPhone_ChoiceMenu_BuildTextMap` | P | 4F:45C6: tile numbers of the 6x18 prompt area (HL=D121) |
-| `4881` | `SettingsPhone_ChoiceMenu_PrintPrompt` | C | clears the prompt box and prints PromptText 8 ('select from the menu', C27E=0) or 9 ('choose the phone number entry method', C27E=1) copied by 00:153D |
-| `48E0` | `SettingsPhone_ChoiceMenu_UploadTextTiles` | P | 4F:4572: uploads the prompt text tiles to VRAM $9000 |
-| `48F0` | `SettingsPhone_ChoiceMenu_LoadTilemap` | C | copies the 14x5 selection tilemap (bank 4D, pointer from SettingsPhone_ChoiceMenu_TilemapTable[2*C27E + C27D]) to D063 with 00:08EA |
-| `491C` | `SettingsPhone_ChoiceMenu_TilemapTable` | P | 4 pointers ($5AE0,$5B6C,$5BF8,$5C84) into bank 4D: the four 14x5 highlighted-choice tilemaps; kept numeric |
-| `4924` | `PhoneComment_KeyboardRun` | C | text keyboard for the comment field (max 16 chars, TextBuf at DE80 size $11), result in DEFF; callers 67:40F4 and 65:4563. Executed in settings_pho... |
-| `4940` | `Function_67_4940` | H | unreferenced sibling of 424A: decodes SRAM1:B0AD and compares with DEFF, clearing bit5 of C278 when different |
-| `49A8` | `PhoneComment_KeyboardSetup` | P | sets up the comment keyboard screen: TextBuf_Init(DE80,$11), current comment DEFF, tilemap 4A:72B0, keyboard mode 3 (55:5BA2) |
-| `4A98` | `PhoneComment_KeyboardLoop` | P | same polling loop as PhoneKeypad_Loop for the comment keyboard (55:5C8F with C=[C27D]) |
-| `4BB5` | `PhoneComment_StoreResult` | P | copies the TextBuf text at DE80 into DEFF (68:417F) |
-| `4BC2` | `Function_67_4BC2` | H | unreferenced: C27D := 1 when bit5 of C278 is set, else 0 (comment keyboard flag) |
-| `4BD5` | `PhoneComment_UpdateFullFlag` | P | C27D := 1 when the TextBuf at DE80 has no free slot (argument C of the keyboard poll), else 0 |
-| `4BED` | `PhoneComment_UpdateNonEmptyFlag` | P | C27D := 1 when the TextBuf at DE80 holds >=1 char, else 0 |
-| `4C06` | `PhoneComment_BuildTextMap` | P | 4F:45C6 (HL=D044, BC=$020C): tile numbers of the text field |
-| `4C16` | `PhoneComment_PrintText` | P | clears the text field and prints the TextBuf string at HL with 00:0ED3 (box x=$20,y=$15) |
-| `4C63` | `PhoneComment_UploadTextTiles` | P | 4F:4572: uploads the text tiles to VRAM $9000 |
-| `4C73` | `SettingsPhone_SlotMenu` | C | A=0: 変更用電話番号選択 (slot to change), A=1: 通常使用電話番号選択 (default slot): 3 tabs 登録場所1-3 showing internet number / self-page number / comment (DF10..); curs... |
-| `4CCB` | `SettingsPhone_SlotMenu_Setup` | C | restores the cursor from SRAM1:BF03, loads bank-4D tiles for the variant, tilemap 4D:75A0, slot field texts, cursor sprite |
-| `4E20` | `SettingsPhone_SlotMenu_Loop` | C | frame loop: A picks the slot (checks via 68:4568 that it holds data in variant 1), B cancels, left/right cycles the tabs (sfx $29) |
-| `4F50` | `SettingsPhone_SlotMenu_PlaceCursor` | C | sprite slot DA00 := SettingsPhone_SlotMenu_CursorPos[C27D] (00:0A65) |
-| `4F68` | `SettingsPhone_SlotMenu_CursorPos` | P | 3 (X,Y) pairs of the tab cursor ($18,$2F / $47,$2F / $77,$2F) |
-| `4F6E` | `SettingsPhone_SlotMenu_BuildTextMap` | P | 3x 4F:45C6: tile numbers of the three 2x12 field text rows (D127,D167,D1A6) |
-| `4F9C` | `SettingsPhone_SlotMenu_PrintSlotFields` | C | prints the three fields (internet number, self-page number, comment) of the slot C27D from SettingsPhone_SlotMenu_FieldTable with 00:0ED3 |
-| `50A5` | `SettingsPhone_SlotMenu_FieldTable` | P | 9 WRAM pointers: internet number DF10/DF43/DF76, self-page DF21/DF54/DF87, comment DF32/DF65/DF98 (3 slots x $33 bytes at DF10..) |
-| `50B7` | `SettingsPhone_SlotMenu_UploadTextTiles` | P | 3x 4F:4572: uploads the three field text rows to VRAM $9000/$9200/$9400 |
-| `50E5` | `SettingsPhone_SlotMenu_LoadTabTilemap` | C | copies the 20x2 tab tilemap of the selected slot (bank 4D, pointer from SettingsPhone_SlotMenu_TabTilemapTable[C27D]) to D0E0 |
-| `5104` | `SettingsPhone_SlotMenu_TabTilemapTable` | P | 3 pointers ($7870,$78C0,$7910) into bank 4D (20x2 tilemaps of tab 1-3); kept numeric |
-| `510A` | `SettingsPhone_ConfirmScreen` | C | C27E=slot: screen 次のように電話番号を変更します / よろしいですか？ [はい][いいえ] listing the new numbers (DEDD,DEEE,DEFF); returns C27C: 0 = B, 1 = yes, 2 = no. Executed in... |
-| `5129` | `SettingsPhone_ConfirmScreen_Setup` | C | loads bank 4B/5F tiles and tilemap 4B:73F0, palettes, field texts, slot tab and cursor sprite |
-| `51E2` | `SettingsPhone_ConfirmScreen_Loop` | C | frame loop: A -> C27C=1 (Yes) or 2 (No, cursor 1), B -> 0, left/right toggles Yes/No (sfx $29) |
-| `525D` | `SettingsPhone_ConfirmScreen_PlaceCursor` | C | sprite slot DA00 := SettingsPhone_ConfirmScreen_CursorPos[C27D] |
-| `5275` | `SettingsPhone_ConfirmScreen_CursorPos` | P | 2 (X,Y) pairs of the Yes/No cursor ($28,$68 / $58,$68) |
-| `5279` | `SettingsPhone_ConfirmScreen_BuildTextMap` | P | 3x 4F:45C6: tile numbers of the three field rows (D0A7,D0E7,D126) |
-| `52A7` | `SettingsPhone_ConfirmScreen_PrintFields` | C | prints DEDD (internet number), DEEE (self-page number) and DEFF (comment) into three text boxes with 00:0ED3 |
-| `5389` | `SettingsPhone_ConfirmScreen_UploadTextTiles` | P | 3x 4F:4572: uploads the field text rows to VRAM $9000/$9200/$9400 |
-| `53B7` | `SettingsPhone_ConfirmScreen_LoadSlotTilemap` | C | copies the 2x1 slot-number tilemap (bank 4B, pointer from SettingsPhone_ConfirmScreen_SlotTilemapTable[C27E]) to D066 |
-| `53D6` | `SettingsPhone_ConfirmScreen_SlotTilemapTable` | P | 3 pointers ($76C0,$76C4,$76C8) into bank 4B (slot number 1/2/3 tiles); kept numeric |
-| `53DC` | `SettingsPhone_ReadAdapterConfig` | C | checking screen + sound, then the API state machine: MobileAPI $02 init, $38 read $C0 config bytes to SRAM2:$A000, $36 reset, validation 68:459A/43... |
-| `5402` | `SettingsPhone_ReadAdapterConfig_Setup` | C | C27C=C27D=0 and AdapterCheck_DrawScreen |
-| `5410` | `SettingsPhone_ReadAdapterConfig_Poll` | C | per-frame poll (sprites, VBlank, sound $46 latch C286) then jp [Table_67_546C+2*C27D]: states init (5472), read config (5484), reset+validate (54B9... |
-| `546C` | `SettingsPhone_ReadAdapterConfig_StateTable` | P | 3 state handlers 5472/5484/54B9 indexed by C27D |
-| `5535` | `SettingsPhone_WriteAdapterConfig` | C | A=slot index (C27E): API sequence that writes the modified configuration image (PatchConfigImage, MobileAPI $04 write $C0 bytes from SRAM2:$A000) a... |
-| `5554` | `SettingsPhone_WriteAdapterConfig_Setup` | C | C27C=C27D=0 |
-| `555C` | `SettingsPhone_WriteAdapterConfig_Poll` | C | per-frame poll and jp [Table_67_55B8+2*C27D]: init (55BE), patch image + write (55D0, API $04), finish (560A, API $36, 68:49B6) |
-| `55B8` | `SettingsPhone_WriteAdapterConfig_StateTable` | P | 3 state handlers 55BE/55D0/560A indexed by C27D |
-| `5664` | `SettingsPhone_PatchConfigImage` | C | copies the edited number/comment of slot C27E into the adapter config image SRAM2:A000 (68:409A, CopyStringMax), stores the self-page number xor $A... |
-| `56FA` | `SettingsPhone_ConfigNumberAddrs` | P | 3 addresses $A076,$A08E,$A0A6: number field of slot 0-2 in the adapter config image (stride $18) |
-| `5700` | `SettingsPhone_SramSelfPageAddrs` | P | 3 addresses $B014,$B025,$B036 (SRAM bank 1 XOR-$A5 strings, stride $11) written by PatchConfigImage; same table as Table_00_161A |
-| `5706` | `SettingsPhone_ConfigCommentAddrs` | P | 3 addresses $A07E,$A096,$A0AE: comment field (16 bytes) of slot 0-2 in the config image |
-| `570C` | `SettingsPhone_ContinuePrompt` | C | screen 電話番号変更終了 / 続けて登録をしますか？ [はい][いいえ]; returns C27C: 1 yes (settings_phone restarts at 4000), else done. Executed in settings_phone f5155 |
-| `5728` | `SettingsPhone_ContinuePrompt_Setup` | C | loads bank 4B/5F tiles and tilemap 4B:7D10, prints PromptText 10 (phone number change finished), cursor sprite |
-| `57CC` | `SettingsPhone_ContinuePrompt_Loop` | C | frame loop: A -> Yes (1) / No (2), left/right toggles (sfx $29) |
-| `5842` | `SettingsPhone_ContinuePrompt_PlaceCursor` | C | sprite slot DA00 := SettingsPhone_ContinuePrompt_CursorPos[C27D] |
-| `585A` | `SettingsPhone_ContinuePrompt_CursorPos` | P | 2 (X,Y) pairs of the Yes/No cursor ($28,$30 / $58,$30) |
-| `585E` | `SettingsPhone_ContinuePrompt_BuildTextMap` | P | 4F:45C6: tile numbers of the prompt area |
-| `586E` | `SettingsPhone_ContinuePrompt_PrintPrompt` | C | clears the prompt box and prints PromptText 10 (00:153D A=10) |
-| `58BD` | `SettingsPhone_ContinuePrompt_UploadTextTiles` | P | 4F:4572: uploads the prompt text tiles to VRAM $9000 |
-| `5ED1` | `Function_67_5ED1` | H | unreferenced start of the 5ED1-5F54 routine: C27C=C27D=0, AdapterCheck_DrawScreen, fade in, poll 5EF1 (init API $02, reset API $36), fade out, retu... |
-| `5EF1` | `Function_67_5EF1` | H | tiny 2-state poll (init API $02, then reset API $36) behind the unreferenced entry 5ED1/5ED8 (draws the checking screen); no caller found, idea: 'r... |
-
-**Settings: password change / password prompt / save confirm**
 
 | addr | name | | summary |
 |---|---|---|---|
@@ -425,16 +209,12 @@ Full evidence per row: `config/symbols/bank<NN>.tsv`.  Status C = CONFIRMED, P =
 | `66D2` | `PwSaveConfirm_PrintPrompt` | C | clears the prompt box and prints a prompt text via 00:153D (PromptText_Table) |
 | `6721` | `PwSaveConfirm_UploadTextTiles` | P | 4F:4572: uploads the prompt text tiles to VRAM $9000 |
 
-**Settings: usage time / usage fee**
-
 | addr | name | | summary |
 |---|---|---|---|
 | `60BA` | `UsageTime_Run` | C | Settings menu entry 2 (ご利用時間の確認, 7C:7D79): page $13 (explanation), UsageTime_Request, result screens (68:766E a=2) and page $14 (cancelled). Execut... |
 | `6171` | `UsageTime_Request` | C | clears SRAM3:$A000.., copies the jikan CGI URL to $A100, login ID (00:1586) to C28F, 68:7401(2), HTTP request 4E:488D; returns A=1 ok, 0 error, 2 c... |
 | `626F` | `UsageFee_Run` | C | Settings menu entry 3 (ご利用額の確認, 7C:7D82): page $15 (explanation), UsageFee_Request, result screens (68:766E a=3) and page $16 (cancelled). Executed... |
 | `62D5` | `UsageFee_Request` | C | like UsageTime_Request but with the fee summary URL (Net_UsageFeeUrl, copied at 67:62F9; a GET per docs/research/dynamic_tracing.md), 68:7401(3), 4... |
-
-**Network helpers (URLs, DNS, request bodies)**
 
 | addr | name | | summary |
 |---|---|---|---|
@@ -455,8 +235,6 @@ Full evidence per row: `config/symbols/bank<NN>.tsv`.  Status C = CONFIRMED, P =
 | `6257` | `Net_DebugLoginBody` | P | ASCII 'PPP_ID=1002&PASSWD=itoh': test parameters after the CGI strings, no reference found in the ROM; 'itoh' is the login id of the developer test... |
 | `632D` | `Net_UsageFeeUrl` | C | ASCII 'http://gameboy.datacenter.ne.jp/cgb/utility?request=summary' (usage fee summary), copied to SRAM3:$A100 by 67:62D5 |
 
-**TextBuf library**
-
 | addr | name | | summary |
 |---|---|---|---|
 | `6731` | `TextBuf_Init` | C | HL=buffer (WRAM bank 3), B=capacity: [+0]=B, [+1]=B-1 (free slots), [+2]=0 (count), [+3]=0 (empty NUL-terminated text). Used by both keypads (DE80,... |
@@ -468,73 +246,6 @@ Full evidence per row: `config/symbols/bank<NN>.tsv`.  Status C = CONFIRMED, P =
 | `6842` | `TextBuf_GetLength` | C | B=A=capacity-free-1 = [HL]-[HL+1]-1 (length of the text) with WRAM bank 3 selected |
 
 ### Bank 5C (communication error screen)
-
-**Error screen code**
-
-| addr | name | | summary |
-|---|---|---|---|
-| `4F53` | `CommErr_RecordTable` | C | 21 records [id, mode, dw triple list] ended by $FF, searched at 5C:527D against C196 (id = error category); mode 1 = normal 'comm error' screen, mo... |
-| `5104` | `CommErr_MessagePointers` | P | 32 word pointers (index 0 null) to the message strings 4000-4DCF, indexed by the triple's message index at 5C:5320; indices 32-37 continue in 5144/... |
-| `5146` | `CommErr_MessagePointers_Boot` | P | 5 word pointers = message indices 33-37 (4E21,4E51,4E96,4ED5,4F14) used by the boot-check record $F0 (list 50F5 selects indices $21-$25) |
-| `5150` | `CommErr_ShowScreen` | C | Error screen: A=category (C196), H:L=code (C197:C198); wipes C0D4.., loads gfx/palettes, draws 'No.CC-DDD' and the message found by the tables, wai... |
-| `5219` | `CommErr_ShowScreen_FrameLoop` | C | per-frame loop: sprites, VBlank wait, pad read (7D:7BA4/7BC1) and JoypadDispatch (A -> 524C, idle -> 523B) |
-| `5231` | `CommErr_JoypadTable` | C | inline table of the call to JoypadDispatch at 5C:522E: A -> 524C, B/Select/Start -> 5264 (ignored), none -> 523B |
-| `523B` | `CommErr_ShowScreen_Idle` | C | no new button: if C0D8!=0 run UpdateCommFooter (546F), then jp FrameLoop |
-| `524C` | `CommErr_ShowScreen_ButtonA` | C | A pressed: sound effect $2C, fade out (4F:4370), return A=0 to the caller |
-| `5267` | `CommErr_DrawMessage` | C | clears the text box, finds the record of C196 in CommErr_RecordTable, picks the tilemap (mode 1: plain or timer variant, else boot variant), finds... |
-| `527D` | `CommErr_FindRecord` | C | loop over the 4-byte records of 4F53 comparing the id with C196; $FF terminator -> 53A1 (plain tilemap only) |
-| `52AB` | `CommErr_DrawMessage_TimerVariant` | C | wTimerEnable bit4 set (communication timer running): tilemap 57E6 with the 'communicating' footer, animated icon object DA10 (table 642B), palette... |
-| `52EF` | `CommErr_DrawMessage_PlainVariant` | C | records with mode !=1 (boot checks): tilemap 5AB6 (plain 'error No.' header) |
-| `5302` | `CommErr_LookupTriple` | C | HL=triple list of the record; scans [d,e,msg] for d=C197,e=C198 (or the $FF,$FF default) and returns the message index at 531E |
-| `531E` | `CommErr_PrintMessage` | C | message index -> pointer via CommErr_MessagePointers, sets the text engine box (x=8,y=$18, width $98) and prints with 00:0ED3, then uploads the tex... |
-| `53B3` | `CommErr_DrawErrorNumber` | C | draws the digits of 'No.CC-DDD' from C196/C197/C198 into the tile map at D00C.. (2 tiles per digit) and uploads the row; C197's high nibble is draw... |
-| `5441` | `CommErr_DrawDigit` | C | A=digit 0-9, HL=map position: writes the two tiles of the digit (CommErr_DigitTilePairs) to HL and HL+$20 |
-| `545B` | `CommErr_DigitTilePairs` | P | 10 pairs (top,bottom) of tile numbers for the digits 0-9: $27/$37 .. $2F/$3F, $40/$50; read by 5C:5441 |
-| `546F` | `CommErr_UpdateCommFooter` | P | per frame while C0D8!=0: comm timer stopped (wTimerEnable bit4 clear) -> swaps the 'communicating' footer for the plain rows (5656/57BE), hides obj... |
-| `5504` | `CommErr_DrawFCategoryGlyph` | P | for category $F0 overwrites the first digit cells (D00C/D00D, D02C/D02D) with tiles $40,$41/$50,$51 (a 2x2 glyph instead of digits) |
-
-**Message texts**
-
-| addr | name | | summary |
-|---|---|---|---|
-| `4000` | `CommErr_Msg_AdapterNotPlugged` | C | message 1 of the error table (Shift-JIS, NUL-terminated): Mobile Adapter is not plugged in correctly; read the manual and plug it in firmly |
-| `4069` | `CommErr_Msg_DialFailedOrBusy` | C | message 2 of the error table (Shift-JIS, NUL-terminated): phone could not dial or the line is busy, cannot communicate; wait and retry |
-| `40FD` | `CommErr_Msg_LineBusy` | C | message 3 of the error table (Shift-JIS, NUL-terminated): line is busy, cannot communicate; wait and retry |
-| `4146` | `CommErr_Msg_AdapterError` | C | message 4 of the error table (Shift-JIS, NUL-terminated): Mobile Adapter error; wait and retry, otherwise consult the manual / Mobile Support Center |
-| `41E3` | `CommErr_Msg_GenericCommError` | C | message 5 of the error table (Shift-JIS, NUL-terminated): generic communication error; wait and retry, otherwise Mobile Support Center |
-| `427A` | `CommErr_Msg_BadPasswordOrLoginId` | C | message 6 of the error table (Shift-JIS, NUL-terminated): password or login ID is wrong; check the password and retry later |
-| `4315` | `CommErr_Msg_Disconnected` | C | message 7 of the error table (Shift-JIS, NUL-terminated): the connection was cut; see the manual and retry later |
-| `436B` | `CommErr_Msg_ServerCommError` | C | message 8 of the error table (Shift-JIS, NUL-terminated): server-side communication error; wait and reconnect |
-| `43CD` | `CommErr_Msg_AdapterRegistrationInvalid` | C | message 9 of the error table (Shift-JIS, NUL-terminated): info registered in the Mobile Adapter is wrong; do the initial registration with the Mobi... |
-| `442F` | `CommErr_Msg_ServerBusy` | C | message 10 of the error table (Shift-JIS, NUL-terminated): server is busy, cannot connect; wait and reconnect |
-| `44AA` | `CommErr_Msg_BadDestinationAddress` | C | message 11 of the error table (Shift-JIS, NUL-terminated): destination mail address is wrong; enter a correct mail address |
-| `44FE` | `CommErr_Msg_BadOwnMailAddress` | C | message 12 of the error table (Shift-JIS, NUL-terminated): own mail address is wrong; register again with the Mobile Trainer |
-| `4575` | `CommErr_Msg_BadPasswordOrServerError` | C | message 13 of the error table (Shift-JIS, NUL-terminated): entered password is wrong or server error; check the password, retry later |
-| `45F7` | `CommErr_Msg_ContentDownloadRetry` | C | message 14 of the error table (Shift-JIS, NUL-terminated): content download not possible; wait and retry, otherwise Support Center |
-| `469A` | `CommErr_Msg_Timeout` | C | message 15 of the error table (Shift-JIS, NUL-terminated): connection cut by timeout; communicate again |
-| `46FE` | `CommErr_Msg_FeePaymentOverdue` | C | message 16 of the error table (Shift-JIS, NUL-terminated): if payment of the usage fee is late the service becomes unusable |
-| `4767` | `CommErr_Msg_UnavailableCustomerReason` | C | message 17 of the error table (Shift-JIS, NUL-terminated): cannot be used because of the customer's circumstances |
-| `47B2` | `CommErr_Msg_LineBusyOrServerError` | C | message 18 of the error table (Shift-JIS, NUL-terminated): line busy or server error, cannot communicate; wait and retry |
-| `4838` | `CommErr_Msg_FeeLimitExceeded` | C | message 19 of the error table (Shift-JIS, NUL-terminated): usage fee exceeds the upper limit, unusable this month |
-| `489A` | `CommErr_Msg_Maintenance` | C | message 20 of the error table (Shift-JIS, NUL-terminated): service under maintenance; call again later |
-| `490B` | `CommErr_Msg_ContentDownloadFailed` | C | message 21 of the error table (Shift-JIS, NUL-terminated): content download not possible; see the manual |
-| `4956` | `CommErr_Msg_BadLoginId` | C | message 22 of the error table (Shift-JIS, NUL-terminated): login ID is wrong; register the login ID again |
-| `49B6` | `CommErr_Msg_LoginIdSuspended` | C | message 23 of the error table (Shift-JIS, NUL-terminated): this login ID has a suspension procedure on file, unusable; contact the DDI customer ser... |
-| `4A51` | `CommErr_Msg_LoginIdCancelled` | C | message 24 of the error table (Shift-JIS, NUL-terminated): this login ID was cancelled, unusable; contact the DDI customer service center |
-| `4AD9` | `CommErr_Msg_LoginIdUnavailable` | C | message 25 of the error table (Shift-JIS, NUL-terminated): this login ID is currently unusable; contact the DDI customer service center |
-| `4B52` | `CommErr_Msg_NewPasswordEmpty` | C | message 26 of the error table (Shift-JIS, NUL-terminated): no new password entered; enter 4-8 characters mixing letters and digits |
-| `4BC5` | `CommErr_Msg_NewPasswordLength` | C | message 27 of the error table (Shift-JIS, NUL-terminated): new password is too long or too short (4-8 characters) |
-| `4C38` | `CommErr_Msg_NewPasswordBadChars` | C | message 28 of the error table (Shift-JIS, NUL-terminated): new password contains unusable characters |
-| `4CB3` | `CommErr_Msg_NewPasswordNeedsMix` | C | message 29 of the error table (Shift-JIS, NUL-terminated): new password is letters only or digits only |
-| `4D3F` | `CommErr_Msg_NewPasswordSameAsOld` | C | message 30 of the error table (Shift-JIS, NUL-terminated): new password is the same as the old one; choose another |
-| `4DCF` | `CommErr_Msg_RegistrationPending` | C | message 31 of the error table (Shift-JIS, NUL-terminated): registration form processing seems unfinished; wait until it completes |
-| `4E21` | `CommErr_Boot_AdapterNotPlugged` | C | message 33 of the error table (Shift-JIS, NUL-terminated): boot check: Mobile Adapter is not plugged in correctly |
-| `4E51` | `CommErr_Boot_WrongPassword` | C | message 34 of the error table (Shift-JIS, NUL-terminated): boot check: password is wrong; enter the correct password |
-| `4E96` | `CommErr_Boot_AdapterConfigError` | C | message 35 of the error table (Shift-JIS, NUL-terminated): boot check: adapter registration info error, data will be initialized |
-| `4ED5` | `CommErr_Boot_SaveDataErrorA` | C | message 36 of the error table (Shift-JIS, NUL-terminated): boot check: cartridge save data error, data will be initialized (record F0/01/10) |
-| `4F14` | `CommErr_Boot_SaveDataErrorB` | C | message 37 of the error table (Shift-JIS, NUL-terminated): boot check: cartridge save data error, data will be initialized (record F0/01/11; same t... |
-
-**Tables, tilemaps, graphics**
 
 | addr | name | | summary |
 |---|---|---|---|
@@ -649,60 +360,32 @@ Full evidence per row: `config/symbols/bank<NN>.tsv`.  Status C = CONFIRMED, P =
 | `5444` | `ConnectDialog_RenderTypedChars` | P | converts the 2-byte glyph codes C1BA (8 bytes, 48:40A9 with FFB0=2) into tile data in D000 and HDMAs 16 blocks to VRAM bank 1 $9701 (typed-characte... |
 | `546C` | `ConnectDialog_PlayButtonSfx` | C | B=A: A-button sound (bc=$2C; mode 8 Yes $32, mode 10 $33) or B-button sound ($2E) via 00:20AC; per-mode jump table on C0D8; executed in 20 scenarios |
 
-## 3. Classification corrections found on the way (for the orchestrator; `config/regions` was not touched)
-
-| where | current class | finding | evidence |
-|---|---|---|---|
-| `63:407A-607A` | `gfx` "199 coherent tiles" | an **8192-byte bitmap** indexed by a 16-bit Shift-JIS code (`Font_SjisValidBitmap`), 937 non-zero bytes / 7332 bits, only lead bytes 81-84, 87-9F, E0-EA with trail 40-7E/80-FC; `607A-6080` are 6 zero pad bytes | `63:4000` reads `[407A + HL>>3]`, bit `L&7` |
-| `63:6FC0-7290` | tilemap starts in the middle of `6CC0-70C0` `gfx` | the `$9400` HDMA loads `$400` bytes from `6CC0` that overlap the first `$100` bytes of the tilemap (`63:73DB ld hl,$6FC0`); likewise the `$8800` block `60C0-64C0` overlaps the `$8000` block `6080-6480` | `63:7342` loads |
-| `5C:6350-6410` | `gfx` "40 coherent tiles" | **three 64-byte RGB555 palettes** at `6350` (BG, comm-timer variant), `6390` (BG), `63D0` (OBJ), copied to the staging buffers `D800/D840` with `4F:4000` (`bc=$40`) | `5C:52E1`, `5C:51DB/51EC` |
-| `5C:6410-642F` | tail of that `gfx` + `data` "content class unknown" | one object animation record (frame table words `6414/6425`, frames, script `6426`), entry `642B = {6410, 6426}` given to `00:0A82` | `5C:52C7` |
-| `67:5E43`, `5E77`, `5EB4`, `61D2`, `6246`, `632D` | `data` "content class unknown" | ASCII strings: CGI/URL strings, `guest`, `PPP_ID=` | read by `CopyString`/`00:14F3` in the CONFIRMED flows |
-| `65:4BC6-4BDE`, `4BDE-4C6E` | `data` | 24-byte per-page sound table + 24 six-byte page records (the region split at `4BE2` cuts record 0) | `65:4BA8`, `65:487C` |
-| `65:4A81-4AD7` | `data` "repeating groups of a flag byte + 16-bit address" | 24 far pointers `[addr16 LE, bank]` (bytes 0-1 address, byte 2 bank: 58, 4B, 71) + a 7-word table at `4AC9` | `65:4A37` reads `l,h,bank` |
+| where | current class | finding |
+| --- | --- | --- |
+| `63:407A-607A` | `gfx` "199 coherent tiles" | an **8192-byte bitmap** indexed by a 16-bit Shift-JIS code (`Font_SjisValidBitmap`), 937 non-zero bytes / 7332 bits, only lead bytes 81-84, 87-9F, E0-EA with trail 40-7E/80-FC; `607A-6080` are 6 zero pad bytes |
+| `63:6FC0-7290` | tilemap starts in the middle of `6CC0-70C0` `gfx` | the `$9400` HDMA loads `$400` bytes from `6CC0` that overlap the first `$100` bytes of the tilemap (`63:73DB ld hl,$6FC0`); likewise the `$8800` block `60C0-64C0` overlaps the `$8000` block `6080-6480` |
+| `5C:6350-6410` | `gfx` "40 coherent tiles" | **three 64-byte RGB555 palettes** at `6350` (BG, comm-timer variant), `6390` (BG), `63D0` (OBJ), copied to the staging buffers `D800/D840` with `4F:4000` (`bc=$40`) |
+| `5C:6410-642F` | tail of that `gfx` + `data` "content class unknown" | one object animation record (frame table words `6414/6425`, frames, script `6426`), entry `642B = {6410, 6426}` given to `00:0A82` |
+| `67:5E43`, `5E77`, `5EB4`, `61D2`, `6246`, `632D` | `data` "content class unknown" | ASCII strings: CGI/URL strings, `guest`, `PPP_ID=` |
+| `65:4BC6-4BDE`, `4BDE-4C6E` | `data` | 24-byte per-page sound table + 24 six-byte page records (the region split at `4BE2` cuts record 0) |
+| `65:4A81-4AD7` | `data` "repeating groups of a flag byte + 16-bit address" | 24 far pointers `[addr16 LE, bank]` (bytes 0-1 address, byte 2 bank: 58, 4B, 71) + a 7-word table at `4AC9` |
 
 Dead code with stale targets (kept HYPOTHESIS): `65:481A` (`call $21A0` into ROM0 padding), `65:41AA`, `65:46FF/471F`, `67:424A`, `4571`, `4940`,
 `4BC2`, `67DB`, `5ED1`.
 
-### 3.1 Cross-checks with the other namers (files present when this pass finished)
-
-* `config/symbols/bank7C.tsv` (`Nav_MobileSettings_*`) maps the settings entries 1-5 to `67:58CD`, `67:60BA`, `67:626F`, `68:7951`, `67:4000`, the same
-  mapping used here; `bank27.tsv` (`MailSendRecv_Main`) calls `57:4000` with the request template `04 00 00 01 24 D5 04` of the connect dialog.
-* `analysis/naming/ram_g2.tsv` / `ram_g7.tsv` propose names with the same semantics for the same addresses (`C272-C274` mobile error code/info,
-  `C277` registration progress, `C27A` save-password flag, `C28C` hidden-mode flag, `DE80` edit buffer, `DEDD/DEEE/DEFF/DF10` phone numbers and dial
-  entries, `B010` registration progress); `ram_g6.tsv` lists them with the extra evidence of these banks and the other names in the evidence column, the
-  orchestrator should keep one name per address (the broader name of the bank-68 pass is better for `C28C`).
-* `bank74.tsv` has `HtmlUrl_Resolve`/`HtmlUrl_NormalizePath` for the browser (this pass first met the names `Url_Resolve`/`Url_NormalizePath` there); bank 67 contains a second, smaller implementation for HTTP redirects, named
-  `HttpRedirect_*` to avoid the collision.
-
 ## 4. Hypotheses and open questions
 
-1. **`57:4237`/`43BC` transitions.** (Review fix: in modes 5 and 9, B returns to the caller's initial mode `arg[0]` when it is >= 3, otherwise to mode 2; the first version of the rows had the condition reversed.) In mode 7 ("save password? する/しない") `しない`/B goes back to the keyboard (mode 6) according to the code; the exit
-   without saving seems to be keyboard result 7 (`$07 -> $10`), whose key is unknown (`55:5C8F` result codes 7/8/9/`$0A` are only named by their
-   effect).  The modes 1 and 2 (`412A`, `4189`) are dead code (no caller starts there).
-2. **`Function_67_5CF4`** loops on `68:7413(A=1)` until 0 after every transaction. Reviewed: `68:7413` is the bank-68 `CommPanel_Step` (`C289=A`, one state of the
-   communication panel, returns `C28A`: 0 finished, 2 cancelled), so this is "step the communication panel to its end", not an SDK-idle wait as first guessed
-   (HYPOTHESIS row kept under the generic name; what `A=1` selects is unknown).
-3. **Meaning of `68:4870` classes** (0-4) and of the SRAM bytes `B010`/`B0BE`: the startup jump tables are named by role only (`Startup_NoAdapter`,
-   `_ConfigValid`, `_ConfigBlank`); which class corresponds to "never registered" versus "registered by another cartridge" is not proven.  Reviewed: the
-   bank-68 namer (`Settings_GetRegistrationProgress`, `68:4870`) reads the classes as 0 blank/no progress, 1 damaged page, 2/3/4 = SRAM `B010` 1/2/3
-   (started / fields entered / complete); this fits the roles used here (state 4 = complete = "continue offline") but is still only PROBABLE there.
-4. **`HttpRedirect_ResolveUrl` (`67:5F66`)** is static-only PROBABLE: the source pointer `C275/C276` is never written in bank 67; the writer is `68:4F71`, which stores the
-   `BC` result of `MobileAPI $00` into `C275/C276` (with `C272` = A, `C273` = L, `C274` = H) and is called at `67:5D26` right before the status test, so the
-   pointer is what the SDK reports for the failed request; it is used for HTTP 301/302 redirects (`PasswordChange_HandleHttpStatus`), no scenario produced a redirect for the settings flows.
-5. **The register `C27A`** (save the password?) is also written to SRAM1 `B088` by `68:4B48`; the exact SRAM meaning of `B088/B089/B08A` (save flag /
-   hidden variant / phone method) is proposed only through the RAM names of the WRAM sources.
-6. **`ConnectDialog_RenderTypedChars`** (`57:5444`): the meaning of the 2 bytes per character returned by `55:6CC6` is not resolved; `bc=8` is the number of
-   characters of the field (8 glyph cells x 2 tiles = the 16 blocks uploaded to `$9701`).
-7. **`SavedPassword_Store` bug**: `57:541C` with `A=0` jumps to `5437` and executes `pop bc` without the matching `push af` (stack imbalance); callers
-   always pass 1-8 (`Registration_SavePassword` uses `StringLength`, the dialog only stores after validation), so it is latent.
-8. **Sound requests**: `00:20AC` / `00:20E8` / `00:20C4` are bank-4 stubs whose exact role (sound effect vs BGM) is not established; the names used
-   here (`..._RequestPageSound`, `..._PlayButtonSfx`) avoid claiming more than "request with id in BC".
-9. **`C27C/C27D/C27E`** are the screen frame variables of bank 67 (result, cursor/state, variant) but bank 65/68 reuse them differently: no RAM proposal.
-10. The mode-2 boot record `$F0` of the error table has 5 triples without `$FF` terminator; `5C:5144` (`$0020`, slot 32 of the message index space) is
-    not selected by any list (kept as generic data).
+**`57:4237`/`43BC` transitions.** (Review fix: in modes 5 and 9, B returns to the caller's initial mode `arg[0]` when it is >= 3, otherwise to mode 2; the first version of the rows had the condition reversed.) In mode 7 ("save password? する/しない") `しない`/B goes back to the keyboard (mode 6) according to the code; the exit    without saving seems to be keyboard result 7 (`$07 -> $10`), whose key is unknown (`55:5C8F` result codes 7/8/9/`$0A` are only named by their    effect).
 
-## 5. Verification performed
+Reviewed: `68:7413` is the bank-68 `CommPanel_Step` (`C289=A`, one state of the    communication panel, returns `C28A`: 0 finished, 2 cancelled), so this is "step the communication panel to its end", not an SDK-idle wait as first guessed    (HYPOTHESIS row kept under the generic name; what `A=1` selects is unknown). 3.
+
+Reviewed: the    bank-68 namer (`Settings_GetRegistrationProgress`, `68:4870`) reads the classes as 0 blank/no progress, 1 damaged page, 2/3/4 = SRAM `B010` 1/2/3    (started / fields entered / complete); this fits the roles used here (state 4 = complete = "continue offline") but is still only PROBABLE there. 4.
+
+**`ConnectDialog_RenderTypedChars`** (`57:5444`): the meaning of the 2 bytes per character returned by `55:6CC6` is not resolved; `bc=8` is the number of    characters of the field (8 glyph cells x 2 tiles = the 16 blocks uploaded to `$9701`). 7.
+
+**Sound requests**: `00:20AC` / `00:20E8` / `00:20C4` are bank-4 stubs whose exact role (sound effect vs BGM) is not established; the names used    here (`..._RequestPageSound`, `..._PlayButtonSfx`) avoid claiming more than "request with id in BC". 9.
+
+The mode-2 boot record `$F0` of the error table has 5 triples without `$FF` terminator; `5C:5144` (`$0020`, slot 32 of the message index space) is     not selected by any list (kept as generic data).
 
 * `python3 tools/gen_asm.py verify --config <copy of config with the 5 files>` -> `RESULT: IDENTICAL` (names never change bytes); `check --strict` OK;
   name uniqueness against `config/ram`, `config/symbols` and the region labels was checked with a script (0 collisions except the intended generic aliases).
@@ -711,31 +394,4 @@ Dead code with stale targets (kept HYPOTHESIS): `65:481A` (`call $21A0` into ROM
 * Every string label was placed on the pointer targets of the pointer tables (`5C:5104/5146`, `65:4BDE` page records, `65:567F`), and the Shift-JIS text
   decoded with cp932 (translations are mine).
 
-## 6. Adversarial review (verifier pass)
-
-A second pass re-derived the claims from the ROM bytes (`tools/sm83.py` listings), `analysis/coverage_union.tsv` and `traces/coverage_*.tsv`, the
-screenshots and `analysis/farcall_targets.tsv`.  About 45 rows were re-read in full (all of the `57` dialog input/entry/leave handlers,
-`57:5369/541C`, the `5C` tables, messages and error-number drawing, `63:4000/732F`, the bank-65 startup/wizard/notice code and tables, and in bank 67 the
-adapter check, TextBuf, password-change, HTTP status/redirect/URL code, the phone-number screens and the password-save confirm).  Mechanical checks
-over all 407 rows: identifiers legal and unique across `config/ram`, `config/symbols` and region labels (the only repeats are the intended generic
-aliases), no tab/newline and <= 240 characters in any evidence cell, HYPOTHESIS rows keep generic names, every CONFIRMED function/label has executed
-instructions in the coverage files, and every scenario name/frame quoted in an evidence cell matches the coverage or screenshot data.  All CommErr
-message translations, all 24 notice texts and 20 prompts, the notice page table, the header/footer graphics tables, the URL/CGI strings and the DNS pair
-were re-decoded from the ROM and agree.  No name was refuted; no status was downgraded.  Corrections:
-
-| row / file | problem found | fix |
-|---|---|---|
-| `57:4237`, `57:4443` | the B-button target was described as "initial mode if arg[0]<3, else 2"; the code (`cp 3 / jr nc`) keeps `arg[0]` when it is >= 3 and uses mode 2 otherwise | text corrected |
-| `57:541C` | "0 skips chars" was wrong: `A=0` takes `jr z,5437` and pops a value that was never pushed | text says A=0 unbalances the stack |
-| `57:546C`, `57:5369` | execution counts (6 scenarios, 242x) did not match the coverage (20 scenarios; 1019x in 4 monkey campaigns) | counts corrected |
-| `63:4072` | "reached once (noadapter)": the only execution is `browser_pages` f38342 | scenario corrected |
-| `67:6369`, `67:64AE`, `65:403C` | "18/18 scenarios" / "up to 12": the boot check runs in all 41 scenarios | counts corrected |
-| `67:5FB5` | relative URLs are appended at the END of the base (a `/` inserted when missing), not after its last `/` | text corrected |
-| `67:5F66` | `C275/C276` writer not known; cross-reference named `Url_Resolve` | writer `68:4F71` recorded, reference changed to `HtmlUrl_Resolve` |
-| `67:5CF4`, `5CC2`, `5D99`, `5DFE` | the "SDK idle wait" guess is wrong: the callee `68:7413` is `CommPanel_Step` | evidence rewritten, row stays HYPOTHESIS/generic |
-| `67:6257` | `Net_DebugLoginBody` rested on a single clue | second clue added (`itoh` = login id of the developer test image `68:4EA7`), stays PROBABLE |
-| `5C:500B/503E/5080` | "DION server codes", "mail account codes" were guesses | replaced by what the data shows (SMTP reply-code shaped codes, the message indices) |
-| `ram_g6.tsv` `C1BA` | size 16 ends one byte short (the terminator at +16 is written at `57:42FF`) | size 17 |
-| `ram_g6.tsv` `C277` | wrong address `65:4234` for the `C277 == 2` test | `65:427D` |
-| `ram_g6.tsv` `C28C` | `wRegHiddenPhoneStep` is narrower than the use (also the hidden mode of the settings menu, see g7) | renamed `wHiddenModeFlag` (same as g7) |
-| `ram_g6.tsv` `DEEE` | the buffer is also the login-ID scratch of `67:5B27` | note added; name kept for the phone flows |
+About 45 rows were re-read in full (all of the `57` dialog input/entry/leave handlers, `57:5369/541C`, the `5C` tables, messages and error-number drawing, `63:4000/732F`, the bank-65 startup/wizard/notice code and tables, and in bank 67 the adapter check, TextBuf, password-change, HTTP status/redirect/URL code, the phone-number screens and the password-save confirm).

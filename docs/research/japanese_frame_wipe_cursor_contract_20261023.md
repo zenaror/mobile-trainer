@@ -1,6 +1,4 @@
-# Japanese frame-preview wipe cursor contract (2026-10-23)
-
-## Finding and scope
+# Japanese frame-preview wipe cursor contract
 
 The data at physical ROM bank `4E:41E0` has a statically identified reader in
 the otherwise unreferenced frame-preview code. This resolves the former source
@@ -8,12 +6,9 @@ comment that said the consumer was unknown and corrects its record order. It
 does not establish that the preview is naturally entered or that these bytes
 are used in an ordinary play route.
 
-The evidence is the original Japanese ROM (2,097,152 bytes; SHA-256
-`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`) and the
-maintained source in `engine/browser/frame_style_chooser.asm`. Banked file
-offsets use `bank * 0x4000 + (CPU address - 0x4000)`; `4E:41E0` maps to
-`0x1381E0`. The recovered 1,054-byte source slice at `4E:41E0–45FE` matches
-the original ROM and current build byte for byte.
+Banked file offsets use `bank * 0x4000 + (CPU address - 0x4000)`; `4E:41E0` maps to `0x1381E0`.
+
+The recovered 1,054-byte source slice at `4E:41E0–45FE` matches the original ROM and current build byte for byte.
 
 ## Reader and record layout
 
@@ -35,8 +30,6 @@ the first offset of the next group. The write to slot byte `+1` is confirmed;
 its interpretation as the X position is **PROBABLE** under the separate
 `Sprite_SetPosition` record model.
 
-Parsing the exact 527 source words according to that reader gives:
-
 - 41 groups and 441 map offsets;
 - group lengths from 1 through 21, symmetric around the single 21-offset group;
 - every consecutive offset within a group advances by `$1F`, with maximum
@@ -52,14 +45,3 @@ bytes). The three following words at `4E:45F8–45FE` are
 `Browser_FrameStylePreview_PostTerminatorWords`. The known reader returns
 before these words. No claim is made that the tail is padding or globally
 unused; another reader or purpose has not been established.
-
-## Evidence limits
-
-The root `Browser_FrameStylePreview_Run` remains **HYPOTHESIS** for entry and
-purpose: existing code comments and the prior call/pointer review find no ROM
-caller, and the recorded executions are forced rather than natural. The
-reader's local memory effects and table layout are static source conclusions;
-they are not runtime or LCD-output observations. This finding does not change
-the Bank 53 Pokémon-name/frame association, frame selection, or used/unused
-status. Do not repeat the old direct-reference search: this path uses a cursor
-initialized in HRAM and passed through a far-call register argument.

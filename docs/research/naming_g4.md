@@ -1,16 +1,4 @@
-# Naming pass g4: banks 2D, 2E, 2F, 48
-
-> **Historical note.** Written when the source was one generated `src/bankNN.asm` per bank with generic `Label_BB_AAAA` labels.  In the current tree (`home/ engine/ data/ gfx/ audio/ lib/`) a `Label_BB_AAAA` that is only used inside its own function is a local label of that function (`.lAAAA`, `AAAA` = the address, or `.loop`/`.done`/`.skip`); one referenced from elsewhere keeps its global name; `Function_BB_AAAA`, `Data_BB_AAAA`, ... are unchanged, and where a semantic name was adopted the neutral name often remains as an alias label under it.  **Addresses (`bank:addr`) remain valid**: find the code with `grep -rn '; BB:AAAA' --include=*.asm .` or in `build/mobile_trainer.sym`.  Commands of the frozen bootstrap pipeline quoted here (`make regen`, `make verify`, `make tree*`, `tools/gen_asm.py ...`) no longer apply to the source (`gen_asm.py` only runs into a temp dir, `make legacy-check`); see `README.md`, "History", and `docs/README.md`.
-
-Scope (adversarially verified, see section 8): `config/symbols/bank2D.tsv`, `bank2E.tsv`, `bank2F.tsv`, `bank48.tsv` (316 rows, counts in section 7), `analysis/naming/ram_g4.tsv` (43 RAM proposals; the SRAM tutorial counters `A881/A89A/A89B` and `A684-A693` are left to ram_g7, which found the same meaning: `sTutorialStepBrowser/Mail/Top`, `sHelpProgress`) and this note.  Every name below has an
-evidence line in the TSV; this file explains the subsystems and lists what is still a guess.  Status words as in
-`docs/FORMATS.md` (CONFIRMED = demonstrated by bytes/trace, PROBABLE = two independent clues, HYPOTHESIS = idea only;
-hypotheses keep the generic `Function_BB_AAAA` name).
-
-Method: static call graph from `analysis/farcall_targets.tsv` + direct calls, coverage per scenario
-(`traces/coverage_*.tsv`, first execution frame), the emulator screenshots of `.cache/trace/shots/<scenario>/`
-(frame numbers are in the file names and comparable with the coverage `first_frame` column), decoded Shift-JIS strings
-and the dialog table of bank 72 (see section 5).  The interpreter of `analysis/rom0_trace.py` was used to verify `Divide8`.
+# reference g4: banks 2D, 2E, 2F, 48
 
 ## 1. Map of the four banks
 
@@ -21,43 +9,7 @@ and the dialog table of bank 72 (see section 5).  The interpreter of `analysis/r
 | 2E | Mail-server tidy-up screen (メールサーバ: fetch each server mail, show date/fields, delete / load next / stop) | `MailServerMgr_Run` (22:4E79, 23:4C1D) | 6 tile blocks, 5 tilemaps, 2 palettes, 5 object tables, 6 message/help strings |
 | 2F | Address book (アドレスちょう): list, view, new/edit (address entry then nickname entry), delete | `Abook_Run` (7C:7CD9) | 8 identical slot address tables, help strings, tilemaps |
 
-### 1.1 Bank 48
-
-* **Ticker** (`Ticker_Start` 42D4, `Ticker_Update` 4223, `Ticker_Stop` 4460, `Ticker_InstallRasterIrq` 440A): the
-  description line at the bottom of the menus ("インターネットをつかって　メールのそうしんとじゅしんができます", seen scrolling in
-  `help` and `mail_compose` shots).  `Ticker_Start(A=bank of table, HL=table, B=entry)`: the table (`1D:43FA`,
-  `1E:4000`, `73:4000`, `6A:64B2/6651`) is `[text bank] {ptr title, ptr text}*`; the title is rendered centered
-  (x = $50 - 4*chars), the text after column $15 of a 64-tile-wide grid in WRAM bank 2 (`D000` upper halves, `D400`
-  lower halves); the raster IRQ (`jp $16C4`, LYC=$80) applies `SCX=[C0EF]` to the two bottom map rows.  After a 180-frame
-  pause `Ticker_Update` increments SCX every 2 frames and every 8 pixels uploads the next glyph column by HDMA into the
-  32-tile ring `$9400/$9600`.  Menu 1D (7 entries) entries are decoded in the ticker table: おくる／うけとる, メールをかく,
-  メールボックス, アドレスちょう, プロフィール, メールサーバ, メールをかくにん; menu 1F: メール, ホームページ, ヘルプ; menu 73: ホームページ, ページリスト.
-  `Palette_FadeOutWithTicker` (46C6) is the exit fade that keeps calling `Ticker_Update`.
-* **Text renderers** (`TextTiles_RenderLine` 403E, `TextTiles_RenderGrid` 40A9, `TextTiles_RenderGridRows` 415A, glyph
-  blitter `Font_BlitGlyph8x16` 4748): every SJIS pair is one 8x16 glyph = two tiles (upper half to buffer 1, lower half to
-  buffer 2, 16 bytes each); the glyph is found by walking `Font_GlyphRunTable` (descending SJIS keys, run pointer) and
-  each 1bpp byte is doubled into a 2bpp row (colour 3).  The message dialogs of bank 72 (16 kana per line) and the help texts
-  use this font; the free-form text screens use the 6x12 / 12x12 engine of ROM0/7F instead.
-* **SRAM checksum 3** (`Sram_ComputeChecksum3` 48E1, `Sram_UpdateChecksum3` 495C, `Sram_VerifyChecksum3` 4899,
-  `Sram_ResetChecksum3Areas` 4920) over bank-1 `A684-A693` + `A87D-A8B4`, result LE at `A8B5/A8B6`.  `WriteByteFar`
-  (4616) is the write counterpart of `ReadByteFar` and refreshes this checksum after every SRAM write, which is why the
-  tutorial counters (inside `A87D-A8B4`) and the menu memory are always written through it.
-* **First-use tutorial gates** (`Tutorial_GateTopMenu` 4A4E, `Tutorial_GateMailMenu` 49DB, `Tutorial_GateHomepage` 498C):
-  each reads a saturating entry counter in bank-1 SRAM (`A89B`, `A89A`, `A881`); 0 (and 1 for the last two) makes
-  `6C:59B2` show the tutorial page whose id is passed in B (`$81`; `$89`/`$8A`; `$91`/`$92`; the id is also stored at `A684`),
-  then the counter is incremented; `FF` never shows.  Callers: `7C:7B7C` (before the top menu `1F:4000`), `7C:7BB7` (menu
-  entry メール, before the 7-item mail menu `1D:4000`), `4F:4677` (menu entry ホームページ, before `73:5F17`).  This matches the
-  scenario text "every section shows a first-use tutorial the first time it is entered".
-* Others: `Divide8` (B/C, verified), `Bcd_FromBinary8`, `Tilemap_FillRectSequential` (19 callers; sequential tile numbers
-  into the bank-7 map buffer + attribute AND/OR), masked palette fades (44E0/4540/459D; copies of 4F:42B4/4370 with a
-  palette bit mask in FFB0, only used by bank 6C), `Sram_ClearMenuCursorMemory` (`A8B7-A8D6`).
-
 ### 1.2 Bank 2D (mail composition)
-
-`MailCompose_Run` (2D:4000, called from the top-menu dispatcher `7C:7C9C`): `MailStaging_Clear`, `D524=1`, then three steps,
-each returning `$FF` for "back": recipient address `MailAddr_Edit` (65B0, screen メールあて先) -> title `2C:4000` (screen
-メールタイトル, bank 2C) -> body `MailBody_Edit` (4722, screen メールほんぶん).  Timeline in `mail_compose`: 65B0 at frame 3091,
-2C:4000 at 4558, 4722 at 6082, keyboard 5691 at 6686, save dialog shown at 8852 and `MailDraft_SaveToSram` at 8858.
 
 * **Body editor**: 8 rows x 12 double-byte cells in WRAM bank 1 `D400-D4BF` ($0D $0A = newline, NUL ends), cursor
   B=row C=col, goal column `C0D2`, scroll `C0D3` (applied by the STAT split IRQ 00:0E93, see `ram_g4.tsv`).  Cursor keys
@@ -108,22 +60,15 @@ compiled copies of the mail editors of bank 2D (same cursor/insert/backspace/dak
 
 ## 2. Cross-bank conventions found while reading
 
-* Joypad (`hJoyPressed`, `hJoyPressedRepeat`): low nibble A=1, B=2, SELECT=4, START=8; high nibble Right=$10, Left=$20,
-  Up=$40, Down=$80.
-* Bank-04 service calls `00:20AC` with BC=id are used as UI feedback (only the call pattern is proven, not that they are
-  sound effects): `$36` text-cursor move, `$29` list cursor, `$2C` accept, `$2E` cancel (B), `$31` refuse/error, `$38`
-  character typed, `$39` backspace, `$3B` newline, `$32` mail saved, `$33` address deleted.  `00:20E8` with BC=`$04-$0C` is
-  started when a screen is entered.
-* Keyboard widget (bank 55): `55:5BA2(A=layout, B, C)` opens it (A=6 body, 8 name, 9 address), `55:5C8F` polls it: 0 nothing,
-  2 backspace (B), 3 newline, 7 OK, 8 close, 9 return; otherwise a key was chosen and its SJIS code is in `C2AD/C2AE`
-  (codes inferred from what the callers do with them; the widget itself is not in these banks).
-* Split-screen IRQ: `7F:7271` installs STAT handler `00:0E93`; `D724` = LYC, `C0D3` = SCY of the lower part, `D824` = "also
-  run 00:0392".  All three editors set D724 to $0B/$10/$15 before installing it and clear D824 around dialogs.
-* Text tile pipeline: `TextTiles_ClearBuffers` -> per string `MailBody_DrawRow`-style drawer (glyph blitter of bank 7F) or
-  `TextTiles_RenderLine/Grid` (bank-48 font) into WRAM bank 2 `D000-DFFF` -> `TextTiles_UploadBuffers` (HDMA to `$9000/$9400/$8800/$8C00`).
-* WRAM bank 1 `D400-D52F` is a shared staging area: mail body/address/title/name in 2D/2F, mail-header fields and date tiles
-  in 2E (`D400` date BCD, `D406`, `D41B`, `D4C0`, `D524` digits).  `D624-D638` is the mail session block (g2), which 2F reuses
-  as edit mode `D624` (0 new, 1 edit).  These overlays are why `ram_g4.tsv` states the bank in every row.
+* Joypad (`hJoyPressed`, `hJoyPressedRepeat`): low nibble A=1, B=2, SELECT=4, START=8; high nibble Right=$10, Left=$20,   Up=$40, Down=$80.
+
+* Bank-04 service calls `00:20AC` with BC=id are used as UI feedback (only the call pattern is proven, not that they are   sound effects): `$36` text-cursor move, `$29` list cursor, `$2C` accept, `$2E` cancel (B), `$31` refuse/error, `$38`   character typed, `$39` backspace, `$3B` newline, `$32` mail saved, `$33` address deleted.
+
+* Keyboard widget (bank 55): `55:5BA2(A=layout, B, C)` opens it (A=6 body, 8 name, 9 address), `55:5C8F` polls it: 0 nothing,   2 backspace (B), 3 newline, 7 OK, 8 close, 9 return; otherwise a key was chosen and its SJIS code is in `C2AD/C2AE`   (codes inferred from what the callers do with them; the widget itself is not in these banks).
+
+* WRAM bank 1 `D400-D52F` is a shared staging area: mail body/address/title/name in 2D/2F, mail-header fields and date tiles   in 2E (`D400` date BCD, `D406`, `D41B`, `D4C0`, `D524` digits).
+
+These overlays are why `ram_g4.tsv` states the bank in every row.
 
 ## 3. Dialog messages referenced (bank 72 table, `72:4015(D=2,E=id)`, decoded)
 
@@ -143,8 +88,6 @@ compiled copies of the mail editors of bank 2D (same cursor/insert/backspace/dak
 
 ## 4. Named functions by subsystem
 
-The complete list with evidence is in the four TSV files; the main entries are:
-
 * Ticker/UI library (48): `Ticker_Start/Update/Stop/InstallRasterIrq`, `TextTiles_RenderLine/RenderGrid/RenderGridRows`,
   `Font_BlitGlyph8x16`, `Font_GlyphRunTable`, `Palette_FadeInMasked/FadeOutMasked/SetFadeTargetMasked/FadeOutWithTicker`,
   `Tilemap_FillRectSequential`, `Bcd_FromBinary8`, `Divide8`.
@@ -160,23 +103,11 @@ The complete list with evidence is in the four TSV files; the main entries are:
 
 ## 5. Hypotheses and open questions
 
-* `Function_48_48BB` (a bare `ret`, 14 call sites in 10 banks, executed 2260 times) and its unreferenced sibling `48:48BC` (verify + repair): probably a
-  disabled checksum-verification hook; not named.
-* `Function_2D_4F03` (last-row probe), `2D:4E42/4E54` (unexecuted D400 scanner), `2E:48F8/4A7D` (popup, probably the
-  connection-time notice tied to C26E/C26F), `2E:4EB1/4EB2/4F9A`, `2F:4496` (clears D4C0 plus 16 bytes at the HL left by
-  `Abook_ProbeSlot`, not D514: probably a small original bug), `48:4A8C` (private copy of 00:091C), `48:48BC`.
-* `MailRecord` header bytes `+1`/`+2` (always 0 in the samples) and the meaning of `+0` beyond "in use" are unknown; the
-  header layout `+3..+8` = BCD date is proven, the semantic of "received" time vs. sent time is an assumption.
-* `2D:4635` writes the sample name/address to SRAM bank 1 `AF40/AF50` while `2A:6257` reads bank 0: dead code or wrong
-  bank; the sram_layout.md note that these belong to bank 0 is unchanged.
-* `SRAM A684` receives the tutorial page id from `6C:59B2`; the other 15 bytes of `A684-A693` are unused by my banks.
-* Names of neighbouring routines that were only identified by behaviour: `2C:4000` (title entry), `2C:56FE` (address-book
-  picker), `2A:6F95` (address save confirm), `28:4000` (mail preview?), `55:5BA2/5C8F` (keyboard widget), `7F:624F/6218/627C`
-  (popup), `25:4A90` (first free mail record, returns D).
-* Not analysed: the internals of `MailServerMgr_Run` after the first fetch (D625-D638 usage, `54:4914/4969`, `23:6699`),
-  the object animation frame tables (`Table_2E_76C0` targets, `Data_2F_5050`), tile contents (only their loaders were traced).
+* `2D:4635` writes the sample name/address to SRAM bank 1 `AF40/AF50` while `2A:6257` reads bank 0: dead code or wrong   bank; the sram_layout.md note that these belong to bank 0 is unchanged.
 
-## 6. Corrections to earlier notes
+* Names of neighbouring routines that were only identified by behaviour: `2C:4000` (title entry), `2C:56FE` (address-book   picker), `2A:6F95` (address save confirm), `28:4000` (mail preview?), `55:5BA2/5C8F` (keyboard widget), `7F:624F/6218/627C`   (popup), `25:4A90` (first free mail record, returns D).
+
+* Not analysed: the internals of `MailServerMgr_Run` after the first fetch (D625-D638 usage, `54:4914/4969`, `23:6699`),   the object animation frame tables (`Table_2E_76C0` targets, `Data_2F_5050`), tile contents (only their loaders were traced).
 
 * The 12 words at `2D:417D/470A` and the 9-byte defaults at `2D:42B2...` are **mail records** and their sample data, not
   "profile records" (region notes in `config/regions/bank2D.tsv` still say profile-defaults); the 6-slot tables in 2F
@@ -192,34 +123,12 @@ The complete list with evidence is in the four TSV files; the main entries are:
 | 2F | 101 | 73 | 27 | 1 |
 | 48 | 28 | 16 | 9 | 3 |
 
-## 8. Adversarial verification (verifier pass on g4)
+* `SampleData_CopyString`: all 20 callers are in `MailRecord_InstallSampleMails`; `Abook_InstallSampleEntries` inlines its   copy loops (the row said both installers).
 
-Re-derived independently against the ROM, the repo interpreter and the trace data: `Divide8` (500 random cases plus edges,
-B=quotient C=remainder, divisor 0 leaves B=dividend), the checksum-3 family (4 random SRAM images: compute, update, verify
-return 0/$FF), `Font_BlitGlyph8x16` (three codes reproduce the doubled 1bpp rows), the ticker (Start table walk, Update
-schedule, STAT handler 00:16C4 reading C0EF, call counts 6 Start / 10 FadeOutWithTicker callers), tutorial gates (counter
-logic and callers 7C:7B7C/7BB7, 4F:4677), `MailCompose_Run` control flow, the stack balance of the `MailBody_KeyboardLoop`
-save path (the extra `pop af` at 2D:58C2 drops the return into `MailBody_Edit`, so the final `ret` returns to its caller with
-A=1), the dialog table of bank 72 (list 2 entries $0200-$0229 decoded from the ROM: all 13 texts quoted above match), the
-sample-data operands (every `ld hl/de` of 2D:4195 and 44FB matches the row addresses), caller counts (84/18/27/19/10/26/10/12
-match; 2D:42AA was corrected), screenshots (メールあて先, メールほんぶん, アドレスちょう list, メールサーバ number/date/fields/00:08
-timer) and first-execution frames (per scenario, not the union column, for 2D:408F/40DC).  RAM proposals do not contradict
-`config/ram`, ram_g1/g2/g3/g7/g8 (checked per address and per name; `ram_g3` repeats identical names).
+`MailAddr_OpenAddressBook`: target 2C:56FE is `AddrPick_Menu` (bank 2C row).
 
-Corrections made in this pass:
+`MailRecord_GetFreeSlotPtr`: 25:4A90 returns a count of consecutive used records (12 = full), the caller must check it.
 
-* 7 rows of bank 2F (`AbookView_DrawAddrLine3_Glyph`, `AbookName_CursorLeft/CursorRight/Backspace/GetLength`,
-  `AbookAddr_Backspace/RedrawAfterBackspace`) were CONFIRMED although the code never ran in any scenario: now PROBABLE (twins of
-  executed bank-2D/2F routines, static reading).
-* `SampleData_CopyString`: all 20 callers are in `MailRecord_InstallSampleMails`; `Abook_InstallSampleEntries` inlines its
-  copy loops (the row said both installers).
-* `AbookSample1_Name`: the empty string at 45B7 is a NUL of its own; it does not overlap the NUL at 45B6 that ends
-  `AbookSample0_Name`.
-* `Function_48_48BB`: 14 call sites (was 13).  `Sram_ClearMenuCursorMemory`: only A8B7/A8B8/A8B9 are proven to be remembered
-  menu choices, the rest of A8B7-A8D6 is unproven.  `MailAddr_OpenAddressBook`: target 2C:56FE is `AddrPick_Menu` (bank 2C row).
-  `MailRecord_GetFreeSlotPtr`: 25:4A90 returns a count of consecutive used records (12 = full), the caller must check it.
-  `MailServerMgr_Run` is the per-mail *check-and-delete* UI reached from `MailSrvDel_CheckAndDelete` (23:4B51) and the hidden
-  variant (22:4E79), not the delete-all path (bank 23 `MailSrvDel_DeleteAll*`); the `MailServerMgr_` prefix covers only that UI.
-* Not changed but worth knowing: `TextTiles_ClearBuffers` also clears WRAM bank 3 `D000-D77F` (purpose unproven); 2D:4F03 and
-  2F:4496 were executed in scenarios (their HYPOTHESIS status is about purpose, not reachability); ram_g2 and ram_g7 use different
-  names for C26E/C26F (`wConnWarn*` vs `wOnlineWarn*`), not a g4 matter.
+`MailServerMgr_Run` is the per-mail *check-and-delete* UI reached from `MailSrvDel_CheckAndDelete` (23:4B51) and the hidden   variant (22:4E79), not the delete-all path (bank 23 `MailSrvDel_DeleteAll*`); the `MailServerMgr_` prefix covers only that UI.
+
+* Not changed but worth knowing: `TextTiles_ClearBuffers` also clears WRAM bank 3 `D000-D77F` (purpose unproven); 2D:4F03 and   2F:4496 were executed in scenarios (their HYPOTHESIS status is about purpose, not reachability); ram_g2 and ram_g7 use different   names for C26E/C26F (`wConnWarn*` vs `wOnlineWarn*`), not a g4 matter.

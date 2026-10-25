@@ -1,4 +1,4 @@
-# Mail graphics asset paths (2026-10-21)
+# Mail graphics asset paths
 
 Three Japanese mail asset files now use paths aligned with their source labels: the confirmed mail-address OBJ HDMA tail at 2D:7940 (binary and exact PNG view), and the candidate connect-screen palette at 29:5376. All three hashes match before and after renaming. Source references and generated catalog/PNG metadata were updated.
 

@@ -1,9 +1,5 @@
 # Bank 4D choice/slot-menu graphics paths
 
-**Scope:** Japanese original, source revision `49c73afb38676d4033e5c7378137740b158e0dc5`; original ROM SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
-
-This pass replaces address-only file basenames under `gfx/settings/phone_choice_and_slot_menus_bank4d/` with names derived from the established ChoiceMenu/SlotMenu owners, transfer destinations, VRAM bank, and CPU source address. It changes 43 files: 17 `.2bpp`/PNG tile-sheet pairs, four tilemap/attribute-map pairs, and one tilemap screen preview. It also updates the owner `INCBIN`s, catalogs, screen-composition paths, generated PNG metadata, and the image/text inventory. The directory and ASM owner already had semantic names and remain unchanged.
-
 ## Tile source naming
 
 Each new base is `choice_menu_` or `slot_menu_`, followed by the VRAM destination, VRAM bank (`vb1`), and the source address. The five entries marked `slice` begin inside larger uploads, so their destination includes the source-relative offset; the suffix preserves the start of the stored slice.
@@ -32,18 +28,14 @@ The owners at `gfx/settings/phone_choice_and_slot_menus_bank4d.asm` retain their
 
 ## Map and preview paths
 
-| Old basename | New basename | Original range | Evidence retained |
-|---|---|---:|---|
-| `tilemap_5810` | `settings_phone_choice_menu_4d_5810` | `4D:5810`, tilemap + attributes | Existing `CONFIRMED` ChoiceMenu map pair |
-| `tilemap_7870` | `settings_phone_slot_menu_tab0_4d_7870` | `4D:7870`, tilemap + attributes | Existing `CONFIRMED` tab 0 |
-| `tilemap_78c0` | `settings_phone_slot_menu_tab1_4d_78c0` | `4D:78C0`, tilemap + attributes | Existing `CONFIRMED` tab 1 |
-| `tilemap_7910` | `settings_phone_slot_menu_tab2_4d_7910` | `4D:7910`, tilemap + attributes | Existing `PROBABLE` tab 2 remains unchanged |
-| `tilemap_5810.screen.png` | `settings_phone_choice_menu_4d_5810.screen.png` | derived preview | Existing `HYPOTHESIS` preview status remains unchanged |
-
-The legacy image/text inventory's `tiles_5510` row is explicitly retained as a historical retype1 input, not mapped to a current file: that former combined interval was split into palette and map data, and no `tiles_5510` tile asset exists.
+| Old basename | New basename | Original range |
+| --- | --- | ---: |
+| `tilemap_5810` | `settings_phone_choice_menu_4d_5810` | `4D:5810`, tilemap + attributes |
+| `tilemap_7870` | `settings_phone_slot_menu_tab0_4d_7870` | `4D:7870`, tilemap + attributes |
+| `tilemap_78c0` | `settings_phone_slot_menu_tab1_4d_78c0` | `4D:78C0`, tilemap + attributes |
+| `tilemap_7910` | `settings_phone_slot_menu_tab2_4d_7910` | `4D:7910`, tilemap + attributes |
+| `tilemap_5810.screen.png` | `settings_phone_choice_menu_4d_5810.screen.png` | derived preview |
 
 ## Byte and metadata invariants
 
-All 43 renamed files retain their pre-rename hashes. The 25 renamed ROM-backed binary resources (17 tile sheets and eight map/attribute files) are checked against their bank-4D source slices at file offset `0x134000 + (CPU address - 0x4000)`. Generated `gfx/png_rules.tsv`, `gfx/png.mk` and `gfx/README.md` preserve the existing sizes, hashes, padding (`tiles_4200` keeps 15 blank tiles), labels, banks, addresses, and confidence values. `gfx_resource_path_map.tsv` records the previous and current path for each renamed file.
-
-This pass adds no ROM bytes, changes no section layout or symbol labels, and promotes no confidence level. The Bank 53 candidate-name-to-frame association remains **HYPOTHESIS**; its asset audit is separate.
+Generated `gfx/png_rules.tsv`, `gfx/png.mk` and `gfx/README.md` preserve the existing sizes, hashes, padding (`tiles_4200` keeps 15 blank tiles), labels, banks, addresses, and confidence values.

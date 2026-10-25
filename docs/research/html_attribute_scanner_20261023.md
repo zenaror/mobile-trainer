@@ -1,8 +1,4 @@
-# ROM0 HTML attribute scanner contract (2026-10-23)
-
-## Scope and evidence
-
-This note records the static contract visible in `home/keyword_scan.asm` at `Html_ScanAttributes` (`00:1119-131A`) and its helper `Html_MatchKeyword` (`00:10E9-1118`). It was checked against all ten current call sites under `engine/html/` and the keyword tables in `data/html/keywords.asm`. The source is the maintained Japanese reconstruction at commit `8a32d886d946bfb392b0c246b4d4fcb75b8e2c41`; the ROM identity remains the repository's documented Japanese target. This is a static source/disassembly claim, not a new execution or full HTML-conformance claim.
+# ROM0 HTML attribute scanner contract
 
 ## Inputs, outputs, and cursor
 
@@ -21,5 +17,3 @@ The keyword helper folds only ASCII uppercase bytes in the input to lowercase. T
 ## Call-site boundary
 
 The ten calls are in `engine/html/count_pass.asm:298`, `engine/html/parser.asm:491`, and `engine/html/tags.asm:369,470,1024,1133,1348,1550,1586,1751`. They pass `Html_NoKeywords`, `Html_MetaAttrPtrs`, `Html_AlignAttrPtrs`, `Html_AnchorAttrPtrs`, `Html_BrAttrPtrs`, `Html_HrAttrPtrs`, or `Html_ImgAttrPtrs`. The tag handlers interpret returned metadata and `wAttrUrlBuf` for their own fields; the scanner itself does not validate URLs, enforce a tag-specific grammar, bound the input source, or establish safe buffer capacity for arbitrary callers. Some paths skip attributes with the empty keyword list, and image scan-only mode repeatedly calls the scanner to find `src`.
-
-Static mechanics above are CONFIRMED by the instructions and current call/table structure. The Shift-JIS pair paths remain PROBABLE as marked in the source. Existing coverage comments report execution in prior trace scenarios, but this pass did not rerun them and does not upgrade unexecuted branches or establish natural reachability for every handler.

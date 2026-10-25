@@ -1,5 +1,5 @@
-# Candidate graphics paths: page list, time summary, help and mailbox (2026-10-21)
+# Candidate graphics paths: page list, time summary, help and mailbox
 
-Renamed ten Japanese asset/view files to match existing owner labels: two page-list tile spans, the time-summary candidate tile span, the help-script candidate tile span, and the mailbox arrow-label candidate span. Owner assembly and `gfx/assets.tsv`, then generated graphics and PNG manifests, were updated. All ten file hashes match before and after renaming.
+Related reference:
 
-Evidence remains bounded by the source comments. The two page-list spans are PROBABLE 2bpp-shaped payloads by coherence. A later bounded transfer audit established that both exact spans are fully covered by static HDMA requests; see `japanese_name_census_closure_20261022.md`. The second span starts one byte into a tile phase, so its path now calls it a byte slice. The time-summary 5EE1 span and help-script 6E20 span remain candidates with no direct call at their starting address; help artwork is visually consistent with button glyphs but no display route is established. The mailbox span remains PROBABLE 2bpp-shaped data with a byte phase offset of one inside a static HDMA request; its renamed path records source-slice coverage without claiming aligned tiles or a visual arrow/label identity. No use, display, or natural-execution conclusion is added by path changes.
+- [japanese name census closure 20261022](japanese_name_census_closure_20261022.md)

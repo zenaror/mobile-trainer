@@ -7,22 +7,6 @@ seis scripts. O intervalo é `69:4760..4C46`, 1.254 bytes. Cada definição anti
 vira uma linha em branco na mesma posição; nenhum nome semântico novo é criado.
 Os quarenta cabeçalhos dessas estruturas continuam **PROBABLE**.
 
-O baseline lido já tem em branco os dois aliases CONFIRMED dos tiles retirados
-na unidade anterior. As duas regiões CONFIRMED, seus arquivos e leitores ficam
-intactos. Naquele checkpoint, os 14 bytes de `Data_69_4152` ficaram intactos,
-com nome neutro e cabeçalho heurístico PROBABLE. A decisão foi supersedida pelo
-censo de alinhamento em `original_closure_followup_20261021.md`, que os nomeia
-`Padding_ConnIcon_Tiles4160Alignment` após correlacionar o fim do código em
-`69:4152`, o preenchimento zero e o início do HDMA em `69:4160`. A classificação
-continua PROBABLE; nenhum leitor direto foi encontrado, sem alegação de
-inutilidade universal.
-
-A derivação própria foi selada antes da consulta ao estudo peer. Houve exposição
-prévia à unidade ConnIcon2, aos resumos ROOT e à conclusão de um spot-check do
-ABI; não se alega revisão cega. Fonte atual, macros e bytes originais foram
-reconferidos. Nenhum helper do projeto, teste, build, emulador, render ou export
-foi executado, e nenhum output ativo foi lido.
-
 ## Leitores e estrutura
 
 `ConnIcon_LoadGraphics_Request1` (`69:4118`) chama `Palette_LoadToBuffer` em
@@ -58,13 +42,6 @@ desses campos não promove os cabeçalhos PROBABLE dos dados nem reclassifica o
 comentário geral HYPOTHESIS de layout presente no motor. Bit7 do id afeta a
 política posterior de fim/loop e não aumenta a extensão desta tabela.
 
-Os sete pares da tabela apontam para seis pares distintos lista/script no mesmo
-banco. Todas as arestas terminam nos limites declarados: lista é uma sequência
-de palavras sem contador, frame é `1+4*n` bytes e script é `1+2*n` bytes. As
-macros foram lidas, e uma transcrição stdlib finita reconstruiu os43blocos e os
-2.804bytes do owner para comparação direta com a ROM. Isso é comparação dos
-componentes deste owner, não reconstrução/validação da ROM inteira.
-
 `Sprite_UpdateAll` seleciona o banco registrado antes de processar o slot.
 `Sprite_StepAndDrawSlot` lê os pares frame/delay e os registros OAM; o caminho
 de desenho soma Y+16/X+8 módulo256 e aplica as máscaras de atributo do slot.
@@ -80,17 +57,3 @@ permanece PROBABLE; o fato finito não significa que os registros sejam inutiliz
 `ConnIcon_Anim3Script` conserva o byte final00 em `69:4A04`, e
 `ConnIcon_ObjAnimData` conserva010004 em `69:4BA8..4BAB`. As finalidades dessas
 caudas continuam desconhecidas. Nenhum byte, contagem, ponteiro ou operando muda.
-
-No corpus de fonte/metadados declarado pelo pacote privado, não há operandos
-ativos dos40nomes antigos nem locais dependentes deles. As12referências de
-comentário ao nome antigo da tabela passam para `ConnIcon_ObjTable`; o restante
-das notas históricas e dos qualificadores fica. Catálogo e screen_ops já usam
-os nomes próprios; não precisam de edição. Configuração, geradores e evidências
-históricas permanecem congelados.
-
-O owner mantém562linhas. Seus83globais passam a43 nesta projeção local:
-42nomes próprios e o neutro KEEP. O delta de símbolos previsto é somente-40 sobre
-o parent que ROOT conferir futuramente; não há total publicado futuro presumido.
-Não mudam caminhos, assets, paletas, PNGs, macros, catálogo ou idiomas. Somente
-uma integração posterior, com revisão e verificações ROOT, poderá confirmar
-equivalência do build e o delta real de símbolos.

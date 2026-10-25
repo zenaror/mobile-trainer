@@ -1,4 +1,4 @@
-# Natural first-entry top-menu gate: HelpScript $81 (2026-10-23)
+# Natural first-entry top-menu gate: HelpScript $81
 
 ## Finding
 
@@ -8,12 +8,4 @@ The isolated prefix reaches the top menu at frame 6,288 without entering the Mai
 
 The complete run's merged ROM data-read range is 6C:483E-4BC2. Because the range spans adjacent streams, it is not by itself evidence for the exact ID $81 boundary; the caller at 48:4A67 and ordinary route/return establish the observed gate association.
 
-A separate passive-instrumented replay of the complete existing tutorial_profile macro matched the canonical scenario byte-for-byte for dataaccess, callgraph, coverage, marks, MBC writes, IRQ summary, and serial summary. Its final save also has $A89B=1, then proceeds to the later Mail first-use ID $89; that later behavior is outside the isolated $81 result.
-
 This is a bounded mGBA observation using the existing registered adapter and fake Internet. No force, ramset, SRAM poke, ROM patch, or net poke was used. It is not hardware evidence.
-
-## Reproduction and evidence
-
-ROM SHA-256: 6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570.
-Tracer SHA-256: c3a4ac33ea322822c3f1b0f44d8f1e4f7343ac4f39ec9f328f97d98c4ad48867.
-The exact derived macro, tool/runtime/save hashes, both isolated runs, every capture hash, and canonical full-route comparison are recorded in MANIFEST.json.

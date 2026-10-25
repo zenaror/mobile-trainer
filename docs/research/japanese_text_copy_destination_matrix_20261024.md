@@ -1,8 +1,6 @@
-# Japanese string and XOR destination matrix (2026-10-24)
+# Japanese string and XOR destination matrix
 
-## Scope and method
-
-At source revision `4240c9684d5b5a1b6dbc64021ed67157ab044809`, a tracked-source scan of Japanese `.asm`/`.inc` files (excluding `languages/en/`) stripped comments and enumerated `call`, `jp`, and `farcall` operands for `CopyString`, `CopyStringMax`, `EncodeXorA5`, `DecodeXorA5`, and `StringAppend`. The scan found 117 callsites in 25 files: 72, 4, 6, 20, and 15 respectively. This includes banked farcalls; it excludes each routine's own loop branch. The analysis below resolves direct destinations and manually traces each destination derived through a helper, pointer table, or caller argument. `home/string.asm` establishes the byte-level behavior: NUL-terminated copies, bounded `CopyStringMax`, XOR-$A5 encoding that stores the encoded terminator, inverse decoding, and append through the byte in A (normally zero).
+`home/string.asm` establishes the byte-level behavior: NUL-terminated copies, bounded `CopyStringMax`, XOR-$A5 encoding that stores the encoded terminator, inverse decoding, and append through the byte in A (normally zero).
 
 ## Destination contracts
 
@@ -16,17 +14,24 @@ At source revision `4240c9684d5b5a1b6dbc64021ed67157ab044809`, a tracked-source 
 
 ## Derived destinations and caller chains
 
-- `Wram3_CopyString` forces SVBK 3 before its internal `CopyString`; its maintained callers pass the registration/account password and number fields in W3. `TextEntry_CopyText` also forces W3; its seven callsites pass the named W3 account-entry buffers.
-- `Account_CopyMailAddressToFar` saves the incoming bank/address and selects it before copying. Its only maintained caller is `Profile_Edit`, which passes bank 0 and `$AF50`; source SRAM1 `$B047` is decoded first into fixed WRAM0 `$C27F`.
-- `Settings_StoreStringField` selects SRAM1 and forwards the caller's HL/DE to `EncodeXorA5`. The 11 maintained callsites in `engine/startup/registration.asm` use only the seven named fields: login ID, mail local part, mail subdomain, password, internet number, self-page number, and comment. Their addresses are the static fields `$B066`, `$B071`, `$B07A`, `$B07F`, `$B08B`, `$B09C`, and `$B0AD`; inputs are the corresponding W3 account buffers. `SettingsPhone_PatchConfigImage` loads one of the three SRAM1 dial-slot addresses from `SettingsPhone_SramSelfPageAddrs` before encoding.
-- `Http_StartGet` and `Http_StartPost` copy credentials into the fixed WRAM0 `$C240` descriptor, including while SVBK 3 is selected. `Url_ResolveLocation` copies a redirect/location string to the URL buffer pointer saved in the descriptor. Its two maintained roots are `Browser_LoadPage_Request` and `Browser_FetchInlineImages`; both pass `wAttrUrlBuf` in fixed WRAM0 `$C380`. The `CopyString` sites inside the resolver use that same buffer; they do not inherit an arbitrary SRAM pointer from the remote URL.
-- `Smtp_CopyDisplayName` receives the current output pointer in DE. Both maintained callers first copy the address field into fixed WRAM0 `$C580`, then append the display name there before converting the resulting text into the header. The other running SMTP `CopyString` destinations are fixed WRAM0 `$C580`/`wSmtp_EncodedText` or SRAM3 `sNetWorkPage`/`sSmtp_HeaderText`.
-- `Text_TruncateSjis` writes an ellipsis in place at its current HL when truncation is needed. Its four callers pass SRAM3 `sPop3TopSenderAddress` or `sPop3TopSubject`, fixed WRAM0 `$C480` for the TOP title, or the current SRAM0 record field; it does not select SRAM1.
-- `Browser_WrapImageInHtml` maintains DE within the fixed WRAM0 `wAttrUrlBuf` (`$C380`) construction and calls `CopyString` using fixed HTML fragments, the popped source URL, and `wBrowserPageUrl`. The resulting copy target remains the WRAM0 wrapper buffer.
-- `Dial_CopySelectedNumber` dispatches the selected SRAM1 string only as its *source*. Its normal and hidden-mode outputs are caller-supplied DE; its three maintained callsites pass W3 `$DEEE`, W3 `$DF21/$DF54/$DF87`-family slots, or the fixed WRAM0 `$C240` descriptor. No caller routes that output to SRAM1 `$A9ED/$A9EE`.
+`TextEntry_CopyText` also forces W3; its seven callsites pass the named W3 account-entry buffers. - `Account_CopyMailAddressToFar` saves the incoming bank/address and selects it before copying.
+
+Its only maintained caller is `Profile_Edit`, which passes bank 0 and `$AF50`; source SRAM1 `$B047` is decoded first into fixed WRAM0 `$C27F`. - `Settings_StoreStringField` selects SRAM1 and forwards the caller's HL/DE to `EncodeXorA5`.
+
+`SettingsPhone_PatchConfigImage` loads one of the three SRAM1 dial-slot addresses from `SettingsPhone_SramSelfPageAddrs` before encoding. - `Http_StartGet` and `Http_StartPost` copy credentials into the fixed WRAM0 `$C240` descriptor, including while SVBK 3 is selected.
+
+`Url_ResolveLocation` copies a redirect/location string to the URL buffer pointer saved in the descriptor.
+
+The `CopyString` sites inside the resolver use that same buffer; they do not inherit an arbitrary SRAM pointer from the remote URL. - `Smtp_CopyDisplayName` receives the current output pointer in DE.
+
+Both maintained callers first copy the address field into fixed WRAM0 `$C580`, then append the display name there before converting the resulting text into the header.
+
+The other running SMTP `CopyString` destinations are fixed WRAM0 `$C580`/`wSmtp_EncodedText` or SRAM3 `sNetWorkPage`/`sSmtp_HeaderText`. - `Text_TruncateSjis` writes an ellipsis in place at its current HL when truncation is needed.
+
+Its four callers pass SRAM3 `sPop3TopSenderAddress` or `sPop3TopSubject`, fixed WRAM0 `$C480` for the TOP title, or the current SRAM0 record field; it does not select SRAM1. - `Browser_WrapImageInHtml` maintains DE within the fixed WRAM0 `wAttrUrlBuf` (`$C380`) construction and calls `CopyString` using fixed HTML fragments, the popped source URL, and `wBrowserPageUrl`.
+
+The resulting copy target remains the WRAM0 wrapper buffer. - `Dial_CopySelectedNumber` dispatches the selected SRAM1 string only as its *source*.
 
 ## Finding and limits
 
-**CONFIRMED for these five maintained helper families and the resolved callers:** no enumerated, caller-rooted text/XOR route writes a nonzero byte to SRAM1 `$A9ED` or writes either byte at `$A9ED/$A9EE`. Their SRAM destinations resolve to SRAM1 at `$B014+`, SRAM2 configuration/registration ranges, SRAM3 buffers, or bank-0 profile address `$AF50`; the other destinations are WRAM. The dynamic helper contracts above account for the 17 `CopyString`, two `EncodeXorA5`, one `CopyStringMax`, and one `DecodeXorA5` callsites whose nearest operand scan cannot identify a literal DE.
-
-This closes only these copy/codec call families with their maintained natural caller contracts. It does not constrain malformed/corrupt fields that change control flow, arbitrary entry into a helper, a corrupted or externally modified SRAM image, unenumerated computed pointers, or generic SDK output descriptors. It also does not identify a natural producer for the Bank 70 A9EE writes, or establish the full value domain of A9ED. The separate SDK/API descriptor census and candidate-root investigation remain open. No ROM/source/assets were changed, and no build or runtime test was run for this documentation-only analysis.
+Their SRAM destinations resolve to SRAM1 at `$B014+`, SRAM2 configuration/registration ranges, SRAM3 buffers, or bank-0 profile address `$AF50`; the other destinations are WRAM.

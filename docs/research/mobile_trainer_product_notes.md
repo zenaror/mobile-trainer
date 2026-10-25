@@ -9,13 +9,6 @@ Source tags:
 * **[Web7z]** `<GB>/MobileAdapterGB/Mobile_Trainer_Web_Pages.7z`, extracted to the scratchpad only (24 files: 19 HTML, 5 BMP + a `Fixed BMP Images` copy).
 * **[ROM]** `baserom.gbc` (bytes read directly).
 
-`<GB>` = `$REFERENCE_ROOT`.
-
-Verifier review (2026-09-29): string/URL addresses in section 2, the 55-record help-page chain, the default/test configuration images (+ their layouts), the tag table, the `.bmp` scanner `4C:4DFB-4E44`, the template strings `4C:4F11-4F55` and the goo.ne.jp bookmark copy `24:42B0-42D0` were re-read from the ROM and hold.
-Corrections applied below: the test dial number is at `68:4E46` (was `68:4E43`), the developer-test routine starts at `68:4E51`, the ROM help pages equal the archived pages except for one trailing CRLF, and the BMP validator tests bytes `14` (width) and `18` (height) not at all.
-
----------------------------------------------------------------------------------------------------------------
-
 ## 1. What the product is
 
 | fact | source | status |
@@ -26,8 +19,6 @@ Corrections applied below: the test dial number is at `68:4E46` (was `68:4E43`),
 | Only configuration slot #1 is written by the Trainer; slots 2/3 hold `FF`/`00` patterns. | [DanDocs]; [ROM] images at `68:67E0` etc.: slot 1 (`+0x76`) filled, slots 2/3 (`+0x8E`, `+0xA6`) all zero | CONFIRMED (images), PROBABLE (behaviour) |
 | Adapter colours/carriers: Blue = PDC, Yellow = cdmaOne, Red = DDI, Green = PHS (never released). | [DanDocs]; libmobile `mobile.h:36-46` | CONFIRMED |
 | Trainer features visible in the ROM: adapter setup/registration ("system registration" pages), e-mail (compose/receive/reply, address book, mail server settings), browser with page list (`ページリスト`), bookmarks, offline/online switching, dictionary-style help. | help page titles in banks 3D/3E (section 3), [Web7z] topics page | PROBABLE |
-
----------------------------------------------------------------------------------------------------------------
 
 ## 2. Servers, URLs and protocol strings (all confirmed in the ROM)
 
@@ -48,20 +39,9 @@ Corrections applied below: the test dial number is at `68:4E46` (was `68:4E43`),
 | `68:4E46` | `0755311973` | the Nintendo test dial number; identical to `isp_number_test` in libmobile `commands.c:43` (CONFIRMED) |
 | `24:42D1` | `http://www.goo.ne.jp/` | preloaded browser bookmark: URL copied to WRAM bank 6 `$D500` and its title (Shift-JIS ぐーぐー at `24:42E7`) to `$D3C0` by `24:42B0-42D0` (`ld a,6 ; ldh [$FF8D],a ; ldh [$FF70],a` ...); `$D500` is also the buffer scanned for `.bmp` at `4C:4E04`. PROBABLE |
 
-Ports (from the SDK template and [DanDocs]): HTTP 80, POP3 110, SMTP 25 (Trainer does not encrypt; passwords in clear).
-
----------------------------------------------------------------------------------------------------------------
-
 ## 3. In-ROM help pages (banks 3D / 3E) - a small file system
 
-* Record format (CONFIRMED by parsing both banks to the end of data with only zero padding left): `name\0`, `u16 little-endian size`, `size` bytes of **Shift-JIS (cp932) HTML** with CRLF line ends; the size includes the final `\0`. Records are contiguous.
-  * `3D:4000-518B`: 13 records: `saport saver security syokitou title translat tu_error cdmaone user website www website www` (`.htm`; `website.htm` and `www.htm` appear twice, byte-identical sizes 364 / 483).
-  * `3E:4000-75CE`: 42 records `a_mark account add_tyou address atesaki browser connect contents data_cen dion download email facemark gbcorse hensin homepage internet jump link loginid m_friend m_home m_sys m_tre ma mail_sav mailsoft marklist mente mobile netiquet netsurf nickname ninsyou offline online pagelist password phs pdc provider receive`.
-* The pages link to each other as `../di/<name>.htm` and are kid-friendly glossary entries (hiragana, "di" = dictionary). Titles (decoded): サポートセンター, サーバ, セキュリティ, 初期登録, タイトル, 送信, 通信エラー, cdmaOne, ユーザー, サイト/ウェブサイト, WWW/Web, @, アカウント, アドレス帳, メールアドレス, 宛先, ブラウザ, 接続, コンテンツ, モバイルセンター, DION, ダウンロード, メール, フェイスマーク, DIONモバイルGBコース, 返信, ホームページ, インターネット, ジャンプ, リンク, ログインID, メルとも, モバイルホームページ, モバイルシステムGB, モバイルトレーナー, モバイルアダプタGB, メールサーバ, メーラー, 記号の読み方, メンテナンス, モバイル, ネチケット, ネットサーフィン, ニックネーム, 認証, オフライン, オンライン, ページリスト, パスワード, PHS, PDC, プロバイダ/ISP, 受信.
-* **Cross-check with [Web7z] (CONFIRMED, verifier-rechecked)**: after cp932 -> UTF-8 and CRLF normalisation the ROM records `account.htm`, `atesaki.htm`, `offline.htm`, `www.htm` are identical (text level, see caveat) to `account.html`, `destination.html`, `offline.html`, `world_wide_web.html` of the archive. The archive names the pages by their English titles ("destination" = 宛先/atesaki, "world wide web" = www). So those four archive pages are the ROM's own help pages, and the archive's `../di/*.htm` links point to the pages stored in these banks.
-  Caveat (verifier): the identity is exact except that each ROM record ends with one extra CRLF after `</HTML>` (the archive files end at `</HTML>`), and the archive files are UTF-8 while the ROM is Shift-JIS; "byte-identical" was too strong. Consequence for reverse engineering: the browser must resolve `../di/*.htm` (relative to a server URL) to these ROM records - look for a name-compare loop over the 3D/3E record chain and the two banks' switch (HYPOTHESIS).
-
----------------------------------------------------------------------------------------------------------------
+* `3D:4000-518B`: 13 records: `saport saver security syokitou title translat tu_error cdmaone user website www website www` (`.htm`; `website.htm` and `www.htm` appear twice, byte-identical sizes 364 / 483).
 
 ## 4. Configuration data (adapter side, mirrored in SRAM)
 
@@ -70,8 +50,6 @@ Ports (from the SDK template and [DanDocs]): HTTP 80, POP3 110, SMTP 25 (Trainer
 * Default images in the ROM (checksum field zero, filled in at run time): `68:67E0` and `68:68A0` (PDC/cdmaOne, `#9677`, `DION PDC/CDMAONE`), `68:6960` and `68:6A20` (DDI-Pocket, `0077487751`, `DION DDI-POCKET`); header `4D 41 01 00`, DNS `D2 C4 03 B7` (210.196.3.183) and `D2 8D 70 A3` (210.141.112.163); byte 2 = `01` means "registration in progress" (`81` after completion, [DanDocs]).
 * Developer test image `68:4EA7-4F66`: byte 2 = `81`, both DNS `AC 10 13 BA`, login id `itoh`, an IP-style number `211.005.001.117`, `pop.d6.dion.ne.jp`, slot 1 number `0755311973`, ID `NINTENDO TEST`. Loaded by the routine at `68:4E51-4EA6` (`68:4E6A` copies the image to `$D000`, adds the checksum, writes it with API `$04`); `test@test.test` is at `68:4E37`, the dial number at `68:4E46`. This routine was not executed in any of the 18 emulator scenarios.
 * Useful for naming: any routine that writes `4D 41 01 00` is a config initialiser; `4D 41 81 00` marks the completed-registration variant.
-
----------------------------------------------------------------------------------------------------------------
 
 ## 5. Browser facts that map to code/data
 
@@ -85,25 +63,12 @@ Ports (from the SDK template and [DanDocs]): HTTP 80, POP3 110, SMTP 25 (Trainer
 
 **BMP header validator (bank 51, CONFIRMED by disassembly)**
 
-| addr | behaviour |
-|---|---|
-| `51:70E0` | wrapper: select SRAM bank 3 (`ldh [$FF8C],3 ; ld [$4000],a`), call `70F4`, then `7161`; returns A = 1 if the image is acceptable |
-| `51:70F4-7160` | `HL` = BMP data. Requires `'B' 'M'` (`51:70F6`, `70FB`); reads the pixel-data offset bytes `0A/0B` into `BC` and requires bytes `0C/0D` to be zero; width = byte `12` -> `[$FFD6]`; of bytes `13-15` only `13` and `15` are tested (`51:7113-7118`, an `or e` chain: the intermediate result of byte `14` is overwritten, so byte `14` is NOT checked - verifier correction); height = byte `16` -> `[$FFD7]`; `[19] & [17]` is tested (`51:711D-7123`): zero -> positive height (`[C33F]=0`, bytes `18`/`19` then unchecked when `17`=0), `$FF` -> top-down (`[C33F]=$FF`), anything else rejects (byte `18` is never tested) - so "bytes 17-19 all 00 or all FF" is the intended pattern, not what the code enforces; planes (`1A/1B`) must be 1; bits per pixel (`1C/1D`) must be 1; compression bytes `1E-21` must be zero; colour-used bytes `2E-31` must be zero; success returns `HL = data start + BC` |
-| `51:7161-7176` | limits: width `<= $90` (144), height nonzero and `<= $60` (96) |
-| `51:7177-73xx` | loader: computes row padding (`(w+7)&~7)/8 + 3 & ~3`), fills tile buffers (`C330-C335` parameters) |
-
-This matches the Dan Docs list (144x96, 16-bit offset, 8-bit dimensions, planes/bpp = 1, compression 0, colour maps 0) except for the two sloppy byte tests noted above. Static reading only: `51:70E0` was not executed in any emulator scenario.
-
----------------------------------------------------------------------------------------------------------------
-
 ## 6. Mail facts that map to code/data
 
 * Outgoing headers (exact text): `MIME-Version: 1.0`, `From: <address> (=?ISO-2022-JP?B?...)`, `To:`, `Subject: =?ISO-2022-JP?B?...`, `X-Game-title: MOBILE TRAINER`, `X-Game-code: CGB-B9AJ-00`, `Content-Type: text/plain; charset=iso-2022-jp` ([DanDocs]; the strings are in `0F:4062-40E9`). The archive page `mobile_homepage_1.html` contains an accidentally embedded raw copy of such a header block inside a link (a real sent-mail capture; the addresses in it are deliberately not reproduced here).
 * Encoding: ISO-2022-JP with `=?ISO-2022-JP?B?` Base64 words; the Base64 helpers are in the mail library (selectors of `0F:4169`); text/plain body.
 * Sample/tutorial mail data lives at `2D:42A0-4690`: sample senders with Shift-JIS names and messages (マリオ "またあそぼうね" ..., クッパだいおう "やきゅうやるぞ", a game newsletter "メールマガジンGB", and "ＧＢセンター だいじなおしらせ" (notice that the D-mail centre is under maintenance 7/14-7/20)), record layout (HYPOTHESIS): a few header bytes, then `body\0 sender-name\0 subject\0 address\0`. Developer contact entries (Missing Link staff) are also present; names/addresses intentionally omitted here. PROBABLE: preloaded sample inbox/address-book content.
 * Protocol: POP3 (110): `USER`, `PASS`, `STAT`, `LIST`, `RETR`, `DELE`, `TOP`; SMTP (25): `HELO`, `MAIL FROM`, `RCPT TO`, `DATA`, `QUIT`; the Trainer does not validate the recipient, it reports SMTP server errors ([DanDocs]).
-
----------------------------------------------------------------------------------------------------------------
 
 ## 7. Server-side content facts (from [Web7z]) worth knowing when reading strings
 
@@ -112,17 +77,15 @@ This matches the Dan Docs list (144x96, 16-bit offset, 8-bit dimensions, planes/
 * Content examples (Pokemon Crystal mobile mode instructions, Mobile Stadium download schedule with a 30-minute rotation from 07:00 to 22:00 and a 10 yen content fee, Celebi event, Mobile Golf news with 10 yen fees) show that HTML pages used only the subset of section 5 and 1 bpp images; text is Shift-JIS/Japanese with `<br>`, `<ul>`, `<b>` and `<a>` only.
 * Dictionary pages referenced from server pages (`../di/internet.htm`, `email.htm`, `homepage.htm`, `loginid.htm`, `password.htm`, `address.htm`, `connect.htm`) are the ROM's `3E` pages.
 
----------------------------------------------------------------------------------------------------------------
-
 ## 8. Pointers for later naming (not applied)
 
-| item | why it is safe to name (evidence) |
-|---|---|
-| `4E:4904` `String_4E_4904` -> "BrowserHomeURL" | full URL, confirmed by [DanDocs] |
-| `67:5E43`, `67:61D2`, `67:632D` `String_*` -> DION password change / jikan / summary URLs | strings quoted above |
-| `68:4EA7` `Dev_TestConfigImage` -> test adapter config image; `68:67E0/68A0/6960/6A20` default images | header magic, checksum layout, DNS values |
-| `3D:4000`, `3E:4000` record chains -> help page file table | parsed to end, cross-checked with [Web7z] |
-| `74:4112` HTML tag table | ids listed above |
-| `0F:4004-4143`, `0F:419C-4235` mail header strings/keyword table | same layout as the Crystal SDK library |
+| item |
+| --- |
+| `4E:4904` `String_4E_4904` -> "BrowserHomeURL" |
+| `67:5E43`, `67:61D2`, `67:632D` `String_*` -> DION password change / jikan / summary URLs |
+| `68:4EA7` `Dev_TestConfigImage` -> test adapter config image; `68:67E0/68A0/6960/6A20` default images |
+| `3D:4000`, `3E:4000` record chains -> help page file table |
+| `74:4112` HTML tag table |
+| `0F:4004-4143`, `0F:419C-4235` mail header strings/keyword table |
 
 Open questions: which code walks the 3D/3E record chain; who calls the BMP validator `51:70E0` and how the `.bmp` wrapper at `4C:4DFB` is chained to it; whether the ROM contains additional server URLs behind non-ASCII encodings ([DanDocs]: "Other URLs exist in ROM but are not documented as observed"); who uses `2D:42A0` data.

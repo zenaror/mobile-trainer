@@ -1,12 +1,11 @@
-# Orphan browser-start graphics artifacts (2026-10-21)
+# Orphan browser-start graphics artifacts
 
 Three tracked files previously under `gfx/browser/start_choice/` had no current owner include or catalog entry. They are retained under `gfx/unresolved/` with names that state their limited provenance; no bytes were deleted or edited.
 
-- `browser_start_mixed_data_73_4530.bin` is 176 bytes and byte-identical to ROM bank 73 at $4530. The current source represents this interval inline as `BrowserStart_CandidateBgAttributeSuffixAndUnreadTail_4530`: 173 bytes are a confirmed attribute suffix of the animation frames, followed by three bytes with no reads in the 69-scenario corpus. Its old `.2bpp` name and PNG view came from the earlier tile-data hypothesis; the PNG is retained only as that historical 2bpp visualization.
-- `browser_start_legacy_palette_interpretation_73_5e60.pal` was introduced by commit `43bf3f61` when 73:$5E60-$5EC0 was treated as a PROBABLE RGB555 palette span. Current Japanese source instead identifies `SpriteFrameTable_73_5E60` and the following object frames/scripts, with natural reads through the chain. The old palette text is not included by the current source and is not byte-equivalent to that ROM interval. It is retained as a superseded interpretation, not as an active palette asset.
+- `browser_start_mixed_data_73_4530.bin` is 176 bytes and byte-identical to ROM bank 73 at $4530.
 
-All three SHA-256 hashes were recorded during relocation and remained identical. These artifacts are not in `gfx/assets.tsv`, `gfx/screens.tsv`, or the generated PNG rules and are not part of the build. The dated private gfx audit is preserved unchanged; this note records the source-backed reconciliation.
+Current Japanese source instead identifies `SpriteFrameTable_73_5E60` and the following object frames/scripts, with natural reads through the chain.
 
 ## Data-read report recheck at Japanese HEAD `3d971282`
 
-The saved 70 `traces/detail/*/dataaccess.tsv` reports were checked against their 70 matching coverage reports. Their aggregate input digest is `b9ebe5fbf81b30d7782425f645df7f0c503436e1f972e5045b9669b74bd3dc27`. Nineteen reports contain a data-read interval overlapping the browser-start frame/attribute region; the union covers all 350 bytes at `73:447F..45DD`. None overlaps the final three bytes `73:45DD..45E0`, which are `00 00 00` in the immutable original ROM. The read hook records ROM data loads and excludes instruction fetches; this is a re-read of saved reports, not a new emulator run. The finite corpus does not prove global non-use, frame selection, or the purpose of the three bytes. Reproduction is preserved in `jp-browser-start-tail-audit-20261023` (review artifact).
+Nineteen reports contain a data-read interval overlapping the browser-start frame/attribute region; the union covers all 350 bytes at `73:447F..45DD`.

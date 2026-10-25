@@ -1,73 +1,37 @@
 # Keyboard default-cursor flags and unobserved siblings
 
-> Status: **reference (current)**. Four confirmed roles and two explicit KEEP decisions, independently reconstructed and reviewed before application. Original aliases, bytes and storage limits remain.
-
-## Six decisions
-
-| Original | Decision / alias | Role evidence | Whole storage |
-|---|---|---|---|
-|55:6EAA Function_55_6EAA|CONFIRMED Kbd_TypeMode2DefaultCursorFlag|Lookup consumed at55:5CBF under [$C2AF]==2, enabling restoration of [$400A+type] to cursor|Code already CONFIRMED|
-|55:6EC0 Function_55_6EC0|CONFIRMED Kbd_TypeArgCDefaultCursorFlag|Lookup consumed at55:5CE3; nonzero result followed by saved Kbd_Run argument C test enables the same restoration|Code already CONFIRMED|
-|55:6EEC Function_55_6EEC|KEEP neutral; semantic role HYPOTHESIS|Only caller55:5DF8 lies in unentered HYPOTHESIS55:5DF5|Lookup decoder remains PROBABLE|
-|55:6EB5|Retired `Data_55_6EB5`; retained `Table_Kbd_Mode2DefaultCursorFlag_ByType`|Sole indexed consumer6EAA, natural positive and negative branches|PROBABLE:7/11 bytes read|
-|55:6ECB|Retired `Data_55_6ECB`; retained `Table_Kbd_ArgCDefaultCursorFlag_ByType`|Sole indexed consumer6EC0, natural argument-C restoration|PROBABLE:10/11 bytes read|
-|55:6EF7 Data_55_6EF7|KEEP neutral; semantic role HYPOTHESIS|No natural consumer; separate physical table, despite bytes equaling6EB5|PROBABLE:0/11 bytes read|
-
-The two flag names describe the tested conditions and effect in Kbd_Run. Mode2 means the literal comparison of fixed WRAM[$C2AF] with2; it does not promote the broader meaning or PROBABLE declaration of wKbdMode. Argument C is stored at fixed WRAM[$C2B4] by Kbd_Run entry55:5C8F/5C90, matching the existing CONFIRMED wKbdRunArgC alias. Cursor[$C2B5] and type[$C2AB] are fixed WRAM; no switchable-bank alias inference is involved. No new name says enabled, pressed, accepted, visual keyboard layout, or general mode meaning.
-
-## Encoded contracts and all direct uses
-
-Each routine is exactly11 original bytes, eight instructions: ld hl,table; add a,l; ld l,a; ld a,0; adc a,h; ld h,a; ld a,[hl]; ret. The three original strings are21b56e856f3e008c677ec9,21cb6e856f3e008c677ec9,21f76e856f3e008c677ec9. Input A is an unsigned byte index; A returns the byte at table+A. HL and flags are clobbered, BC/DE unchanged. There is no input bounds test. Only indices0..10 have the documented Boolean table contract; callers select keyboard type0..10, but the routines are not safe bounds-checked APIs for arbitrary A.
-
-All source uses are six definitions, three call operands, three table-base loads. Bank55 original-byte scans find exactly one encoded occurrence of each call and each HL load: calls55:5CBF/5CE3/5DF8, base loads55:6EAA/6EC0/6EEC. There are no extra named instructions, BANK operands, data words or macros for these six labels. audit.json lists every source mention and encoded address. The functions and callers remain in selected bank55; Kbd_Open/Run are entered through the existing farcall bank mechanism. Local predicate lookup has no bank change between HL construction and read. The six physical definitions are distinct and retained as aliases only for the four accepted roles.
-
-The first function's complete eight-instruction walk is1268 hits in25 natural scenarios at every instruction. The second is14425/35 at every instruction. The third has zero at all eight instructions. Its caller55:5DF5 merely decodes to ld a,[type]; call6EEC; or a; jp z,5E5A; jp5F29. No entry is demonstrated and its destination5F29 remains HYPOTHESIS. Sibling periodicity supports its existing PROBABLE decoder classification, not a confirmed semantic role. The historical naming2_fn4 statement that6EF7 selects types5..10 is contradicted by original bytes: it is types6..10. Record the correction here without rewriting the historical note.
-
-## Complete default-cursor paths, pages and bounds
-
-Kbd_Open55:5BA2 stores A as type, B as mode, resets page to0, and initializes cursor from55:4000+type (Table_Kbd_StartCell). It may show immediately for mode2. Kbd_Run stores C, initializes its B-derived argument, and checks type==$0A at55:5CAA/5CAC before either predicate. Fifty of14476 executions take the type-picker route; the remaining14426 reach mode testing. The type-picker path does not use these tables or $400A for type10.
-
-Mode2 dispatch55:5CB4 reaches6EAA1268 times. A nonzero result reaches the default-cell load55:5CC8 and cursor write55:5CD2, then FetchCell55:5CD5 and UpdateCursorSprite55:5CD8:44 hits/9 natural scenarios. A zero result rejoins55:5CE0. Other modes either slide in (mode0) or proceed directly to the next test. The6EC0 flag is tested first; only its nonzero result reads the saved C argument55:5CE9 (11984/22). Nonzero C reaches the type load55:5CEF and default-cell path, cursor write55:5CFC, FetchCell55:5CFF and following sprite update:591/17. The names do not say that the mode2 and C tests are interchangeable.
-
-Both paths use original ROM bank55:$400A+type, the existing Table_Kbd_OkCell, and do not reset wKbdPage. It is ten bytes for types0..9, values34,46,46,58,58,58,58,58,58,58. Kbd_FetchCell55:5F35 dereferences the two-level55:4014 type/page pointer tables and reads the cell word at page+2*cursor. Types6/7/8 have four pages; other ordinary types have one. Original page decoding proves FF82 at the default cell for all19 type/page combinations (7 single-page types plus12 multipage combinations). Exact page/key addresses are in audit.json. Existing key82 path returns7; the names intentionally describe the cursor restoration contract directly. Raw $400A operands remain unchanged in this bounded pass. The table's type10 byte has no valid default-cell partner and is never needed by the shipped early-exit path.
-
-The19 source Kbd_Open sites and13 Kbd_Run sites are all naturally executed; the audit lists the complete static setup context, address and aggregate execution count of each. Ordinary opens set types0 login,1 account mail,2 phone keypad,3 phone comment,4 account password,5 connect dialog,6 mail body,7 profile,8 name/title,9 address; three body-editor opens select10 for the picker. Initial shown opens use B2; connect/mail-body opens use B0; reopens in name/address/title/profile wrappers preserve caller B through their saved state. These forwarded values are not assigned invented defaults. Run C is zero in body/name/title/address loops, wMailScreenMode in profile, the existing field flags in account/phone loops, and C returned by ConnectDialog_ValidatePassword in the connect dialog. That validator starts B=C=0, conditionally sets B1 and C1 based on the fixed validation flow; no external input values are copied. This pass neither broadens those field flags' meanings nor promotes their status.
-
-## Exact storage and unread bytes
-
-Original6EB5..6EC0 is0000000000000101010101. Read indices0/1/2/3/4/8/9 have8/8/3/3/21/6/6 natural scenarios. Unread exact bytes6EBA/6EBB/6EBC/6EBF correspond to types5/6/7/10. Original6ECB..6ED6 is0101010101010000000000. Read indices0..9 have8/8/3/3/21/4/10/11/14/16 scenarios; only6ED5/type10 is unread. Original6EF7..6F02 equals6EB5, but all11 bytes are unread. None of the16 unread bytes is promoted; all three whole11-byte storage headers remain PROBABLE. Four accepted role statuses reflect observed consumer use and do not claim complete storage reads. No sibling table is merged or reused by name, and no code/data boundary or representation changes.
-
-
-## Numerical operation alias for 55:6EEC (2026-10-15)
-
-`Kbd_Type6To10Flag` is a PROBABLE operation alias for `Function_55_6EEC`. This replaces the earlier KEEP-neutral naming decision for that routine only: its functional role and unproved entry remain HYPOTHESIS, and the separate `Data_55_6EF7` table retains its neutral name and PROBABLE whole-storage status. The alias states a numerical flag on the documented keyboard-type domain 0..10; it does not assign a cursor, hide-keyboard, acceptance or return-nine purpose. The neutral definition stays on its original physical line and all existing instruction/locator positions remain unchanged.
-
-The original code is `21 F7 6E 85 6F 3E 00 8C 67 7E C9`, eleven bytes and eight instruction starts. With stable physical ROM bank 55, ordinary uninterrupted flow and a valid nonaliasing return stack, it computes `HL=$6EF7+unsigned entry A` and returns `A=ROM55[HL]`. BC/DE have no explicit modifications. HL and A change; no mapper/data writes or local push/pop occur, and RET consumes the caller return address. ADC produces F=$00 for every byte index, preserved by the final LD/RET; a zero result in A does not itself set Z. Relevant IRQ interference is outside this ordinary contract.
+## Numerical operation alias for 55:6EEC
 
 The eleven original table bytes at 55:6EF7 are `00 00 00 00 00 00 01 01 01 01 01`. For indices 0..10, the result is therefore exactly 0 for 0..5 and 1 for 6..10. There is no bounds check: index 11 reads $21, the next routine's opcode at 55:6F02; indices 11..255 continue into neighbouring ROM through $6FF6. The alias is not an unrestricted Boolean comparison over all byte inputs, a safe indexing API or evidence that every possible caller supplies a valid type.
 
-A complete executed structural twin is `Function_55_6EAA`: its eleven code bytes are `21 B5 6E 85 6F 3E 00 8C 67 7E C9`. Only the table-base operand differs. Its distinct eleven-byte table at 55:6EB5 equals the candidate table byte for byte. `traces/coverage_fuzz_browser.tsv:35484-35491` records four hits at each of its eight starts (6EAA, 6EAD, 6EAE, 6EAF, 6EB1, 6EB2, 6EB3, 6EB4), first frame 4483. This is direct positive evidence for the parameterized lookup operation; it does not transfer the sibling's default-cursor role, observed table reads or natural entry to 6EEC. The two tables remain separate physical objects.
+A complete executed structural twin is `Function_55_6EAA`: its eleven code bytes are `21 B5 6E 85 6F 3E 00 8C 67 7E C9`.
+
+Only the table-base operand differs.
+
+Its distinct eleven-byte table at 55:6EB5 equals the candidate table byte for byte.
+
+This is direct positive evidence for the parameterized lookup operation; it does not transfer the sibling's default-cursor role, observed table reads or natural entry to 6EEC.
+
+The two tables remain separate physical objects.
 
 The candidate's own static consumer at 55:5DF5 is `FA AB C2 CD EC 6E B7 CA 5A 5E C3 29 5F`: load `wKbdType`, call 6EEC, OR A, jump to 5E5A for zero or 5F29 otherwise. OR A is needed to test the returned byte because the lookup returns F=$00. Entry of that consumer remains HYPOTHESIS, and the preceding JP bypasses it in ordinary fall-through. If 5F29 is entered, it clears A before an unconditional call to `Kbd_SlideOut`; only ordinary callee return permits the later mode-zero store and return value nine. This conditional static chain is not a demonstrated live input policy or purpose for the lookup.
 
-## Current table-name correction (2026-10-21)
+The current source replaces `Data_55_6EF7` with `Table_Kbd_Type6To10Flag_ByType`, **PROBABLE** as a structural label for the direct reader's 11-byte input-A table on indices 0..10.
 
-The current source replaces `Data_55_6EF7` with `Table_Kbd_Type6To10Flag_ByType`, **PROBABLE** as a structural label for the direct reader's 11-byte input-A table on indices 0..10. The lookup returns 0 for 0..5 and 1 for 6..10, but has no bounds check; larger inputs continue into neighboring ROM. Natural sampled reads remain 0/11, and the 5DF5 entry and original purpose remain HYPOTHESIS. The equal-byte table at6EB5 is a distinct physical object. Earlier KEEP-neutral text records the historical proposal and is superseded for the current source name.
+## Operation alias for the hide sequence with return value nine
 
-These byte and sibling facts support the local numerical operation name without requiring a natural caller for the candidate. They supply no new runtime, visual or hardware observation, no natural entry promotion and no functional-role promotion. Reconstruction equivalence still requires the documented build, symbol check and byte comparison with the original ROM; static source/byte correspondence alone does not establish that result.
+`Kbd_HideAndReturn9` is a PROBABLE operation alias for `Label_55_5F29`.
 
+Its original twelve bytes are `AF CD 27 64 3E 00 EA AF C2 3E 09 C9`: XOR A, unconditional CALL 55:6427 (`Kbd_SlideOut`), load zero, store it at fixed WRAM $C2AF (`wKbdMode`), load nine and RET.
 
-## Operation alias for the hide sequence with return value nine (2026-10-15)
+Its first nine bytes match the candidate exactly; its next byte is RET, whereas the candidate inserts `LD A,$09` before RET.
 
-`Kbd_HideAndReturn9` is a PROBABLE operation alias for `Label_55_5F29`. Its original twelve bytes are `AF CD 27 64 3E 00 EA AF C2 3E 09 C9`: XOR A, unconditional CALL 55:6427 (`Kbd_SlideOut`), load zero, store it at fixed WRAM $C2AF (`wKbdMode`), load nine and RET. The alias names this operation by its structural relationship to the existing hide wrapper and its explicit return value. Entry and application purpose remain HYPOTHESIS; no key assignment, input policy, acceptance/cancellation meaning or natural execution is assigned. The old label stays on its existing physical line, with instruction positions and local-label scopes preserved.
+The complete entries differ in return A and length, and execution of the sibling does not establish execution of 5F29. - The path at 55:5E4B also starts with the same nine bytes, followed by `C3 26 5F` (JP 5F26).
 
-Positive comparison uses original bytes and existing natural coverage:
+Its destination 55:5F26 contains `3E 0A C9`, so this sibling returns ten instead of the candidate's explicit nine.
 
-- `Kbd_Hide` at 55:6559 is ten bytes, `AF CD 27 64 3E 00 EA AF C2 C9`. Its first nine bytes match the candidate exactly; its next byte is RET, whereas the candidate inserts `LD A,$09` before RET. `traces/coverage_monkey_camp_hid.tsv:17547-17551` records fourteen hits at every one of its five instruction starts: 6559, 655A, 655D, 655F and 6562. The prefix performs the same call and mode-zero store. The complete entries differ in return A and length, and execution of the sibling does not establish execution of 5F29.
-- The path at 55:5E4B also starts with the same nine bytes, followed by `C3 26 5F` (JP 5F26). `traces/coverage_monkey_camp_hid.tsv:16880-16884` records four hits at its five starts: 5E4B, 5E4C, 5E4F, 5E51 and 5E54. Its destination 55:5F26 contains `3E 0A C9`, so this sibling returns ten instead of the candidate's explicit nine. The same coverage file records four hits at both 5F26 and 5F28, lines 16946-16947. The local source path follows a nonzero saved run-argument test in the Select handler; this sibling context is not assigned to 5F29.
+`Kbd_SlideOut` explicitly calls the sprite-slot clear helper for slots10..13 and a sprite-update farcall, reads keyboard type to choose waits, and may take type-dependent preparation/step farcalls, window-position writes, sound calls and LCDC updates.
 
-The local ordinary return contract requires coherent ROM55 instruction fetching, initialized farcall/trampoline mapping for the callee's own farcalls, a valid nonaliasing stack, appropriate keyboard/sprite state and interrupt progress where the callee waits. `Kbd_SlideOut` explicitly calls the sprite-slot clear helper for slots10..13 and a sprite-update farcall, reads keyboard type to choose waits, and may take type-dependent preparation/step farcalls, window-position writes, sound calls and LCDC updates. It can return early when sampled WY is already at least $90, or wait/loop on other paths. The alias does not provide a universal completion, timing or visual guarantee, nor does it suppress these transitive effects. No complete callee ABI or register preservation is asserted. After a normal balanced callee return, the wrapper writes mode zero and returns A=9; its LD/store/RET suffix does not establish an independent flag status.
+It can return early when sampled WY is already at least $90, or wait/loop on other paths.
 
 The caller at 55:5DF5 selects 5F29 only after a nonzero lookup result; once 5F29 itself is entered, CALL6427 is unconditional. The hypothetical interior entry 5F2A skips XOR A and is not included in a proved entry contract. The earlier functional-role KEEP decisions and qualifications are retained as history; these two new aliases describe only a numerical flag and a local hide-call/store/return sequence. They do not turn the static caller chain into a natural return-nine policy.
-
-No new runtime, visual or hardware evidence is supplied, and candidate entry/purpose remain HYPOTHESIS. All instruction bytes are preserved. Reconstruction equivalence requires the documented build, symbol check and comparison with the original ROM; the static comparisons here alone do not establish that result.

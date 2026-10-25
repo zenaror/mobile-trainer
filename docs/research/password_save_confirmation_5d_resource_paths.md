@@ -34,14 +34,6 @@ e não a alegação de uma variante universalmente padrão. A alternativa não z
 usa `71:6F6F`, pelo ramo que já permanece **PROBABLE**. A cópia do par usa
 18×20=360 bytes por plano, avançando a mesma origem para atributos.
 
-A identidade lógica do primeiro modelo em `gfx/screens.tsv` acompanha o stem
-do tilemap:
-
-```text
-settings/screens_bank5d/tilemap_7ba0
-→ settings/password_save_confirmation_bank5d/password_save_confirm_variant0
-```
-
 Esse vínculo é explícito em `tools/screen_png.py`: `derive_rows` remove a
 extensão do tilemap para formar `name` e acrescenta `.screen.png` para `png`.
 `read_screens` indexa pelo nome, e os comandos de import/export selecionam essa
@@ -55,18 +47,3 @@ O modelo de `71:6F6F` conserva a identidade, seus arquivos e a célula de paleta
 vazia; somente as referências aos dois arquivos de tiles 5D acompanham a mudança.
 Os tiles/paletas compartilhados 5F e objetos de confirmação 4A ficam fora desta
 unidade. O intervalo depois de `7E70` não recebe interpretação nova.
-
-A migração contempla nove arquivos (owner e oito recursos). Os oito recursos,
-incluindo os três PNGs, são copiados com hashes idênticos; os cinco componentes
-emitidos continuam a mesma sequência. Somente caminhos mudam no ASM e em
-`layout.link`. O catálogo conserva tipos, tamanhos, labels, coordenadas e status.
-As regras PNG conservam hashes, tamanhos e codecs; suas linhas e as entradas
-correspondentes de `png.mk` acompanham a ordenação por caminho exigida pelo
-contrato do gerador, sem executá-lo. Os modelos são ordenados pela chave nova.
-
-Os nove pares antigos/atuais entram no mapa histórico por append, preservando
-todos os pares anteriores. `config/`, gerador, layout histórico e metadados
-históricos permanecem. As notas históricas conservam seus identificadores de
-captura; o mapa permite localizar os arquivos correspondentes, sem converter
-esses identificadores em aliases ativos do seletor de modelos. Não há mudança
-de símbolos prevista (delta 0), nem alteração de pixels, bytes de assets ou idiomas.

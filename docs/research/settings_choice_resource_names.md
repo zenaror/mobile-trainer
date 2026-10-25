@@ -58,63 +58,6 @@ O iniciado em 4C10 lê 1024 bytes: 256 do final de 4A10..4D10 e 768 de
 consumidor da backing use um único destino VRAM. Nenhum label novo é criado no
 interior, nenhum bloco é alargado e os operandos imediatos permanecem.
 
-As quatro unidades de escolha `Tilemap_4D_5AE0/5B6C/5BF8/5C84`, seus nomes
-`Entry0..3`, o loader indexado e as tabelas/frames/scripts de objetos ficaram fora
-desta coorte histórica. O checkpoint de 2026-10-20 aplicou `Entry0..3` como os
-nomes ativos e renomeou os oito arquivos tilemap/attrmap correspondentes; a
-evidência e os limites constam em `typing_4d_choice_maps.md` e na seção japonesa
-global de `REVERSE_ENGINEERING.md`. Não se amplia sua prova para cursores
-corrompidos ou outros recursos. O menu de slots e todos os grupos não selecionados
-permanecem.
-
-## Metadados, base e previsão
-
-A varredura finita dos seis roots ASM encontra os sete nomes antigos apenas nas
-sete definições selecionadas. Os nomes descritivos resolvem os consumidores HL e
-BANK. Os sete registros históricos em `data2_renames.tsv`, oito registros de assets
-e sete de operações de tela mantêm suas linhas e células; os consumidores não
-mudam de linha. As tabelas manuais ramop9/10/11 não contêm esses identificadores.
-Os assets e seus PNGs existentes foram apenas conferidos por hash, sem render,
-export/import ou alteração. As evidências de execução citadas nos headers são
-herdadas; nenhum novo cenário foi executado para esta proposta.
-
-O ROOT informou MAIN700f como estado atual. Esta preparação fixa o hash do owner
-observado, sem consultar Git e sem atestar um futuro commit ou o SYM completo de
-700f. Para um mapa isolado explícito, usa-se o SYM FRESH congelado do commit
-109d57ac523294e7acccf7e3af36e15e1dff9c2f: 14870 entradas, incluindo 51 constantes.
-Retirar só estes sete globais desse mapa prevê 14863, sem alterar os valores
-sobreviventes. O delta próprio é -7; isto não é um resultado novo de link.
-
-A coorte GFX20 pendente é disjunta nos owners e aliases. Somente se o ROOT partir
-daquele mesmo conjunto de 14870 e aplicar GFX20(-20) e settings7(-7), sem outro
-delta, a conta combinada será 14843. Não existe mapa combinado futuro emitido ou
-SYM final alegado aqui. O ROOT deve rebater a previsão no pai realmente aceito,
-após GFX20, e validar separadamente. Nenhuma cópia de REVERSE_ENGINEERING.md ou
-docs/README.md é fornecida. Retirar aliases redundantes não fecha todas as
-unidades desconhecidas. Esta proposta não altera idiomas, não retoma R4 e não
-traz build, emulador, publicação, hardware ou prova de propósito natural.
-
-
-## Base de integração ROOT
-
-O parent de fontes é `972071a41a601d5a0e0540a6bd745f4c36aeeec8`. O mapa
-PRIVATE GFX20 já fechado e aceito contém14850 nomes, incluindo51 constantes;
-seu SYM tem SHA-256 `2b84a91d379d973234bf7acf1181027c26bd7dab9c66e07d9bfff446be960323`.
-Retirar somente estes sete aliases prevê14843 nomes, incluindo as mesmas51
-constantes. A previsão isolada anterior14863 é histórica e não deve ser
-aplicada ao parent que já inclui GFX20. Esta é uma previsão estática;
-link, comparação integral e publicação desta coorte ainda são gates separados.
-
-## Follow-up no fonte atual — 2026-10-21
-
-No checkpoint posterior, as duas unidades antes mantidas como `Data_4D_4200`
-e `Data_4D_4D10` receberam nomes `TileSlice` que preservam o limite do
-conhecimento: fazem parte dos uploads de 1 KiB iniciados em `4D:4110` e
-`4D:4C10`, sem serem rotuladas como unidades independentes. Três trechos
-análogos do menu de slots também receberam nomes `TileSlice` conforme os
-destinos VRAM dos uploads que os cobrem. Isso qualifica a origem da janela,
-sem ampliar os intervalos nem atribuir outros consumidores.
-
 Foram retirados os oito aliases exatos `Data_4D_5D18`, `Data_4D_5D50`,
 `Data_4D_5D70`, `Data_4D_6170`, `Data_4D_6870`, `Data_4D_6D70`,
 `Data_4D_7470` e `Data_4D_7968`, mais `Table_4D_5D10` e

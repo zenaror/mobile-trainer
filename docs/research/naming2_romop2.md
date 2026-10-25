@@ -1,19 +1,6 @@
 # ROM pointers inside blocks and in front of data lines (romop2): 61 operands, 16 new labels, the offset form `Label + $offset` (ROM unchanged)
 
-> Status: **reference (current)**.  Second pass over the raw ROM pointers `ld hl|de|bc, $XXXX` ([`naming2_romop1.md`](naming2_romop1.md) did the pointers that are exactly a label).  romop2 writes the pointers that point **into** a block or at the start of a data line that no label starts: a neutral label in front of the
-> data (`String_2A_4A6F`, `Palette_71_66C0`) or `Label + $offset`; it also writes the inline word of the far call to the palette copier as a label (`dw CopyBytes`).  Every claim rests on a consumer rule that says what the routine reads at the pointer and how many bytes, and on the **whole read lying in data of that kind**.
-> Records: `analysis/naming2/rom_consumers.tsv` (6 columns now), `tools/apply_rom_operands.py` (74 tests in `tools/test_rom_operands.py`); independent verification: [`naming2_verify_romop2.md`](naming2_verify_romop2.md).
-
-## 1. Result
-
-| item | count |
-|---|---|
-| operands written | **61** in 24 files: 24 palette reads as `Label + $offset`, 1 palette read at the start of a data line (`Palette_71_66C0`), 9 HDMA tile windows as `Label + $offset`, 10 tilemap Ptr reads as `Label + $offset`, 16 string pointers (15 distinct strings) as new `String_BB_AAAA` labels, 1 inline word (`dw CopyBytes`) |
-| new labels | **16**: 15 `String_BB_AAAA` and `Palette_71_66C0`, each in front of the exact `db` line that starts at its address |
-| left numeric | 22 `block kind` (a palette or a tilemap inside a block typed as tiles: the block is typed wrong; the graphics retyping), 15 `anchor names another destination`, 2 `no label`, 1 `read crosses`, 3 `vector null`, and the operands with no rule |
-| comment on every offset operand | `ld hl, Palette_5F_4CD0 + $10 ; 5F:4CE0`: an offset has no definition line that carries the address, so the use is found by grepping `BB:AAAA` |
-| executed | 56 of the 60 `ld hl` loads ran in the natural scenarios (`analysis/coverage_union.tsv`); the four that never ran are `comm/notice_dialog.asm` twice (`Palette_CommNotice + $40` and `+ $C0`), `error/comm_error_screen.asm` (`CommErr_Tilemap_Comm + $140`) and `help/help_menu.asm` (`Tilemap_6A_4B7C + $8C`); the inline word's call ran 25,154 times in 68 scenarios |
-| ROM | byte-identical (`make compare`: `RESULT: IDENTICAL`; `sym-check`, `sprite_chain_check`, `png-check` and every audit pass) |
+Second pass over the raw ROM pointers `ld hl|de|bc, $XXXX` ([`naming2_romop1.md`](naming2_romop1.md) did the pointers that are exactly a label).  romop2 writes the pointers that point **into** a block or at the start of a data line that no label starts: a neutral label in front of the > data (`String_2A_4A6F`, `Palette_71_66C0`) or `Label + $offset`; it also writes the inline word of the far call to the palette copier as a label (`dw CopyBytes`).
 
 ## 2. What romop2 adds to the rules
 
@@ -43,11 +30,3 @@ The bank of the far call is the bank of the **data** that `CopyBytes` reads; a p
 * The label `Palette_71_66C0` is true (8 bytes, `7C00 7FFF 01FF 001F`) but the block it splits still carries heuristic headers (`data $66A0-$66C1`, `tiles-2bpp $66C1-$66C8`): a comment above it says so; the retyping of `gfx/account/screens_bank71.asm` will make one palette array of `$6688-$66C8`.
 
 **Since the graphics retyping** (`naming2_retype1.md`): the 22 palettes and tilemaps inside blocks typed as tiles, the four wrongly typed blocks, `Palette_4B_5870` and `Palette_71_66C0` are retyped; 25 operands became exact labels (23 by this tool); what stays numeric is 14 `anchor names another destination`, 2 `no label`, 1 `read crosses` (`engine/settings/confirm_screen.asm:42`), 3 `vector null` and the operands with no rule.
-
-## 5. Reproduce
-
-```
-python3 tools/apply_rom_operands.py --check      # 0 operands that a rule proves are left numeric
-python3 tools/apply_rom_operands.py --dry-run --report /tmp/rom_report.tsv   # one row per candidate with its outcome
-python3 tools/test_rom_operands.py               # 74 tests
-```

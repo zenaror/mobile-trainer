@@ -1,19 +1,6 @@
 # The neutral banked uses of the mail library and the sound driver as names (ramop11) (ROM unchanged)
 
-> Status: **reference (current)**.  After ramop10, 123 uses of neutral banked names `wRam_Dxxx` had no proof of the bank in the tool's sense: 115 in `lib/mobile/mail.asm` (the mail library of the SDK, bank 0F, which only ever runs under WRAM bank 5: invariant L5), six in the mail screens and
-> the sound driver's dirty-flag mask.  They are written as names now by one hand-proved record, `analysis/naming2/ramop11_manual.tsv` (138 rows, applied by `tools/apply_manual_sites.py`), after an independent reader read every row.  Three new names came out of it.
-> Verification: [`naming2_verify_ramop11.md`](naming2_verify_ramop11.md).
-
-## 1. Result
-
-| item | count |
-|---|---|
-| rows written | **138** (122 in `lib/mobile/mail.asm`, 10 in `audio/engine.asm`, 3 in `engine/mail/mailbox_screen.asm`, 3 in `engine/mail/mail_viewer_sender.asm`); 0 skipped |
-| spelling of the 121 neutral uses of the mail library | `wMail_Work + $XX` 91, `wMail_ComposeState` 13, `wMail_TextBuf2` 3, field names 14 (section 4); 107 of the 121 first proposals were upheld as written, **14 were corrected** (section 3) |
-| one existing name corrected | `lib/mobile/mail.asm` `Mail_Base64DecodeChar`'s invalid-character exit wrote `wMail_ComposeState`; it is `wMail_Work + $23` now (the same defect as the 14) |
-| new names in `ram/banked.asm` | `wMailReplyRecord` (`$D526`, W1, PROBABLE, CAVEAT), `wSoundDrv_VibratoTri` (`$D01E`, W1, CONFIRMED), `wSoundDrv_ParamDirtyMask` (`$D03C`, W1, PROBABLE, CAVEAT): 214 names, 148 overlapping pairs, 0 errors |
-| left neutral | `wRam_D525` (two stores that nothing in the ROM reads: no role name is true); `python3 tools/apply_ram_operands.py --neutral --observed --check`: 0 uses with the bank not shown, 0 in doubt, 0 without a name, 2 refused by CAVEAT |
-| ROM | byte-identical (`make compare`: `RESULT: IDENTICAL`; `sym-check`, `tools/invariants_check.py` ALL PASS, every other audit passes) |
+After ramop10, 123 uses of neutral banked names `wRam_Dxxx` had no proof of the bank in the tool's sense: 115 in `lib/mobile/mail.asm` (the mail library of the SDK, bank 0F, which only ever runs under WRAM bank 5: invariant L5), six in the mail screens and > the sound driver's dirty-flag mask.
 
 ## 2. The proof for the mail library (invariant L5)
 
@@ -22,12 +9,7 @@ ldh [rSVBK], a`; none of the 5,274 far calls of the ROM has bank `$0F`.  The sel
 `rSVBK` / `hWRAMBank`, no `rst`, no interrupt instruction; the only HRAM operand is `$FF8C` (the SRAM bank shadow).  4,230 instructions are reachable from the 13 entries; 16 are not (three fragments).  Of the 121 sites, 6 ran under bank 5 in the replays, 8 are reachable from called selectors but never ran, 106 are in
 selectors that the application never calls (3, 5, 7, 9-12: static reading, PROBABLE) and **one is unreachable** (`mail.asm` `0F:47B8`, the last instruction of a HYPOTHESIS fragment with no proven entry): its row says so; L5 is conditional there, and the row only states what the address means in the library's own bank.
 
-## 3. `$D023` and the 14 corrections
-
-A census of the ROM gives 39 accesses to `$D023`, all in bank 0F.  The DEF of `wMail_ComposeState` (`ram/banked.asm`) says composer or encoder, which is true of the composer (selectors 9 and 10: a flag zeroed before `Mail_EmitHeaderField`, tested as "name already emitted" at `0F:4F5D` and `4F7D`) and of the Base64 encoder (selector 11:
-`Mail_Base64EncodeStream` `0F:56E1`, `Mail_CalcBase64EncodedSize` `5771`, `_ClampChunk` `57E5`, `_Step` `5833`).  The first proposal also wrote it at 14 sites of the Base64 **decoder** (selector 12: `Mail_Base64DecodeStream` `0F:5A10`, `_ClampChunk` `5AC5`, `_Step` `5B15`, `Mail_CalcBase64DecodedSize` `5A74`, `Mail_CopyBase64StripLineBreaks`
-`5BDD`, and `Mail_Base64Decode`'s `$FF` write `0F:5CB0`, which selector 6 also reaches; selector 6 never reads `$D023`): the same state machine as the encoder (0 idle, 1 start, 2 sized, 3 and 4 chunk, 5 flush, `$FF` error) but not a composer or an encoder.  Those 14 are `wMail_Work + $23`.  If one name for all 39 sites is wanted, the DEF
-and every site must change to the role they share (the phase byte of the multi-call jobs); the name must not be reused at decoder sites.  `$D624` has three sites, all in `Mail_ExtractAddresses` (`0F:4D9D`, selectors 7 and 9): the count byte of the address list, as the DEF says.
+`$D624` has three sites, all in `Mail_ExtractAddresses` (`0F:4D9D`, selectors 7 and 9): the count byte of the address list, as the DEF says.
 
 ## 4. Field names at 14 sites (CAVEAT names, written by hand per site)
 
@@ -50,14 +32,3 @@ fields have other meanings.  Where a name would be false the container stays: `w
 
 The `DEF` lines of `wMail_ComposeItem`, `wMail_TextBuf2` and `wMailTextScratch` quoted instructions with the old neutral spelling; the quotes follow the source now.  `STYLE.md` listed `wMail_OutputStream` as hand-written "in selectors 4 and 8", the tree uses it in 9 and 10 as well.  The earlier count "146 CONFIRMED, 65 PROBABLE" of the banked names was wrong
 (`REVERSE_ENGINEERING.md`).
-
-## 7. Reproduce
-
-```
-python3 tools/apply_manual_sites.py --sites analysis/naming2/ramop11_manual.tsv --dry-run   # 138 rows: all already written
-python3 tools/apply_banked_names.py --check                                                  # 214 names, 0 errors
-python3 tools/apply_ram_operands.py --neutral --observed --check
-python3 tools/invariants_check.py                                                            # L5 and S1
-```
-
-Limits: selectors 3, 5, 7 and 9-12 of the library never ran: every judgement there, including each `$D023` judgement, is a static reading; the interrupt side of L5 is the earlier readers' reading, not re-derived; no emulator was run for this pass; `wMailReplyRecord` and `wSoundDrv_ParamDirtyMask` are static readings.

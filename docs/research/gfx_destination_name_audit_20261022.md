@@ -1,10 +1,4 @@
-# Audited graphics destination names (2026-10-22)
-
-At Japanese checkpoint `bb2218e0ba26a538a17e885b3b6a2ba8883ff3e1`, two
-independent read-only reviews checked a bounded set of generic graphics
-basenames against the original 2 MiB ROM and their maintained call sites.
-The original ROM SHA-256 is
-`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
+# Audited graphics destination names
 
 The reviewed set contains 16 stems, 20 payloads and 33 physical files
 (22,494 bytes). Each payload matches its original ROM extent. All 11 tile
@@ -45,15 +39,3 @@ The change also corrected a stale inventory locator for
 unchanged. Generated graphics manifests and the two screen rows were updated;
 screen composition confidence levels were preserved. The old-to-new paths
 are recorded in `gfx_resource_path_map.tsv`.
-
-The exact 33-file pre/post sizes and SHA-256 values are retained in the
-ignored local receipt
-`RENAME_RECEIPT.json` (review artifact). Its sorted
-pre-rename manifest SHA-256 is
-`1490100a588bc4e84ec7378a80c89c6bd04a30b8475e47ed00c741f90079f194`.
-
-This is a finite naming audit, not a semantic audit of every graphics stem.
-It does not establish natural execution or validate hardware behavior.
-Shared scrollbar pairs, partial/shared browser slices and candidates whose
-consumer remains uncertain were deliberately left unchanged. No language
-overlay or ZIP was examined; the English translation remains paused.

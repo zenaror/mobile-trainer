@@ -1,12 +1,6 @@
 # Sprite object data format (object tables, frame tables, frame records, scripts) and its macro form
 
-The sprite-object engine in bank 00 (`home/sprites.asm`: `Sprite_InitSlot` 00:0A82, `Sprite_LoadObjectEntry` 00:0AB8, `Sprite_StepAndDrawSlot` 00:0AE8, `Sprite_UpdateAll` 00:0956)
-reads four kinds of data from a switchable ROM bank.  This note re-derives the formats from the engine code, records what is proven and what is only inferred, and documents the
-macros of [`constants/sprite_macros.inc`](../../constants/sprite_macros.inc) in which the sprite data of `gfx/`, `engine/` (and `home/`, `lib/`, `data/`: none found there) is now
-written.  The bytes are unchanged: `make` still ends in `SHA-256 OK` and an identical byte compare.  The generator of the macro form is `tools/sprite_to_macros.py`.
-
-Status words as in `STYLE.md`.  The chain of the data (every pointer lands where the format says) was already verified by `tools/sprite_chain_check.py`
-([`naming2_verify_data2b.md`](naming2_verify_data2b.md)); this note adds the field-level meaning and re-reads the engine instruction by instruction.
+The sprite-object engine in bank 00 (`home/sprites.asm`: `Sprite_InitSlot` 00:0A82, `Sprite_LoadObjectEntry` 00:0AB8, `Sprite_StepAndDrawSlot` 00:0AE8, `Sprite_UpdateAll` 00:0956) reads four kinds of data from a switchable ROM bank.
 
 ## 1. Summary
 
@@ -28,22 +22,20 @@ Status words as in `STYLE.md`.  The chain of the data (every pointer lands where
 
 ## 2. Where the engine reads what (slot layout as the code uses it)
 
-A slot is 16 bytes in WRAM bank 7 (`wSpriteSlots`, 14 slots at D:DA00, walked by `Sprite_UpdateAll`).  The fields below are the ones the instructions above touch; the
-earlier comment in `home/sprites.asm` called this layout "inferred, HYPOTHESIS": every field listed here is now read off the instructions (CONFIRMED by static reading; none was
-seen *executed* by this note).
+A slot is 16 bytes in WRAM bank 7 (`wSpriteSlots`, 14 slots at D:DA00, walked by `Sprite_UpdateAll`).
 
-| slot | used as | evidence |
-|---|---|---|
-| +00 Y, +01 X | position of the object (screen coordinates; the record offsets are added to Y+16, X+8) | 00:0B80-0B87 |
-| +02..03 | frame-table pointer (from entry word 0) | 00:0AC5-0AC9 |
-| +04 | current frame index (`$FF` = none), first loaded from script byte 1 | 00:0ADC-0ADD, 0B8C-0B8F |
-| +05 | delay counter, first loaded from script byte 2 | 00:0ADE-0AE0, 0AF6-0B00 |
-| +06..07 | script pointer (from entry word 1); cleared when a non-looping script ends | 00:0ACE-0AD4, 0B1E-0B20 |
-| +08 | index of the current script step | 00:0AD5-0AD6, 0B0E-0B24 |
-| +09 / +0A | attribute OR mask / AND mask (initial `$00` / `$FF`) | 00:0AD6-0AD9, 0B75-0B7D |
-| +0B..0D | hook: address (lo, hi) and bank, called through a push-return trick, `$FF` bank or zero address = none | 00:0B36-0B53 (not needed for the data) |
-| +0E | ROM bank of all the structures (the `A` of `Sprite_InitSlot`) | 00:0AA1-0AA7 |
-| +0F | the object id including bit 7; `$FF` = empty slot, `$00` = slot that is not stepped | 00:0AE5-0AE6, 0AEA-0AF4, 0B18 |
+| slot | used as |
+| --- | --- |
+| +00 Y, +01 X | position of the object (screen coordinates; the record offsets are added to Y+16, X+8) |
+| +02..03 | frame-table pointer (from entry word 0) |
+| +04 | current frame index (`$FF` = none), first loaded from script byte 1 |
+| +05 | delay counter, first loaded from script byte 2 |
+| +06..07 | script pointer (from entry word 1); cleared when a non-looping script ends |
+| +08 | index of the current script step |
+| +09 / +0A | attribute OR mask / AND mask (initial `$00` / `$FF`) |
+| +0B..0D | hook: address (lo, hi) and bank, called through a push-return trick, `$FF` bank or zero address = none |
+| +0E | ROM bank of all the structures (the `A` of `Sprite_InitSlot`) |
+| +0F | the object id including bit 7; `$FF` = empty slot, `$00` = slot that is not stepped |
 
 One pass of `Sprite_UpdateAll` does, for each slot: select the slot's ROM bank, `Sprite_StepAndDrawSlot`.  The draw part (from 00:0B71) runs for every slot, also for one
 whose stepping has stopped (+0F = 0): the last frame keeps being drawn (PROBABLE: static reading, the draw code never tests +0F); a slot filled with `$FF` (`Sprite_ClearSlot`,
@@ -96,14 +88,14 @@ frame record       db n ; n x ( db y, db x, db tile, db attr )
 The shadow OAM entries are copied to OAM by the OAM DMA routine (`OAMDMARoutine` 00:05AC: `ld a,$C0 ; ldh [rDMA],a`, CONFIRMED in `home/lcd.asm`), so the `attr` byte of a record reaches
 the OAM attribute byte after the AND / OR masks (both are identity unless something changes slot+09 / +0A).  Bits that occur in the 2,704 pieces:
 
-| bit | pieces | hardware meaning | data evidence |
-|---|---:|---|---|
-| 0-2 | 913 / 707 / 719 | CGB palette number (OBJ palette RAM is uploaded by `Palette_UploadBuffer` 4F:404B from `$D840`, `naming2_data2.md`) | values 0-7 |
-| 3 | 404 | VRAM bank 1 | OBJ-range tiles are uploaded to `$8000-$8FFF` of both banks (headers: `dest VRAM $8000, vbank=1` and others) |
-| 4 | 0 | (DMG palette: ignored on CGB) | never set |
-| 5 | 291 | X flip | `Mailbox_ObjAnimData` 26:7BE0: four pieces of the same tile at the four corners of a 2 x 2 square with attr `$00 / $20 / $40 / $60` (top-left, top-right, bottom-left, bottom-right); `CommNotice_Anim0Frame0` 50:6CC4: four corner pieces of one tile with flips `0 / Y / XY / X` |
-| 6 | 131 | Y flip | same |
-| 7 | 0 | BG priority | never set |
+| bit | pieces | hardware meaning |
+| --- | ---: | --- |
+| 0-2 | 913 / 707 / 719 | CGB palette number (OBJ palette RAM is uploaded by `Palette_UploadBuffer` 4F:404B from `$D840`, `naming2_data2.md`) |
+| 3 | 404 | VRAM bank 1 |
+| 4 | 0 | (DMG palette: ignored on CGB) |
+| 5 | 291 | X flip |
+| 6 | 131 | Y flip |
+| 7 | 0 | BG priority |
 
 44 distinct attr values occur, all of the form `palette | bank1 | xflip | yflip`.  The corner patterns make the flip meaning PROBABLE (the geometry only works if the
 hardware semantics apply); it is not CONFIRMED because no execution of a flipped sprite was looked at.  `sprite_oam` therefore writes the attr operand as `OAMF_XFLIP | OAMF_YFLIP | OAMF_BANK1`
@@ -137,21 +129,9 @@ Macro names say what the bytes are, not what a screen shows.
 | `sprite_frame n` + `n` x `sprite_oam y, x, tile, attr` | `1 + 4n` | `db n`, then `db y, x, tile, attr` (y, x signed decimal, tile hex, attr as above) |
 | `sprite_anim n` + `n` x `sprite_anim_step frame, delay` | `1 + 2n` | `db n`, then `db frame, delay` |
 
-`tools/sprite_to_macros.py` (same pattern as `tools/audio_to_macros.py`; options `--check`, `--dry-run`, `--no-build`, `--no-symcheck`, `--no-new-labels`, `-v`, `--root`):
+1. finds the structures with the walk of `tools/sprite_chain_check.py` (sites of `Sprite_InitSlot` -> object tables -> frame tables -> records and scripts, read from the original ROM) and    refuses to go on if two items overlap or a pointer does not land on an item of the right kind; 2. parses every region block (`; ---- kind $a-$b (n bytes)`, its labels, its db/dw/ds/macro lines) of `home/ engine/ lib/ gfx/ data/`, and regenerates the blocks that hold items: items become    macro lines, the other bytes stay `db` (comment "not reached by any walked sprite chain") or `ds` for zero runs of 8 bytes or more.
 
-1. finds the structures with the walk of `tools/sprite_chain_check.py` (sites of `Sprite_InitSlot` -> object tables -> frame tables -> records and scripts, read from the original ROM) and
-   refuses to go on if two items overlap or a pointer does not land on an item of the right kind;
-2. parses every region block (`; ---- kind $a-$b (n bytes)`, its labels, its db/dw/ds/macro lines) of `home/ engine/ lib/ gfx/ data/`, and regenerates the blocks that hold items: items become
-   macro lines, the other bytes stay `db` (comment "not reached by any walked sprite chain") or `ds` for zero runs of 8 bytes or more.  Block headers, label lines (aliases too), comment lines
-   between the data and the pinning by `layout.link` are kept;
-3. writes pointer words as `dw Label` (through the macros).  A target that has no label gets a role label `SpriteFrameTable_BB_AAAA:: ; BB:AAAA`, `SpriteFrame_BB_AAAA` or
-   `SpriteScript_BB_AAAA` (the kind of the structure is CONFIRMED, the name says nothing about the screen).  **This goes beyond "pointers that do not land on labels stay db"**: without the
-   labels only 38 % of the entries (356 of 924) and of the frame tables (112 of 291) could be converted (`--no-new-labels` reproduces that strict form, also verified byte-identical), because
-   656 of the 1,142 frame tables, scripts and records (57 %) sit inside the big `*_ObjAnimData` groups or other blocks with no label of their own (580 of them could be given one).  The labels follow the precedent of `tools/ptr_labels.py` (generic label added on demand).
-   `tools/sprite_chain_check.py` ignores exactly these three name patterns when it computes the extent of a named group (two lines added in `load_sym`), so its checks are unchanged;
-4. keeps an item as `db`, with a comment, when: its block holds `INCBIN`/`INCLUDE` (assets), or is a `zero` region; a label lies inside the item; it crosses the end of its block; or a pointer target
-   has no label and cannot get one;
-5. builds (`make`), requires `SHA-256 OK`, a warning-free build and `tools/sym_check.py`; on any failure every file is restored.  A second run changes nothing (`--check`).
+A target that has no label gets a role label `SpriteFrameTable_BB_AAAA:: ; BB:AAAA`, `SpriteFrame_BB_AAAA` or    `SpriteScript_BB_AAAA` (the kind of the structure is CONFIRMED, the name says nothing about the screen).
 
 ### Result (the state this note describes)
 
@@ -163,48 +143,31 @@ Macro names say what the bytes are, not what a screen shows.
 | bytes in the regenerated blocks that no walked chain reaches (kept `db`/`ds`; includes the tails of the 5 items that cross a block boundary) | | 343 |
 | labels created | 580 | |
 
-Kept as `db` (listed by the tool's summary; `-v` lists every item):
+They are now `CommNotice_Anim{0,1}Frame0`, matching their index in the corresponding frame table; the following labels remain `...Frame1`.
 
-* 81 items in blocks that are `INCBIN` / `INCLUDE` assets, all of them blocks that an early heuristic typed as palette or tiles and that in fact hold sprite structures: `gfx/help/mobile_dictionary.asm`
-  `$539A-$55A0` (41), `gfx/title/title_screen.asm` `$5F30-$60A0` (12), `gfx/help/help_menu_bank6a.asm` `$6300-$6448` (9), `gfx/settings/screens_bank4a.asm` `$68D0-$6920` (8, the AdapterCheck object, see
-  `naming2_verify_data2b.md` E1), `gfx/mail_menu/mail_menu.asm` `$62AC-$6320` (5), `gfx/browser/start_choice.asm` `$5E38-$5EC0` (4), `gfx/error/comm_error_screen.asm` `$6350-$6420` (2),
-  `gfx/account/screens_bank4a.asm` `$5860-$5870` was converted in the 2026-10-21 follow-up below; 81 items remain in this historical census.
-* 1 null entry in a `zero` region (5D:7318, `ds 4`).
-* 16 object-table entries whose pointer targets lie inside those asset blocks (no label can be placed there without splitting the asset).
-* 4 items that cross a region boundary (2C:7354 script, 2E:7921 frame table, 2E:7957 script, 6A:64AE entry): the header ranges of those regions were cut at read boundaries of
-  an old trace, so one structure is spread over two or three blocks, with a label inside.
+This also makes the local extent agree with the one-record boundaries checked by `sprite_chain_check.py`.
 
-Verification in the private copy (and again in the repository copy, see the report): `make` = `SHA-256 OK 6d802e66...76570`, byte compare identical, no assembler warning; `tools/sym_check.py` OK;
-`tools/sprite_chain_check.py`: 0 hard mismatches, 338 notes (as before); `tools/tidy_comments.py --check`, `tools/localize_labels.py --check`, `tools/gfx_export.py check`,
-`tools/test_apply_renames.py` unchanged; `tools/sprite_to_macros.py --check` exits 0 (idempotent).  The count asserts of the macros were exercised with a synthetic over-long and a
-too-short frame (both are assembly errors).
+* `home/sprites.asm` comment of `Sprite_StepAndDrawSlot`: the stale "layout inferred, HYPOTHESIS" annotation is removed.
 
-## 8. Corrections to earlier text
+* `gfx/address_book/address_picker.asm`, `$7354-$735F`: the formerly split count/first pair plus `$7357` data label are one confirmed five-pair script.
 
-* `gfx/comm/notice_dialog.asm`, regions `$6CE6-$6CEB` and `$6D11-$6D16`: the earlier statement that bytes 1,2 copied to slot[9..A] was wrong; they initialize slot+04 / 05 (frame index and countdown reload, 00:0ADA-0AE0). The source headers now mark both records `[CONFIRMED]` animation scripts: their count and two pairs are read according to the shared static interpreter contract in section 6, and the two object-table second words point to them. This confirms record format and static association only; the second table entry is not established as naturally selected, and no runtime frame timing is claimed.
-* `gfx/comm/notice_dialog.asm`, frame records at `$6CC4` and `$6CEF`: labels `CommNotice_Anim{0,1}Frame0To1` incorrectly described two records while each label's extent covered only the first. They are now `CommNotice_Anim{0,1}Frame0`, matching their index in the corresponding frame table; the following labels remain `...Frame1`. This also makes the local extent agree with the one-record boundaries checked by `sprite_chain_check.py`.
-* "entry 0 is unused in every table": not true (section 3).
-* `home/sprites.asm` comment of `Sprite_StepAndDrawSlot`: the stale "layout inferred, HYPOTHESIS" annotation is removed. Section 2 lists the slot fields established from the reader's actual offset accesses; their static layout is `[CONFIRMED]`. This does not make every named field semantic or prove a particular slot was initialized at runtime.
-* `gfx/address_book/address_picker.asm`, `$7354-$735F`: the formerly split count/first pair plus `$7357` data label are one confirmed five-pair script. The last four pairs at `$7357-$735F` had been mislabeled as the start of a larger object-animation block; entries 12-15 in `Table_AddrSlotIcon_Anims` point to the script at `$7354`. The full record is now expressed by `sprite_anim` macros and the broad misleading label is removed; the next structure begins at the frame-pointer table `$735F`.
-* `tools/sprite_chain_check.py`: the `ObjAnimData` reach test omitted `Walk.rec_at`, so a block containing a reached frame record could be reported as unchained. `BrowserShared_ObjAnimData_72_786E` was renamed `BrowserShared_Anim12Frame0`: the one-word frame table at `$786C` points to this five-byte record, reached through object-table entries 12 and 13. The checker now includes reached records when reporting any remaining `ObjAnimData` block. This is a checker correction and a more precise static name, not new execution evidence.
-* Current full checker rerun after these corrections: 49 object-table roots, 291 frame tables, zero script frame-index violations and zero hard mismatches. The output records 336 informational notes; these include partial/unreached candidate data and do not imply that all sprite records have natural callers.
-* The walk of `tools/sprite_chain_check.py` finds no entries for the sites `ld de,$7318` (5D) and `ld de,$64AE` (6A) because its root rule takes the label at or before the operand
-  (`Data_5D_7200` (a label that no longer exists: the retyping `naming2_retype1.md` made 5D:7048-7318 one tilemap pair, `Tilemap_Registration_WriteConfig_5D_7048`), `Data_6A_6448`, both far before the table).  The converter handles them with the exact operand; the checker was not changed for this (it reports 49 roots with 2 empty ones as before).
+The last four pairs at `$7357-$735F` had been mislabeled as the start of a larger object-animation block; entries 12-15 in `Table_AddrSlotIcon_Anims` point to the script at `$7354`.
+
+The full record is now expressed by `sprite_anim` macros and the broad misleading label is removed; the next structure begins at the frame-pointer table `$735F`.
+
+* `tools/sprite_chain_check.py`: the `ObjAnimData` reach test omitted `Walk.rec_at`, so a block containing a reached frame record could be reported as unchained.
 
 ## 9. Open questions
 
-1. **Unreached sprite data.**  343 bytes in regenerated blocks and part of the 1,331 bytes above are not reached by any walked chain (for example `01 00 04` scripts that no entry points to,
-   the candidate-format stream `MailServerMgr_CandidateSpriteData_2E_7710` through `_7720`). The 2026-10-21 audit identifies repeated pointer/frame/script-shaped groups there, but does not establish a caller or natural use; see the bank-2E/2F follow-up in the generic-name audit.
-2. **Who changes slot+09 / +0A** (the attribute OR / AND masks) after initialisation: only `Sprite_LoadObjectEntry` was found in the sprite engine; the whole ROM was not searched, so a screen
-   may still recolour or flip its sprites through them.
-3. **Bank-1 and flip bits** are PROBABLE (hardware meaning plus the corner patterns); an emulator trace that draws such a sprite would make them CONFIRMED.
-4. **Delay and pass counts** (section 6) were read, not measured; "one pass is one frame" is PROBABLE for the wait loops that call `Sprite_UpdateAll`.
-5. **Why four identical entries per row** in 23 of the 49 tables: the code always loads id `4r+1` (`B = $81`), never `4r`; a per-direction or per-state variant that was never filled in is a HYPOTHESIS without evidence.
-6. **The asset-typed blocks** of section 7 were counted as 82 items at the original checkpoint; one has since been retyped in the bank-4A follow-up, leaving 81 in the historical list. Continue reviewing the remaining blocks without assuming palette/tile semantics.
-7. **Frame-table length** has no field (section 4): any new table found later must be checked against its first record and its scripts before `sprite_frame_table` is used for it.
-8. **Hook** (slot+0B..0D): the callback of a slot is not part of the data format and was not analysed here.
+**Unreached sprite data.**  343 bytes in regenerated blocks and part of the 1,331 bytes above are not reached by any walked chain (for example `01 00 04` scripts that no entry points to,    the candidate-format stream `MailServerMgr_CandidateSpriteData_2E_7710` through `_7720`).
 
-## Reproduce
+**Who changes slot+09 / +0A** (the attribute OR / AND masks) after initialisation: only `Sprite_LoadObjectEntry` was found in the sprite engine; the whole ROM was not searched, so a screen    may still recolour or flip its sprites through them. 3.
+
+**Delay and pass counts** (section 6) were read, not measured; "one pass is one frame" is PROBABLE for the wait loops that call `Sprite_UpdateAll`. 5.
+
+**Why four identical entries per row** in 23 of the 49 tables: the code always loads id `4r+1` (`B = $81`), never `4r`; a per-direction or per-state variant that was never filled in is a HYPOTHESIS without evidence. 6.
+
+**Frame-table length** has no field (section 4): any new table found later must be checked against its first record and its scripts before `sprite_frame_table` is used for it. 8.
 
 ```
 make
@@ -213,54 +176,20 @@ python3 tools/sprite_to_macros.py --dry-run -v     # what a run would change / k
 python3 tools/sprite_chain_check.py                # 0 hard mismatches
 ```
 
-## Bank 4A settings-menu sprite span retyped (2026-10-21)
+## Bank 4A settings-menu sprite span retyped
 
-`4A:5855-5870` is now represented by source macros and zero bytes rather than
-three slices of a 16-byte 2bpp asset. The four OAM pieces at `4A:5855-5865`
-and two animation steps at `4A:5866-586A` are CONFIRMED by their structure and
-selected-entry pointer; the five trailing zero bytes at `4A:586B-586F` remain
-PROBABLE padding. This removes one historical asset-typed item and one
-cross-boundary frame from the counts above. The legacy `.2bpp` and PNG remain
-unchanged outside the active catalogue, as a byte-view record; their hashes
-are documented in `docs/EDITING_IMAGES.md`.
+`4A:5855-5870` is now represented by source macros and zero bytes rather than three slices of a 16-byte 2bpp asset.
 
+The four OAM pieces at `4A:5855-5865` and two animation steps at `4A:5866-586A` are CONFIRMED by their structure and selected-entry pointer; the five trailing zero bytes at `4A:586B-586F` remain PROBABLE padding.
 
-## Adendo: item AdapterCheck de 80 bytes tipado (2026-10-18)
+The legacy `.2bpp` and PNG remain unchanged outside the active catalogue, as a byte-view record; their hashes are documented in `docs/EDITING_IMAGES.md`.
 
-A lista e as contagens acima registram o passe original. O item em 4A:68D0..6920 foi posteriormente representado em ASM/macros na [tipagem publicada](https://github.com/zenaror/mobile-trainer/commit/0c02c5369e47597f022df0663a2749acb3bfb12c): 69 B de tabela, lista, quatro frames e script, mais 11 zeros de finalidade UNKNOWN, com PROBABLE preservado. O [owner atual](../../gfx/settings/adapter_check_and_phone_entry_bank4a.asm) contém `AdapterCheck_ObjTable` e seis nomes globais próprios internos.
+## Adendo: item AdapterCheck de 80 bytes tipado
 
 O antigo BIN/PNG deixou o catálogo e as regras ativas na tipagem, mas foi preservado como byte-view legada; nesta migração passa à subpasta legacy_byteviews sem mudança de bytes/pixels. A [nota de tipagem](adapter_check_object_data_80b.md) e o [mapa antigo→atual](gfx_resource_path_map.tsv) preservam a navegação. Isso fecha somente aquele item histórico, não os demais blocos listados, e não reescreve as contagens do passe original.
 
-
-## Bank-1D mail-menu icon follow-up (2026-10-21)
-
 The former `gfx/mail_menu/mail_menu/palette_62b0.pal` was not a loaded palette.
-Its 56 RGB555 words (112 bytes) encode the beginning of an object-data stream. The object
-entry at `1D:63B6` points to a nine-word frame table at `1D:62B0`; its targets
-are nine six-piece frame records from `1D:62C2` through `1D:638A`. The script at
-`1D:63A3` has nine steps, each with delay 8. `MailMenu_Run` initializes object
-`$80`, and the existing emulator preview shows the animated mail-menu icon.
-This resolves the former missing frame-table evidence, without implying broader
-asset or hardware coverage.
 
-The interval is now represented with `sprite_frame_table`, `sprite_frame`,
-`sprite_anim` and `sprite_object_entry` macros and descriptive mail-menu
-labels. The misleading `.pal` asset and its catalogue entries were removed.
-`make` still produces the original ROM SHA-256
-`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
+The object entry at `1D:63B6` points to a nine-word frame table at `1D:62B0`; its targets are nine six-piece frame records from `1D:62C2` through `1D:638A`.
 
-### Remaining script-header reconciliation (2026-10-25)
-
-The maintained ROM0 reader at `0ADA–0AE0` initializes slot offsets 4/5 from
-the first script pair; `0AE8–0B35` uses them as frame index and countdown
-reload and advances through the count-prefixed pairs. Twenty-six headers in
-`gfx/mail/{compose_objects,draft_menu,mail_viewer,received_mail_grid}.asm`
-still claimed these fields were undecoded despite their existing typed macros.
-Their headers now confirm the static format: all 26 macro payloads match the
-original bytes and 104 object-table second words point to those scripts in
-the same physical banks. This does not establish natural selection of every
-entry or elapsed frame timing. The unreferenced `2A:545C` candidate retains
-HYPOTHESIS; similarity alone does not supply its consumer. Reproduce the
-byte/pointer checks with `verify.py` (review artifact);
-its `RESULT.json` lists every script and referring pointer. No emitted bytes
-or symbol names change.
+The unreferenced `2A:545C` candidate retains HYPOTHESIS; similarity alone does not supply its consumer.

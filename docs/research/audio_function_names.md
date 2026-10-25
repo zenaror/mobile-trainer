@@ -1,36 +1,11 @@
 # Audio driver: six existing function names and their contracts
 
-## 1. Scope, confidence and namespace
-
-This 2026-10-15 pass retires six inactive `Function_04_*` aliases from `audio/engine.asm`.
-It preserves the existing `SoundDrv_*` names, bytes, instructions, operands, physical source rows
-and local-label spellings. It adds no independent function entry and makes no runtime or hardware
-claim. The other four audio helpers are covered by `audio_format.md` section 13; they are outside
-this six-row change. Removing aliases is not proof that all original analysis is complete.
-
-| Address | Historical alias retired | Existing name retained | Evidence and limits |
-|---|---|---|---|
-| `04:415A` | `Function_04_415A` | `SoundDrv_SelectAllTracks` | Operation name PROBABLE; entry/code classification HYPOTHESIS |
-| `04:430A` | `Function_04_430A` | `SoundDrv_LoadSongHeader` | Normal record loading CONFIRMED; invalid-ID frame/gateway limits below |
-| `04:4433` | `Function_04_4433` | `SoundDrv_PauseMusicCore` | CONFIRMED pause operation |
-| `04:453A` | `Function_04_453A` | `SoundDrv_UpdateFade` | Entry/early exits CONFIRMED; active fade PROBABLE, demonstrated (synthetic) |
-| `04:455A` | `Function_04_455A` | `SoundDrv_ApplyTrackUpdates` | Entry/output operation CONFIRMED; individual unused branches keep their limits |
-| `04:4BC9` | `Function_04_4BC9` | `SoundDrv_ServiceChannelSfx` | CONFIRMED SFX gate wrapper and shared-tail operation |
-
-The current code-reference census found zero active operands or qualified local references using
-these six old names, across 348 maintained ASM/inc inputs. Thus no operand rewrite is required.
-Four linked local names change namespace when the old global definitions disappear:
-
 | Address | Before | After |
 |---|---|---|
 | `04:4315` | `Function_04_430A.loop` | `SoundDrv_LoadSongHeader.loop` |
 | `04:4319` | `Function_04_430A.l4319` | `SoundDrv_LoadSongHeader.l4319` |
 | `04:431D` | `Function_04_430A.l431D` | `SoundDrv_LoadSongHeader.l431D` |
 | `04:443B` | `Function_04_4433.loop` | `SoundDrv_PauseMusicCore.loop` |
-
-Their `.loop` / `.l4319` / `.l431D` declarations and relative branches are unchanged. Frozen mapper
-and rename records keep their historical names. `tools/test_apply_renames.py` uses
-`Function_04_430A` only as a neutral-name regex example, not as a required live definition.
 
 All conditional static contracts below assume ROM bank 4, WRAM bank 1, coherent sound-driver
 records/pointers and a readable, writable, non-overlapping stack. None of these entries selects
@@ -50,22 +25,13 @@ at `$D010/$D011`, then returns. If entered with the stated prerequisites, the re
 - DE=`$D040`, HL=`$D011`, A=`$40`; BC and F are unchanged by this prefix/shared tail.
 - No PUSH or CALL occurs; the shared RET uses the entry return word, with no additional stack use.
 
-This sets an iterator; it does not itself visit eight records. The semantic name has independent
-static support: SFX starts at `$D040`, music at `$D130=$D040+4*$3C`, so eight records from `$D040`
-cover both groups. `naming2_verify_g3_apps_a.md` independently upheld that operation with PROBABLE
-as its ceiling. The existing source still marks the entry HYPOTHESIS. No new caller, table entry,
-execution or negative reference search is claimed by this pass, and alias retirement does not
-promote the entry/code classification.
+`naming2_verify_g3_apps_a.md` independently upheld that operation with PROBABLE as its ceiling.
 
 ## 3. LoadSongHeader: record fields and exceptional return
 
 The two direct callers are `SoundDrv_PlaySfx` and `SoundDrv_PlayMusic`. Both handle BC=0 before
 calling the loader: stop all SFX or pause music. They otherwise use the generic eight-byte driver
 record for either music or effects, so the existing `LoadSongHeader` name does not mean music only.
-
-The low-level guard at `430A-431D` checks B=0 and C<`$47`; it has no independent C!=0 check.
-Thus ordinary API ids 1..`$46` must be distinguished from directly entering the loader with BC=0.
-Before validation it writes B to `wSoundDrv_ReqBC+1`; rejection is not side-effect-free.
 
 On the normal path, the record address is `$5515+8*BC` (the first ordinary record is at `$551D`).
 The body stores the requested id and reads:
@@ -93,11 +59,7 @@ bank nor clears busy bit7 at that point. Eventual outer completion depends on th
 gateway path; the no-pending PC/SP formula is not its immediate result. No standalone
 error-return ABI or newly observed invalid-ID execution is established.
 
-Evidence: `audio_format.md` section 3.1; `naming_g1.md` bank-04 table; the source callers/body;
-`home/audio.asm` `Bank4_GateLeave`; `audio2_verify_dynamic.md` V1.3 song-record experiment.
-The recorded synthetic experiment accepted ids `$01/$28/$46` and rejected `$47/$48/$FF/$0128`
-through the public stubs; id 0 exercised stop/pause. Those observations do not constitute a direct
-BC=0 loader test, a universal stack test, or new runtime evidence from this pass.
+Evidence: `audio_format.md` section 3.1; `naming_g1.md` bank-04 table; the source callers/body; `home/audio.asm` `Bank4_GateLeave`; `audio2_verify_dynamic.md` V1.3 song-record experiment.
 
 ## 4. PauseMusicCore: four track flags, preserved stream positions
 
@@ -114,19 +76,9 @@ core/iterator chain; DE is overwritten by the music base and HL/A/F are working 
 write APU registers or immediately silence every hardware channel: subsequent gate/channel
 processing responds to the paused track flags.
 
-Evidence: source `4153-4177`, `4429-444B`; `naming_g1.md` bank-04 pause/resume rows;
-`audio2_verify_static.md` correction from TrackEnded to TrackNotRunning;
-`audio2_verify_dynamic.md` control-entry table and recorded `v13_ctrl.txt`. The existing operation
-name is upheld; no new caller or runtime result is added here.
+Evidence: source `4153-4177`, `4429-444B`; `naming_g1.md` bank-04 pause/resume rows; `audio2_verify_static.md` correction from TrackEnded to TrackNotRunning; `audio2_verify_dynamic.md` control-entry table and recorded `v13_ctrl.txt`.
 
 ## 5. UpdateFade: entry confidence and active-path confidence differ
-
-`SoundDrv_FrameTick` calls `453A` before SFX/music processing. The entry's six instructions and its
-observed early returns are CONFIRMED. The old natural scenarios did not organically start a fade.
-The active path remains PROBABLE, demonstrated (synthetic) by the independent mGBA experiment;
-`audio2_verify_dynamic.md` explicitly says forced/synthetic execution does not raise source status.
-
-The local mechanism is:
 
 1. Return if music is paused or `FadeSpeed=0`.
 2. Decrement `FadeCounter`; return while nonzero. At zero, reload the counter from FadeSpeed.
@@ -160,12 +112,6 @@ Otherwise it copies the flag byte to `wSoundDrv_UpdateFlags` and jumps to the sh
 | 0 | Pan byte +$2E from +$17 and +$18 |
 | 1 | Quantized volume +$2F from the two volume components |
 
-It stores the update flag byte at the track base before RET. This entry does not advance the
-command stream or write APU registers; those belong to other sequencer/channel phases. Its two
-call sites are the pending-update loops for the SFX and music groups. The historical source
-annotation of 120 instructions is a coverage-region count spanning later labels; the entry prefix
-itself is 18 bytes / nine instructions. It must not be read as a self-contained 120-instruction body.
-
 HL is restored to the track base by the shared body; AF/BC/DE are working registers with
 path-dependent effects. The local stack has no save frame; the volume branch's MulNibbles CALL
 uses an ordinary temporary return word. RET therefore uses the original caller frame. Exact output
@@ -185,13 +131,6 @@ jumps to `SoundDrv_ServiceChannelGate` at `4BEB`. The music sibling at `4BDB` ac
 owner marker and shares the same tail. This is an explicit SFX-ownership filter, not a name inferred
 from the surrounding screen.
 
-The common tail reads the owning track pointer at channel+4/+5. Owner flags<`$C0` take the
-TrackNotRunning stop/silence path. That condition includes ended, paused and restarting tracks;
-it must not be renamed TrackEnded. Otherwise channel+7=0 means a held note. A nonzero gate counter
-is decremented; expiry reaches NoteGateExpired, which either marks the release transition or stops
-an already pending-transition channel. The source bits and existing state-machine interpretation
-remain the authority for these cases.
-
 No CALL or PUSH occurs in this prefix/gate/stop chain; shared tail jumps RET through the original
 entry return word. On stop, the silence path writes the channel's APU registers. AF/BC/DE/HL have
 path-dependent scratch effects; coherent ChannelPtr, owner track and ChannelReg are prerequisites,
@@ -200,27 +139,7 @@ channel code; it is not the size of this wrapper. The direct caller is inside th
 loop, which may run a different number of ticks per video frame; this does not assert one service
 per VBlank.
 
-Evidence: source `40AC-40D0`, `4BC9-4C14`, `4FD4-4FEA`; `audio2_verify_static.md` gate and corrected
-TrackNotRunning rows; `audio_format.md` note-gate description; `audio2_verify_dynamic.md` V1.2 gate
-measurements. The existing timing experiment measured notes in its scenarios; no new sweep,
-re-entrancy test or hardware execution was performed for these alias changes.
-
 ## 8. Provenance and remaining work
-
-The six names already existed in the accepted original-ROM reconstruction. Input authority is the
-source and its existing verification notes, not the existence of descriptive aliases alone. This
-proposal was prepared on top of the separate four-helper audio proposal, whose `audio/engine.asm`
-SHA-256 is `ff658ac01126b64503a72dff4b927c3a5b6dff6f11296f707f7f75f674ebd877`. That dependency must be integrated or reconciled before adopting this file.
-The original root revision is `245961f64363a27e57c99b3fbad906bf8d400ca2`; the immutable original ROM
-SHA-256 is `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
-
-The read-only inventory, its per-file pins, four-local namespace map and candidate/exclusion ledger
-are in the supporting `mt-jp-audio-naming-inventory-20261015/DATA` material, with INVENTORY SHA-256
-`4e294f4303f45e7f27806e0103b3be09db81148785f62c3c27e3cb9131b6f3f6`. The proposal DATA records BEFORE/after hashes, the exact six-line text patch and a
-comment-stripped source comparison. No instruction, operand or local spelling changes are proposed.
-Assembler, symbol and original-ROM checks remain required at integration; no new equivalence claim
-follows from this text inspection. No test, build, emulation, hardware, English work was
-performed by this proposal.
 
 Unresolved semantics remain visible: SelectAllTracks has no demonstrated entry; +$1E has no
 established musical role, so `CmdStoreTrackByte1E` names only the operation; ParamStoreTrackWord27

@@ -32,13 +32,6 @@ endian, na ordem403D,4043,4049,404F,4055,405B,4061,4067. As16 bytes da tabela
 também conferem com a ROM. Os oito `dw` das linhas49..56 já usam os nomes
 retidos: nenhum operando precisa mudar, e o alias neutro da tabela é preservado.
 
-A mecânica de opcode, branch e co-localização é `CONFIRMED`. Os oito nomes já
-tinham CONFIRMED no histórico `analysis/naming2/label5_renames_pkgA.tsv`, linhas
-27..34; seus relatos de traces e de interpretador são história preservada,
-não execuções repetidas neste passe. O comentário CONFIRMED existente sob o
-primeiro handler, o cabeçalho CONFIRMED da tabela e todos os demais níveis
-permanecem exatamente iguais, sem promoção de significado.
-
 ## Contrato das entradas da tabela
 
 O chamador existente salva AF, BC, DE e HL nessa ordem antes do dispatch. Ele
@@ -56,21 +49,7 @@ HL recebe o substituto81A1. O retorno exige a disposição de pilha do chamador 
 seu endereço de retorno. Entrada direta com pilha arbitrária não ganha aqui um
 ABI seguro nem um novo significado de função pública.
 
-A tabela contém endereços do mesmo banco. A prova não autoriza tratá-la como
-ponteiros para banco arbitrário nem afirma restauração universal de mapper,
-interrupções ou estado externo. A condição explícita de banco63 e de frame de
-pilha do chamador é mantida.
-
 ## Censo finito e KEEP
-
-O censo atual de ASM/INC dos seis roots, ram, constantes e topo encontrou24
-registros relevantes: oito definições genéricas, oito definições retidas e oito
-operandos `dw` retidos. Não há operando ativo dos oito nomes antigos nem label
-local no owner. Esvaziar somente as linhas59,66,72,78,84,90,96,102 preserva os
-escopos e todas as outras linhas. Nenhuma célula de catálogo/screen_ops ou de
-contextos operacionais ramop9/10/11 usa os aliases antigos selecionados. Não há
-edição de configuração, metadados ou catálogo nesta proposta; os registros
-históricos de nomeação ficam como proveniência.
 
 `data/fonts/sjis_valid_bitmap.asm` permanece fora da mudança:8198 bytes em
 63:407A..6080, coalias `Data_63_407A` retido e cabeçalho heurístico `PROBABLE`
@@ -78,25 +57,3 @@ que ainda fala em tile data. A leitura mecânica do chamador não promove o tipo
 a finalidade completa desse bitmap nem a correção integral da validação
 Shift-JIS. O nome existente Font_ValidateSjisCode não substitui essa prova.
 Nenhum byte do bitmap, fonte gráfico, asset ou PNG foi modificado ou renderizado.
-
-O scout residual tinha outros aliases com locais e referências antigas ativas,
-além de dez endpoints RET com entrada/finalidade incerta. Eles continuam fora
-deste passe. Não se aplica uma retirada automática aos501 coaliases do scout,
-nem se confunde label local/dado com função desconhecida. A busca é finita e
-literal: não prova ausência universal de ponteiros empacotados, aritmética de
-endereços, consumidores externos ou entradas dinâmicas.
-
-## Adoção separada
-
-O saldo isolado previsto é-8 globais e zero nomes novos, locais, constantes ou
-endereços. Não se fixa total absoluto de SYM nem parent futuro. A comparação
-estática de64 bytes e dos tails não é uma reconstrução completa da ROM; os gates
-posteriores e a revisão independente pertencem ao ROOT. A proposta fica queued
-depois de5510/Settings17/error10, sem alterar seus pacotes selados.
-
-Não houve adoção, autoaceite, teste, import de helper, checker, compilação,
-emulação ou prova de hardware. Apenas scripts próprios de análise estática
-leram fonte/dados/ROM. Idioma e R4 continuam suspensos/estacionados. O ROOT deve
-compor os docs vigentes em fase própria; README/REVERSE compartilhados não são
-copiados neste pacote. Evidência privada: handler/tabela/tails e readset em
-`DATA` (review artifact).

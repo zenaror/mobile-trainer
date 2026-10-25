@@ -1,4 +1,4 @@
-# Japanese audio stream reader bank domain (2026-10-25)
+# Japanese audio stream reader bank domain
 
 ## Finding
 
@@ -14,22 +14,13 @@ nonzero high ID byte and low IDs `>= $47`; for the two callers' nonzero route,
 the selected table IDs are therefore 1–70. The table starts at
 `04:551D` (`$5515 + 8*id`) and contains 70 eight-byte rows.
 
-The protected ROM was independently parsed from `4 * $4000 + ($551D-$4000)`.
-All 70 header pointers lie in `$4000-$7FFF`; all bank words are 04 or 05
-(24 rows select bank 04, 46 select bank 05), representing 59 distinct
-header/bank pairs. `SoundDrv_LoadSongHeader` copies that bank into
-`wBank4ReadBank`; `SoundDrv_InitTrackRuntime` carries it into each track
-record. `Bank4_ReadStreamByte/Word` (`home/audio.asm:200-227`) select this
-recorded 9-bit bank before each stream read. The existing audio-format audit
-decodes the headers and streams for these records in those two banks.
+All 70 header pointers lie in `$4000-$7FFF`; all bank words are 04 or 05 (24 rows select bank 04, 46 select bank 05), representing 59 distinct header/bank pairs.
 
-Reproduction: `audit.py` (review artifact)
-(SHA-256 `7ad5aca1f32a04eefee989d9b0122bead5f6a530ffcaef56613a5718bbabf5e7`);
-receipt `RESULT.json` (SHA-256
-`61b7947736d986ee159e523d0e6db842ab46f46d9c724b5d667203d4256726ef`). It
-pins the protected ROM and the relevant maintained audio sources. Existing
-stream-format evidence is in [`audio_format.md`](audio_format.md), sections
-2–4.
+`SoundDrv_LoadSongHeader` copies that bank into `wBank4ReadBank`; `SoundDrv_InitTrackRuntime` carries it into each track record.
+
+`Bank4_ReadStreamByte/Word` (`home/audio.asm:200-227`) select this recorded 9-bit bank before each stream read.
+
+Existing stream-format evidence is in [`audio_format.md`](audio_format.md), sections 2–4.
 
 ## Limits
 

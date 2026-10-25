@@ -1,22 +1,8 @@
-# Naming pass 2, group g1_home: bank 00 (`home/**`, ROM0)
-
-Scope: every neutral label of bank 00 (`Function_00_*`, `Data_00_*`, `Table_00_*`, `Label_00_*`; 121 labels, none of them an alias of a semantic name).
-Deliverable: [`analysis/naming2/g1_home_renames.tsv`](../../analysis/naming2/g1_home_renames.tsv) (`old_name new_name kind status evidence`; applied by `tools/apply_renames.py`, the build proves the ROM is unchanged).
-This note only adds reasoning; the per-symbol evidence is in the TSV.
-
-Result: **82 CONFIRMED, 29 PROBABLE, 10 HYPOTHESIS** (HYPOTHESIS rows keep `new_name == old_name`, they are ideas and are not applied).
-
-## Method
+# reference 2, group g1_home: bank 00 (`home/**`, ROM0)
 
 * Code read from `home/*.asm` (source of truth), with the earlier ROM0 analysis (`boot_and_home.md`) as the record of what was executed or verified on the interpreter/mGBA.
-* Callers: `grep` of every label over the whole tree (farcall sites, `call`, jump-table and `dw` users); the caller contexts were read for the big families (the 461 `Function_00_0787` tile loads, 527 `Function_00_0A65` position sets, the 65 `Function_00_047A` callers, the 13 `Function_00_0247` callers ...).
-* RAM: only names that already exist in `ram/*.asm` are used as evidence (`wSpriteSlots`, `wFrameServiceRan`, `wBank4*`, `hTextX/Y`, `wGlyphBufLeft`, `wTickerScrollX`, `wStatSplitLine` ...).
-* Dynamic evidence: `analysis/coverage_union.tsv` (64 scenarios) for the execution counts quoted in the TSV; `traces/detail/*/callgraph.tsv` for the sprite hook (`ret_unmatched 00:0B53 -> 00:0A1A`, i.e. the push-return call in `Sprite_StepAndDrawSlot`).
-* Independent cross-checks that fixed a name: the sound-test screen (stubs `20A6/20AC/20B2/20BE/20C4`, from `naming_g1.md` section 7), `A=[rLCDC]` at every caller of the map-buffer uploads (bit3 = BG map area, bit6 = window map area), the ROM bytes of bank 3F (`name.htm`, NUL, length word, HTML) for the built-in page store, and the tab width ($30) and double-byte lead-byte ranges shared by the text engine and `Text_MeasureFit`.
-* Naming rules: `Subsystem_Verb...` like the neighbours (`Bank4_*`, `Int_*`, `Stat_*`, `Palette_*`, `Dial_*`, `PromptText_*`, `Html_*`, `Glyph_*`, `Sprite_*`, `Tilemap_*`, `Gfx_*`, `Ticker_*`, `ConnectDialog_*`, `Mail_*`).  Every new name was checked against all labels, `DEF`s and the other manifests (`g2_libs`): no collisions.  A sed-style application of all 111 renames in a private copy of the tree followed by `make` gives `RESULT: IDENTICAL`.
-* Pieces that are only a fall-through, a jump target inside a larger routine, a tiny uncalled store helper, or whose contract would require deciding on an original quirk stay neutral (list at the end).
 
-## What the newly named routines do
+* Callers: `grep` of every label over the whole tree (farcall sites, `call`, jump-table and `dw` users); the caller contexts were read for the big families (the 461 `Function_00_0787` tile loads, 527 `Function_00_0A65` position sets, the 65 `Function_00_047A` callers, the 13 `Function_00_0247` callers ...).
 
 ### Frame service, waits, interrupts (vblank.asm, lcd.asm, interrupt_handlers.asm, stat_handler.asm)
 
@@ -32,8 +18,9 @@ Result: **82 CONFIRMED, 29 PROBABLE, 10 HYPOTHESIS** (HYPOTHESIS rows keep `new_
 
 ### Bank 04 gateway (audio.asm)
 
-The 13 stubs are `Sound_*` and mirror the targets already named by `naming_g1.md` (`SoundDrv_Init`, `SoundDrv_FrameTick`, `SoundDrv_PlaySfx` ...): `Sound_*` = ROM0 entry an application calls, `SoundDrv_*` = body in bank 04.  Independent evidence for the five used by the sound test screen is in `naming_g1.md` section 7; the six stubs without callers (`20B8 20CA 20D0 20D6 20DC 20E2`) are PROBABLE because the name only repeats the jump target.
-The guard/bank helpers get `Bank4_*` names (same family as the existing `Bank4_Restore` / `Bank4_SetLo`): `Bank4_SaveAndSelect`, `Bank4_SetHi`, `Bank4_RestoreCallerBank` (pay attention: `Bank4_Restore` at 20F8 re-selects bank 4, it does not restore the caller bank), `Bank4_GateEnter` (guard of 12 stubs), `Bank4_GateEnterTick` (guard of the frame tick with the deferred-call slot), `Bank4_GateLeave` (end of every bank-04 entry; 15 call sites), plus the two shared tail labels.  `SoundDrv_ReadStreamByte/Word` (215E/216F) are the ROM-bank-aware stream readers of `SoundDrv_ReadNextCommand`, `SoundDrv_CmdJump`, `SoundDrv_CmdExtended`.
+The 13 stubs are `Sound_*` and mirror the targets already named by `naming_g1.md` (`SoundDrv_Init`, `SoundDrv_FrameTick`, `SoundDrv_PlaySfx` ...): `Sound_*` = ROM0 entry an application calls, `SoundDrv_*` = body in bank 04.
+
+`SoundDrv_ReadStreamByte/Word` (215E/216F) are the ROM-bank-aware stream readers of `SoundDrv_ReadNextCommand`, `SoundDrv_CmdJump`, `SoundDrv_CmdExtended`.
 
 ### Far call family (farcall.asm, bank_switch.asm, far_helpers.asm, far_read.asm, mobile.asm)
 

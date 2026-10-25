@@ -14,11 +14,3 @@ The source now names this operation `Main_TitleChoices_JumpToLoop` and emits
 three-byte span, invalid-index behavior, or default-handler role is claimed.
 `Data_1C_401C` remains neutral: its single `$C9` byte decodes as `RET`, but no
 caller or code-entry evidence establishes its role.
-
-The change preserves the three bytes and all addresses. The original ROM hash
-is `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`; build
-reported `SHA-256 OK` and `RESULT: IDENTICAL`; `sym-check` passed with 12,152
-labels and 51 constants, and `palette-check` found zero errors. The bounded
-`data_consumers.py --stats` pass still rejects all 93 immediate candidates
-and creates no rename rows. The protected mail sample was not opened by the
-incremental build.

@@ -14,14 +14,6 @@ other help resources, so this unit does not rename the owner.
 | `6A:4D20` | `help_menu_page2_selected_items` | 180 | CONFIRMED |
 | `6A:4DD4` | `help_menu_page3_selected_items` | 180 | CONFIRMED |
 
-The complete old/current paths are in
-[`gfx_resource_path_map.tsv`](gfx_resource_path_map.tsv). The pair sizes total
-1,560 bytes. Each file retains its original SHA-256, physical address, size,
-packed dimensions and source/catalogue confidence. Ten stale `gfx/README.md`
-inventory cells are corrected to the CONFIRMED status already present in the
-source and `gfx/assets.tsv`; this is documentation reconciliation, not a new
-semantic promotion. Page1-selected retains its PROBABLE classification.
-
 ## Positive consumers and limits
 
 `engine/help/help_menu.asm` selects these existing source labels for the normal
@@ -42,19 +34,3 @@ These are packed item rectangles, not whole20x18 screens. No current
 `gfx/screens.tsv` row selects these source paths, and no screen PNG or new
 composition belongs to this unit. The source semantics and inherited evidence
 are documented in [`naming2_neutral_help.md`](naming2_neutral_help.md).
-
-## Integration and verification
-
-`INCBIN` paths, `gfx/assets.tsv`, generated `gfx/png_rules.tsv` and
-`gfx/png.mk`, the current inventory and the path map follow the migration.
-The six existing semantic labels remain; the six redundant `Tilemap_6A_*`
-source aliases are retired after active-root reference checks found only their
-definitions. The owner contains no local labels, so retirement does not change
-local-label qualification. Frozen `config/`, historical `analysis/`, and prior
-research keep their original locators. No English sources, payloads
-or build targets are changed.
-
-The source migration requires `make` with the Japanese reference comparison,
-`make sym-check`, `make palette-check`, `make png-check` and independent review
-before publication. A matching ROM proves byte preservation for the build; it
-does not add selector-domain, rendering, runtime or hardware evidence.
