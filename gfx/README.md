@@ -56,15 +56,14 @@ Blocks of the graphics regions that are not converted (the note / label does not
 
 | what | blocks | bytes |
 |---|---:|---:|
-| data without graphics evidence in the note | 28 | 6220 |
+| data without graphics evidence in the note | 24 | 6204 |
 | object / animation tables (by label name) | 97 | 3642 |
 | HYPOTHESIS data (content type or purpose not established) | 13 | 956 |
 | sprite / OAM frame records, animation scripts, object tables (not tile art) | 26 | 476 |
-| gfx fragments of fewer than 4 whole tiles | 3 | 77 |
-| region kind zero | 5 | 49 |
-| region kind bytes | 1 | 28 |
+| gfx fragments of fewer than 4 whole tiles | 4 | 81 |
+| region kind zero | 4 | 34 |
 | region kind words | 1 | 16 |
-| tilemap+attr blocks clipped by the analysis (size differs from 2 x rows x cols) and 4-byte tile/attr record lists | 1 | 1 |
+| tilemap+attr blocks clipped by the analysis (size differs from 2 x rows x cols) and 4-byte tile/attr record lists | 4 | 13 |
 
 ## Assets by directory
 
@@ -577,7 +576,6 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | `conn_icon_request2_vram8200_vb0_tiles.2bpp` | 2bpp tiles | 1024 | 51:58C0 | CONFIRMED | exact | - | `gfx/comm/time_summary.asm` |
 | `conn_icon_request2_vram8600_vb0_tiles.2bpp` | 2bpp tiles | 512 | 51:5CC0 | CONFIRMED | exact | - | `gfx/comm/time_summary.asm` |
 | `conn_icon_request2_obj_palettes_4_to_7.pal` | RGB palette | 32 | 51:5EC0 | PROBABLE | - | - | `gfx/comm/time_summary.asm` |
-| `time_summary_candidate_tiles_5ee1.2bpp` | 2bpp tiles | 4592 | 51:5EE1 | PROBABLE | exact | - | `gfx/comm/time_summary.asm` |
 
 ### `gfx/dialog/dialog_window/`
 
@@ -1292,6 +1290,12 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 | asset | kind | bytes | bank:addr | status | png | dims | source |
 |---|---|---:|---|---|---|---|---|
 | `profile_obj_palette.pal` | RGB palette | 64 | 26:7AC0 | PROBABLE | - | - | `gfx/mailbox/objects.asm` |
+
+### `gfx/pokemon/pokemon_art_candidate/`
+
+| asset | kind | bytes | bank:addr | status | png | dims | source |
+|---|---|---:|---|---|---|---|---|
+| `pokemon_art_candidate_tiles_51_5ee0.2bpp` | 2bpp tiles | 4592 | 51:5EE0 | PROBABLE | exact | - | `gfx/pokemon/pokemon_art_candidate.asm` |
 
 ### `gfx/profile/profile_editor/`
 

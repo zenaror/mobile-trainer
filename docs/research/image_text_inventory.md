@@ -310,7 +310,7 @@ Columns: `#` = order of the listing (path order); `asset` = PNG under `gfx/` (th
 | 193 | `comm/time_summary/tiles_51b0` | 51:51B0 | 64 (16x4) | CommTime_DrawSummaryScreen@9400b1 | TXT | summary page B: same sentence as 191 + digits |
 | 194 | `comm/time_summary/tiles_58c0` | 51:58C0 | 64 (16x4) | ConnIcon_GfxTable@8200 | ART | connection-icon (globe) animation frames |
 | 195 | `comm/time_summary/tiles_5cc0` | 51:5CC0 | 32 (16x2) | ConnIcon_GfxTable@8600 | ART | connection-icon frames |
-| 196 | `comm/time_summary/time_summary_candidate_tiles_5ee1` | 51:5EE1 | 287 (16x18) | - | ART | large scenery / animation frames (creatures), no text |
+| 196 | `pokemon/pokemon_art_candidate/pokemon_art_candidate_tiles_51_5ee0` | 51:5EE0 | 287 (16x18) | - | ART | probable Pokémon art; 57 tile matches to BetaP2 JPEG; frame boundaries and consumer unknown |
 | 197 | `dialog/dialog_window/dialog_window_tiles` | 72:48C0 | 64 (16x4) | Dialog_Open@8800b1 | TXT | dialog window: buttons "はい" "いいえ" "OK" + frame art |
 | 198 | `error/comm_error_screen/comm_err_gfx_bg9000` | 5C:5DD0 | 64 (16x4) | CommErr_ShowScreen@9000b1 | TXT | title "通信エラー" + "A もどる" + "No." + digits 0-9 |
 | 199 | `error/comm_error_screen/comm_err_gfx_bg9400` | 5C:61D0 | 24 (12x2) | CommErr_ShowScreen@9400b1 | TXT | text/glyph strip (letters-like pieces), unreadable |

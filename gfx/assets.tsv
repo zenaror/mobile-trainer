@@ -356,7 +356,6 @@ gfx/comm/time_summary/summary_a_vram9000_vb1_tiles.2bpp	tiles	1024	gfx/comm/time
 gfx/comm/time_summary/summary_a_vram9400_vb1_tiles.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	46A0	CONFIRMED	exact	0		Gfx_CommTime_SummaryA_Tiles9400Vb1
 gfx/comm/time_summary/summary_b_vram9000_vb1_tiles.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	4DB0	CONFIRMED	exact	0		Gfx_CommTime_SummaryB_Tiles9000Vb1
 gfx/comm/time_summary/summary_b_vram9400_vb1_tiles.2bpp	tiles	1024	gfx/comm/time_summary.asm	51	51B0	CONFIRMED	exact	0		Gfx_CommTime_SummaryB_Tiles9400Vb1
-gfx/comm/time_summary/time_summary_candidate_tiles_5ee1.2bpp	tiles	4592	gfx/comm/time_summary.asm	51	5EE1	PROBABLE	exact	1		CandidateTiles_51_5EE1
 gfx/dialog/dialog_window/dialog_obj_palette.pal	palette	8	gfx/dialog/dialog_window.asm	72	4E38	CONFIRMED	-	0		Dialog_ObjPalette
 gfx/dialog/dialog_window/dialog_palette.pal	palette	16	gfx/dialog/dialog_window.asm	72	4E28	CONFIRMED	-	0		Dialog_Palette
 gfx/dialog/dialog_window/dialog_window_map.attrmap	attrmap	180	gfx/dialog/dialog_window.asm	72	4D74	CONFIRMED	-	0	20x9	Dialog_WindowMap
@@ -856,6 +855,7 @@ gfx/mailbox/mailbox/mailbox_tiles_6310.2bpp	tiles	256	gfx/mailbox/mailbox.asm	25
 gfx/mailbox/mailbox/mailbox_tiles_69f0.2bpp	tiles	768	gfx/mailbox/mailbox.asm	25	69F0	CONFIRMED	exact	0		Mailbox_Tiles_69F0
 gfx/mailbox/mailbox/mailbox_tiles_6cf0.2bpp	tiles	512	gfx/mailbox/mailbox.asm	25	6CF0	CONFIRMED	exact	0		Mailbox_Tiles_6CF0
 gfx/mailbox/objects/profile_obj_palette.pal	palette	64	gfx/mailbox/objects.asm	26	7AC0	PROBABLE	-	0		Palette_Profile_Obj
+gfx/pokemon/pokemon_art_candidate/pokemon_art_candidate_tiles_51_5ee0.2bpp	tiles	4592	gfx/pokemon/pokemon_art_candidate.asm	51	5EE0	PROBABLE	exact	1		PokemonArt_CandidateTiles_51_5EE0
 gfx/profile/profile_editor/data_profile_tilemap_attr.attrmap	attrmap	360	gfx/profile/profile_editor.asm	2A	6CA8	CONFIRMED	-	0	20x18	Data_Profile_TilemapAttr
 gfx/profile/profile_editor/data_profile_tilemap_attr.tilemap	tilemap	360	gfx/profile/profile_editor.asm	2A	6B40	CONFIRMED	-	0	20x18	Data_Profile_TilemapAttr
 gfx/profile/profile_editor/profile_bg.pal	palette	64	gfx/profile/profile_editor.asm	2A	6E10	PROBABLE	-	0		Palette_Profile_Bg

@@ -511,6 +511,8 @@ ROMX $51
 	"engine/comm/time_summary"
 	org $42A0
 	"gfx/comm/time_summary"
+	org $5EE0
+	"gfx/pokemon/pokemon_art_candidate"
 	org $70E0
 	"engine/browser/inline_image_blit"
 

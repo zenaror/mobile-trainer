@@ -355,7 +355,6 @@ gfx/comm/time_summary/summary_a_vram9000_vb1_tiles.2bpp	gfx/comm/time_summary/su
 gfx/comm/time_summary/summary_a_vram9400_vb1_tiles.2bpp	gfx/comm/time_summary/summary_a_vram9400_vb1_tiles.png	tiles			0	1024	5ab2071df8459e391bbe077c7c4238b5dc975e861ae36b2bc4bd8d0192016e2e
 gfx/comm/time_summary/summary_b_vram9000_vb1_tiles.2bpp	gfx/comm/time_summary/summary_b_vram9000_vb1_tiles.png	tiles			0	1024	fc5b4bf0765a0cb930cb20deddd2ffde89835d6bc4d5be55937a5856b920e195
 gfx/comm/time_summary/summary_b_vram9400_vb1_tiles.2bpp	gfx/comm/time_summary/summary_b_vram9400_vb1_tiles.png	tiles			0	1024	5ab2071df8459e391bbe077c7c4238b5dc975e861ae36b2bc4bd8d0192016e2e
-gfx/comm/time_summary/time_summary_candidate_tiles_5ee1.2bpp	gfx/comm/time_summary/time_summary_candidate_tiles_5ee1.png	tiles			1	4592	1cfbd808774a62c716ecd4fd48afcf94d1b7ef2b1ab762704a25eaae2f029a8b
 gfx/dialog/dialog_window/dialog_obj_palette.pal	-	palette				64	a3ae5cb8ef613f16aa956fc00e33c27c70cc760911aca62d810d901dcdab51ba
 gfx/dialog/dialog_window/dialog_palette.pal	-	palette				129	144bf70ca6204850d3e2c8224cb49126e612187cb6f2b55ca78c2e298d81bba5
 gfx/dialog/dialog_window/dialog_window_map.attrmap	-	attrmap				180	c6c722c8e887ad2480e3c979055c85b25cc079445453c6903a153de8bac37594
@@ -855,6 +854,7 @@ gfx/mailbox/mailbox/mailbox_tiles_6310.2bpp	gfx/mailbox/mailbox/mailbox_tiles_63
 gfx/mailbox/mailbox/mailbox_tiles_69f0.2bpp	gfx/mailbox/mailbox/mailbox_tiles_69f0.png	tiles			0	768	987ad19aa5db3c983125bf25fea96fa08256739a669def53030ef3cb4c3f8db8
 gfx/mailbox/mailbox/mailbox_tiles_6cf0.2bpp	gfx/mailbox/mailbox/mailbox_tiles_6cf0.png	tiles			0	512	f75a4dcbafb9d2089f1ecb2428a6edd33ad6aa9034e0d606ce0f9dc090b8b7b0
 gfx/mailbox/objects/profile_obj_palette.pal	-	palette				519	c655a4a875002d62ebf9a542a8744a75e2b8780b614a6c88d7eb943d3b35fd8a
+gfx/pokemon/pokemon_art_candidate/pokemon_art_candidate_tiles_51_5ee0.2bpp	gfx/pokemon/pokemon_art_candidate/pokemon_art_candidate_tiles_51_5ee0.png	tiles			1	4592	98171a30a0680dda99441e05e2c8212e962ec593ca50d5a12597228dbbeafa19
 gfx/profile/profile_editor/data_profile_tilemap_attr.attrmap	-	attrmap				360	62ad9215881e77183acd2924dceb2b5dfa5590821190268e2c8e90274281b7c3
 gfx/profile/profile_editor/data_profile_tilemap_attr.tilemap	-	tilemap				360	929ee498de5cee43242f43a63e2aa3cf106a60cabbed38921524e9a708310944
 gfx/profile/profile_editor/profile_bg.pal	-	palette				519	7fe7341b1970faaa02533fe282d7d85f4e92b6b5dde133c342deb81b1878cc24

@@ -62,6 +62,10 @@ The former `51:70D1` 15-byte residual is now separated from the candidate tile s
 
 A separate Bank 4B residual review found no further missing PNG within the examined ranges. The `4B:7090..7490` request crosses existing typed sources (32-byte tail, 768-byte tile slice, 64-byte palette, and 160-byte tilemap/attribute prefix); `4B:7AD0..7DD0` crosses a 512-byte tile source, 64-byte palette, and 192-byte tilemap prefix. The four zero bytes at `4B:76CC..76D0` are outside the three table pointers; the confirmed slot argument is 0–2. Their purpose remains unknown, so they are not relabeled as padding.
 
+### Bank 51 Pokémon-art tile alignment correction (2026-10-25)
+
+The 2026-10-24 candidate source boundary above is superseded. A pixel match against the preserved BetaP2 JPEG finds 57 exact tile positions on the 16-byte grid rooted at `51:5EE0`; the old `51:5EE1` phase produces no exact tile. The maintained 4,592-byte candidate is now `[51:5EE0,51:70D0)`, and the following 16 zero bytes `[51:70D0,51:70E0)` remain a **PROBABLE** alignment gap before `Bmp_Validate`. This revises the asset's one-byte alignment, not its verified size, and does not establish a natural consumer, complete frames, or global use. Reproducible hashes and limits are recorded in [`japanese_semantic_roots_and_destinations_20261025.md`](japanese_semantic_roots_and_destinations_20261025.md#bank-51-pokemon-art-candidate-boundary-correction-2026-10-25).
+
 ## Sprite animation script contracts
 
 The earlier `gfx/README.md` row “HYPOTHESIS data (mostly runs of `$FF` / `$00` padding candidates)” was misleading: its 24 groups included referenced animation scripts and a tilemap-like candidate, not only padding. `tools/gfx_export.py` now describes that category neutrally as data whose content type or purpose is not established.

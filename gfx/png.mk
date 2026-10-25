@@ -162,7 +162,6 @@ PNG_TILE_OUTS := \
 	gfx/comm/time_summary/summary_a_vram9400_vb1_tiles.2bpp \
 	gfx/comm/time_summary/summary_b_vram9000_vb1_tiles.2bpp \
 	gfx/comm/time_summary/summary_b_vram9400_vb1_tiles.2bpp \
-	gfx/comm/time_summary/time_summary_candidate_tiles_5ee1.2bpp \
 	gfx/dialog/dialog_window/dialog_window_tiles.2bpp \
 	gfx/error/comm_error_screen/comm_err_gfx_bg9000.2bpp \
 	gfx/error/comm_error_screen/comm_err_gfx_bg9400.2bpp \
@@ -379,6 +378,7 @@ PNG_TILE_OUTS := \
 	gfx/mailbox/mailbox/mailbox_tiles_6310.2bpp \
 	gfx/mailbox/mailbox/mailbox_tiles_69f0.2bpp \
 	gfx/mailbox/mailbox/mailbox_tiles_6cf0.2bpp \
+	gfx/pokemon/pokemon_art_candidate/pokemon_art_candidate_tiles_51_5ee0.2bpp \
 	gfx/profile/profile_editor/profile_tiles8800.2bpp \
 	gfx/profile/profile_editor/profile_tiles9300.2bpp \
 	gfx/profile/profile_editor/profile_tiles9700.2bpp \
@@ -596,8 +596,6 @@ gfx/comm/time_summary/summary_a_vram9000_vb1_tiles.2bpp: PNG_SIZE := 1024
 gfx/comm/time_summary/summary_a_vram9400_vb1_tiles.2bpp: PNG_SIZE := 1024
 gfx/comm/time_summary/summary_b_vram9000_vb1_tiles.2bpp: PNG_SIZE := 1024
 gfx/comm/time_summary/summary_b_vram9400_vb1_tiles.2bpp: PNG_SIZE := 1024
-gfx/comm/time_summary/time_summary_candidate_tiles_5ee1.2bpp: PNG_SIZE := 4592
-gfx/comm/time_summary/time_summary_candidate_tiles_5ee1.2bpp: PNG_PAD := -x 1
 gfx/dialog/dialog_window/dialog_window_tiles.2bpp: PNG_SIZE := 1024
 gfx/error/comm_error_screen/comm_err_gfx_bg9000.2bpp: PNG_SIZE := 1024
 gfx/error/comm_error_screen/comm_err_gfx_bg9400.2bpp: PNG_SIZE := 384
@@ -827,6 +825,8 @@ gfx/mailbox/mailbox/mailbox_tiles_5f10.2bpp: PNG_SIZE := 1024
 gfx/mailbox/mailbox/mailbox_tiles_6310.2bpp: PNG_SIZE := 256
 gfx/mailbox/mailbox/mailbox_tiles_69f0.2bpp: PNG_SIZE := 768
 gfx/mailbox/mailbox/mailbox_tiles_6cf0.2bpp: PNG_SIZE := 512
+gfx/pokemon/pokemon_art_candidate/pokemon_art_candidate_tiles_51_5ee0.2bpp: PNG_SIZE := 4592
+gfx/pokemon/pokemon_art_candidate/pokemon_art_candidate_tiles_51_5ee0.2bpp: PNG_PAD := -x 1
 gfx/profile/profile_editor/profile_tiles8800.2bpp: PNG_SIZE := 832
 gfx/profile/profile_editor/profile_tiles9300.2bpp: PNG_SIZE := 1024
 gfx/profile/profile_editor/profile_tiles9700.2bpp: PNG_SIZE := 256

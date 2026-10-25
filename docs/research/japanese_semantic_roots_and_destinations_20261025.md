@@ -619,6 +619,44 @@ the receipt records the forum URL, quantizer, coordinates, whole-ROM
 aligned-tile comparison, and scope limits. Static comparison only; no
 emulator or hardware execution.
 
+### Bank 51 Pokémon-art candidate boundary correction (2026-10-25)
+
+This finding supersedes the preceding BetaP2 comparison's provisional
+`[51:5EE1,51:70D1)` candidate boundary and the 2026-10-24 source split recorded
+in `japanese_graphics_asset_completeness_followup_20261023.md`. The visual scan
+did not merely identify a match somewhere in a poorly aligned block: its 57
+matching 16-byte tile positions begin at `51:5FE0` and continue through
+`51:6D80`, all on the 16-byte grid rooted at `51:5EE0`. Scanning on the old
+`51:5EE1` byte phase yielded no exact tile. The earlier asset therefore had a
+one-byte-shifted tile interpretation even though its 4,592-byte payload itself
+was accurately extracted from the recorded old interval.
+
+The corrected source now represents the 4,592-byte range
+`[51:5EE0,51:70D0)` as 287 aligned 2bpp tiles. The next 16 bytes
+`[51:70D0,51:70E0)` are zero-filled in the immutable ROM and remain a probable
+alignment gap before `Bmp_Validate` at `51:70E0`. The corrected binary is
+SHA-256 `98171a30a0680dda99441e05e2c8212e962ec593ca50d5a12597228dbbeafa19`;
+the indexed 128x144 PNG is
+`94de1ed246c2eca3e5516ee605fea86f485baeb7bee637718111f2c8e0138ea1`. Using
+the project's `tools/gfx_export.py` tile renderer and `rgbgfx -c embedded -x
+1`, the PNG reconstructs the 4,592-byte binary exactly. Reproduction script
+`.tmp/jp-beta-p2-pixel-match-20261025/extract_aligned_candidate.py` has SHA-256
+`7ceaf6d954605aeac69910ff76446498039fbfcdf29a51dff73ef148cfb64f19`; its
+receipt `ALIGNED_CANDIDATE_RESULT.json` has SHA-256
+`439fd6a7e207b311692b5281fc86a97ce11d87a25c32abcdcedc5edaed038639` and pins
+the original ROM hash, source slice, and PNG. The 57 matches support a
+**PROBABLE** Pokémon-art content label, but do not determine complete frame
+boundaries, an ordinal-to-frame mapping, the natural reader, or global use.
+
+The earlier 72-scenario data-access census, instruction coverage, literal
+xref, and extracted screen-operation review covered the superset
+`[51:5EE0,51:70D1)`, so its bounded negative results still contain the
+corrected asset. The `settings_cgi` transfer ended exactly at `51:5EE0`; it
+does not read the asset. These are finite-corpus results, not proof of global
+non-use. Frozen `config/` tables and the dated census receipts retain the
+original source label and interval as historical evidence; they are not
+rewritten by this correction.
+
 ### Bank 51 candidate-tile data-read census (2026-10-25)
 
 To test whether the pixel-matched candidate bytes have an observed data
