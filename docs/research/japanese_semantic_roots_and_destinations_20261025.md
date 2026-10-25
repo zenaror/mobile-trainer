@@ -94,16 +94,32 @@ No new maintained natural entry was demonstrated for the previously open
 candidates. The local mechanics are bounded, but an operation's valid-looking
 instruction sequence does not establish a caller or its input state.
 
-| Candidate | Local operation supported by bytes/source | Missing natural link |
+This matrix was reconciled against current `main` at
+`a8dbd86eba25fe205aee5375fdf245a2a0cfaa00`. A path-limited Git comparison
+confirmed no maintained `.asm`, `.inc`, GFX, or ROM-manifest changes since the
+49aad2 source checkpoint used by the grouped candidate reviews; the protected
+ROM still hashes to
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. This
+reuses those exact audits and receipts; it does not rerun the closed 72-scenario
+corpus or claim global reachability.
+
+| Candidate | Current result | Exact positive evidence required to change the status |
 |---|---|---|
-| `2B:6CF5` | **PROBABLE** reply setup from an SRAM0 record and editor dispatch. | No producer for B, Bank2B entry or stack contract for the four success-path `POP AF`s. |
-| `2D:4E42` | **PROBABLE** wrapper selects WRAM1 and calls `4E54`. | `4E41` is RET; no maintained external producer for wrapper inputs. |
-| `2D:4E54` | **PROBABLE** two-byte-cell scan/calculation over `$D400`. | Only the unrooted wrapper points here; NUL exit at `4E72` consumes saved BC as a PC. |
-| `29:511E` | Mechanics **CONFIRMED conditional** on a balanced return from `$7BB7`, then waits on LY. | Only internal caller `29:50CE`, itself unrooted; selected-bank `$7BB7` is zero-filled. |
-| `70:4740` | **PROBABLE** SRAM1 state-bit query and bank-shadow restoration. | `473F` is RET; natural table selects other handlers; no maintained entry/record producer. |
-| `26:5344-537C` | **PROBABLE** repeated VRAM1 and WRAM7 writes. | Known caller at `5343` is RET; hook setters do not select Bank26. |
-| `28:4BA6-4BC2` | **PROBABLE** WRAM0 clear and WRAM7 fill. | Prior script ends at `4BA6`; no maintained hook or caller enters the bytes. |
-| `42:6132` | **PROBABLE** candidate graphics/tile bytes. | A conditional banner descriptor can overlap it only for unproduced kind B5; maintained producers use kinds 0-4. |
+| `2B:6CF5` | **PROBABLE** reply setup from an SRAM0 record and editor dispatch; natural entry **UNKNOWN**. | A maintained caller/dispatch selecting physical Bank2B, a producer for B, and a stack image that accounts for the four success-path `POP AF`s. |
+| `2D:4E42` | **PROBABLE** wrapper selects WRAM1 and calls `4E54`; natural entry **UNKNOWN**. `4E41` is RET. | A maintained producer entering with WRAM1 and demonstrating the wrapper's B/C inputs and stack contract. |
+| `2D:4E54` | **PROBABLE** two-byte-cell scan/calculation over `$D400`; its only known caller is the unrooted `4E42` wrapper. The NUL exit at `4E72` consumes saved BC as a PC. | A rooted caller plus the exact D400 contents, mapper state, and stack word that makes the unusual exit a valid continuation. |
+| `29:511E` | Local mechanics **CONFIRMED conditional** on a balanced return from `$7BB7`, then waits on LY; natural root **UNKNOWN**. Its only known caller `29:50CE` is unrooted, and `$7BB7` is zero-filled in the selected Bank29 view. | A maintained entry reaching the caller/leaf with Bank29 selected, a mapped returning callee at `$7BB7`, and the required LY state. |
+| `70:4740` | **PROBABLE** SRAM1 state-bit query and bank-shadow restoration; natural entry/record producer **UNKNOWN**. `473F` is RET and the natural table selects other handlers. | A maintained table/indirect producer selecting `70:4740` and establishing SRAM1 record contents and coherent bank-shadow state. |
+| `26:5344-537C` | **PROBABLE** repeated VRAM1 and WRAM7 writes; known caller `5343` is RET and reviewed hook setters do not select Bank26. | A maintained hook/caller selecting physical Bank26 and demonstrating the stack bank, VRAM bank, and WRAM bank state for those writes. |
+| `28:4BA6-4BC2` | **PROBABLE** WRAM0 clear and WRAM7 fill; preceding script ends at `4BA5`, before these bytes. No maintained hook/caller is known. | A maintained hook/caller that enters `4BA6` with the expected WRAM7 and stack-bank state; the preceding sprite script does not supply it. |
+| `42:6132` | **PROBABLE** candidate graphics/tile data. A conditional banner descriptor can read across it only for kind `$B5`; maintained producers use kinds 0-4. | A maintained producer of kind `$B5` (or another concrete descriptor producer) and a source read whose interval includes `42:6132`. |
+
+These are the terminal results of the reviewed maintained caller, hook, table,
+stack-return and state domains. They are **not** claims that all bytes are
+unreachable: any candidate can be reopened by a newly demonstrated positive
+edge with its physical bank and required state. Repeating direct-xref,
+adjacent-RET, or 72-scenario scans without such new evidence cannot strengthen
+the global conclusion.
 
 One indirect control-flow form missed by the earlier adjacent `push rr; ret`
 recognizer is `Bank4_GateLeave` (`home/audio.asm:190-198`). It loads the
