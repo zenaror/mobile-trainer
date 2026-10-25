@@ -500,6 +500,23 @@ This closes the *current mapper inventory's* computed-control-transfer route to 
 The first cross-check used the tracked `analysis/mapper/report.md`, which was still the 18-scenario snapshot (SHA-256 `e645869e7943a280501d01c8cb42d6a18d1bf37017428849e13cae708daca01e`). To avoid relying on it, `tools/mapper.py` was rerun against all 72 current data-access scenarios into `.tmp/jp-current-mapper-recheck-20261024/`. The fresh report records 78,114 executed ROM starts and the same 34 indirect sites; the run's mapper validation reports zero missing executed starts, sweep failures, boundary crossings or tiling problems. The candidate cross-check was rerun against this fresh report and again found no route in the enumerated inventory. The tracked `analysis/mapper` snapshot was preserved because its hand-reviewed `audit.md` is tied to the previous deterministic sample population; replacing only generated files would make that retained review inconsistent. The full fresh report, stats and bank outputs remain together under the private `.tmp` directory. Fresh report SHA-256 `f7cf26d142de61260cb3c5df3dca0fc0e734219b696801c6707ffbcc83cb372d`; stats SHA-256 `0f3d0622199ec06d40e5e18e0c71261dff4c085f990b6fc3de163c3fe2ff6ae4`; tool `tools/mapper.py` SHA-256 `7432c3dbe9b0c54304b864662211be58111189259ebe046059522ab3dfee1bbb`. Reproduce the candidate check with `.tmp/jp-indirect-two-entry-crosscheck-20261024/audit.py` (SHA-256 `b1f5d3444ff513c1a15daa1a2ba164aa3a454a0a1f7aede4b0628604cdcedec5`); receipt `RESULT.json` SHA-256 `19df871c1ebf9a40c2a7d54d037ed04e4bd2b71e7fcc3d9b8f27f29366301d41`. The source and ROM pins remain as stated above.
 
 
+### Retained trace reads of the two candidate code bodies (2026-10-25)
+
+The existing 72 Japanese scenario `dataaccess.tsv` reports were rechecked
+against the complete byte ranges `4E:47EB–4865` and `48:4A8C–4AA9`. Their
+72-file hash manifest matches the previously retained frame/name trace census;
+all 83,242 recorded ROM data-read ranges were tested, with zero intersections
+against either candidate body. This closes only recorded data reads in those
+72 scenarios. It does not exclude other scenarios, code copied from a
+non-ROM source, computed/mutated pointers, or any unobserved runtime state.
+It complements, but does not repeat or broaden, the separate direct/indirect
+entry audit.
+
+Reproduce with `.tmp/jp-candidate-code-read-census-20261025/audit.py`;
+receipt `.tmp/jp-candidate-code-read-census-20261025/RESULT.json` records the
+protected ROM SHA-256 and the input-manifest hash
+`9787af1327fac8c517482e2c9c3b8bfe7e42628670df60e29d41dcd0f1b5bed7`.
+
 ### Exact byte identity for the Bank 48 mask helper (2026-10-25)
 
 The 31-byte body at physical `48:4A8C–4AAA` is byte-identical to the
