@@ -1,5 +1,46 @@
 # Japanese ROM closure audit (2026-10-23)
 
+## Consolidated source disposition (2026-10-25)
+
+This section takes precedence over older status/count summaries below. It
+reconciles the source at `4f7e9ac4bf4f33cda227922f40d6e0e4145fbebb` and the
+previously staged MBC-store audit; it adds no runtime evidence. The last eight
+commits at that revision changed documentation only. No concrete ASM correction
+was pending in the working diff. This is not semantic completion, and unknown
+comments are not automatically fresh defects or unimplemented functions.
+
+| Scope | Already delivered | Exact remaining question / closure evidence |
+|---|---|---|
+| Japanese reconstruction and naming | Maintained Assembly, byte-identical reconstruction and finite naming/path inventories; delivery on main | Reopen a completed check only for a specific defect, relevant source change or contradictory evidence. |
+| Six candidate code regions in Banks 2B, 2D, 29, 70, 26 and 28 | Decoded bodies and qualified operation names; Bank2D includes a wrapper and its local helper | Demonstrate a rooted control transfer and compatible register, stack and mapper state; use the per-entry acceptance table in the semantic audit. These regions are not six functions awaiting implementation or an exhaustive uncertainty count. |
+| Bank53 names and frame inventory | All 25 strings decoded; scoped assets and PNGs accounted for; 01–23 have a PROBABLE visual/index crosswalk and 24 has a separate PROBABLE Bank51 art association | Establish an executable name-read-to-frame selection chain. Entry 00 still has no identified visual asset. Do not repeat the closed inventory or visual corpus without changed inputs. |
+| Bank23 `7C03–7F30` | Bytes retained, four plausible map blocks reviewed | Identify a reader/loader and selection contract, including the final 13 `$08` bytes. Shape alone does not establish use. |
+| Eight KEEP compositions and other qualified source findings | Backing bytes/assets retained and operation-level findings recorded | Supply missing VRAM placement or a specific consumer/entry contract. Historical counts and overlapping findings are not additive tasks. |
+| Global used/unused claims | Negative results retained with their exact domains | A bounded non-use proof must cover its declared roots and inputs; unobserved paths alone cannot prove universal non-use. |
+
+The [per-entry evidence table](japanese_semantic_roots_and_destinations_20261025.md#indirect-roots-candidates-and-the-additional-bank-4-return-edge)
+and [remaining-semantics matrix](japanese_remaining_semantics_batch_20261024.md)
+retain the details, including the keyboard fragment and additional qualified
+source findings. This compact table does not silently close those findings.
+
+The conversational 1–3 hour completion estimate is withdrawn, as is the older
+40–80 hour estimate below. Neither had a demonstrated finite remaining-work
+basis. Further investigation must state one unresolved question, an unexamined
+producer/path or changed input, and an acceptance criterion before execution.
+Reuse closed literal-reference, direct-CFG, CALL-return, adjacent-MBC-store,
+asset and trace-corpus results. Stop a bounded pass when its stated paths are
+exhausted; retain an unresolved finding if no discriminating evidence remains,
+rather than extending another negative census indefinitely. Lack of a historical
+payload or hardware trace is a gap for claims requiring it, not proof that all
+remaining static investigation is blocked.
+
+A successful semantic finding should update the relevant ASM name, structure
+or comment when warranted and carry one concise supporting research update.
+Do not change instructions merely to produce an ASM diff: reconstruction must
+preserve the original bytes, including original defects. An exhausted search
+can remain unresolved; it must not be reported as completed semantic work.
+Operational pause/resume state and the next authorized action belong in OMM.
+
 ## Delivery on main (2026-10-24)
 
 The audited Japanese work is integrated and published on `main` at

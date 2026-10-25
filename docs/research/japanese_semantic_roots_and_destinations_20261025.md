@@ -204,6 +204,43 @@ ROM still hashes to
 reuses those exact audits and receipts; it does not rerun the closed 72-scenario
 corpus or claim global reachability.
 
+#### Candidate-adjacent MBC-store fallthrough screen (2026-10-25)
+
+The CALL-return screen above did not cover a store to the MBC followed by
+fallthrough into another physical bank at the same CPU address. I checked this
+form across all six candidate code spans. For each of 694 decoded instruction
+starts in the current code map, the scan examined every physical ROMX bank for
+the immediately preceding `LD [BC/DE/HL/HL+/HL-],A`, `LD [a16],A`,
+`LD [a16],SP`, and CB-prefixed memory-writing forms. The absolute-SP form also
+includes `$1FFF`, whose second byte can write the ROM-bank low register at
+`$2000`. The scan produced 284 candidate source-site encodings.
+
+I then reconciled every such source PC with all 72 retained natural-scenario
+MBC-write ledgers. Of the 284 sites, 109 source PCs occur in the natural
+instruction union, accounting for 1,552,302 recorded instruction executions;
+none has a recorded write to the MBC ROM-bank registers `$2000–$3FFF`. The
+candidate spans themselves have zero natural instruction starts in that
+union. This closes only an immediately preceding store/fallthrough route in
+the stated source, decoder, and scenario domains. It does not cover an earlier
+bank write followed by other control flow, arbitrary state/corruption, copied
+code, or scenarios outside the retained corpus.
+
+Two raw patterns illustrate why instruction boundaries matter: `23:4BB8`
+looks like `LD [$20FE],SP`, but is the displacement byte of the executed
+`JR Z,$4BC1` at `23:4BB7`; `2E:475E` looks like another absolute-SP store, but
+is the high operand byte of the executed `CALL $082C` at `2E:475C`. Neither is
+an executed MBC store. The high-count natural store at `2E:534F` is the
+`MailServerMgr_ClearTextTiles` loop writing zero to WRAM bank 2; its MBC ledger
+also has no ROM-bank-register write.
+
+Reproduction: `.tmp/jp-candidate-mbc-writer-boundaries-20261025/audit.py`
+(SHA-256 `f2108915119e73bf0e875c2333a7e4f1845b13f803c0dd75f6996f63102e9edc`)
+and `RESULT.json` (SHA-256
+`f1ebff9b3e89589abcf302fb0aa534cbf0369e815c9e1cc5dd78902cbf0f1e36`). The
+receipt pins the original ROM, current revision, code-map inputs, coverage
+union, scenario table, and all 72 MBC ledgers. No ROM, ASM, config, or GFX
+bytes changed.
+
 | Candidate | Current result | Exact positive evidence required to change the status |
 |---|---|---|
 | `2B:6CF5` | **PROBABLE** reply setup from an SRAM0 record and editor dispatch; natural entry **UNKNOWN**. In the retained natural `mail_reply_ascii` scenario, the matching Bank25 reply implementation executes, while Bank2B has no instruction starts. | A distinct maintained caller/dispatch selecting physical Bank2B, a producer for B, and a stack image that accounts for the four success-path `POP AF`s. |
