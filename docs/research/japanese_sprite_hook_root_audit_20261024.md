@@ -217,9 +217,11 @@ The unresolved helper/caller question therefore remains, but these 15 matches
 are not evidence for it.
 
 Reproduction: `.tmp/jp-00-0a2a-pointer-shape-audit-20261025/audit.py`
-(SHA-256 `f3be387ef8a4e306f627d86192b0a41160015c66264a0b92d6c13d7e5276c09e`)
+(SHA-256 `ef9abdbee54a6f69dc11dc2622c39b909531368dbae749d3c1e2e298063d5461`)
 and `RESULT.json` (SHA-256
-`b402ac59c05d81e243843385bb29f6de5efa7f9746e4935bdd5ed836dc6dd3a6`). Inputs:
+`9026c176ab2c1e61f2329ff88235cc628566707509c85c95ea9e37a62947860b`). The
+script asserts each owning manifest row is exactly `20x18` and 360 bytes before
+classifying its last-column index. Inputs:
 protected ROM SHA-256
 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570` and
 `gfx/assets.tsv` SHA-256
