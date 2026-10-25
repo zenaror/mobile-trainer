@@ -92,7 +92,7 @@ MailDraftMenu_Anim24Frame0:: ; 2B:5244
 MailDraftMenu_Anim24Frame1:: ; 2B:5269
 	sprite_frame 0
 
-; ---- data $526A-$526D (3 bytes) [HYPOTHESIS] animation script: count=1 then 1 x 2 bytes (00 2e), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+; ---- data $526A-$526D (3 bytes) [CONFIRMED] animation script: count=1 then 1 x 2 bytes (00 2e), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); script pair fields verified by ROM0: frame index and countdown reload; static format only, natural selection/timing unproved
 
 MailDraftMenu_Anim24Script:: ; 2B:526A
 	sprite_anim 1
@@ -121,7 +121,7 @@ MailDraftMenu_Anim8Frame1:: ; 2B:5282
 	sprite_oam 19, 5, $0F, OAMF_YFLIP | 1
 	sprite_oam 19, 19, $0F, OAMF_YFLIP | OAMF_XFLIP | 1
 
-; ---- data $5293-$5298 (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 2e 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+; ---- data $5293-$5298 (5 bytes) [CONFIRMED] animation script: count=2 then 2 x 2 bytes (00 2e 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); script pair fields verified by ROM0: frame index and countdown reload; static format only, natural selection/timing unproved
 
 MailDraftMenu_Anim8Script:: ; 2B:5293
 	sprite_anim 2
@@ -149,7 +149,7 @@ MailDraftMenu_Anim12Frame1:: ; 2B:52A9
 	sprite_oam -3, 12, $01, 1
 	sprite_oam -3, 20, $02, 1
 
-; ---- data $52B6-$52BB (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 2e 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+; ---- data $52B6-$52BB (5 bytes) [CONFIRMED] animation script: count=2 then 2 x 2 bytes (00 2e 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); script pair fields verified by ROM0: frame index and countdown reload; static format only, natural selection/timing unproved
 
 MailDraftMenu_Anim12Script:: ; 2B:52B6
 	sprite_anim 2
@@ -177,7 +177,7 @@ MailDraftMenu_Anim16Frame1:: ; 2B:52CC
 	sprite_oam -3, 12, $11, 1
 	sprite_oam -3, 20, $12, 1
 
-; ---- data $52D9-$52DE (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 2e 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+; ---- data $52D9-$52DE (5 bytes) [CONFIRMED] animation script: count=2 then 2 x 2 bytes (00 2e 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); script pair fields verified by ROM0: frame index and countdown reload; static format only, natural selection/timing unproved
 
 MailDraftMenu_Anim16Script:: ; 2B:52D9
 	sprite_anim 2
@@ -205,7 +205,7 @@ MailDraftMenu_Anim20Frame1:: ; 2B:52EF
 	sprite_oam -3, 12, $04, 1
 	sprite_oam -3, 20, $05, 1
 
-; ---- data $52FC-$5301 (5 bytes) [HYPOTHESIS] animation script: count=2 then 2 x 2 bytes (00 2e 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+; ---- data $52FC-$5301 (5 bytes) [CONFIRMED] animation script: count=2 then 2 x 2 bytes (00 2e 01 08), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); script pair fields verified by ROM0: frame index and countdown reload; static format only, natural selection/timing unproved
 
 MailDraftMenu_Anim20Script:: ; 2B:52FC
 	sprite_anim 2
@@ -251,7 +251,7 @@ MailDraftMenu_Anim0Frame1:: ; 2B:5336
 	sprite_oam 16, 8, $2A, 4
 	sprite_oam 16, 16, $2B, 4
 
-; ---- data $5367-$536A (3 bytes) [HYPOTHESIS] animation script: count=1 then 1 x 2 bytes (00 2e), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+; ---- data $5367-$536A (3 bytes) [CONFIRMED] animation script: count=1 then 1 x 2 bytes (00 2e), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); script pair fields verified by ROM0: frame index and countdown reload; static format only, natural selection/timing unproved
 
 MailDraftMenu_Anim0Script:: ; 2B:5367
 	sprite_anim 1
@@ -292,7 +292,7 @@ MailDraftMenu_Anim4Frame1:: ; 2B:5397
 	sprite_oam 8, 16, $32, 0
 	sprite_oam 16, 8, $2F, 0
 
-; ---- data $53C0-$53C3 (3 bytes) [HYPOTHESIS] animation script: count=1 then 1 x 2 bytes (00 2e), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+; ---- data $53C0-$53C3 (3 bytes) [CONFIRMED] animation script: count=1 then 1 x 2 bytes (00 2e), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); script pair fields verified by ROM0: frame index and countdown reload; static format only, natural selection/timing unproved
 
 MailDraftMenu_Anim4Script:: ; 2B:53C0
 	sprite_anim 1

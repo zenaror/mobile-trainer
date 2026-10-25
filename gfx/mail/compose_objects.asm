@@ -159,7 +159,7 @@ MailBody_29_Anim0Frame1:: ; 29:640F
 	sprite_frame 1
 	sprite_oam -1, 0, $00, 1
 
-; ---- data $6414-$6419 (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
+; ---- data $6414-$6419 (5 bytes) [CONFIRMED] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; script pair fields verified by ROM0: frame index and countdown reload; static format only, natural selection/timing unproved)
 
 MailBody_29_Anim0Script:: ; 29:6414
 	sprite_anim 2
@@ -183,7 +183,7 @@ MailBody_29_Anim4Frame1:: ; 29:6422
 	sprite_frame 1
 	sprite_oam -1, 0, $01, 1
 
-; ---- data $6427-$642C (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
+; ---- data $6427-$642C (5 bytes) [CONFIRMED] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; script pair fields verified by ROM0: frame index and countdown reload; static format only, natural selection/timing unproved)
 
 MailBody_29_Anim4Script:: ; 29:6427
 	sprite_anim 2
@@ -207,7 +207,7 @@ MailBody_29_Anim8Frame1:: ; 29:6435
 	sprite_frame 1
 	sprite_oam -1, 0, $02, 1
 
-; ---- data $643A-$643F (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
+; ---- data $643A-$643F (5 bytes) [CONFIRMED] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; script pair fields verified by ROM0: frame index and countdown reload; static format only, natural selection/timing unproved)
 
 MailBody_29_Anim8Script:: ; 29:643A
 	sprite_anim 2
@@ -231,7 +231,7 @@ MailBody_29_Anim12Frame1:: ; 29:6448
 	sprite_frame 1
 	sprite_oam -1, 0, $03, 1
 
-; ---- data $644D-$6452 (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
+; ---- data $644D-$6452 (5 bytes) [CONFIRMED] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; script pair fields verified by ROM0: frame index and countdown reload; static format only, natural selection/timing unproved)
 
 MailBody_29_Anim12Script:: ; 29:644D
 	sprite_anim 2
@@ -255,7 +255,7 @@ MailBody_29_Anim16Frame1:: ; 29:645B
 	sprite_frame 1
 	sprite_oam -1, 0, $04, 1
 
-; ---- data $6460-$6465 (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
+; ---- data $6460-$6465 (5 bytes) [CONFIRMED] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; script pair fields verified by ROM0: frame index and countdown reload; static format only, natural selection/timing unproved)
 
 MailBody_29_Anim16Script:: ; 29:6460
 	sprite_anim 2
@@ -279,7 +279,7 @@ MailBody_29_Anim20Frame1:: ; 29:646E
 	sprite_frame 1
 	sprite_oam -1, 0, $05, 1
 
-; ---- data $6473-$6478 (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
+; ---- data $6473-$6478 (5 bytes) [CONFIRMED] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; script pair fields verified by ROM0: frame index and countdown reload; static format only, natural selection/timing unproved)
 
 MailBody_29_Anim20Script:: ; 29:6473
 	sprite_anim 2
@@ -303,7 +303,7 @@ MailBody_29_Anim24Frame1:: ; 29:6481
 	sprite_frame 1
 	sprite_oam -1, 0, $06, 1
 
-; ---- data $6486-$648B (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
+; ---- data $6486-$648B (5 bytes) [CONFIRMED] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; script pair fields verified by ROM0: frame index and countdown reload; static format only, natural selection/timing unproved)
 
 MailBody_29_Anim24Script:: ; 29:6486
 	sprite_anim 2
@@ -327,7 +327,7 @@ MailBody_29_Anim28Frame1:: ; 29:6494
 	sprite_frame 1
 	sprite_oam -1, 0, $07, 1
 
-; ---- data $6499-$649E (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
+; ---- data $6499-$649E (5 bytes) [CONFIRMED] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; script pair fields verified by ROM0: frame index and countdown reload; static format only, natural selection/timing unproved)
 
 MailBody_29_Anim28Script:: ; 29:6499
 	sprite_anim 2
@@ -357,7 +357,7 @@ MailBody_29_Anim32Frame1:: ; 29:64B3
 	sprite_oam 0, 26, $0A, 1
 	sprite_oam 0, 34, $0B, 1
 
-; ---- data $64C4-$64C9 (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
+; ---- data $64C4-$64C9 (5 bytes) [CONFIRMED] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; script pair fields verified by ROM0: frame index and countdown reload; static format only, natural selection/timing unproved)
 
 MailBody_29_Anim32Script:: ; 29:64C4
 	sprite_anim 2
@@ -387,7 +387,7 @@ MailBody_29_Anim36Frame1:: ; 29:64DE
 	sprite_oam -1, 0, $0A, 1
 	sprite_oam -1, 8, $0B, 1
 
-; ---- data $64EF-$64F4 (5 bytes) [HYPOTHESIS] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; byte format not decoded)
+; ---- data $64EF-$64F4 (5 bytes) [CONFIRMED] 5-byte animation script record 02 00 2e 01 08 (referenced as 2nd word of an animation entry; slot[6..7]; script pair fields verified by ROM0: frame index and countdown reload; static format only, natural selection/timing unproved)
 
 MailBody_29_Anim36Script:: ; 29:64EF
 	sprite_anim 2

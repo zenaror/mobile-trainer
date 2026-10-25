@@ -248,3 +248,19 @@ The interval is now represented with `sprite_frame_table`, `sprite_frame`,
 labels. The misleading `.pal` asset and its catalogue entries were removed.
 `make` still produces the original ROM SHA-256
 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
+
+### Remaining script-header reconciliation (2026-10-25)
+
+The maintained ROM0 reader at `0ADA–0AE0` initializes slot offsets 4/5 from
+the first script pair; `0AE8–0B35` uses them as frame index and countdown
+reload and advances through the count-prefixed pairs. Twenty-six headers in
+`gfx/mail/{compose_objects,draft_menu,mail_viewer,received_mail_grid}.asm`
+still claimed these fields were undecoded despite their existing typed macros.
+Their headers now confirm the static format: all 26 macro payloads match the
+original bytes and 104 object-table second words point to those scripts in
+the same physical banks. This does not establish natural selection of every
+entry or elapsed frame timing. The unreferenced `2A:545C` candidate retains
+HYPOTHESIS; similarity alone does not supply its consumer. Reproduce the
+byte/pointer checks with `.tmp/jp-sprite-script-source-reconciliation-20261025/verify.py`;
+its `RESULT.json` lists every script and referring pointer. No emitted bytes
+or symbol names change.

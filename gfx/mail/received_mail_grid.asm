@@ -74,7 +74,7 @@ MailGrid_Anim0Frame0:: ; 2B:6442
 	sprite_oam 26, 20, $0D, 0
 	sprite_oam 26, 28, $0E, 0
 
-; ---- data $647F-$6482 (3 bytes) [HYPOTHESIS] animation script: count=1 then 1 x 2 bytes (00 04), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); byte meaning (frame index, duration) not verified
+; ---- data $647F-$6482 (3 bytes) [CONFIRMED] animation script: count=1 then 1 x 2 bytes (00 04), referenced as the 2nd word of an animation entry (slot[6..7], read by 00:0AB8); script pair fields verified by ROM0: frame index and countdown reload; static format only, natural selection/timing unproved
 
 MailGrid_Anim0Script:: ; 2B:647F
 	sprite_anim 1
