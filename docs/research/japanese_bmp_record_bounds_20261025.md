@@ -1,10 +1,11 @@
 # Japanese inline BMP record bounds (2026-10-25)
 
-Status: **CONFIRMED static contract; malformed-record safety remains unproven**.
-Source revision: `4ecacbb1a949cf54f595e81903bb3f26eebdd44d`. Protected ROM SHA-256:
+Status: **CONFIRMED record-bound omission; zero-width runtime behavior is contradictory and unresolved**.
+Source revision at initial review: `4ecacbb1a949cf54f595e81903bb3f26eebdd44d`; directed trace revision:
+`669ad8aa4af7e0417cec7ece33d0e812496743c4`. Protected ROM SHA-256:
 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
-This is a source-flow review only; no ROM, assembly, build, emulator or hardware
-execution was involved.
+The initial finding was source-flow only. A later directed synthetic mGBA run
+is recorded below; no hardware or external network was involved.
 
 ## Record and caller flow
 
@@ -77,14 +78,16 @@ page-buffer addresses, this keeps the computed raster below the SRAM-window
 boundary, but it is not a payload-length check. The metadata writes also lack
 a lower-bound check for `pixel_offset >= 4`.
 
-The accepted zero-width case has a separate exact consequence. It produces
-`row_bytes=input_stride=canvas_stride=canvas_extent=0`. `FillBytes` and
-`CopyBytes` interpret a zero count with `B=0` as 256 bytes, but the bottom-up
-row loop's destination remains at `$D000` because its stride is zero; the
-`D >= $D000` loop condition therefore never exits. The early top-down return
-does not enter that loop. This is **CONFIRMED static conditional behavior** of
-a header accepted by `Bmp_CheckSize`; it is not evidence that a server supplies
-such an image or that the UI reaches it in a real session.
+The earlier source-flow analysis inferred that an accepted zero-width,
+bottom-up image would leave the row-loop destination at `$D000` and never
+satisfy its `D < $D000` exit check. A directed synthetic mGBA run contradicts
+that prediction. The run observed width 0, height `$20`, bottom-up flag 0, and
+converted-output row stride 0, entered the row-copy loop, and returned to the
+normal ROM loop by the end of the 9,600-frame budget. The edge
+`51:7251 -> 00:0392` occurred 1,347 times at frame 9,457. This means the prior
+static loop argument is incomplete or wrong. Do not claim a zero-width hang
+until the register/control-flow discrepancy is reconciled. This run does not
+establish general malformed-record safety.
 
 ## Distinguish the other two copies
 
@@ -105,22 +108,63 @@ record, and `Html_NextResourceRecord` computes its end. The BMP converter drops
 that end pointer. It derives the pixel-row interval and four preceding
 metadata-write bytes from header fields, and checks the high end against the
 SRAM window at `$C000`; it never checks those accesses against the declared BMP
-payload length. The static contract is now resolved: callers rely on a valid,
-sufficiently long BMP record with at least four bytes preceding pixel data;
-zero-width bottom-up records hang in the converter if they pass validation.
+payload length. The record-bound omission remains confirmed. The zero-width
+runtime consequence is unresolved because the static loop inference conflicts
+with the directed synthetic trace. The reproducible run receipt is
+`.tmp/jp-bmp-malformed-http-20261025/RESULT.json`; it records the fixture,
+resolved input, parent save/config, harness, and result hashes.
 
-**Not established:** whether an external Mobile Adapter/network response can
+**Not established:** why the zero-width run completes despite the apparent
+zero-stride loop; whether an external Mobile Adapter/network response can
 naturally supply a short or internally inconsistent image while still passing
 the header checks; whether the SDK always enforces the declared response size;
-or how the hardware behaves at an out-of-record SRAM read. No malformed-network
-fixture or native hardware trace was available in this pass. Therefore do not
+or how the hardware behaves at an out-of-record SRAM read. The fixture is
+synthetic and the emulator is mGBA, not the native Mobile Adapter. Therefore do not
 call the path safe for truncated/corrupt records and do not describe the
 conditional out-of-record reads as a demonstrated exploit or natural behavior.
 
 ## Reproduction points
 
-The claims above can be rechecked directly at the listed source locations. The
+The static claims can be rechecked directly at the listed source locations. The
 relevant maintained call chain is
 `Html_Tag_Img -> Html_Layout_AppendImageRecord -> Html_LoadPageImages -> Html_NextResourceRecord -> Bmp_ConvertToTiles`.
-No generated scan artifact is required. `git diff --check` is the applicable
-documentation-only validation for this note.
+The directed run used the canonical ROM and the existing `browser_bookmarks`
+saved state/config, replayed the resolved natural input prefix through the
+`a.html` image request, and replaced only `/img_a.bmp` with a copy of the
+existing 318-byte BMP whose width field at offsets 18-21 was set to zero. It
+used the fake network in the local mGBA trace harness; this is a synthetic
+server response, not hardware or public-network behavior.
+
+```sh
+timeout 20s .cache/trace/mgba_trace --rom 'Mobile Trainer (Japan).gbc' \
+  --scenario browser_zero_width --outdir .tmp/jp-bmp-malformed-http-20261025/out \
+  --frames 9600 --input .tmp/jp-bmp-malformed-http-20261025/browser_zero_width.txt \
+  --mobile on --net fake \
+  --save-in .cache/trace/state/browser_bookmarks.sav \
+  --mobile-config-in .cache/trace/state/browser_bookmarks.cfg \
+  --shots .tmp/jp-bmp-malformed-http-20261025/out/shots \
+  --web-map '*/index.html=.cache/trace/web/index.html' \
+  --web-map '*/a.html=.cache/trace/web/a.html' \
+  --web-map '*/img_a.bmp=.tmp/jp-bmp-malformed-http-20261025/fixtures/img_zero_width.bmp' \
+  --web-map '*.html=.cache/trace/web/page.html'
+```
+
+Observed result: exit 0; 9,600 frames; 55,479,360 instructions; final PC `$1805`;
+HTTP GET `/01/CGB-B9AJ/img_a.bmp` returned 200 with 318 bytes. Coverage entered
+`51:7177`, `51:7251`, and `51:729C`; the call edge `51:7251 -> 00:0392` had 1,347
+hits at frame 9,457. A second run with `--watch FFD4 --watch FFD6 --watch
+FFD7 --watch C332 --watch C333 --watch C334 --watch C33F` recorded width 0,
+height `$20`, bottom-up flag 0, converted-output row stride 0, and rounded
+height `$24`. These observations preserve the contradiction; they do not
+explain the loop's progress.
+
+At source revision `669ad8aa4af7e0417cec7ece33d0e812496743c4`, SHA-256 values
+were: ROM `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
+harness `bcfc16de9e07a8acb81b52e4f843ab0cf2beba6e26a1a134e25a3e6f714dc280`;
+zero-width fixture `c4894aaf0f1807b0b672ec0d98dab26fe9be883bb76adf2417a8175937c40380`;
+resolved input `f19f18a9e0811789e0ec3834d3c9f93fe194ac5da722f999f13aebcc191759b7`;
+parent save `3bab29651c18b77dc0b43028f9fa6225da9c23587cb02fe855ab8966a0cd9121`;
+parent adapter config `45fdd476f1adf5c1d87aedaeda675d11f610ab7d7d056231f955aff71c4769ef`.
+The full output-hash inventory is retained in `.tmp/jp-bmp-malformed-http-20261025/RESULT.json`
+(SHA-256 `c7fad49c5b2e323a34eca9c3d89639898273585128f34206edb4a3756f56d165`).
+`git diff --check` is the applicable documentation-only validation for this note.
