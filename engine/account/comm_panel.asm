@@ -341,6 +341,10 @@ CommPanel_PrintWarningText:: ; 68:75A4
 	farcall Tilemap_FillAscendingWithAttr
 	ret
 
+; [CONFIRMED] A selects caption phase 0=dial, 1=operation, 2=close.
+; Variant 0=registration verification, 1=password, 2=usage time, 3=usage fee.
+; This redraw does not write wCommPanelPhase: Init owns that stored phase,
+; also used by the cancel-button logic. Indices are not bounds-checked here.
 CommPanel_DrawCaption:: ; 68:7611
 	ld hl, CommPanel_CaptionSets
 	add a, a
@@ -378,17 +382,24 @@ CommPanel_DrawCaption:: ; 68:7611
 	call Gfx_UploadBgMapBuffersDi
 	ret
 
-; ---- words $764C-$7652 (6 bytes) [PROBABLE] 3 words $7652,$7656,$765A = the starts of the three 4-byte records below
+; ---- ptrtable $764C-$7652 (6 bytes) [CONFIRMED] phase-indexed pointers to four variant entries each; consumed by CommPanel_DrawCaption
 
 CommPanel_CaptionSets:: ; 68:764C
-	dw Data_CommPanel_CaptionSetRecords, $7656, $765A
+	dw CommPanel_CaptionIndicesByPhase, CommPanel_CaptionIndicesByPhase + 4, CommPanel_CaptionIndicesByPhase + 8
 
-; ---- data $7652-$765E (12 bytes) [PROBABLE] three 4-byte records (00 00 00 00 / 02 05 06 07 / 04 04 04 04) addressed by the word table at 764C; use not decoded
+; ---- data $7652-$765E (12 bytes) [CONFIRMED] dial / operation / close rows, columns registration / password / usage time / usage fee
 
-Data_CommPanel_CaptionSetRecords:: ; 68:7652
+CommPanel_CaptionIndicesByPhase:: ; 68:7652
 	db $00, $00, $00, $00, $02, $05, $06, $07, $04, $04, $04, $04
 
-; ---- words $765E-$766E (16 bytes) [PROBABLE] 8 words $5038,$5098,$50F8,$5158,$51B8,$5218,$5278,$52D8 (constant stride $60), directly after the 4-byte records; targets are not in this bank; use not decoded
+; ---- ptrtable $765E-$766E (16 bytes) [CONFIRMED] bank $71 caption pairs; BC=$040C, destination wScreenTileMap+$67. DION entries 1/3 are not selected by the valid rows above.
 
 CommPanel_CaptionMaps:: ; 68:765E
-	dw $5038, $5098, $50F8, $5158, $51B8, $5218, $5278, $52D8
+	dw CommPanel_CaptionDialing
+	dw CommPanel_CaptionDionConnecting
+	dw CommPanel_CaptionVerifyingRegistration
+	dw CommPanel_CaptionDionDisconnecting
+	dw CommPanel_CaptionClosingCommunication
+	dw CommPanel_CaptionChangingPassword
+	dw CommPanel_CaptionDownloadingUsageTime
+	dw CommPanel_CaptionDownloadingUsageFee

@@ -1193,7 +1193,7 @@ visual purpose.
 | `1E:4357–48C1` | Seven 9×11 tile-index/attribute frame pairs (`$C6` bytes each), selected through `TopMenu_AnimTilemapFrames` by `engine/menus/top_menu.asm`. | **CONFIRMED format and consumer.** Retained reads cover only part of the seven-frame set; do not claim all frames reached. |
 | `4A:5770–5838` | Five 2×10 tile-index/attribute records selected via the cursor-indexed pointer table in `engine/account/settings_menu.asm`; copied by `Tilemap_CopyRectAndAttr`. | **CONFIRMED layout and indexed-reader structure.** Natural traces did not read entry 4; its runtime selection stays unverified. The 40-byte tail is an object-table entry, not another map. |
 | `5D:5000–5320` | Four 5×20 tilemap/attribute pairs at `$C8` stride, selected by the password-entry variant table and copied by the account-screen path. | **CONFIRMED format and source selection contract.** The records are structured screen data, not missing 2bpp art. |
-| `71:5038–5338` | Eight 4×12 tile-index/attribute pairs at `$60` stride, indexed by `CommPanel_CaptionMaps`. | **CONFIRMED format and table consumer.** Natural traces cover only part of the set; caption meanings and every variant's selection remain unresolved. |
+| `71:5038–5338` | Eight 4×12 tile-index/attribute pairs at `$60` stride, indexed by `CommPanel_CaptionMaps`. | **CONFIRMED format, captions and bounded phase/variant selection.** See the caption contract below. Natural traces do not establish execution of every combination; DION entries 1/3 are unselected by valid table inputs, not globally proven unused. |
 | `73:438F–45DD` | Browser-start map/attribute rectangles plus five 5×7 tile-index animation frames and their attribute suffix. | **CONFIRMED reader and format** for the addressed rectangles and 175 frame-index bytes. The final three bytes at `45DD–45E0` are zero and outside the retained reads; do not include them in the frame asset. |
 | `58:7E48–7EA0` | Two variants of eleven four-byte page-counter column records; `Notice_DrawPageCounter` selects the record and copies a two-tile column. | **CONFIRMED record fields and consumer.** This is object-tile metadata, not a tilemap image. |
 | `4B:5B68–5B90` | Ten four-byte digit tile/attribute records indexed by `Account_ResultPage_DrawTimeDigits`. | **CONFIRMED record fields and consumer.** This is sprite/tile upload metadata, not a tilemap image. |
@@ -1388,3 +1388,36 @@ matrix above. Reproduce with
 receipt is `RESULT.json` (SHA-256
 `2c428464edec4bf19c443a10d6705467ae13bdc448eda03b113f9eef25a2b50b`). The
 receipt pins the protected ROM, 72-scenario union, and relevant source files.
+
+
+### Bank71 communication captions and selector contract (2026-10-25)
+
+All eight original 4×12 pairs were rendered using the four HDMA loads and BG
+palette from `CommPanel_StateDraw`, with signed tile addressing and original
+attributes. No ROM modification or emulated execution was involved.
+
+| Index | Caption | Meaning | Selection for phase 0..2, variant 0..3 |
+|---|---|---|---|
+| 0 | 電話をかけています | Dialing | Phase 0, every variant |
+| 1 | DIONに接続中です | Connecting to DION | Not selected by these table rows |
+| 2 | 登録した情報を確認中です | Verifying registered information | Phase 1, variant 0 |
+| 3 | DIONから切断中です | Disconnecting from DION | Not selected by these table rows |
+| 4 | 通信を終了しています | Ending communication | Phase 2, every variant |
+| 5 | パスワードを変更中です | Changing password | Phase 1, variant 1 |
+| 6 | 利用時間情報を / ダウンロード中です | Downloading usage-time information | Phase 1, variant 2 |
+| 7 | 利用課金情報を / ダウンロード中です | Downloading usage-charge information | Phase 1, variant 3 |
+
+The ROM rows at `68:7652` are `0,0,0,0 / 2,5,6,7 / 4,4,4,4`.
+`CommPanel_DrawCaption` uses A to select a row, `wCommPanelVariant` to select
+its byte, then the Bank71 pointer table; neither index is bounds-checked.
+Registration verification, password change, usage time and usage fee explicitly
+set variants 0, 1, 2 and 3 respectively in their maintained source owners.
+The first two initialize phase 0 and redraw phases 1/2 at their operation/close
+transitions. The browser's `CommProgress_Init_Panel` forwards its phase argument;
+its disconnect paths request phase 2. A redraw does **not** update the stored
+`wCommPanelPhase`, which still governs the initial panel and cancel-button policy.
+
+These are CONFIRMED static consumer/selector contracts and rendered captions,
+not proof of every natural path or global non-use of the DION resources.
+The original eight records and all pointer bytes are unchanged. Caption content
+and valid-table selection are closed; do not repeat this format/meaning pass.

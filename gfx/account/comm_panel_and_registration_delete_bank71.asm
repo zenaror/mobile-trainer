@@ -123,7 +123,8 @@ CommPanel_Anim1Script:: ; 71:5031
 
 ; ---- data $5038-$5098 (96 bytes) [CONFIRMED] 4x12 tilemap followed by 4x12 attrmap; CommPanel_DrawCaption (68:7611) selects this through CommPanel_CaptionMaps (68:765E), then calls Tilemap_CopyRectAndAttr with BC=$040C and bank $71
 
-CommPanel_CaptionMap0:: ; 71:5038
+; [CONFIRMED] Caption: 電話をかけています.
+CommPanel_CaptionDialing:: ; 71:5038
 	db $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $09, $0A, $0B, $0C
 	db $0D, $0E, $0F, $24, $25, $A0, $A0, $A0, $19, $1A, $1B, $1C, $1D, $1E, $1F, $34
 	db $35, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
@@ -131,9 +132,10 @@ CommPanel_CaptionMap0:: ; 71:5038
 	db $09, $09, $09, $09, $09, $0A, $0A, $0A, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 
-; ---- data $5098-$5338 (672 bytes) [CONFIRMED] seven further 4x12 tilemap/attrmap pairs at 96-byte stride, indexed 1-7 by CommPanel_CaptionMaps; natural traces read only part of the set, and caption text/selection meanings remain unresolved
+; ---- data $5098-$5338 (672 bytes) [CONFIRMED] seven further 4x12 tilemap/attrmap pairs at 96-byte stride, indexed 1-7 by CommPanel_CaptionMaps; captions rendered with CommPanel_StateDraw graphics; phase/variant table selects indices 0,2,4,5,6,7 (not 1 or 3) for phase 0..2 / variant 0..3; no global non-use claim
 
-CommPanel_CaptionMap1:: ; 71:5098
+; [CONFIRMED] Caption: DIONに接続中です.
+CommPanel_CaptionDionConnecting:: ; 71:5098
 	db $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $26, $27, $28, $29
 	db $2A, $2B, $2C, $2D, $2E, $25, $A0, $A0, $36, $37, $38, $39, $3A, $3B, $3C, $3D
 	db $3E, $35, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
@@ -141,7 +143,8 @@ CommPanel_CaptionMap1:: ; 71:5098
 	db $09, $09, $09, $09, $09, $09, $0A, $0A, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 
-CommPanel_CaptionMap2:: ; 71:50F8
+; [CONFIRMED] Caption: 登録した情報を確認中です.
+CommPanel_CaptionVerifyingRegistration:: ; 71:50F8
 	db $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $2F, $40, $41, $42
 	db $43, $44, $0B, $45, $46, $2D, $2E, $25, $3F, $50, $51, $52, $53, $54, $1B, $55
 	db $56, $3D, $3E, $35, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
@@ -149,7 +152,8 @@ CommPanel_CaptionMap2:: ; 71:50F8
 	db $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $09, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 
-CommPanel_CaptionMap3:: ; 71:5158
+; [CONFIRMED] Caption: DIONから切断中です.
+CommPanel_CaptionDionDisconnecting:: ; 71:5158
 	db $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $26, $27, $28, $29
 	db $0C, $47, $48, $49, $2D, $2E, $25, $A0, $36, $37, $38, $39, $1C, $57, $58, $59
 	db $3D, $3E, $35, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
@@ -157,7 +161,8 @@ CommPanel_CaptionMap3:: ; 71:5158
 	db $09, $09, $09, $09, $09, $09, $09, $0A, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 
-CommPanel_CaptionMap4:: ; 71:51B8
+; [CONFIRMED] Caption: 通信を終了しています.
+CommPanel_CaptionClosingCommunication:: ; 71:51B8
 	db $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $77, $78, $0B, $4A
 	db $76, $41, $0E, $0F, $24, $25, $A0, $A0, $7A, $7B, $1B, $5A, $79, $51, $1E, $1F
 	db $34, $35, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
@@ -165,7 +170,8 @@ CommPanel_CaptionMap4:: ; 71:51B8
 	db $09, $09, $09, $09, $09, $09, $0A, $0A, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 
-CommPanel_CaptionMap5:: ; 71:5218
+; [CONFIRMED] Caption: パスワードを変更中です.
+CommPanel_CaptionChangingPassword:: ; 71:5218
 	db $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $4B, $4C, $4D, $4E
 	db $4F, $0B, $60, $61, $2D, $2E, $25, $A0, $5B, $5C, $5D, $5E, $5F, $1B, $70, $71
 	db $3D, $3E, $35, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0, $A0
@@ -173,7 +179,8 @@ CommPanel_CaptionMap5:: ; 71:5218
 	db $09, $09, $09, $09, $09, $09, $09, $0A, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $09, $09, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A, $0A
 
-CommPanel_CaptionMap6:: ; 71:5278
+; [CONFIRMED] Caption: 利用時間情報を / ダウンロード中です.
+CommPanel_CaptionDownloadingUsageTime:: ; 71:5278
 	db $62, $63, $64, $65, $43, $44, $0B, $A0, $A0, $A0, $A0, $A0, $72, $73, $74, $75
 	db $53, $54, $1B, $A0, $A0, $A0, $A0, $A0, $67, $68, $69, $6A, $4E, $4F, $2D, $2E
 	db $25, $A0, $A0, $A0, $6C, $6D, $6E, $6F, $5E, $5F, $3D, $3E, $35, $A0, $A0, $A0
@@ -181,7 +188,8 @@ CommPanel_CaptionMap6:: ; 71:5278
 	db $09, $09, $09, $0A, $0A, $0A, $0A, $0A, $09, $09, $09, $09, $09, $09, $09, $09
 	db $09, $0A, $0A, $0A, $09, $09, $09, $09, $09, $09, $09, $09, $09, $0A, $0A, $0A
 
-CommPanel_CaptionMap7:: ; 71:52D8
+; [CONFIRMED] Caption: 利用課金情報を / ダウンロード中です.
+CommPanel_CaptionDownloadingUsageFee:: ; 71:52D8
 	db $62, $63, $66, $43, $44, $0B, $A0, $A0, $A0, $A0, $A0, $A0, $72, $73, $6B, $53
 	db $54, $1B, $A0, $A0, $A0, $A0, $A0, $A0, $67, $68, $69, $6A, $4E, $4F, $2D, $2E
 	db $25, $A0, $A0, $A0, $6C, $6D, $6E, $6F, $5E, $5F, $3D, $3E, $35, $A0, $A0, $A0
