@@ -169,6 +169,33 @@ the protected ROM, the 338-file maintained ASM/INC source set
 the sole banner callsite, and the helper alias-reference screen. No ASM or ROM
 bytes changed; no runtime or hardware execution was performed.
 
+#### Exact Bank 42 tail-tile read and screen-ledger domain (2026-10-25)
+
+The target `42:6132-6142` is one 16-byte tile represented as
+`BlueBubbleCreatureBorder_TailTile_6132` in
+`gfx/frame_designs/metal_flame_and_creature_borders_42.asm`. The label's
+**PROBABLE** 2bpp identity and exact PNG round-trip establish a reversible
+candidate asset, not a natural consumer. A targeted scan of the current 75
+tracked `dataaccess.tsv` reports parsed 85,013 merged `rom_read` ranges; none
+intersects this interval. The exact label/address has no occurrence in other
+tracked Japanese ASM/INC files, `gfx/screens.tsv`, or
+`gfx/previews/screen_ops.tsv`; the tile has one catalog row in `gfx/assets.tsv`.
+Together with the preceding result-page kind liveness analysis, this means the
+known `$B5` banner route is conditional only and the tracked traces and
+generated screen-composition records contain no read/use of this tile.
+
+This is **CONFIRMED only for those hashed inputs and exact query forms**. It
+does not rule out a computed/copy-based loader, an unrecorded state, arbitrary
+entry, or hardware/server behavior, and it does not justify global non-use or
+relabelling the candidate as dead. Reproduce with
+`.tmp/jp-bank42-tailtile-6132-domain-20261025/audit.py` (SHA-256
+`fb1f3f487af83bc834e2ca98b1afd9c7311e445bebc805f443f10f014c4223a1`),
+`INPUTS.json` (`639da2e0e42616fd2f16ae07aa3e64a207a899312d83c6036abd2ee53db38e06`),
+and `RESULT.json` (`8bbd994042b2eee14e15e13ff2472faaa97935eb26f3e90b8c2e3c3aede1ad0b`).
+The receipts pin the Japanese ROM, tile/source/catalog files, screen ledgers,
+and all 75 reports. No ASM or ROM bytes changed; no new runtime execution was
+performed.
+
 #### Interrupt/frame-service interleaving for result-page kind (2026-10-25)
 
 The preceding check covered the named synchronous helpers before the banner
