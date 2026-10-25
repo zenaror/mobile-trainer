@@ -173,7 +173,10 @@ in `data/text/pokemon_names_bank53.asm`.
 `PokemonName01` (Pikachu) and `PokemonName15` (Pichu) remain jointly
 ambiguous between the rodent-like windows `43:4D50` and `47:68F0`; the current
 visual review cannot choose either pairing. `PokemonName00` (Porygon) and
-`PokemonName24` (Porygon2) remain unmatched. The geometric/panel windows
+`PokemonName24` (Porygon2) remain unmatched in this 25-window review. The later
+Bank 51 pixel comparison adds a separate **PROBABLE** visual association for
+`PokemonName24`; it does not place Porygon2 in either panel or establish an
+executable ordinal edge. The geometric/panel windows
 `41:5AA0` and `41:67F0` have no supported Pokémon identity and are not assigned
 to those names by elimination. Therefore 21 species identities are resolved
 visually, while all 25 executable ordinal-to-window links, natural selection,
@@ -199,8 +202,12 @@ association: the maintained source graph has no demonstrated reader that takes
 an ordinal from `Table_PokemonNamePointers` and selects the corresponding
 physical window. `PokemonName00` (Porygon) and `PokemonName24` (Porygon2) have
 no corresponding species-art window in this 25-window set; the two panel
-windows are not substituted for them. No candidate is thereby proven naturally
-loaded or globally used/unused.
+windows are not substituted for them. A later Bank 51 pixel comparison gives
+separate **PROBABLE** visual evidence for Porygon2 art outside this set; see
+“Bank 51 Pokémon-art candidate boundary correction” in the current semantic
+research note. This still supplies no executable name reader or natural
+selector. No candidate is thereby proven naturally loaded or globally
+used/unused.
 
 Reproduction: `.tmp/jp-bank53-name-window-order-20261025/audit.py` (SHA-256
 `b8930ab085262d1e3528a3979844c424de24bfd46a98ef769d04a39a866a4037`), receipt
@@ -209,6 +216,13 @@ Reproduction: `.tmp/jp-bank53-name-window-order-20261025/audit.py` (SHA-256
 script pins the protected ROM and hashes the name source and asset manifest;
 it verifies 25 candidate tile-window starts and the exact 23-to-23 ordering.
 The two panel exclusions are inputs from the window-local visual review above.
+
+The later BetaP2 pixel match adds a visual Porygon2 association outside this
+25-window sequence. It does not change the 23-to-23 Bank41–47 crosswalk or
+resolve the missing `PokemonName00` asset, natural selection, or an executable
+name/frame association. The former one-byte-shifted Bank51 source is
+superseded by `[51:5EE0,51:70D0)`; see the current correction and receipt in
+[`japanese_semantic_roots_and_destinations_20261025.md`](japanese_semantic_roots_and_destinations_20261025.md#bank-51-pokemon-art-candidate-boundary-correction-2026-10-25).
 
 #### Reinspection of the two rodent-like tile sources
 

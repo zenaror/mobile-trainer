@@ -323,10 +323,13 @@ transformed/compressed strings, runtime copies, or readers that access the
 Bank 53 source directly. A separate exact ordering comparison now supports a
 PROBABLE intended visual/index mapping for `PokemonName01..PokemonName23` to 23
 species-art windows; it does not establish that the ROM reads those names or
-selects those windows by ordinal. `PokemonName00` and `PokemonName24` remain
-unmatched within the candidate-window set. Keep executable name/frame links
-UNKNOWN/HYPOTHESIS and global use status unknown; details and reproduction are
-in `japanese_frame_bank53_revalidation_20261024.md`.
+selects those windows by ordinal. `PokemonName00` remains unmatched in the
+audited window set. `PokemonName24` also has a separate **PROBABLE** visual
+association with the corrected Bank 51 art at `51:5EE0`, based on the BetaP2
+JPEG pixel match documented below; this art lies outside the 25 Bank 41–47
+windows. Keep executable name/frame links UNKNOWN/HYPOTHESIS and global use
+status unknown; details and reproduction are in
+`japanese_frame_bank53_revalidation_20261024.md`.
 
 A companion byte scan checked each of the 25 little-endian 16-bit target words
 across the ROM, plus contiguous ordered runs and the exact 50-byte table. There

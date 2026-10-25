@@ -563,3 +563,17 @@ only the bank-53 table's own pointer declarations and name definitions, not an
 external named reader. These are current finite representation and manifest
 checks; they do not prove the bank-41–46 windows are globally unused, identify
 a natural loader for `47:68F0`, or associate any name ordinal with an image.
+
+### Bank 51 Pokémon-art and name-table follow-up (2026-10-25)
+
+The later BetaP2 JPEG comparison finds 57 exact tile patterns in the
+16-byte-aligned Bank51 candidate span `[51:5EE0,51:70D0)`. This supports a
+**PROBABLE** visual association between the Porygon2 string
+`PokemonName24` and artwork outside the 25 Bank41–47 candidate windows. The
+corrected 4,592-byte span now has an exact PNG source that round-trips to the
+ROM; it replaces the former one-byte-shifted asset. `PokemonName00` (Porygon)
+still has no identified asset. This updates the image-association evidence,
+not the executable name-reader/selector status: no ordinal-to-frame consumer
+has been found, and no frame is globally classified used or unused. See the
+[Bank51 boundary correction](japanese_semantic_roots_and_destinations_20261025.md#bank-51-pokemon-art-candidate-boundary-correction-2026-10-25) and the
+[Bank53 crosswalk limits](japanese_frame_bank53_revalidation_20261024.md#ordered-name-to-window-crosswalk-2026-10-25).

@@ -1,6 +1,6 @@
 ; data/text/pokemon_names_bank53.asm
 ; bank 53, $4000-$4171 (369 bytes); pinned by layout.link
-; 25 katakana names (pointer table + strings); no reader confirmed in the bounded reviews; name-to-frame associations remain HYPOTHESIS
+; 25 katakana names (pointer table + strings); no reader confirmed in the bounded reviews; visual/index mapping is PROBABLE for 01-23 and Porygon2 art at 51:5EE0 is PROBABLE; executable ordinal-to-frame link remains HYPOTHESIS
 
 SECTION "data/text/pokemon_names_bank53", ROMX
 
