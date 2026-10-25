@@ -175,6 +175,12 @@ to those names by elimination. Therefore 21 species identities are resolved
 visually, while all 25 executable ordinal-to-window links, natural selection,
 and global used/unused classifications remain open.
 
+#### Reinspection of the two rodent-like tile sources
+
+The exact tile PNG for `43:4D50` (`blue_yellow_chevron_border_43_4d50_tiles.png`, SHA-256 `4c0bbca1753b80992588edfea5e1c6193f14a8805f51ae45fad289b512447aab`) contains two small animal faces flanking the “START MENU / B BACK” artwork. The separate `47:68F0` source is a profile-like yellow head in its candidate screen composition (PNG SHA-256 `101d974b982b4eeba83e7a83047948dc99dc6b0619330af76ffeeac21f469ffd`). These are positive visual observations only: they do not identify the individual faces as Pikachu or Pichu, nor associate either name ordinal with either source.
+
+The generated `BrowserFrameCandidate_43_1.png` is a synthetic composition, not an emulator screenshot: `tools/render_screens.py::frame_scenes` applies the Bank-47 descriptor layout as an explicit HYPOTHESIS to the Bank-43 package. The retained preview metadata marks it `hypothesis` and `no capture`; it must not be cited as runtime evidence. The reproduced candidate image is `.tmp/jp-frame-visual-recheck-20261024/screens/BrowserFrameCandidate_43_1.png` (SHA-256 `6c2b5c8dbfc0c49be11730ef0e28b98f845c0f5cb7c73efac94727f37750679b`), generated with `tools/render_screens.py` SHA-256 `6e481c771351587764cb1dd13d58504c0bd7d54c9a75d5f79f5121ba0f67cbe4`. This review leaves both names and all ordinal-to-window links unresolved.
+
 ### Window-local visual identifications (2026-10-24)
 
 A read-only reinspection of the existing candidate previews and component PNGs
