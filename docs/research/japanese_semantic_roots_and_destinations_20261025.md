@@ -1,16 +1,16 @@
 # Japanese semantic roots and destination reconciliation (2026-10-25)
 
-Status: **partial semantic closure; static source review only**. Canonical source
+Status: **partial semantic closure; static and bounded synthetic-runtime evidence**. Canonical source
 base: `zenaror/mobile-trainer` `main` at `49aad2b2e7214227348eb5f19958f77f78cfa5b8`.
 Protected ROM SHA-256:
 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
 Linker-symbol SHA-256:
 `6373908de7aa1b10c772bd7aa9087bff13eb1e2352b0c71f24e7a26b82ad1598`.
 
-This pass asks which missing links can be closed from the current maintained
-program and which remain genuinely unsupported by a natural producer. It does
-not infer global non-use from a bounded census, and makes no new runtime or
-hardware claim.
+The original `49aad2b` source pass asks which missing links can be closed from
+the maintained program and which remain unsupported by a natural producer. It
+does not infer global non-use from a bounded census. Later additions are
+explicitly scoped as synthetic mGBA evidence; no hardware claim is made.
 
 ## Generic-copy destinations: reconcile 120 inherited-DE rows
 
@@ -38,10 +38,13 @@ height; `Bmp_CheckSize` permits width zero, rejects width >=145, and accepts
 height 1..96. The exact static contract, interval formula and evidence boundary
 are documented in
 [`japanese_bmp_record_bounds_20261025.md`](japanese_bmp_record_bounds_20261025.md).
-Accepted zero-width bottom-up headers leave the converter looping at WRAM3
-`$D000`; top-down headers take a separate early return. The nonzero-width path
-is statically bounded against the SRAM window, but not against the nested
-payload length. Safety for truncated/corrupted responses is not established.
+An earlier static inference said an accepted zero-width bottom-up header leaves
+the converter looping at WRAM3 `$D000`. A directed synthetic mGBA run instead
+observed width 0, height `$20`, bottom-up flag 0 and converted-output stride 0,
+then reached the normal ROM loop after 9,600 frames. The mechanism is
+unresolved, so neither a hang nor safety for malformed input is claimed. The
+separate record-bound finding remains: the converter discards the nested end
+pointer and does not compare reads to the declared payload length.
 
 The three `MobileAPI_PeerReceive` sinks are `lib/mobile/main.asm:3341`,
 `:3393` and `:3397`. The full maintained lexical API-call census records 100
@@ -270,11 +273,13 @@ receipt `.tmp/jp-preview-indirect-overflow-20261025/RESULT.json` (SHA-256
 
 ## Remaining work required for semantic closure
 
-1. BMP source-length handling is now statically reconciled: the natural caller
-   computes a nested record end, the converter discards it, and the row-read
-   interval is derived from header offset/dimensions without a payload-bound
-   comparison. Reopen only with evidence about malformed-response production,
-   SDK receive guarantees, or a runtime SRAM boundary.
+1. BMP source-length handling: the natural caller computes a nested record end,
+   but the converter discards it and does not compare reads with the declared
+   payload length. A directed synthetic zero-width response reaches conversion
+   and returns in mGBA, contradicting the previous static hang inference; see
+   [`japanese_bmp_record_bounds_20261025.md`](japanese_bmp_record_bounds_20261025.md).
+   Reconcile the apparent zero-stride loop from register/control-flow evidence;
+   hardware and external-network guarantees remain untested.
 2. Treat `MobileAPI_PeerReceive` as excluded from maintained Japanese
    application routes by the 100-site immediate-index census. Reopen only if a
    new `$3A` producer or indirect API entry is demonstrated; external callers
