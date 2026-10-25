@@ -128,7 +128,7 @@ corpus or claim global reachability.
 
 | Candidate | Current result | Exact positive evidence required to change the status |
 |---|---|---|
-| `2B:6CF5` | **PROBABLE** reply setup from an SRAM0 record and editor dispatch; natural entry **UNKNOWN**. | A maintained caller/dispatch selecting physical Bank2B, a producer for B, and a stack image that accounts for the four success-path `POP AF`s. |
+| `2B:6CF5` | **PROBABLE** reply setup from an SRAM0 record and editor dispatch; natural entry **UNKNOWN**. In the retained natural `mail_reply_ascii` scenario, the matching Bank25 reply implementation executes, while Bank2B has no instruction starts. | A distinct maintained caller/dispatch selecting physical Bank2B, a producer for B, and a stack image that accounts for the four success-path `POP AF`s. |
 | `2D:4E42` | **PROBABLE** wrapper selects WRAM1 and calls `4E54`; natural entry **UNKNOWN**. `4E41` is RET. | A maintained producer entering with WRAM1 and demonstrating the wrapper's B/C inputs and stack contract. |
 | `2D:4E54` | **PROBABLE** two-byte-cell scan/calculation over `$D400`; its only known caller is the unrooted `4E42` wrapper. The NUL exit at `4E72` consumes saved BC as a PC. | A rooted caller plus the exact D400 contents, mapper state, and stack word that makes the unusual exit a valid continuation. |
 | `29:511E` | Local mechanics **CONFIRMED conditional** on a balanced return from `$7BB7`, then waits on LY; natural root **UNKNOWN**. Its only known caller `29:50CE` is unrooted, and `$7BB7` is zero-filled in the selected Bank29 view. | A maintained entry reaching the caller/leaf with Bank29 selected, a mapped returning callee at `$7BB7`, and the required LY state. |
@@ -811,6 +811,28 @@ to ROM SHA-256
 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. It does
 not scan relocated code with patched operands, computed references, or runtime
 state and cannot establish global non-use. No ROM or assembly bytes changed.
+
+### Retained natural reply scenario selects the Bank 25 implementation (2026-10-25)
+
+I read, but did not regenerate, the retained `mail_reply_ascii` trace. Its
+scenario definition is a natural reply to received ASCII message 2. The
+coverage report records all 64 instruction starts in the naturally selected
+`Mailbox_ReplyToRecord` interval `25:54A7–550F` (2,200 total executions),
+including the 24-byte entry prefix that byte-matches the Bank 2B candidate.
+The same report has zero instruction starts anywhere in physical Bank 2B, and
+the associated MBC-write report has zero rows whose PC bank or post-write
+physical ROMX bank is `2B`. This gives a concrete positive route for the
+reply operation through Bank 25, and a bounded negative for the candidate
+variant in this specific retained scenario. It does not prove that the Bank
+2B copy is globally unreachable or unused, nor identify any other caller.
+
+Reproduction: `.tmp/jp-mailreply-bank2b-natural-route-20261025/audit.py`
+(SHA-256 `65c64345455411c95498ea6a0a4c03512192bdec11aae3d75d359ee48a461a79`)
+and `RESULT.json` (SHA-256
+`f4f3422c8e8b922c023a3735d33b712076fd05938d4e811ab31fa769d9dfbd08`). The
+receipt pins the original ROM, scenario registry, source input macro/resolved
+input, coverage report, and MBC-write report; the five input hashes are
+recorded in that JSON. No trace was rerun, and no source or ROM bytes changed.
 
 ### New normal-input exploration of browser and inbox paths (2026-10-25)
 
