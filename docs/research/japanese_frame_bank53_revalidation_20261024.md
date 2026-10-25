@@ -129,6 +129,10 @@ Reproduction: `.tmp/jp-browser-oob-selector-frame-route-20261024/audit.py` (SHA-
 
 The explicit producer graph therefore confirms no name-ordinal-to-frame chain and narrows ordinary natural paths, but it does **not** prove that the external preview input is unreachable, that RAM descriptors are globally unused, or that all 25 name-to-window links are absent. Keep all executable links **HYPOTHESIS** and all natural-selection/global-unused claims open until a producer or trace supplies the name ordinal and physical frame bank/address together.
 
+### Correction: indirect preview targets from out-of-range tables (2026-10-25)
+
+The earlier whole-ROM byte search established no direct call or literal far-pointer triple to `4E:4000`; it did not cover malformed `JumpTableInline` indices. A later reconciliation of the retained 49-table/7,022-case matrix found 18 out-of-declared-table entries that decode to `4E:4000`. Their maintained producers remain within valid fetch-result, dialog, or browser-menu domains. If an invalid index is forced, `JumpTableInline` loads the target word's low byte into A, so this entry receives `A=0` and selects descriptor 0. This corrects the earlier broad wording that implied no indirect pointer existed; it does not establish a natural preview entry or a Pokémon-name/frame link. See [the bounded indirect preview audit](japanese_semantic_roots_and_destinations_20261025.md#indirect-malformed-index-path-to-the-frame-preview-2026-10-25) and `.tmp/jp-preview-indirect-overflow-20261025/`.
+
 ## Remaining frame questions
 
 The visual review supports 21 direct species-to-window matches, two rodent-like windows whose Pikachu/Pichu distinction is unresolved, and two windows with no supported Pokémon identity. Porygon and Porygon2 likewise have no supported image match. This is separate from the still-unresolved executable association between a `PokemonNameXX` ordinal and a physical window. Eight windows remain KEEP as editable compositions because their complete VRAM placement is not justified; their original bytes and backing assets exist. No frame is classified globally unused, and natural frame selection remains unknown. Do not assign the two geometric windows to Porygon/Porygon2 by elimination, synthesize unresolved VRAM keys, or treat a missing editable composition as a missing ROM asset.
@@ -215,6 +219,14 @@ pointer, selector value, natural selection, or runtime use.
 | `46:5AA0` | `gfx/previews/screens/BrowserFrameCandidate_46_2.png`: pale elongated head and dark eye marking | Lugia-like, PROBABLE |
 | `46:67F0` | `gfx/frame_designs/star_rivet_energy_and_scallop_borders_46/pink_scallop_border_46_67f0_tiles.png`: round face, large eyes and forelock | Jigglypuff-like, PROBABLE |
 | `47:68F0` | `gfx/browser/frames_2_3/browser_frame_candidate_72f0.screen.png`: yellow head in profile, dark ear and cheek | Pikachu/Pichu-like; the two-window distinction remains uncertain |
+
+The two geometric windows were checked against their exact tile sheets in
+`gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/`: the `41:5AA0`
+sheet contains a green beveled UI panel with controls/digits, and `41:67F0`
+contains an orange beveled UI panel with controls/digits. Neither sheet shows
+a Pokémon silhouette. This confirms what those extracted PNGs represent; it
+does not prove whether another, unidentified resource is used for either
+Porygon name.
 
 The review supports 21 distinctive visual identities and two rodent-like
 windows, but cannot safely decide which rodent depiction is Pikachu and which

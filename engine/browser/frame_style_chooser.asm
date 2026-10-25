@@ -1,16 +1,17 @@
 ; engine/browser/frame_style_chooser.asm
 ; bank 4E, $4000-$4658 (1624 bytes); pinned by layout.link
-; frame-style chooser with no caller, wipe list, cursor copier
+; frame-style chooser with no direct natural caller, wipe list, cursor copier
 
 SECTION "engine/browser/frame_style_chooser", ROMX
 
 Browser_FrameStylePreview_Run:: ; 4E:4000
 
-	; [HYPOTHESIS] 1 instruction (ldh [$FFD2],a) that falls straight into the proven far-call site
-	; at 4E:4002 (same function: the code from 4002 uses hFFD2); first instruction of the bank; no
-	; caller/pointer to 4E:4000 found (whole-ROM search), so the entry is unproven | forced
-	; execution: 1/1 instruction starts ran in forced_screens (traces/forced/, not natural evidence;
-	; status unchanged)
+	; [HYPOTHESIS] 1 instruction (ldh [$FFD2],a) that falls straight into the far-call site at
+	; 4E:4002 (same function: the code from 4002 uses hFFD2); first instruction of the bank; no
+	; direct caller found. The retained inline-table matrix has 18 out-of-range words that can
+	; indirectly target 4E:4000; their normal producers stay within declared result domains, and
+	; JumpTableInline enters with A=0 for this target. Natural entry remains unproven. Forced
+	; execution: 1/1 starts in forced_screens (not natural evidence; status unchanged).
 	ldh [hFramePreview_Style], a
 
 	; [PROBABLE] 160 insn(s) reached by static flow only; seeds: site x160; min discovery hops 0;

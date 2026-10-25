@@ -216,6 +216,44 @@ use/non-use. The 25 name-to-frame associations remain unresolved. Reproduce
 with `.tmp/jp-bank53-selector-natural-domain-20261024/audit.py`; its result
 pins the ROM, six source files, and prior 101-index receipt.
 
+### Indirect malformed-index path to the frame preview (2026-10-25)
+
+The retained 49-table/7,022-case inline-dispatch matrix contains 18 cases
+whose decoded target is physical `4E:4000`, the otherwise uncalled
+`Browser_FrameStylePreview_Run` entry. They come from nine tables in
+`engine/browser/page_view.asm` and `engine/browser/session_start.asm`. Every
+case is beyond its table's declared extent:
+
+| Dispatch site | Out-of-range A values | Table entries | Ordinary producer domain |
+|---|---|---:|---|
+| `4E:4990` | 29, 75, 241 | 7 | `wBrowserFetchResult` 0–6 |
+| `4E:4A34` | 159 | 6 | monitored dialog result 0–5 |
+| `4E:4B7B` | 97 | 7 | `wBrowserFetchResult` 0–6 |
+| `4E:4C46` | 63 | 7 | `wBrowserFetchResult` 0–6 |
+| `4E:4CDC` | 188 | 6 | dialog `0113`: 0 or 2 |
+| `4E:4D6A` | 117 | 7 | browser menu result 0–6 |
+| `4E:4E5D` | 34, 81, 136, 211 | 7 | `wBrowserFetchResult` 0–6 |
+| `4E:4F17` | 43, 118, 227 | 6 | monitored dialog result 0–5 |
+| `4E:4FB4` | 93, 153, 181 | 6 | monitored dialog result 0–5 |
+
+The monitored dialog records selected by maintained message IDs have type 1
+or 2 and default result 0 or 1; the input handlers keep normal results in
+0–2, with explicit monitored link/connection/adapter exits 3–5. The
+`JumpTableInline` dispatcher then loads the selected pointer's low byte into
+A before `jp hl`. The target word for `4E:4000` is `$4000`, so even if a
+corrupted or externally supplied index forces this path, the preview receives
+`A=0` and selects descriptor index 0. It does not receive the overflowing
+index or a Pokémon ordinal.
+
+This is a newly enumerated conditional bad-index route, not a maintained
+natural entry. The enumerated producers cannot supply the out-of-range values
+shown above. It neither links `PokemonNameXX` to a candidate window nor
+classifies any resource globally used or unused. Reproduction:
+`.tmp/jp-preview-indirect-overflow-20261025/audit.py` (SHA-256
+`29681c0adb66b742c4b1d7fb1a05f9b0f0ab1c4761389a430a0def992310dcda`);
+receipt `.tmp/jp-preview-indirect-overflow-20261025/RESULT.json` (SHA-256
+`12403d10045d69f8520c85ad9fa1cb5532fe0ae5b32a40e78e6cc1e4dc8169fc`).
+
 ## Remaining work required for semantic closure
 
 1. BMP source-length handling is now statically reconciled: the natural caller
@@ -227,13 +265,17 @@ pins the ROM, six source files, and prior 101-index receipt.
    application routes by the 100-site immediate-index census. Reopen only if a
    new `$3A` producer or indirect API entry is demonstrated; external callers
    retain a generic caller-supplied pointer contract.
-3. Reconcile all remaining indirect producers/readers against the existing
-   bank-switch, reader and candidate matrices; preserve any newly discovered
-   routes before making a negative reachability claim.
+3. The retained inline-dispatch matrix is now reconciled for every case to
+   `4E:4000`, including its 18 malformed-index entries. Reopen dispatch work
+   only for a new producer/transfer form or evidence that changes the current
+   producer domains; this bounded result is not a whole-ROM reachability proof.
 4. Continue the Bank53 consumer/ordinal search only when a concrete producer,
    selector or state edge appears. Current evidence supports no PNG repair and
    no global unused-frame conclusion.
 
-No assembly or assets changed in this pass. No build/emulator/hardware test was
-run. `git diff --check` is the documentation-only validation; byte identity is
-unchanged because maintained assembly inputs are untouched.
+This pass changes source comments, documentation, and the ignored targeted
+audit receipt only; no instruction or data bytes were edited. The targeted
+audit was run twice and produced identical results. `make` reports
+`SHA-256 OK` / `RESULT: IDENTICAL` to the protected ROM, and `make sym-check`
+passes 335 source files, 12,224 labels and 51 constants. No emulator or
+hardware test was run.
