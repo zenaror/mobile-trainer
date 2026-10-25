@@ -3,10 +3,10 @@
   "language": "en",
   "base_commit": "ef41bff1fb24f2239661c230a48500f92bff4559",
   "english_commit": "d0ef9a448d078e6697e2a226ba0f5eab42c16409",
-  "expected_ROM": "130d3aa83da7e5ba27e2085d84ce88a6f71593bbf49e90186cf4ac6d17afd399",
-  "global_checksum": "58F7",
+  "expected_ROM": "ea293a535d6cecd6fe53ee21bf4b5bed8062b070b6468f0307ede1b73d854496",
+  "global_checksum": "52E4",
   "expected_symbols_DEBUG0": {
-    "labels": 12413,
+    "labels": 12486,
     "constants": 51
   },
   "overrides": {
@@ -88,6 +88,12 @@
       "bytes": 35234,
       "payload_path": "languages/en/data/text/help_script.asm"
     },
+    "data/text/help_script_english_relocated.asm": {
+      "base_sha256": null,
+      "payload_sha256": "8271169a7237ab768bd6e5431e9cdf346ff6a15a9660a832ed36f31d9be301c0",
+      "bytes": 19750,
+      "payload_path": "languages/en/data/text/help_script_english_relocated.asm"
+    },
     "data/text/mobile_dictionary_entries_en.asm": {
       "base_sha256": null,
       "payload_sha256": "135047f2da10da8313a7a78cc2ccdfee347354fd9055e2c5dd9225a2678de0f3",
@@ -123,6 +129,12 @@
       "payload_sha256": "2519213be56811da43114a7d958e825a04196cea2ee04610c25463ae7831f063",
       "bytes": 46689,
       "payload_path": "languages/en/engine/address_book/address_picker.asm"
+    },
+    "engine/help/help_script.asm": {
+      "base_sha256": "f01e3526d95449995654b01febe969bd4afffdccb3bb5048c216bb16d85f45ad",
+      "payload_sha256": "2497070bf9ce34ec421c1b283100eda6ca7845627bbc8fb3f5d8350cfad8719e",
+      "bytes": 22439,
+      "payload_path": "languages/en/engine/help/help_script.asm"
     },
     "engine/help/mobile_dictionary.asm": {
       "base_sha256": "e033f9aa9adc4e9edb49942215f8da9c136379e0c8c5f3907ed5009c60025085",
@@ -3624,7 +3636,7 @@
     },
     "home/header.asm": {
       "base_sha256": "5fda60c901ace35b75aa897a2ef5d6d3fb7846cbbee624f14fe6cdf3ca647ebd",
-      "payload_sha256": "90840936b9ec7d7ac22da4510a1a7107636463c9148b65b3f68a31b9bacfbf13",
+      "payload_sha256": "89302eb22a203fbaa59bf5b73ea65365b81be5026a5ed515c8c3e06e379b0405",
       "bytes": 3145,
       "payload_path": "languages/en/home/header.asm"
     }
@@ -3634,7 +3646,7 @@
   "fallback": "Current tracked JP source plus exact EN overrides; no ROM/ZIP/cache/pyc/build artifacts in language package",
   "known_limits": {
     "zip_content_parity": "IN_PROGRESS",
-    "help_script": "Partial; complete topic parity pending",
+    "help_script": "ZIP donor Help topics adapted; translation beyond donor not covered",
     "runtime_visual_hardware": "UNVALIDATED"
   },
   "fallback_files": {
@@ -22053,7 +22065,7 @@
       "sha256": "612a597b8c3f5752f5c83ca0aa35c4c86d0de04b7876c6e92b4a2512f72fc7e9"
     }
   },
-  "overrides_count": 603,
+  "overrides_count": 605,
   "fallback_count": 4592,
   "source_parity_commit": "271f768b2b538c390328ffddceb9b18f034c7567",
   "published_branch_parent": "7a68640ce4ab0091de37c8efb2cb389a3a61f42c"
