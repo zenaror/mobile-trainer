@@ -36,10 +36,10 @@ The common project base maps to the existing RGBDS organization below. Sources s
 |---|---|
 | Agent entry and local restrictions | [`AGENTS.md`](../AGENTS.md); OMM scope `mobile-trainer`, common role `project-base` |
 | Purpose, installation and build | [`README.md`](../README.md), [`INSTALL.md`](../INSTALL.md) |
-| Maintained code and layout | `home/`, `engine/`, `data/`, `gfx/`, `audio/`, `lib/`, `ram/`, `constants/` and `layout.link`; directory map in [`README.md`](../README.md#directory-layout) |
+| Maintained code and layout | `home/`, `engine/`, `data/`, `gfx/`, `audio/`, `lib/`, `ram/`, `constants/` and `layout.link`; directory map in [development reference](DEVELOPMENT.md#directory-layout) |
 | Architecture, formats and decisions | [`STYLE.md`](../STYLE.md), [`ROM_INFO.md`](ROM_INFO.md), `research/` notes indexed below; historical layout rationale in [`analysis/layout/README.md`](../analysis/layout/README.md) |
 | Status, open questions and continuity | [`REVERSE_ENGINEERING.md`](../REVERSE_ENGINEERING.md) and topic notes; operational handoff in OMM, without a second repository roadmap |
-| Validation and reproducible tools | `Makefile` and `tools/`; [`README.md`](../README.md#how-to-verify) documents the existing commands and limits |
+| Validation and reproducible tools | `Makefile` and `tools/`; [development reference](DEVELOPMENT.md#how-to-verify) documents the existing commands and limits |
 | Language overlays | `languages/en/`; [`LANGUAGE_BUILDS.md`](LANGUAGE_BUILDS.md) and [`TRANSLATION.md`](TRANSLATION.md); default `make` retains the Japanese reconstruction |
 | Cleanup and evidence retention | [`AGENTS.md`](../AGENTS.md#cleanup-e-retenção); preserve unique evidence and reference artifacts before any scoped cleanup |
 
@@ -55,6 +55,9 @@ Only this repository's maintained tree is covered by this map. Upstream projects
   (`make regen`, `verify`, `tree*` refuse to run; `make legacy-check` runs the generator in a temp dir).
 
 ## Top level
+
+Build targets, validation, directory layout and bootstrap history are collected
+in the [development reference](DEVELOPMENT.md).
 
 | document | covers | status |
 |---|---|---|

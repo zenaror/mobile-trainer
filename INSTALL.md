@@ -2,7 +2,7 @@
 
 To build the ROM you need two things: **RGBDS 1.0.3** and **GNU make**.  Nothing else is required: no Python, no reference ROM, no
 graphics conversion.  The graphics are committed as binary asset files (`.2bpp`, `.1bpp`, `.tilemap`, `.attrmap`, `.pal`, `.bin` under `gfx/` and `data/fonts/`) that the `.asm` files `INCBIN`/`INCLUDE`;
-`rgbgfx` (shipped with RGBDS) is **optional**: it is only needed if you edit a PNG and want to regenerate its `.2bpp` (`python3 tools/gfx_export.py bin`), the build never runs it.
+`rgbgfx` (shipped with RGBDS) is **optional**: it is only needed if you edit a PNG and want to regenerate its `.2bpp` (`python3 tools/gfx_export.py bin`), `make` regenerates graphics from PNGs when the conversion tools are available.
 (Python 3.12 is only needed for the optional tools in `tools/`: `make test`, `make sym-check`, `make compare`, the source-form checks, the analysis scripts.)
 
 ## Toolchain
@@ -13,7 +13,7 @@ graphics conversion.  The graphics are committed as binary asset files (`.2bpp`,
 | GNU make | 4.x (verified with 4.3) | the build |
 | `sha256sum` (or `shasum -a 256`) | any | the hash check `make` prints |
 | Python | 3.12 (standard library only) | `make compare`, `make sym-check`, `make test`, `tools/*.py` (optional) |
-| `rgbgfx` (RGBDS) | 1.0.3 | optional: PNG -> `.2bpp` (`tools/gfx_export.py bin` / `check`); not used by `make` |
+| `rgbgfx` (RGBDS) | 1.0.3 | optional: PNG -> `.2bpp` (`tools/gfx_export.py bin` / `check`); used by PNG rules when conversion tools are available |
 
 `rgbfix` is not used: the cartridge header is part of the source (`home/header.asm`).  RGBDS 0.x is **not** supported (the source uses `DEF`, `MACRO`,
 `-P`/`--preinclude`, and the 1.0 linker-script syntax).
