@@ -927,3 +927,28 @@ receipt pins the Japanese ROM, body-editor source, scenario registry, and
 coverage/MBC/callgraph reports for each scenario. It records zero candidate
 instruction starts, 32–34 executions of the getter, and the exact input hashes.
 No ROM or assembly bytes changed.
+
+### Natural mailbox trace reaches the Bank 2B return before the reply clone (2026-10-25)
+
+The retained `mail_inbox` synthetic-network report includes a separate positive
+Bank 2B path. `MailView_UploadTextTiles` at `2B:6C97` executes six times and
+calls `Gfx_StartHDMAAtVBlank_2B_6CD5` from each of four callsites (`6CAB`,
+`6CB6`, `6CC1`, `6CCC`) six times each. The helper's `RET` at `2B:6CF4`
+executes 24 times. The immediately following
+`MailReply_ComposeFromRecord` candidate `[2B:6CF5,2B:6DB0)` has no instruction
+starts in this report. Bank 2B is selected in the MBC report during the trace.
+
+This corrects any broader reading of the earlier `mail_reply_ascii` finding:
+Bank 2B itself is naturally active in the inbox scenario, but for the text-tile
+upload/HDMA helper route. That route returns at `6CF4`; it is not evidence of
+entry into the adjacent reply clone. It bounds sequential fallthrough for
+these helper executions only and does not rule out computed/indirect entry,
+other callers, or global use. The natural reply implementation attribution
+remains scenario-specific.
+
+Reproduce by parsing the retained reports with
+`.tmp/jp-mailbox-bank2b-adjacent-return-20261025/audit.py` (SHA-256
+`c69b7f8be787d1e7c76a079de79d390282b98c8c3170b1d19cef2d8835e9d4e6`) and its `RESULT.json` (SHA-256 `97ff2c9893ac027541eae47d9ebb0a0d22f4dafab0d0abd3aabc489b5a4b10de`). The receipt pins
+the ROM, `mail_inbox` scenario row, coverage/MBC/callgraph reports and
+`engine/mail/mail_viewer_sender.asm`. No trace was regenerated; no ROM or
+assembly bytes changed.
