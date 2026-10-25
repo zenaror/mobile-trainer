@@ -216,10 +216,12 @@ SaveCheck_Update:: ; 4E:4795
 
 Sram_BuildA9F0DeltaBlock:: ; 4E:47EB
 
-	; [CONFIRMED] A is forced to $0A before BankSwitch_H. For H<$80, that
-	; selects ROM low bank $0A and RET fetches $47F7 from the new bank, not
-	; the copy below (assuming ROM high bank zero). The record-copy contract
-	; therefore requires a non-ROM destination region; natural entry is unproved.
+	; [CONFIRMED] Emits 20 bytes. A is forced to $0A before BankSwitch_H: for H<$80,
+	; this selects ROM low bank $0A and RET fetches $47F7 from the new bank, not
+	; the copy below (assuming ROM high bank zero). A viable caller therefore needs
+	; writable non-ROM memory, a stable destination for all 20 bytes, no overlap
+	; with unread source fields, and a stack that remains mapped across the bank
+	; selection. No producer/caller establishing that contract is known.
 
 	; [HYPOTHESIS] complete function: SRAM enable ($0A -> [$0000] via hFFF5), copies a record from
 	; SRAM $A9F0-$A9FB/$A9E3/$A9EC/C69F/C2C2 into [hl], SRAM disable, ret; 68 insn, the only direct

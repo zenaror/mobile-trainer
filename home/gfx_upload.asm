@@ -318,8 +318,9 @@ Tilemap_CopyRectAndAttr:: ; 00:08EA
 
 Tilemap_CopyRect:: ; 00:0904
 	; Historical address alias retired; proper operation name retained.
-	; [CONFIRMED] rectangle copy: B rows x C bytes from [HL] to [DE], DE row stride 32 (uses FFB0 as
-	; row length)
+	; [CONFIRMED] copy B rows from [HL] to [DE]; each row copies C bytes (C=0 wraps to 256),
+	; then advances DE by ceil(C/32)*32 for C=1..255 (32 only for widths 1..32); C=0 advances 256.
+	; B=0 wraps to 256 rows. The saved width is hTilemapRect_Width (FFB0).
 	ld a, [hli]
 	ld [de], a
 	inc de
