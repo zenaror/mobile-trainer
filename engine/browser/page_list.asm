@@ -1592,8 +1592,9 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	bit 1, a
 	jr z, .check_timer_warning
 
-	; [PROBABLE] 7 insn(s) never executed in the traced runs; cut out of the PROBABLE region
-	; 4BCD-53FE by apply_coverage --split
+	; [CONFIRMED] Error exit observed in the 2026-10-25 adapter-removal replay:
+	; SDK 75:592A writes $02 to wTimerEnable; RET 4BFD returns before 4C55.
+	; This is distinct from a connection-bit clear with error bit 1 still zero.
 	pop bc
 	farcall Stat_DisableScrollSplit
 	call VBlank_Wait

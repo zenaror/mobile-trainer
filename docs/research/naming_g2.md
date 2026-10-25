@@ -338,3 +338,17 @@ conditional original stack contract, not a repair or a new natural root.
 The exact-byte stack model, all 18 values, input hashes and trace row are in
 `.tmp/jp-branch-stack-returns-20261025/check_pagelist_stack.py` and
 `PAGELIST_CONTRACT.json`.
+
+The 2026-10-25 paired adapter-removal control starts both cases from the
+`browser_pages` SRAM/config fixtures and the recorded `browser_pagelist`
+button prefix through frame 10011. Both enter `PageList_ActionMenu` at frame
+10008 and its loop at 10013. The attached case keeps `wTimerEnable=$30`;
+removing the emulated adapter at frame 10080 makes `75:592A` store `$02` at
+10123 and reaches the error-exit RET `24:4BFD` at 10125. Neither 12500-frame
+case executes `4C55–4D24`. This confirms the early error exit for this input,
+not unreachability of the inactive branch or hardware behavior. The two
+replays use synthetic Internet responses without RAM forcing; their inputs,
+commands, observer/ROM/fixture hashes, watched writes and coverage are retained
+in `.tmp/jp-pagelist-disconnect-control-20261025/{RUN,RESULT}.json` and the
+per-case files. Raw serial/MBC logs are capped and are not used as complete
+execution histories. The response-timeout producer remains a separate question.
