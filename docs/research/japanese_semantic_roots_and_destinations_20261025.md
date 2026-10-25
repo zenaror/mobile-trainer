@@ -750,3 +750,37 @@ No ROM, ASM, or graphic asset was changed for this analysis.
 ### Correction: community archived BMP examples (2026-10-25)
 
 A commit-pinned community archive now provides eight exact BMP candidates. Its homepage references two files that the ROM rejects by height. A separate archived v2 page references three other BMPs whose metadata matches the converter's layout; in a 14,000-frame fake-network replay their exact bytes reached `Bmp_ConvertToTiles` success and `Image_BlitToTileCanvas`. The page body was mapped to the homepage URL. A scan of all 182 tracked HTML/HTM/TXT files in the pinned archive found no href/src link to v2; the linked route instead runs `index.html` → `today_mobile/index01.html` → `today_mobile3.html`, represented in the archive as v1, which has no BMP references. Git history shows v2 and its three BMPs were added separately while v1 was renamed from an unsorted-page path. Thus the trace exercised an orphan community-added variant, not the page reached by the archive's index. This proves archive structure only, not original server content or archive completeness; scripts and redirects remain outside the static census. See the [community archive audit](docs/research/japanese_bmp_record_bounds_20261025.md#community-archive-bmp-payloads-2026-10-25), `.tmp/jp-archived-pages-bmp-20261025/GLOBAL_LINK_GRAPH.json` (SHA-256 `a736ffd73f0ca0cc68f2e7c98e5fffd1253b232a50715b0da709d76b49ba0448`) and `NATURAL_V1_ROUTE.json` (SHA-256 `79b61a6dc1f137fc995f1955bca3e106b64fd7b036ea93b46e051aa9e91a47e8`).
+
+### Candidate-span cross-bank byte identity screen (2026-10-25)
+
+To check for exact code/data aliases or possible copied implementations outside
+the candidate windows, I compared every nonzero 16-byte anchor in six unresolved
+spans against the protected 2 MiB ROM, expanded exact matches only within the
+source and destination physical 16 KiB banks, and retained runs of at least 16
+bytes. This is a byte-identity screen, not a control-flow or relocation scan.
+
+The `2B:6CF5-6DB1` reply candidate has exact matches with the naturally entered
+`Mailbox_ReplyToRecord` at `25:54A7`: its 24-byte entry prefix matches from
+`2B:6CF5` to `25:54AA`, and a 60-byte sequence beginning at `2B:6D2D` matches
+`25:54E5`. Additional 28-byte sequences match the record-edit retry/cancel
+region. This independently supports **PROBABLE** shared reply-from-record
+behavior. The variant is not identical as a routine: it has different initial
+field-clearing and editor-mode setup, and the byte match does not establish a
+call, dispatch, or natural producer for physical Bank 2B. Existing conclusions
+about the candidate's natural entry therefore remain **UNKNOWN**.
+
+The `70:4740` candidate shares a 32-byte prefix with `70:46A6` and 29 bytes
+with the called `Settings_GetHiddenModeFlag` at `68:44FC`; other common
+save/restore prologues also recur throughout the ROM. These repeated byte
+patterns show that the screen can find shared low-level templates and are not
+unique evidence of semantic identity. No exact match of at least 16 bytes was
+found for `2D:4E42-4E8C`, `29:5090-5376`, `55:5DF5-5E02`, or `28:4BA6-4BC2`.
+
+Reproduction: `.tmp/jp-candidate-byte-alias-screen-20261025/audit.py` (SHA-256
+`19d0dfe3294c2547d8a1fc3f2b27e19ba2b858784bc6b6f8cfac61e9f8ccfaff`) and its
+`RESULT.json` (SHA-256
+`000679cbdbee10fa62d0fd3a9873655e2359127d44a1dbe8506a7ed49631cb7b`), pinned
+to ROM SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. It does
+not scan relocated code with patched operands, computed references, or runtime
+state and cannot establish global non-use. No ROM or assembly bytes changed.
