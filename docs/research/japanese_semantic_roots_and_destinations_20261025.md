@@ -137,6 +137,32 @@ corpus or claim global reachability.
 | `28:4BA6-4BC2` | **PROBABLE** WRAM0 clear and WRAM7 fill; preceding script ends at `4BA5`, before these bytes. No maintained hook/caller is known. | A maintained hook/caller that enters `4BA6` with the expected WRAM7 and stack-bank state; the preceding sprite script does not supply it. |
 | `42:6132` | **PROBABLE** candidate graphics/tile data. A conditional banner descriptor can read across it only for kind `$B5`; the 11 maintained direct `Account_ResultPage` callers supply only kinds 0-4, and the stored kind has no direct C27C-alias clobber in the named pre-banner helper path. | A new producer outside that maintained result-page path, or a concrete descriptor/read route that includes `42:6132`. |
 
+#### Natural data/state producers do not supply four candidate control transfers (2026-10-25)
+
+A grouped source/ROM check distinguishes a producer for data or state from a
+producer for execution. It reuses the reviewed natural routes and does not
+rerun the retained scenario corpus. The four candidates below remain without
+a demonstrated natural entry; their local register and stack contracts are
+more precise, but no status is promoted to globally unreachable or unused.
+
+| Candidate | Positive natural data/state edge | Control-transfer boundary and local contract | Remaining proof needed |
+|---|---|---|---|
+| `29:511E` | The status-screen route ends its helper at `29:505E`; `29:5060–508F` is a 48-byte HDMA tile source. The HMS loader's `A=29, HL=5400, C=40` selects Bank29 as data for HDMA. | The only reviewed caller is `29:50CE`, itself without a natural root. It pushes BC/DE and directly calls CPU `$7BB7` without selecting Bank7D; the physical Bank29 bytes at `$7BB7` are eight `$00` bytes. `Joypad_Update` is separately located at `7D:7BB7`. After a balanced return, the candidate polls LY based on `hJoyHeld & PADF_A`; B is decremented by the caller. | A natural caller/dispatch for `50CE` or `511E`, plus evidence that `$7BB7` is executable and returns while Bank29 is selected, or proof of a specific relocation/remap supplying that leaf. Local operation remains **PROBABLE**; entry/use remains **HYPOTHESIS**. |
+| `70:4740` | Natural `Browser_Entry` calls `SaveCheck_Verify`; its invalid-block path calls `SaveCheck_ResetBlock`, which zero-fills the 16-byte SRAM1 block beginning at `$A9E8`. Thus byte `$A9ED` (`+5`, read by the candidate) is zero in that reset path. | The reset establishes SRAM contents, not a call or indirect selection of `70:4740`. The candidate reads the bit, sets B to 0/1, changes B, and saves/restores SRAM enable/bank through two AF stack pairs; coherent mapper shadows and a stable stack are preconditions. `70:473F` is RET. | A maintained call/table/hook selecting physical `70:4740` and a rooted SRAM1 record producer with the required shadow/stack state. The query operation is **PROBABLE**; entry and field domain remain **HYPOTHESIS/UNKNOWN**. |
+| `26:5344–537C` | The natural timer-display route calls `26:5343`, a one-byte RET, then continues at its caller; it does not fall through into `5344`. The screen initializer's corresponding natural fill writes VRAM0 `$9960–999F`, not the candidate's WRAM7 range. | If entered, the candidate pushes AF/BC/DE/HL, saves SVBK in E, uses a 50-count loop, writes `$FF` to VRAM1 `$9010–901F`, and writes `$00–$3F` to WRAM7 `$D160–D19F`; it leaves VBK=1 and restores the saved WRAM bank. The loop uses additional stack space while SVBK=7. It has no local LCD/VBlank wait. | A caller/hook selecting physical Bank26 and establishing a non-overlapping bank-invariant stack, usable VRAM timing, and the intended WRAM/VBK state. The local write sequence is **PROBABLE**; natural entry and role remain **HYPOTHESIS/UNKNOWN**. |
+| `28:4BA6–4BC2` | `MailBody_InitScreen` passes `DE=4B70`, `A=28`, `B=81` to `Sprite_InitSlot`; this selects Bank28 object-table data and object entry 1. The one-step animation script ends at `4BA5`. | `Sprite_InitSlot` clears the slot before loading object/frame/script data. That natural setup does not install a callback to `4BA6`; the ordinary hook trampoline takes its null-hook branch. If called, the candidate clears fixed WRAM0 `$C000–C08F`, selects WRAM7, fills `$DA00–DAFF` with `$FF`, and returns with A=`$FF`, B=0, HL=`$DB00`; stack mapping must survive the WRAM bank change. | A setter/copy path that installs `[A6,4B,28]` in a valid slot hook or another concrete transfer into the candidate, with a stable stack. The fill behavior is **PROBABLE**; entry and purpose remain **HYPOTHESIS/UNKNOWN**. |
+
+The original ROM hash is `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. The
+reviewed source files are unchanged between published source base
+`88147255c555f4d1caf7080ebb71723e644b5073` and current main `a458205210284ffe3183610bdfb76109e63b489a`;
+their individual hashes and the Bank29 `$7BB7` bytes are pinned in
+`.tmp/jp-candidate-root-contracts-20261025/RESULT.json` (SHA-256
+`9915a07cb5808f11ad7d777ead67f116de7cf0b7e21f356771c348ee2a56cd98`),
+reproduced by `audit.py` (SHA-256
+`e2acc7d732d0a100b330df5c687ee2ac453ac74092207b13b30657bf482f03bf`).
+This is static source and immutable-ROM evidence only; no new runtime trace,
+hardware claim, or global non-use result is made.
+
 #### Result-page kind liveness before the conditional Bank 42 read (2026-10-25)
 
 The `$B5` route through `Account_ResultPage_LoadBanner` (`68:77D6`) requires
