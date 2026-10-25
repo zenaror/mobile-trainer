@@ -10,6 +10,7 @@ The exact historical homepage has no current Wayback capture; its broader query 
 The ROM0 audio stream reader's maintained song-table bank domain is bounded to Banks 04/05; see [Japanese audio stream reader domain](research/japanese_audio_stream_reader_domain_20261025.md).
 The result-page kind's named interrupt/frame-service liveness is bounded for the maintained caller set; see the [Bank 42 liveness follow-up](research/japanese_semantic_roots_and_destinations_20261025.md#interruptframe-service-interleaving-for-result-page-kind-2026-10-25).
 A targeted ten-minute search from the mail-body cursor state added bounded Browser and Bank 75 paths, but no candidate entry or resource read; see [the replay audit](research/japanese_semantic_roots_and_destinations_20261025.md#targeted-mail-body-cursor-input-search-2026-10-25).
+The current extracted visual corpus review found no recognizable Porygon image in 425 exact tile PNGs, 48 sprite sheets or 160 composed screens; this does not establish ROM-wide absence or runtime use. See the [bounded visual review](research/japanese_frame_bank53_revalidation_20261024.md#current-extracted-visual-corpus-review-for-the-porygon-entry-2026-10-25).
 For future authorized ZIP parity, start with the [Japanese reuse contract](TRANSLATION.md#japanese-baseline-and-reuse-contract-2026-10-24).
 Dated checkpoint paragraphs below preserve historical results; use the current
 top-level status and semantic audit for active work. English remains paused.

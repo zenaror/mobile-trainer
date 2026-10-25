@@ -283,6 +283,37 @@ decisive component PNG hashes are, respectively, `203402ee8432d32eea02cfeee20d58
 `4c0bbca1753b80992588edfea5e1c6193f14a8805f51ae45fad289b512447aab`, and
 `101d974b982b4eeba83e7a83047948dc99dc6b0619330af76ffeeac21f469ffd`.
 
+### Current extracted-visual corpus review for the Porygon entry (2026-10-25)
+
+The earlier window-local inspection found no Porygon-like figure in the two
+geometric Bank 41 windows. I expanded that question to the current extracted
+visual corpus: all 425 exact tile PNGs named by `gfx/assets.tsv`, all 48
+derived sprite-table preview sheets, and all 160 composed screen previews.
+The contact sheets were regenerated from the current asset manifest, and the
+screen source and contact-sheet hashes from the earlier local census were
+rechecked; all 160 source files and six contact sheets still match. The new
+current tile/sprite receipt records `gfx/assets.tsv` SHA-256
+`a7a24320a22cd7f9eb2ed88ff544dfde17ed41c47bf4841ab5133e54857d6729` and is
+`.tmp/jp-porygon-global-visual-review-20261025-current/RESULT.json` (SHA-256
+`edd7cd953def65d98cca702f7a1caa5b8bdc9d2ebfba73b49a8fdd103fd7a513`). The
+screen inventory and hashes are in `SCREEN_RESULT.json` (SHA-256
+`f67b9cc3bca44e104e8d36444124c7ccf84ed6602173ea352d9e9a0b029138f4`); the
+manual visual disposition is `VISUAL_REVIEW.json` (SHA-256
+`e274f5479715a97d99e42d934b2a4f5b9e7c8d990410691ea1a669f40538914d`).
+
+I did not recognize a Porygon-like image elsewhere in those extracted tiles,
+sprite sheets, or composed screens. The separate Bank 51 comparison remains
+**PROBABLE** for `PokemonName24` (Porygon2), but does not identify art for
+`PokemonName00` (Porygon). This is a visual search within the listed PNG
+corpus, not proof that the original ROM lacks Porygon art: transformed,
+partial, palette-dependent, compressed, or unextracted graphics could be
+missed. It also does not establish an executable reader, ordinal mapping,
+runtime selection, or global use/non-use. The earlier contact-sheet receipt
+`.tmp/jp-porygon-global-tile-census-20261025/RESULT.json` (SHA-256
+`e9af114a5e76bb2d738f734b2007665719c27b5b2b290abf4dd244bc071b1d40`) is
+stale against the current asset manifest and was preserved, not used as the
+current census.
+
 ### Current direct-symbol consumer matrix (2026-10-24)
 
 A grouped scan of 349 maintained Japanese ASM/INC sources (including root constant/include files and `ram/`, excluding `engine/mail/sample_data.asm` before reading and excluding language overlays) checked the 26 Bank 53 name symbols and every labeled asset whose start falls inside the 25 candidate windows. It found zero external references to the name symbols and zero external references to the 104 candidate-window asset labels across the eight Bank 41–47 owner files. The 124 asset rows in those windows remain present in the manifest; this result means their editable source labels are not directly named by another maintained source file. It does not exclude raw byte pointers, computed/indexed addresses, generic descriptors in RAM/SRAM, copied data, or code/data readers with no symbol reference.
