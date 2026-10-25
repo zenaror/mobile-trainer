@@ -1059,3 +1059,25 @@ labels in `gfx/top_menu/top_menu.asm`,
 `gfx/registration/registration_notice_art_bank58.asm`,
 `gfx/account/result_page_bank4b.asm`, `gfx/mailbox/objects.asm`,
 `gfx/mail/body_editor.asm`, and `gfx/mail_server/delete_progress.asm`.
+
+#### Bank 23 candidate read and execution boundary (2026-10-25)
+
+A target-specific recheck of the retained trace files found zero ROM-data-read
+intervals intersecting `[23:7C03,23:7F30)` in all 75 `dataaccess.tsv` reports,
+and zero instruction starts in the same interval in all 72 retained
+`coverage_*.tsv` files. Five traces do read the preceding
+`MailSrvDel_ProgressObject_Anim0Frames` region exactly as `[23:7BA8,23:7C03)`;
+this comprises its two frame pointers, two 41-byte OAM records and five-byte
+animation script. The reads end at the candidate's first byte, so the positive
+sprite-record consumer does not spill into the candidate in those scenarios.
+This gives a concrete boundary for that loader and corpus; it does not identify
+the candidate's format, rule out other readers, or establish global non-use.
+
+Reproduction: `.tmp/jp-bank23-targeted-read-audit-20261025/audit.py` (SHA-256
+`0d2226c0d4caa0ff6b104e09bdd1882018e68f7f5e0a3dd8e3fa94bf0e0086eb`) and
+`RESULT.json` (SHA-256
+`d1c338de01ff8802ad13fe45ad76e3186640419f80a677c8c13113f58d4e337a`). The
+receipt pins the original ROM, owner source, and all 147 input reports. The
+candidate slice is 813 bytes, SHA-256
+`406f67dc7c62ffd3f73664fd692bd807bd1a6fc1f68618ed226860cd15f9be8e`, with all
+values below `$40`. No emulator was run and no ROM, ASM, or asset bytes changed.
