@@ -628,8 +628,13 @@ Bank 51 interval `[5EE0,70D1)` using half-open interval intersection; none has
 a `rom_read` row for Bank 51 that intersects it. These files report ROM bytes
 read as DATA, not instruction fetch. Separately, `analysis/coverage_union.tsv`
 contains no executed instruction start in the interval across its 72
-scenarios. This result is limited to the retained corpus and does not prove
-global non-use, absence of computed reads, or behavior in unrecorded execution.
+scenarios. The static xref ledger has no literal target into the interval, and
+the extracted `gfx/previews/screen_ops.tsv` contains 15 Bank 51 operations
+across the connection-icon and summary loaders but no use of
+`CandidateTiles_51_5EE1`. These results are bounded to the retained corpus,
+literal xref forms, and extracted named screen-operation patterns; they do
+not prove global non-use, absence of computed references, or behavior in
+unrecorded execution.
 
 The `settings_cgi` trace provides a concrete boundary. Its callgraph records
 the executed indirect dispatch at `69:40D7` and the table-selected
@@ -648,15 +653,18 @@ The census is reproducible with
 `.tmp/jp-bank51-candidate-data-read-census-20261025/audit.py` (SHA-256
 `dbd68e7a0376ce03ccfa2ee772376bff67baa13756ae066c1652f35160cce86a`). Its
 `RESULT.json` (SHA-256
-`5a85be84afc8a2c8fafd0d25fc5e34e9804b46c35fb985230fd8e7cdbf12ae63`)
+`b66c594aef88d2ddb77d01a39b5c36927eb21310f2e25a8c5d680b9677421bfb`)
 records the 72 report paths and hashes, the protected ROM hash, the empty
 data-read intersection list, the empty instruction-start list, and
 `analysis/coverage_union.tsv` SHA-256
-`0c1986ea507df1172474f07f4a8959b6a872b2fd49912c31bafd551c1dfa37ae`. The
+`0c1986ea507df1172474f07f4a8959b6a872b2fd49912c31bafd551c1dfa37ae`, empty
+literal-xref list, and empty candidate-label operation list. It also pins
+`config/xrefs.tsv` SHA-256
+`cecd394157a1ecffd7afc15da85882abc9075c8dc589692c759f3fb7881b0501` and
+`gfx/previews/screen_ops.tsv` SHA-256
+`888f78456d6d82544727d405487f9e5744902ced904e4d3823497dc3c80000aa`. The
 audit script SHA-256 is
-`4f3e84eb4eb5360152def2778d3c5afac4dd782469d73a4a13e6801f34d02be1`, and the
-receipt SHA-256 is
-`7dc2e43eff313faa3155a50647a12b74c37b4575f86acddb81897865736a8156`. For the
+`2f89adc55e9296f6bd0fe1be53dba192ef67b69908eed15a0c68c64829b7f2eb`. For the
 focused route, `traces/detail/settings_cgi/dataaccess.tsv`
 has SHA-256
 `343842c568dfb0acb5908a29ec99bfea32b8a6c88763d3831a36dd8e56e934b4`, and
