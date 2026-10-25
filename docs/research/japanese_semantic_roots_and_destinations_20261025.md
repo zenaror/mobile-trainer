@@ -784,3 +784,44 @@ to ROM SHA-256
 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. It does
 not scan relocated code with patched operands, computed references, or runtime
 state and cannot establish global non-use. No ROM or assembly bytes changed.
+
+### New normal-input exploration of browser and inbox paths (2026-10-25)
+
+To seek a positive entry without repeating the closed source/table censuses, I
+ran two five-minute coverage-guided searches over ordinary button inputs. The
+browser search used the documented `addressbook_full` saved state, its
+`browser_bookmarks.macro`, fake adapter/network, and all synthetic web pages;
+2,266 trials produced eight new instruction starts in menu-return/fallback
+paths. A separate inbox search used the documented `mail_receive` parent,
+`mail_inbox.macro`, and the five existing message fixtures; 2,746 trials
+produced 15 new instruction starts. Neither search used `force` or `ramset`.
+
+Four accepted input sequences were replayed from their documented parent
+states with the ordinary mGBA tracer. The browser replays naturally executed
+`Browser_Menu_PageList_Restore` (`4E:4E6E`) and the later End-prompt return
+branch (`4E:4FC3`); one inbox replay executed the new
+`29:439D–43B6` instructions. A second inbox entry was reported by the
+fork-server search as discovering `26:48B4–48B8`, but replaying its resolved
+input with the `mail_receive` save/config and pinned ROM did not execute any
+of those five starts. The discrepancy remains unexplained, so those starts are not confirmed execution and do not support a semantic
+claim. The replay matrix checked six candidate code intervals and 28 data
+intervals: the 25 frame windows, the Bank 51 art candidate, the Bank 53 name
+block, and `1A:4A85–4A90`. It found zero candidate instruction starts, zero
+candidate callgraph destinations, and zero ROM data read overlaps. The browser
+runs each reported ten `waitstable` waits reaching their 900-frame cap; those
+waits are retained as a limit, not treated as successful screen transitions.
+
+This adds verified natural-input behavior for those specific emulator runs,
+but it does not identify a Bank 53 reader, link a name ordinal to a frame, or
+prove any candidate globally unused or unreachable. The search starts from
+two saved states and uses synthetic networking/pages; it cannot substitute
+for an original server capture or physical hardware observation. The open
+candidate statuses and confidence levels therefore stay unchanged. Reproduce
+the grouped interval/callgraph check with
+`.tmp/jp-semantic-followup-batch-20261025/audit.py` (SHA-256
+`468802dcf2b875d22e7191d4ff79b3e7365b2691317a60cc1bfe2b0840650539`) and
+`.tmp/jp-semantic-followup-batch-20261025/RESULT.json` (SHA-256
+`ba16fa0baef05576fe2ffb7733dd44dcbe1e791fb94384218b202b40a3706fff`). The
+receipt pins the protected ROM, tracer/library, each parent save/config, input
+macro and coverage/dataaccess/callgraph output. No ROM, assembly, or asset
+bytes changed.
