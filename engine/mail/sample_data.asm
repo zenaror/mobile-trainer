@@ -4,6 +4,11 @@
 
 SECTION "engine/mail/sample_data", ROMX
 
+; [CONFIRMED static contract] Five fixed Bank2D records: 9-byte headers and
+; NUL-terminated body/name/subject/address copies into SRAM0, stride $12D.
+; No dynamic ROM source selector. Natural entry remains unproved.
+; Sample 2 name copies 16 nonzero bytes plus NUL into a 16-byte field;
+; the following subject copy overwrites that NUL. Original bytes preserved.
 MailRecord_InstallSampleMails:: ; 2D:4195
 	; [PROBABLE] profile-defaults initialiser: SRAM bank 0 select (ld [$4000]), enable ($0A ->
 	; [$0000]), then strcpy-style copies of 9-byte records and NUL strings into SRAM ($A124...) via
@@ -266,6 +271,10 @@ MailSample4_Address:: ; 2D:44F1
 	db "p@p.ne.jp", 0
 POPC
 
+; [CONFIRMED static contract] Six fixed Bank2D name/address pairs into SRAM1,
+; stride $50 (name $10, address $40). Entries 0 and 3 copy a 17-byte name
+; including NUL; the following address copy overwrites that extra NUL.
+; No caller or natural execution is established by this source contract.
 Abook_InstallSampleEntries:: ; 2D:44FB
 	; [PROBABLE] second profile-defaults routine: SRAM bank 1 select/enable, 12 strcpy calls (`ld
 	; hl,imm ; ld de,imm ; ld a,[hli] ; ld [de],a ; inc de ; cp 0 ; jr nz`) whose sources (45A6 45DA
@@ -286,7 +295,7 @@ Abook_InstallSampleEntries:: ; 2D:44FB
 	inc de
 	cp a, $00
 	jr nz, .l450F
-	ld hl, $45DA
+	ld hl, AbookSample0_Address
 	ld de, sAbookSlots + $10
 .l451C ; 2D:451C
 	ld a, [hli]
@@ -302,7 +311,7 @@ Abook_InstallSampleEntries:: ; 2D:44FB
 	inc de
 	cp a, $00
 	jr nz, .l4529
-	ld hl, $45F6
+	ld hl, AbookSample1_Address
 	ld de, sAbookSlots + $60
 .l4536 ; 2D:4536
 	ld a, [hli]
@@ -310,7 +319,7 @@ Abook_InstallSampleEntries:: ; 2D:44FB
 	inc de
 	cp a, $00
 	jr nz, .l4536
-	ld hl, $45B8
+	ld hl, AbookSample2_Name
 	ld de, sAbookSlots + $A0
 .l4543 ; 2D:4543
 	ld a, [hli]
@@ -318,7 +327,7 @@ Abook_InstallSampleEntries:: ; 2D:44FB
 	inc de
 	cp a, $00
 	jr nz, .l4543
-	ld hl, $45F7
+	ld hl, AbookSample2_Address
 	ld de, sAbookSlots + $B0
 .l4550 ; 2D:4550
 	ld a, [hli]
@@ -326,7 +335,7 @@ Abook_InstallSampleEntries:: ; 2D:44FB
 	inc de
 	cp a, $00
 	jr nz, .l4550
-	ld hl, $45C7
+	ld hl, AbookSample3_Name
 	ld de, sAbookSlots + $F0
 .l455D ; 2D:455D
 	ld a, [hli]
@@ -334,7 +343,7 @@ Abook_InstallSampleEntries:: ; 2D:44FB
 	inc de
 	cp a, $00
 	jr nz, .l455D
-	ld hl, $4611
+	ld hl, AbookSample3_Address
 	ld de, sAbookSlots + $100
 .l456A ; 2D:456A
 	ld a, [hli]
@@ -342,7 +351,7 @@ Abook_InstallSampleEntries:: ; 2D:44FB
 	inc de
 	cp a, $00
 	jr nz, .l456A
-	ld hl, $45D8
+	ld hl, AbookSample4_Name
 	ld de, sAbookSlots + $140
 .l4577 ; 2D:4577
 	ld a, [hli]
@@ -358,7 +367,7 @@ Abook_InstallSampleEntries:: ; 2D:44FB
 	inc de
 	cp a, $00
 	jr nz, .l4584
-	ld hl, $45D9
+	ld hl, AbookSample5_Name
 	ld de, sAbookSlots + $190
 .l4591 ; 2D:4591
 	ld a, [hli]
@@ -366,7 +375,7 @@ Abook_InstallSampleEntries:: ; 2D:44FB
 	inc de
 	cp a, $00
 	jr nz, .l4591
-	ld hl, $462B
+	ld hl, AbookSample5_Address
 	ld de, sAbookSlots + $1A0
 .l459E ; 2D:459E
 	ld a, [hli]
@@ -427,6 +436,9 @@ AbookSample5_Address:: ; 2D:462B
 	db "abc@a.b.c", 0
 POPC
 
+; [CONFIRMED static contract] Both source strings are fixed Bank2D addresses;
+; all 15/25 bytes including their terminators fit the $10/$40 field extents.
+; Destination bank remains SRAM1, not the similarly addressed SRAM0 profile.
 SampleData_InstallNameAddressPair:: ; 2D:4635
 	; [PROBABLE] third profile-defaults routine: SRAM bank select/enable + 2 strcpy calls (ld
 	; hl,$465E ; de $AF40 / ld hl,$466D ; de $AF50) whose sources are the strings at 465E/466D; ends
@@ -447,7 +459,7 @@ SampleData_InstallNameAddressPair:: ; 2D:4635
 	inc de
 	cp a, $00
 	jr nz, .l4649
-	ld hl, $466D
+	ld hl, SampleData_Address
 	ld de, sBrowserHistory + $550
 .l4656 ; 2D:4656
 	ld a, [hli]

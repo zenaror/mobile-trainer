@@ -763,3 +763,38 @@ Reproduce with `.tmp/jp-orphan-rom0-copy-helpers-20261024/audit.py` (SHA-256
 `5ca1978eb2f880c4b1176595fe2d1836ab2ca83fc41621a218b51b34d7114364`) pins
 the protected ROM, 349-file source manifest, recognized inline tables,
 retained instruction union and all 72 data-access reports.
+
+
+## Previously excluded sample installer: fixed source contract (2026-10-25)
+
+The historical restricted censuses above excluded `engine/mail/sample_data.asm`;
+their counts and manifests are unchanged. A separate owner-local review now
+covers its three installer bodies and helper, without claiming a new natural
+entry. Earlier alias-only reviews had already edited this owner; the current
+AGENTS/rules do not contain that historical file-access exclusion.
+
+`MailRecord_InstallSampleMails` has five fixed nine-byte header copies and
+20 fixed NUL-string copies. `Abook_InstallSampleEntries` has twelve fixed
+NUL-string loops; `SampleData_InstallNameAddressPair` has two. All 39 sources
+are original Bank2D record/string labels, under the ordinary linked-bank
+execution model. The helpers do not switch ROM banks during a copy. The
+mail installer calls `SramCheck_Bank0Commit` only after its copies. Thus this
+previously excluded module does not supply a dynamic Bank53/frame source
+through these declared paths. External entry into helpers with arbitrary HL,
+altered mapper state, and natural entry of the installers remain outside that
+claim; the earlier forced executions do not establish a natural caller.
+
+The exact original copy extents reveal three boundary crossings: `MailSample2_Name`
+and `AbookSample0_Name` / `AbookSample3_Name` each have 16 nonzero bytes plus a
+NUL. Their name fields are 16 bytes (mail offsets `$C9..D9`, address-book
+`$00..10`), so the terminator lands at the next field's first byte. The following
+subject/address copy overwrites it. This is an original static copy contract,
+not a new crash claim or permission to fix the ROM. Every other declared source
+fits its field extent; all 39 copies total 768 bytes including headers and
+terminators. The last installer copies 15/25 bytes to SRAM1 `$AF40/$AF50`,
+not the SRAM0 profile fields at the same addresses.
+
+The source now states these contracts and uses the ten existing sample labels
+in place of numeric HL operands. Original instruction/data bytes are unchanged.
+The separate receipt pins all source extents and hashes; no global reader census
+or emulator run was repeated.
