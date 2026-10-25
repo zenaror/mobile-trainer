@@ -341,8 +341,10 @@ Tilemap_CopyRect:: ; 00:0904
 
 Tilemap_ApplyMaskRect:: ; 00:091C
 	; Historical address alias retired; proper operation name retained.
-	; [CONFIRMED] rectangle AND/OR: for B rows x C bytes: [HL] = ([HL] & D) | E, HL row stride 32
-	; (bank A) [reached via inferred links; raw refs 1] [executed in 36 scenarios]
+	; [CONFIRMED] for B rows x C bytes: [HL] = ([HL] & D) | E. Next-row advance is ceil(C/32)*32
+	; for C=1..255 (32 only for widths 1..32); C=0 processes 256 bytes and advances 256, and B=0
+	; wraps to 256 rows. Bank A selects the HL region; [reached via inferred links; raw refs 1]
+	; [executed in 36 scenarios]
 	call BankSwitch_H
 	ld a, c
 	ldh [hTilemapRect_Width], a

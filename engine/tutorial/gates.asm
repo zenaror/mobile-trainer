@@ -137,9 +137,11 @@ Tutorial_GateTopMenu:: ; 48:4A4E
 
 Tilemap_ApplyMaskRect_48_4A8C:: ; 48:4A8C
 
-	; [HYPOTHESIS] byte-identical to ROM0 Tilemap_ApplyMaskRect (rectangle AND/OR: call $0622;
-	; [hl]=([hl]&d)|e, row stride 32) - a private copy; no caller/pointer to 48:4A8C found (words.py
-	; scan), follows the ret at 4A8B, ends with ret at 4AAA
+	; [HYPOTHESIS] byte-identical to ROM0 Tilemap_ApplyMaskRect: B rows apply [HL]=([HL]&D)|E;
+	; the next-row advance is ceil(C/32)*32 for C=1..255 (32 only for widths 1..32); C=0 processes
+	; 256 bytes and advances 256, while B=0 wraps to 256 rows. No caller/pointer to 48:4A8C is known;
+	; a 32-byte stride requires C=1..32. The bank-selection and writable-destination contract is
+	; unproved for this copy; it follows RET at 4A8B and ends at RET 4AAA.
 	call BankSwitch_H
 	ld a, c
 	ldh [hTileMaskRect_Width], a
