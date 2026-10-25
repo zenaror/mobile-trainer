@@ -113,6 +113,57 @@ Corrected sources: `REVERSE_ENGINEERING.md`,
 
 ## Indirect roots: candidates and the additional Bank 4 return edge
 
+### Range-wide direct-CFG reachability for the natural-entry candidates (2026-10-25)
+
+A targeted graph projection used the current Japanese trace union and the
+existing static CFG builder (`tools/trace/frontier.py`) to ask whether any
+unexecuted instruction in the six candidate code spans is reachable from a
+successor of any naturally executed instruction. It covers fallthrough,
+direct conditional/unconditional branches and calls, enumerated far-call
+conventions, and the two inline jump-table conventions implemented by that
+builder. The ROM SHA-256 is
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`; the
+72-scenario `analysis/coverage_union.tsv` SHA-256 is
+`0c1986ea507df1172474f07f4a8959b6a872b2fd49912c31bafd551c1dfa37ae`.
+
+For parity with the maintained source, the projection temporarily treated
+`26:5344–537C` and `28:4BA6–4BC2` as code in memory only. The frozen mapper
+table still classifies those exact spans as unclassified data; both current
+ASM bodies decode completely and have dedicated names/comments. No config or
+source file was changed. The resulting graph has 107,380 instruction starts,
+78,114 naturally executed ROM starts, and 5,002 unexecuted instruction starts
+reachable from at least one executed gate. Within the six candidate spans,
+all 226 instruction starts had zero natural execution and zero path from any
+executed gate:
+
+| Candidate span | Decoded instruction starts | Executed in union | Reachable from executed gate |
+|---|---:|---:|---:|
+| `2B:6CF5–6D6B` | 68 | 0 | 0 |
+| `2D:4E42–4E8C` | 49 | 0 | 0 |
+| `29:511E–5145` | 24 | 0 | 0 |
+| `70:4740–477F` | 32 | 0 | 0 |
+| `26:5344–537C` (source-code override) | 37 | 0 | 0 |
+| `28:4BA6–4BC2` (source-code override) | 16 | 0 | 0 |
+
+This is **CONFIRMED for the exact decoded graph, ROM, union, and modeled edge
+forms**. It rules out an ordinary direct-CFG route from the current trace union
+for these spans. It does not model computed or split transfer targets,
+selector/value flow, arbitrary mapper state, copied/runtime-generated code, or
+unknown indirect entries; therefore it does not establish global
+unreachability, non-use, or intended role. Bank 23's candidate map and the
+Bank 53 name table are data, not code nodes, and this graph says nothing about
+their readers. Keep their statuses unchanged. Reopen only on a new computed or
+indirect control-flow edge or a natural trace containing an entry into one of
+the spans.
+
+Reproduction script `.tmp/jp-semantic-controlflow-20261025/reach_candidate_spans.py`
+(SHA-256 `9aedfb87f3cfce31990ed1548e0877cf9c88af6d69d84d3ee382d21cd1057661`);
+receipt `reach_candidate_spans.json` (SHA-256
+`bd433e8ee397f5cbfee334728a33c4e5081a5981a6f382fc32553f4f5d772aca`). The
+initial address-only projection and the complete greedy frontier report are
+retained in the same task directory. No ROM, ASM, config, or graphics bytes
+were modified.
+
 No new maintained natural entry was demonstrated for the previously open
 candidates. The local mechanics are bounded, but an operation's valid-looking
 instruction sequence does not establish a caller or its input state.
