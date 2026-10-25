@@ -30,7 +30,7 @@ current source-set manifest was
 `54ab3ef0ad73828b47a1219b76af49bdc9ea0492da217d4da389fb14981e5dc4`. The
 review also checked the current SYM snapshot, aliases' semantic counterparts,
 local-label spellings, palette includes, and graphics macros. Its full receipt
-is `.tmp/generic-coalias-post-3c08da02-20261021/REVIEW_BROWSER_PAGE_LIST.md`.
+is `REVIEW_BROWSER_PAGE_LIST.md` (review artifact).
 
 The static review does not assert natural reachability or asset semantics
 beyond the existing labels. Coordinator build, symbol, palette, and PNG gates

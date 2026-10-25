@@ -99,4 +99,4 @@ emulação ou prova de hardware. Apenas scripts próprios de análise estática
 leram fonte/dados/ROM. Idioma e R4 continuam suspensos/estacionados. O ROOT deve
 compor os docs vigentes em fase própria; README/REVERSE compartilhados não são
 copiados neste pacote. Evidência privada: handler/tabela/tails e readset em
-`.tmp/jp-sjis-bit-alias8-proposal-20261018/DATA/`.
+`DATA` (review artifact).

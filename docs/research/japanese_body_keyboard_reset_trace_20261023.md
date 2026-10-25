@@ -30,7 +30,7 @@ hardware observation.
 The ordinary replay command was:
 
 ```sh
-.cache/trace/mgba_trace --rom 'Mobile Trainer (Japan).gbc' --scenario jp_body_key_replay --outdir .tmp/jp-body-editor-targeted-explore-20261023/replay --frames 25000 --mobile on --net fake --net-opt latency=2 --save-in .cache/trace/state/kbd_abook.sav --mobile-config-in .cache/trace/state/kbd_abook.cfg --macro .tmp/jp-body-editor-targeted-explore-20261023/search/corpus/e45.macro
+.cache/trace/mgba_trace --rom 'Mobile Trainer (Japan).gbc' --scenario jp_body_key_replay --outdir replay --frames 25000 --mobile on --net fake --net-opt latency=2 --save-in .cache/trace/state/kbd_abook.sav --mobile-config-in .cache/trace/state/kbd_abook.cfg --macro e45.macro
 ```
 
 The input macro SHA-256 is
@@ -43,7 +43,7 @@ the loaded `libmgba.so.0.11` hash is
 `b44dfd7edb816fefa892c10dc2563d5d4bbe871d68702a8dcc3dde2532959719`.
 
 The captured outputs for this pass remain in the ignored task directory
-`.tmp/jp-body-editor-targeted-explore-20261023/`. The replay's
+`jp-body-editor-targeted-explore-20261023` (review artifact). The replay's
 `RESULT.json` records the command, environment inputs, counts and output
 hashes. The coverage and callgraph files have SHA-256
 `078944c3315b96fd1b724637aaef418de3cb989d41daadabde22be0ebf0ab682` and
@@ -59,7 +59,7 @@ After adding the evidence-qualified source comment, the standard `make`
 completed: SHA-256 OK for the original ROM and `RESULT: IDENTICAL`. The
 standard `make sym-check` passed with 335 source files, 12,212 labels and 51
 constants. The byte identity remains a build result, not evidence of
-hardware behavior or universal keyboard coverage.
+hardware behavior universal keyboard coverage.
 
 The search yielded 2,911 trials, 400 entries and 11 new instruction starts;
 the replay macro was one of three strong corpus entries. Its exact search

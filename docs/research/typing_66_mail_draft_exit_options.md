@@ -51,7 +51,7 @@ frozen analysis outputs were not regenerated or edited.
 
 The source is `gfx/keyboard/type6_pages_type10_picker_and_shared_tail_bank66.asm`; catalog and path migration are
 in `gfx/assets.tsv` and `docs/research/gfx_resource_path_map.tsv`. The prior
-112-tile PNG view was retained under `.tmp/jp-gfx-mail-draft-exit-20261021/`
+112-tile PNG view was retained under `jp-gfx-mail-draft-exit-20261021` (review artifact)
 for provenance. Verify the exact payload and PNG with `make png-check`, then
 run the protected Japanese `make`, `make sym-check`, and `make palette-check`
 gates. The expected ROM result is byte-identical to the source ROM.

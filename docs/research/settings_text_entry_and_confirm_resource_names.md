@@ -147,11 +147,11 @@ A proposta fica queued; revisão independente e gates futuros do ROOT são
 separados. Não há aceite próprio, adoção, equivalência de build nem retomada de
 idioma ou instrumentação R4.
 
-Evidência privada durável: `.tmp/jp-settings17-proposal-20261018/DATA/` contém
+Evidência privada durável: `DATA` (review artifact) contém
 `RESOURCE_ROM_PROOF.json`, `CONSUMER_ROM_PROOF.json`, `ACTIVE_REFERENCE_PROOF.json`,
 `METADATA_REFERENCE_SURVEY.json`, `CATALOG_CELL_EDIT_PLAN.json`, `ASSETS_HELD.json`,
 `SYMBOL_DELTA.json` e readset com hashes. O scout precedente permanece selado em
-`.tmp/jp-settings-resources-next-scout-20261017/`.
+`jp-settings-resources-next-scout-20261017` (review artifact).
 
 
 ## Adendo de escopo: coalias do prefixo AdapterCheck (2026-10-18)

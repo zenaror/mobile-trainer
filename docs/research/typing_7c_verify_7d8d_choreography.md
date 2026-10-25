@@ -1,6 +1,6 @@
 # Bank 7C:7D8D — prepared representation and verification limits
 
-Stage: private five-path original proposal on historical `aa61d89314329fccea3c4543b3fcfb23ec60444c`. Future parent/integration = **NULL**; validation gates = **NULL**. English = **UNVALIDATED**. No new make, sym-check, canonical battery, emulator replay, Git mutation, commit/push or OMM mutation occurred in this proposal stage. Static review acceptance is not build acceptance.
+Stage: private five-path original proposal on historical `aa61d89314329fccea3c4543b3fcfb23ec60444c`. Future parent/integration = **NULL**; validation gates = **NULL**. English = **UNVALIDATED**. No new make, sym-check, canonical battery, emulator replay, Git mutation, commit/push occurred in this proposal stage. Static review acceptance is not build acceptance.
 
 ## Exact five-path change
 

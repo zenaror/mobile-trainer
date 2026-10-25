@@ -31,6 +31,6 @@ owner hash matched the reviewed pre-edit snapshot
 `55f6f552f2c2c121f31d184b23589ebb977365172d377378b6bb8e830d32588f`. The
 independent review accepted all 14 retirements and checked the full owner,
 including local-label spellings without `::`. Its receipt is retained at
-`.tmp/generic-coalias-post-67990eb-20261021/REVIEW_MUSIC19.md`.
+`REVIEW_MUSIC19.md` (review artifact).
 
 No musical or runtime interpretation was added by this name cleanup.

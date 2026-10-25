@@ -1,11 +1,11 @@
 {
  "params": {
-  "gb_root": "/media/rafael/Dados/Arquivos/Projetos/Gameboy Projects",
-  "trainer": "/home/rafael/_PROJETOS/Mobile Trainer/baserom.gbc",
+  "gb_root": "reference-root",
+  "trainer": "baserom.gbc",
   "refs": "eng,ptbr",
   "primary": "eng",
   "jp": null,
-  "out": "/home/rafael/_PROJETOS/Mobile Trainer/analysis",
+  "out": "analysis",
   "keep_ldh": false,
   "seed_min": 4,
   "seeds": 3,
@@ -32,18 +32,18 @@
   "eng": {
    "units": 9668,
    "data_regions": 21687,
-   "rom": "/media/rafael/Dados/Arquivos/Projetos/Gameboy Projects/Pokemon Crystal English Project/pokecrystal.gbc",
+   "rom": "reference-root/eng/pokecrystal.gbc",
    "sha1": "fd05085758ec344cca6424b535e24686efd31594"
   },
   "ptbr": {
    "units": 9669,
    "data_regions": 21682,
-   "rom": "/media/rafael/Dados/Arquivos/Projetos/Gameboy Projects/Pokemon Crystal BR/pokecrystal-mobile-ptbr/pokecrystal.gbc",
+   "rom": "reference-root/ptbr/pokecrystal.gbc",
    "sha1": "bafd36195500790df3f63a6534e39d6a78e5b69d"
   }
  },
  "jp_rom": {
-  "path": "/media/rafael/Dados/Arquivos/Projetos/Gameboy Projects/aaaaa/baseroms/jp/baserom-jp.gb",
+  "path": "reference-root/jp/baserom-jp.gb",
   "sha1": "95127b901bbce2407daf43cce9f45d4c27ef635d"
  },
  "records": {

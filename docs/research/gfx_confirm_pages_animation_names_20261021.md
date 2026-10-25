@@ -26,10 +26,10 @@ Independent review accepted the four `ConfirmPages_Anim1*` labels, rejected the
 broader spelling `ConfirmPages_ObjEntryAndAnimData`, and accepted
 `ConfirmPages_ObjTable_Entry1` as the precise alternative consistent with the
 checker’s `_EntryN` convention. Its report is retained in ignored
-`.tmp/agent-confirm-pages-review-20261021/` (REPORT SHA-256
+`agent-confirm-pages-review-20261021` (review artifact) (REPORT SHA-256
 `da23df8d160fe689cac6e14b1602f872b2037d1d63f61b6b9cb014268adce554`; RESULT
 SHA-256 `b0a393b066fdc243392a61083d450c66420fc1850809e6f4eae2c1ad009345ff`).
-The proposal evidence is in `.tmp/gfx-confirm-pages-static-20261021/`.
+The proposal evidence is in `gfx-confirm-pages-static-20261021` (review artifact).
 
 After integration, `make` reports `RESULT: IDENTICAL`, ROM size 2,097,152 and
 SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;

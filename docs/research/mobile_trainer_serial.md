@@ -10,7 +10,7 @@ libmobile), `analysis/mobile_candidates.json` (machine readable version of every
 Conventions: CPU addresses `bank:addr` (bank 00 = 0000-3FFF, others 4000-7FFF). **CONFIRMED / PROBABLE / HYPOTHESIS** as in the
 project rules. "Crystal" = Pokemon Crystal (Japan/English Project mobile build) which contains the *same* Nintendo Mobile Adapter GB
 SDK library; Crystal labels are cited only as reference names for structural counterparts (`identity` evidence), never as proof of
-purpose. `<GB>` = `/media/rafael/Dados/Arquivos/Projetos/Gameboy Projects`.
+purpose. `<GB>` = `$REFERENCE_ROOT`.
 
 ---------------------------------------------------------------------------------------------------------------
 
@@ -463,9 +463,10 @@ import sys, difflib, collections
 sys.path.insert(0, 'tools')
 import sm83
 
-GB = '/media/rafael/Dados/Arquivos/Projetos/Gameboy Projects/'
+import os
+GB = os.environ['REFERENCE_ROOT'].rstrip('/') + '/'
 TR = open('baserom.gbc', 'rb').read()
-CR = open(GB + 'Pokemon Crystal English Project/pokecrystal.gbc', 'rb').read()
+CR = open(GB + 'eng/pokecrystal.gbc', 'rb').read()
 
 
 def sweep(rom, bank):                      # linear sweep of $4000-$7FFF of one bank

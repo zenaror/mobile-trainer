@@ -41,7 +41,7 @@ ledger retain old spellings as evidence. They are not active source or asset
 catalog references.
 
 The refreshed pre-edit generic-coalias census is
-`.tmp/generic-coalias-post-ba4700c8-20261021/RESULT.json`: 716 candidates in
+`RESULT.json` (review artifact): 716 candidates in
 347 ASM/INC files, source-set SHA-256
 `c12a9fc4e40c15b858371fabe192d1f25592bc9e58d1932a668d26781eb73a5f`. The
 reviewed owner SHA-256 is

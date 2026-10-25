@@ -33,7 +33,7 @@ pre-edit owner hash was
 `7edcd3dcb092511402547956eb005a3523e9fdb701dc5d2caabe388499e3b4b8`. The
 independent review accepted the exact edit and confirmed the source references,
 line count, mapping, and prior symbol addresses. Its receipt is retained at
-`.tmp/generic-coalias-post-3019597c-20261021/REVIEW_MUSIC16.md`.
+`REVIEW_MUSIC16.md` (review artifact).
 
 After the edit, `make` reported `RESULT: IDENTICAL` against the original ROM
 SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.

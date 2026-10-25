@@ -17,7 +17,7 @@ mean that an object is semantically unknown or unused. In particular, 77 of the
 82 labels have no lexical reference, which is not evidence of dead data.
 
 The full grouped matrix, evidence JSON, and reproduction script are retained in
-`.tmp/agent-generic-data-no-alias-20261020/`. `matrix.json` SHA-256 is
+`agent-generic-data-no-alias-20261020` (review artifact). `matrix.json` SHA-256 is
 `f1b010b6295732eeafa2b2fa8a7be41d0cb2030f54c64f6605ebd9a531473378`;
 the source manifest is `87477919d8aac2572708badd4b9dc123f5ba8608d39baf5a711fa810e2846132`.
 The private snapshot is the audit input; this note records conclusions and does
@@ -55,7 +55,7 @@ consumer; the meaningful symbols remain in place. These aliases were removed
 without changing bytes, source ranges, or confidence. The first retains its
 existing table interpretation; the second retains its existing probable name
 for the test configuration image. The broad census and reference matrix are
-retained under `.tmp/agent-data-global-census-20261020/`.
+retained under `agent-data-global-census-20261020` (review artifact).
 
 The same census confirmed the structural position of `Data_5C_5144` as slot 32
 in the message-pointer index space (`5C:5104 + 2*32`), between the 32-entry
@@ -85,7 +85,7 @@ The pass is outside the original 82-label no-co-alias set above. Its source
 hash before editing matched the pinned broad census input
 `f4d1086a2408893c072d92517e54d4ad3554f76fedfbe2620aac16d5c9bfdc73`;
 per-alias evidence is retained under
-`.tmp/jp-gfx-delete-progress-alias-pass-20261020/review/`. Coordinator-run
+`review` (review artifact). Coordinator-run
 gates: `make` returned `RESULT: IDENTICAL` with the original ROM SHA-256
 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`,
 `make sym-check` reported 14,461 labels and 51 constants, and
@@ -119,7 +119,7 @@ operands to their existing operation/resource names: `SoundDrv_CmdStoreTrackByte
 `Fill99E1Pattern46_Draw5807TwiceAndUpload`, and `LCDOn_ReturnBCZero`. Existing
 PROBABLE/HYPOTHESIS comments remain on the surviving names; this does not prove
 natural entry, callers, or application purpose. The pinned inventory and its
-limitations are retained at `.tmp/label-entry-audit-20261020-agent/`.
+limitations are retained at `label-entry-audit-20261020-agent` (review artifact).
 
 A follow-on keyboard pass retires 12 more co-located aliases in bank 55:
 `Kbd_LoadPageGraphics_T6`, its four page entries and tail, and
@@ -138,7 +138,7 @@ was removed because the source now models the object table and internal
 structures separately. `--stats` reports 581 neutral data groups, 161 sites
 (158 rejected, 3 accepted), and one remaining HYPOTHESIS row. A private
 manifest and inventory from this working tree based on `3d5fe3af` are retained
-under `.tmp/data-consumers-working-tree-after-3d5fe3af/`; they do not update the historical
+under `data-consumers-working-tree-after-3d5fe3af` (review artifact); they do not update the historical
 `analysis/naming2/data2_renames.tsv`.
 
 ## Retirement of remaining co-located `Label_*` aliases
@@ -171,7 +171,7 @@ comment valid; `make palette-check` reported 162 loads, 116 arrays, two
 documented over-reads and zero errors; `make png-check` validated 408 tile
 sheets, four raw byte views, 37 font sheets and 95 screen PNGs. No ROM bytes
 changed. The current-snapshot inventory and reproduction script are retained
-under `.tmp/label-entry-audit-head-56840723/`.
+under `label-entry-audit-head-56840723` (review artifact).
 
 ## Retired keyboard/help ticker data aliases
 
@@ -214,7 +214,7 @@ mapping is in [`retired_mobile_sdk_data_aliases.tsv`](../../analysis/naming2/ret
 | `Data_75_7B40` | `MobileSDK_Md5InitConstants` | 75:7B40 |
 
 The pre-change census receipt is retained in
-`.tmp/data-global-census-head-153fbd79/`: `RESULT.json` SHA-256
+`data-global-census-head-153fbd79` (review artifact): `RESULT.json` SHA-256
 `84f742c088f9a5f8ac3f2e82879a456371372dddac15ee7ab9c9598d08d6f960`,
 `data_matrix.tsv` SHA-256
 `907e4e938d56df23ad6185302835fcea4b222cdfeb8bc4d6aceff8a684ee0af5`, and
@@ -254,7 +254,7 @@ locals. Only alias declarations were deleted; payloads and evidence annotations
 remain unchanged. The old/current names and prior confidence are recorded in
 [`retired_page_list_data_aliases.tsv`](../../analysis/naming2/retired_page_list_data_aliases.tsv).
 
-The private pass receipt is `.tmp/page-list-data-alias-pass-20261020/`:
+The private pass receipt is `page-list-data-alias-pass-20261020` (review artifact):
 `PRECHECK.json` SHA-256
 `09c32f3fa1ec1918780d2cb3430131bde4bef5ae3248d26390fc7d15c98f6e11`,
 `RESULT.json` SHA-256
@@ -273,7 +273,7 @@ generic-name references, tool/metadata mentions or scoped locals. Payloads,
 existing names and confidence annotations are preserved; the mapping is in
 [`retired_top_menu_data_aliases.tsv`](../../analysis/naming2/retired_top_menu_data_aliases.tsv).
 
-Receipt: `.tmp/top-menu-data-alias-pass-20261020/` contains `PRECHECK.json`
+Receipt: `top-menu-data-alias-pass-20261020` (review artifact) contains `PRECHECK.json`
 (SHA-256 `e982bedf35ccf80886b3b89120529a7515d5c7623b19a67e9eedd2355bddd50e`)
 and `RESULT.json` (SHA-256
 `7e7b8d6b84db1b4055e3ceace786bc85849a45683f20cdf65970c9076d7bbe73`); the
@@ -290,7 +290,7 @@ addresses, and found no generic-name source references, tool/metadata mentions
 or local scopes. The old/current names and preserved confidence values are in
 [`retired_comm_result_data_aliases.tsv`](../../analysis/naming2/retired_comm_result_data_aliases.tsv).
 
-Private receipt `.tmp/comm-result-data-alias-pass-20261020/` records
+Private receipt `comm-result-data-alias-pass-20261020` (review artifact) records
 `PRECHECK.json` SHA-256
 `a498ede7204f6b0472ff9e801d643e78156faee3e836d69cf31eea7377de4359` and
 `RESULT.json` SHA-256
@@ -310,7 +310,7 @@ locals. The aliases alone were removed; bytes and the existing confidence
 annotations remain. See
 [`retired_keyboard_panels_data_aliases.tsv`](../../analysis/naming2/retired_keyboard_panels_data_aliases.tsv).
 
-Receipt `.tmp/keyboard-panels-data-alias-pass-20261020/`: `PRECHECK.json`
+Receipt `keyboard-panels-data-alias-pass-20261020` (review artifact): `PRECHECK.json`
 SHA-256 `379f931af1266d954b36380c7a5b3e4634b78f649ca199949e9b28ada06db02e`,
 `RESULT.json` SHA-256
 `fb4ddb837e908923c4624d6f6f7877086c94ea3cb7c67349018a9e894661bf70`, and
@@ -327,7 +327,7 @@ there were no generic-name source references, tool/metadata mentions or
 scoped locals. Only the redundant declarations were removed. The mapping is
 in [`retired_compose_objects_data_aliases.tsv`](../../analysis/naming2/retired_compose_objects_data_aliases.tsv).
 
-The private receipt `.tmp/compose-objects-data-alias-pass-20261020/` records
+The private receipt `compose-objects-data-alias-pass-20261020` (review artifact) records
 `PRECHECK.json` SHA-256
 `f619436e895394867efcf2d94eae25d47cd019d641cc1df4aba0b0b41cb58c50` and
 `RESULT.json` SHA-256
@@ -345,7 +345,7 @@ showed zero generic-name references, tool/metadata mentions or scoped locals.
 The aliases alone were removed, with bytes and confidence annotations kept.
 See [`retired_draft_menu_data_aliases.tsv`](../../analysis/naming2/retired_draft_menu_data_aliases.tsv).
 
-Receipt `.tmp/draft-menu-data-alias-pass-20261020/`: `PRECHECK.json` SHA-256
+Receipt `draft-menu-data-alias-pass-20261020` (review artifact): `PRECHECK.json` SHA-256
 `7914c8d1f7db9bbade7c62d704e04df98ec99f9bbf0bb22d5a10619878a5a8e4`,
 `RESULT.json` SHA-256
 `601650122636d2ccc5665d731a325141a7f3dc387b4f6d3a481a4d31e1753c4d`, and
@@ -362,7 +362,7 @@ and there are no generic-name references, tool/metadata mentions or scoped
 locals. Only the aliases were removed. The ledger is
 [`retired_mail_viewer_data_aliases.tsv`](../../analysis/naming2/retired_mail_viewer_data_aliases.tsv).
 
-Receipt `.tmp/mail-viewer-data-alias-pass-20261020/`: `PRECHECK.json` SHA-256
+Receipt `mail-viewer-data-alias-pass-20261020` (review artifact): `PRECHECK.json` SHA-256
 `4dad5f0f63fd67f41fc3b88732c9bac6f305a917cf166bf5986f60324ad4cd40`,
 `RESULT.json` SHA-256
 `a6089eb16fca04d31c8f0630e4d102c76c056ccab2e0d18768602ffcffc3b316`, and
@@ -380,7 +380,7 @@ references, tool/metadata mentions or scoped locals. Only the redundant
 declarations were removed; bytes and confidence annotations remain unchanged.
 See [the alias ledger](../../analysis/naming2/retired_connect_screen_data_aliases.tsv).
 
-The private receipt `.tmp/mail-connect-data-alias-pass-20261020/` records
+The private receipt `mail-connect-data-alias-pass-20261020` (review artifact) records
 `PRECHECK.json` SHA-256
 `d5622383cc1bdb64fb51f4c154ea459d786c8530836ee91e56359c5d47bc4167` and
 `RESULT.json` SHA-256
@@ -401,7 +401,7 @@ redundant declarations were removed; bytes and inherited confidence remain
 unchanged. See
 [`retired_comm_scene_data_aliases.tsv`](../../analysis/naming2/retired_comm_scene_data_aliases.tsv).
 
-Private receipt `.tmp/comm-scene-data-alias-pass-20261020/`: `PRECHECK.json`
+Private receipt `comm-scene-data-alias-pass-20261020` (review artifact): `PRECHECK.json`
 SHA-256 `3e8a4d72f5ef03c0ff12ace6838212b32c920de135985e115f95791155cb3114`,
 `RESULT.json` SHA-256
 `60eb024a43dd75adb6838ac900e7a4a3396bdf3ea2cc4de834ead4eb43d7d4f2`, and
@@ -420,7 +420,7 @@ the redundant declarations, preserving all emitted bytes and existing
 confidence levels. See
 [`retired_comm_error_data_aliases.tsv`](../../analysis/naming2/retired_comm_error_data_aliases.tsv).
 
-Receipt `.tmp/comm-error-data-alias-pass-20261020/`: `PRECHECK.json` SHA-256
+Receipt `comm-error-data-alias-pass-20261020` (review artifact): `PRECHECK.json` SHA-256
 `0e424cd281b4db7df5107f9e8591e5f31d72a6c94604eca35483c95f818d93dd`,
 `RESULT.json` SHA-256
 `d1e928ea6468916c43ea1be77080558483e08b7ce2bf52115179e7f7793ceec8`, and
@@ -439,7 +439,7 @@ locals. Only duplicate names were removed; no stream interpretation, emitted
 bytes or confidence levels changed. See
 [`retired_music04_data_aliases.tsv`](../../analysis/naming2/retired_music04_data_aliases.tsv).
 
-Receipt `.tmp/music04-data-alias-pass-20261020/`: `PRECHECK.json` SHA-256
+Receipt `music04-data-alias-pass-20261020` (review artifact): `PRECHECK.json` SHA-256
 `abdd950ebce0463b613763b9c0a4c0cbe377277ed3b4de66541fa7af21e211b8`,
 `RESULT.json` SHA-256
 `889a5a1063af607ba3d9ba73f4659e44477e1f1295bc8d4cc13437f44bb3b330`, and
@@ -458,7 +458,7 @@ retires redundant names only; it adds no interpretation of the music streams
 and changes no emitted bytes or confidence. See
 [`retired_music0a_data_aliases.tsv`](../../analysis/naming2/retired_music0a_data_aliases.tsv).
 
-Receipt `.tmp/music0a-data-alias-pass-20261020/`: `PRECHECK.json` SHA-256
+Receipt `music0a-data-alias-pass-20261020` (review artifact): `PRECHECK.json` SHA-256
 `88afc66f16c675b5aeda06d1b56b1bb4e66a61a3992f926ae79b23b8b43b8dcb`,
 `RESULT.json` SHA-256
 `fd90b91365952446b59b425cfe165ecad0cb195e8f97269394f5749619f0f5a8`, and
@@ -477,7 +477,7 @@ spellings were removed; this adds no audio interpretation and preserves all
 bytes and existing confidence. See
 [`retired_music11_data_aliases.tsv`](../../analysis/naming2/retired_music11_data_aliases.tsv).
 
-Receipt `.tmp/music11-data-alias-pass-20261020/`: `PRECHECK.json` SHA-256
+Receipt `music11-data-alias-pass-20261020` (review artifact): `PRECHECK.json` SHA-256
 `b1651171f630b4d751244abf7b2692e4d10d8fe769c834b671a79c129cf15892`,
 `RESULT.json` SHA-256
 `7910f841cb8e37e78b4acc8f1a26e73f13f2201264dfddb1f3c0c9e10416a5ad`, and
@@ -496,7 +496,7 @@ scopes. This removes redundant labels only and preserves the emitted data and
 inherited confidence. See
 [`retired_profile_editor_data_aliases.tsv`](../../analysis/naming2/retired_profile_editor_data_aliases.tsv).
 
-Receipt `.tmp/profile-editor-data-alias-pass-20261020/`: `PRECHECK.json`
+Receipt `profile-editor-data-alias-pass-20261020` (review artifact): `PRECHECK.json`
 SHA-256 `ba160d94c109f78bc071add2a7150417d6cf1c8a7fbb7127b0004cc2f8167400`,
 `RESULT.json` SHA-256
 `e5fd200d0f1ddc3ca1677ec79100756000ad39aea5da160b8d229bbacb86add7`, and
@@ -515,7 +515,7 @@ inside a longer descriptive name was excluded as a separate reference. Only
 duplicate declarations were removed; bytes and confidence are unchanged. See
 [`retired_browser_menus_data_aliases.tsv`](../../analysis/naming2/retired_browser_menus_data_aliases.tsv).
 
-Receipt `.tmp/browser-menus-data-alias-pass-20261020/`: `PRECHECK.json`
+Receipt `browser-menus-data-alias-pass-20261020` (review artifact): `PRECHECK.json`
 SHA-256 `47fdadb755b9a4130cb8f0eb43f76697bf68b34ed372054ccc112d4d6558214a`,
 `RESULT.json` SHA-256
 `ff52af20f2a0961d4431be8ffcdb6e1441e801bd6b4096f490375a9a8659c83c`, and
@@ -630,7 +630,7 @@ immediate-reference candidates, all rejected by its strict automatic
 load-shape checks. At the post-TOP checkpoint, the inventory reported 576
 groups and 151 rejected candidates, with no automatic rename rows. That
 checkpoint inventory and manifest are retained in
-`.tmp/generic-data-final-census-20261020/`; their SHA-256 values are
+`generic-data-final-census-20261020` (review artifact); their SHA-256 values are
 `d541e13241bc6aed5fee8649a08ac09407d177687aaba5508d0b1bc57235cc1b` and
 `1a5e0a79621043b8f81cfe9e0e31dbd8b2e0322a582f9aee1a472a0b8db0f605`,
 respectively. A neutral group's presence or a rejected site does not establish
@@ -674,14 +674,14 @@ spelling count, not semantic closure. A fresh post-build
 `data_consumers.py --stats` run at that checkpoint reported 574 neutral data
 groups, 150 rejected candidates, and zero manifest rows; its inventory and
 manifest are retained in
-`.tmp/generic-data-census-20261020-postbuild/` with SHA-256
+`generic-data-census-20261020-postbuild` (review artifact) with SHA-256
 `9c25331539df774e29b792543a25321db68dae378c8205702d1d6d9cf393cbb6` and
 `1a5e0a79621043b8f81cfe9e0e31dbd8b2e0322a582f9aee1a472a0b8db0f605`.
 
 After the positional keyboard rename, a fresh post-build census reports 573
 neutral data groups, 148 rejected candidates, and zero manifest rows. The
 inventory and manifest are retained in
-`.tmp/generic-data-census-20261020-keyboard/` with SHA-256
+`generic-data-census-20261020-keyboard` (review artifact) with SHA-256
 `42345fc1ac73d897c075ea892dffcf95383a4ae0206ebedf668d0d65d0a513a1` and
 `1a5e0a79621043b8f81cfe9e0e31dbd8b2e0322a582f9aee1a472a0b8db0f605`.
 
@@ -701,7 +701,7 @@ the label remain **PROBABLE** because this pass did not verify final glyph
 rendering or the natural menu/display path.
 
 The original-byte and table comparison receipt is
-`.tmp/bank6c-welcome-string-audit-20261020/RESULT.json`; the corrected receipt
+`RESULT.json` (review artifact); the corrected receipt
 pins the source/table hashes and ROM hash, and records the decoding limits.
 Its SHA-256 is
 `9cd94528accc14eca141892474e663a3d900059066a473f1dfaeb5fdcdfe1ace`.
@@ -713,7 +713,7 @@ After this rename, the exact lexical count is 988 `Data_BB_AAAA::` definitions
 across the six maintained roots plus one in `zero_labels.asm` (989 total). A
 fresh post-build census reports 572 neutral groups, 147 rejected candidates,
 and zero manifest rows; the inventory and manifest are in
-`.tmp/generic-data-census-20261020-helptext/` with SHA-256
+`generic-data-census-20261020-helptext` (review artifact) with SHA-256
 `e4ca8416a6232a1bcac1110f45738eb64d3ea42999f54746ad62a6064d32ad57` and
 `1a5e0a79621043b8f81cfe9e0e31dbd8b2e0322a582f9aee1a472a0b8db0f605`.
 
@@ -737,7 +737,7 @@ source decodes the commands and the original-byte build preserves them. The
 bounded post-build `data_consumers.py --stats` census reports 571 neutral
 groups, 147 rejected immediate candidates and zero rename rows; its inventory
 and manifest are retained in
-`.tmp/jp-bank05-track-cont-pass-20261020/` with SHA-256
+`jp-bank05-track-cont-pass-20261020` (review artifact) with SHA-256
 `d354a7bb2a604bebe10b3b7b2901fd9cc8168152e0a9358cd803903f43861fba` and
 `1a5e0a79621043b8f81cfe9e0e31dbd8b2e0322a582f9aee1a472a0b8db0f605`.
 The generic `Data_BB_AAAA::` count at that checkpoint was 987 in the six
@@ -761,7 +761,7 @@ The frozen bank05 region maps remain unchanged. The decoded source and
 original-byte comparison preserve the ROM. The post-build bounded
 `data_consumers.py --stats` census reports 570 neutral data groups, 147
 rejected candidates and zero rename rows. Its inventory and manifest are
-retained in `.tmp/jp-bank05-track3-cont-pass-20261020/`; inventory SHA-256 is
+retained in `jp-bank05-track3-cont-pass-20261020` (review artifact); inventory SHA-256 is
 `531ad6c5fd0a00c0b127fabd66e86c5477587a0fae743cb1d5d9134304686a17` and
 manifest SHA-256 is
 `1a5e0a79621043b8f81cfe9e0e31dbd8b2e0322a582f9aee1a472a0b8db0f605`.
@@ -795,7 +795,7 @@ candidates, and zero rename rows. Inventory SHA-256 is
 `9cc2534dd8f6b08da66397b32855db8476b683d25496500f7951b7e67d7fbab5`; manifest
 SHA-256 is
 `1a5e0a79621043b8f81cfe9e0e31dbd8b2e0322a582f9aee1a472a0b8db0f605`. Both
-are retained in `.tmp/jp-bank05-neutral-song-continuations-20261020/`. The
+are retained in `jp-bank05-neutral-song-continuations-20261020` (review artifact). The
 generic `Data_BB_AAAA::` count is 980 in the six maintained roots plus one in
 `zero_labels.asm` (981 total); this lexical count does not establish semantic
 completion.
@@ -824,7 +824,7 @@ inventory SHA-256 is
 `9cc2534dd8f6b08da66397b32855db8476b683d25496500f7951b7e67d7fbab5`; manifest
 SHA-256 is
 `1a5e0a79621043b8f81cfe9e0e31dbd8b2e0322a582f9aee1a472a0b8db0f605` in
-`.tmp/jp-audio1d-redundant-aliases-20261020/`.
+`jp-audio1d-redundant-aliases-20261020` (review artifact).
 
 ## Test configuration fields and current-reader review (2026-10-20)
 
@@ -883,8 +883,8 @@ not measure semantic completion. `make` is SHA-256 OK and `RESULT: IDENTICAL`
 to the Japanese original; `make sym-check` reports 13,544 labels and 51
 constants; `make palette-check` reports 162 loads/116 arrays, two documented
 overreads and zero errors. Full review is retained in the private
-`.tmp/parallel-jp-census-20261020/REPORT.md` and
-`.tmp/parallel-jp-function-audit-20261020/SONG03_REVIEW.md`.
+`REPORT.md` (review artifact) and
+`SONG03_REVIEW.md` (review artifact).
 
 ## Restricted six-root reconciliation after later alias retirements (2026-10-21)
 
@@ -893,7 +893,7 @@ comparison uses the same six maintained roots and exact `Data_BB_AAAA::`
 definition pattern while explicitly excluding that path, `languages/`, and
 all non-ASM/INC files. The ignored file is neither read nor counted. A
 reproducible script and per-root results are retained in
-`.tmp/generic-data-census-20261021/` (result SHA-256
+`generic-data-census-20261021` (review artifact) (result SHA-256
 `d0967b53efa11522f4280a4f57fbcdb5bdd4928240188a43ccd49a05b48c1643`).
 
 | checkpoint | engine | data | gfx | audio | lib | home | six roots | `zero_labels.asm` | total |
@@ -930,7 +930,7 @@ the bounded retained-file search. The original 82-row matrix happens to contain
 that predicate to the handoff's 49-span count. Only 28 names from that candidate
 49-row subset survive at the later 4c snapshot. Keep the 49-span provenance
 unresolved; do not equate the two counts. The full search and reproducible
-derivation are in `.tmp/parallel-jp-census-20261020/HISTORICAL_MATRIX_SEARCH.md`
+derivation are in `HISTORICAL_MATRIX_SEARCH.md` (review artifact)
 (SHA-256 `c8035b2e8bfa3a720b4a5fd3302eb4180f28eeb55eb3d86306809b12c12a67b1`).
 No source change, build, or cleanup was needed for this historical reconciliation.
 
@@ -938,7 +938,7 @@ No source change, build, or cleanup was needed for this historical reconciliatio
 
 To refresh the dated consumer-group metric without reading
 `engine/mail/sample_data.asm`, the unchanged `tools/data_consumers.py` and its
-model dependencies were run in `.tmp/data-consumer-census-private-20261021/`.
+model dependencies were run in `data-consumer-census-private-20261021` (review artifact).
 The private source snapshot contains 331 maintained ASM files from the six
 source roots and physically omits the protected file; it uses the Japanese
 ROM and `build/mobile_trainer.sym` copied from commit
@@ -962,7 +962,7 @@ completion counts. The 899 lexical `Data_BB_AAAA::` definitions above are a
 different measure and must not be reconciled by subtracting these groups.
 
 The exact normal stdout is retained in
-`.tmp/data-consumer-census-private-20261021/DATA_CONSUMER_STATS.txt` (SHA-256
+`DATA_CONSUMER_STATS.txt` (review artifact) (SHA-256
 `3d67dd47e89e93fa6ab0be3fcc283d040c729bf866fe6ef35a6257525590b78d`); the
 private diagnostic stdout is `DATA_CONSUMER_DIAGNOSTIC.txt` (SHA-256
 `546ee9338002122abd34506f08b50d41ffa5c84d0a60dd440a6dcf6b0ac0c02f`). The
@@ -988,7 +988,7 @@ have matched the protected file when `engine/` was supplied as a separate
 search root. Its output was discarded and was not used in these counts. The
 safe scanner checks the exact repository-relative path before any content read;
 its source is retained as
-`.tmp/data-consumer-census-private-20261021/safe_source_name_scan.py` (SHA-256
+`safe_source_name_scan.py` (review artifact) (SHA-256
 `bfadfffd61c998716b270fe1cba1901c848fed1687faaaab62e904b274250f46`) and its
 result as `SOURCE_NAME_SCAN.json` (SHA-256
 `8ef10a8e54ca72f8779587a2ae8fe684c230f08042a5566136343b80ce771a31`).
@@ -999,7 +999,7 @@ total) and checked the exact generic `wRam_AAAA` form as well. It reconfirms
 `wRam_` address labels, zero other global function-like generic prefixes, and
 no `gfx/bankNN` directories. The input-set SHA-256 is
 `dc4811db834dc0caf4a382e3eba42d4943ce623760867370e24cef8e1fc434ce`; the
-source is `.tmp/data-consumer-census-private-20261021/safe_generic_identifier_scan.py`
+source is `safe_generic_identifier_scan.py` (review artifact)
 (SHA-256 `55cbd325077cdf2556bb1ddb9b0be799547767c099c4036b4b9eedcf66d892f7`)
 and its result is `GENERIC_IDENTIFIER_SCAN.json` (SHA-256
 `b6863c0687479c5ca4d5187a823377a70bdeb99984955cd3476db0bdc072fc7d`).
@@ -1014,7 +1014,7 @@ the detector's four accepted load shapes. The 516 remaining groups have no
 decision in this pass. Thus the earlier zero-row output measures rejected
 naming proposals, not the absence of readers. `CLASSIFICATION.tsv` and
 `GROUP_LEDGER.tsv` are retained under
-`.tmp/agent-data-consumer-mismatch-20261021/`; the full report SHA-256 is
+`agent-data-consumer-mismatch-20261021` (review artifact); the full report SHA-256 is
 `0235dfba74b8d468319e4e3725e471ddaeae9db02d3d78f9d82da2bf12196b8a`.
 
 The eight sites include bank-aware string reads, a DE-to-HL tilemap source,
@@ -1084,9 +1084,9 @@ without claiming execution for the isolated tables.
 The separate SaveSender/address-book audit retained all 27 candidate labels.
 It found no aliases or sufficiently supported replacement names; 2,549 source
 bytes were accounted for, but no local consumer chain was established. Details
-and bounded private reports remain under `.tmp/agent-comm-scene-data-audit-20261021/`,
-`.tmp/agent-comm-scene-alias-review-20261021/` and
-`.tmp/agent-save-sender-data-audit-20261021/`.
+and bounded private reports remain under `agent-comm-scene-data-audit-20261021` (review artifact),
+`agent-comm-scene-alias-review-20261021` (review artifact) and
+`agent-save-sender-data-audit-20261021` (review artifact).
 
 ## Top-menu animation tilemap frame sequence (2026-10-21)
 
@@ -1099,13 +1099,13 @@ bank immediates now use the semantic label while preserving the original
 encoding. Existing traces read 990 bytes; the remaining 396 have no recorded
 read, and the loops do not prove a general bounds check. No display or universal
 frame-reachability claim is made. The independent report is retained at
-`.tmp/agent-top-menu-anim-review-20261021/REPORT.md` (SHA-256
+`REPORT.md` (review artifact) (SHA-256
 `ed07ba53f9a5ab9c8f5a7c0ac6108f60922ff9afd496b3a44fc1cde29488eadc`).
 The census pinned to `1485975350e230be41906fce14af44c1ef7b262a` found 888
 generic data labels in the six maintained roots and one separate
 `zero_labels` definition (889 total), excluding
 `languages/` and `engine/mail/sample_data.asm`. The script and receipt are
-retained in `.tmp/generic-data-current-safe-census-20261021/`; their SHA-256
+retained in `generic-data-current-safe-census-20261021` (review artifact); their SHA-256
 values are respectively `88de64d009ad50018f8fcb7d068448eec1d642b5b09d1b18d7846a3de2babae8`
 and `6fbb8b15e07454b5b3345a8459f9f0773ae0489dd659459635c0049227fcadc0`.
 
@@ -1195,7 +1195,7 @@ Reproduction script SHA-256 is
 `88de64d009ad50018f8fcb7d068448eec1d642b5b09d1b18d7846a3de2babae8`; result
 receipt SHA-256 is
 `fc2b0d1eb12f9e8d6d10d6e74e177793eb69667dba7013769124730778064ef5` under
-`.tmp/generic-data-current-safe-census-20261021/`.
+`generic-data-current-safe-census-20261021` (review artifact).
 
 The original build remains `RESULT: IDENTICAL` with ROM SHA-256
 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
@@ -1254,7 +1254,7 @@ Address mapping (`bank 55`): `4000 Data_55_4000` -> `Table_Kbd_StartCell`;
 `Data_Kbd_T9_NeighbourRecords`.
 
 The private census receipt is under
-`.tmp/generic-coalias-census-20261021/` (result SHA-256
+`generic-coalias-census-20261021` (review artifact) (result SHA-256
 `4554836f20cf0d5d16644a968d20083e9264f2612c4177ec0230ef183ac74f74`,
 source-set SHA-256
 `8a7e32fb618b16fc1dd0d64bebb80361bd0450a595c3d237cf3bd9fef6df9861`).
@@ -1387,7 +1387,7 @@ The corrected bank/address census found 72 generic labels in `engine/help/mobile
 | 1A:47A1 | `String_1A_47A1` | `String_MobileDict_Cat11Entry08` |
 | 1A:47A4 | `String_1A_47A4` | `String_MobileDict_Cat11Entry09` |
 
-Census input: `.tmp/generic-coalias-census-post-fd0bdbd1/RESULT.json`; source-set SHA-256 `087b01cc94f76aad2e802f7691f1d69c0f0b06e56fa9963f8fcf1178ec77560c`. This census is a bounded lexical/static review, not proof of natural execution or broader dictionary behavior.
+Census input: `RESULT.json` (review artifact); source-set SHA-256 `087b01cc94f76aad2e802f7691f1d69c0f0b06e56fa9963f8fcf1178ec77560c`. This census is a bounded lexical/static review, not proof of natural execution or broader dictionary behavior.
 
 Validation for the mobile-dictionary checkpoint: `make` returns
 `RESULT: IDENTICAL` with ROM SHA-256
@@ -1847,9 +1847,9 @@ resource path, source byte, confidence level, or ROM byte changed.
 The reconciliation script required a unique descriptive symbol at the exact
 bank/address in the owner source before changing the catalog field. Its
 private report and full old-to-new mapping are retained in
-`.tmp/gfx-catalog-label-audit-20261021/`: `MAPPINGS.json` SHA-256
+`gfx-catalog-label-audit-20261021` (review artifact): `MAPPINGS.json` SHA-256
 `d1964383d6fa677d1404f86566b194b96bd22de441ec865eb0b86650fb3f4268` and
-`RESULT.json` SHA-256 recorded in the OMM checkpoint. Catalog content hashes
+`RESULT.json` SHA-256 recorded in the validation record. Catalog content hashes
 were `4c948911f65712eee86bedd14c20b33a95aad14bdbd7d49e6287eb683b862adc`
 before and `f6d4a8290d7b84644e6fad923968ffeaa814ef6f2dcbb186f006ebd10bec0199`
 after the update. The remaining source `Data_<bank>_<address>` labels in these
@@ -2276,7 +2276,7 @@ active-tool consumers. The remaining isolated 64-byte block at `47:4040` is
 only PROBABLE from visual/tile heuristics and overlapping source coverage; it
 now uses `Gfx_BrowserScrollbar_CandidateTileSlice_4040`. The seven catalog
 rows point to the surviving or candidate-qualified names. The 78-line owner,
-payloads and evidence levels are unchanged; no screen-descriptor or natural
+payloads and evidence levels are unchanged; no screen-descriptor natural
 loader claim is added for `47:4040`.
 
 The six-root `Data_BB_AAAA::` census is now 295 definitions in 128 owners,
@@ -2803,7 +2803,7 @@ The source-set SHA-256 is
 generic-label manifest SHA-256 is
 `4fbd76ef1342c9e5c835a99640dc1baf806368ce7a51fb4e6147b983a85c53e2`. The
 reproducible census receipt, manifest, and consumer screening are retained in
-`.tmp/jp-neutral-data-followup-301fb1f3/`. The current `data_consumers.py`
+`jp-neutral-data-followup-301fb1f3` (review artifact). The current `data_consumers.py`
 screening found 93 immediate candidates and rejected all 93; it generated no
 rename rows. That result is not a consumer map or evidence that the remaining
 neutral data is unused. At that historical checkpoint, `Data_1D_62B0` still
@@ -2828,7 +2828,7 @@ source-set SHA-256 is
 receipt SHA-256 is
 `e5295c44af8ec24bde27f85c033b197ed4e239e7ead93c9c09523ed41ba0f7d4`.
 The receipt and manifest are retained under
-`.tmp/jp-neutral-data-followup-20261021/`. `data_consumers.py --stats` still
+`jp-neutral-data-followup-20261021` (review artifact). `data_consumers.py --stats` still
 reports 93 immediate candidates rejected, with no rename rows.
 
 
@@ -3321,7 +3321,7 @@ At the post-build source snapshot, `tools/data_consumers.py --stats` reports
 rename manifest has zero rows. These are bounded inventory/results, not proof
 that the remaining names have no readable structural identity. The source scan
 excludes `engine/mail/sample_data.asm`, `languages/`, build products, tools,
-docs and `.tmp/`.
+docs and `.tmp` (review artifact).
 
 The earlier neutral decisions for `Data_6A_6330` and `Data_6A_6448` are
 superseded. The 6A:6330–64AE span is now `SpriteFrameTable_HelpMenu`, nine
@@ -3330,7 +3330,7 @@ symbolically linked across the existing 64B1 source boundary. The false
 `palette_6330.pal` asset and its catalogue/rule rows were removed. The full
 recorded derivation and byte checks are in
 `docs/research/original_closure_followup_20261021.md` and the retained
-`.tmp/jp-bank6a-help-object-reclass-20261021/` evidence. At that snapshot,
+`jp-bank6a-help-object-reclass-20261021` (review artifact) evidence. At that snapshot,
 the inventory had 128 groups, down from 130; the 34 remaining `Data_` groups still require
 individual evidence review.
 
@@ -3424,7 +3424,7 @@ or independent PNG/asset claim is made.
 After `make` refreshed `build/mobile_trainer.sym`, `tools/data_consumers.py`
 reported 15 neutral data groups, one candidate site, one rejected site, and
 zero rename-manifest rows. The retained per-group inventory is
-`.tmp/jp-data-label-census-20261022/INVENTORY.tsv` (SHA-256
+`INVENTORY.tsv` (review artifact) (SHA-256
 `9122991c02f7a31c4ee02e542c72441779100b37b638b78c2b17d45d0a473b7c`); the
 empty manifest is `MANIFEST.tsv` (SHA-256
 `1a5e0a79621043b8f81cfe9e0e31dbd8b2e0322a582f9aee1a472a0b8db0f605`). Its

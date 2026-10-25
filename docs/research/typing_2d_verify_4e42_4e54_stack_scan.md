@@ -40,7 +40,7 @@ Exactly four existing comment lines after `Function_2D_4E42` are replaced. Their
 
 The two existing documentation files retain their complete historical byte prefixes and gain only appended entries. Two research notes are new. The isolated historical source count is 4186 plus these two notes, yielding 4188; this arithmetic does not assert a future owner count or parent. Their documentation bases were previously derived from the sealed aa61 historical candidate by removing only its sealed unrelated append: RE base SHA-256 `5f8ec51d6f7ce4d4df1f6d1d86e499579f5acb382ee09a1be0c7564540d085df`, docs index base `21b8ca83c7509451a0a6ecb5568e295eee7d35ade4344e2cb995733e00e6ed99`.
 
-No helper import, current-owner read, gate, actual build, Git operation, OMM mutation or HOME access was performed for this proposal. Future parent, owner materialization and gates are NULL; English translation is UNVALIDATED. Static nonemitting equality is not a rebuilt-ROM comparison. Any later actual integration requires an explicit fresh parent and the repository's build and symbol checks; no such result is claimed here.
+No helper import, current-owner read, gate, actual build, Git operation,  or HOME access was performed for this proposal. Future parent, owner materialization and gates are NULL; English translation is UNVALIDATED. Static nonemitting equality is not a rebuilt-ROM comparison. Any later actual integration requires an explicit fresh parent and the repository's build and symbol checks; no such result is claimed here.
 
 
 ## Private implementation checkpoint before published integration (historical)

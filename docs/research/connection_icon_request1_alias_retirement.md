@@ -22,7 +22,7 @@ All 41 other generic aliases in this owner stay **KEEP** with their inherited **
 
 The isolated symbol-set prediction removes exactly two global names and adds none; both proper names and all locals remain held. No fixed future parent or absolute symbol total is assumed. The package includes exact BEFORE/READSET pins and a two-line blanking diff for independent review. Current source pins, not the lexical census, are the authority; the census was used only to route the investigation.
 
-Only private static file/hash/ROM analysis ran. No maintained source was changed; no repository helper/import, tests, compiler/make, renderer, emulator, Git, OMM, English or R4 operation ran. Original asset slice equality and a two-row source diff do not establish an assembled byte-identical ROM. ROOT must rebase on the actual parent, review independently and perform authorized original build/symbol/ROM checks before adoption. Existing support packages remain immutable and retained.
+Only private static file/hash/ROM analysis ran. No maintained source was changed; no repository helper/import, tests, compiler/make, renderer, emulator, Git, English or R4 operation ran. Original asset slice equality and a two-row source diff do not establish an assembled byte-identical ROM. ROOT must rebase on the actual parent, review independently and perform authorized original build/symbol/ROM checks before adoption. Existing support packages remain immutable and retained.
 
 ## Contextual rebase before final seal
 

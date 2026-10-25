@@ -54,7 +54,7 @@ All 27 moved files preserve their original byte lengths and SHA-256 hashes. `gfx
 | `tilemap_7b78.tilemap` | `notice_page_58_tilemap_20x18.tilemap` | 360 | `caf0f87edb0ac733acdd9847bb2dc21de1111e24f1906e30479d6c1e9b0a5363` |
 | `tilemap_7b78.attrmap` | `notice_page_58_attrmap_20x18.attrmap` | 360 | `f1bae3f093125bb665e4cbdf80aa2043599b2054ac3a5e367007ea2075c4cea5` |
 
-Pre-change manifest: `.tmp/jp-notice58-path-pass-20261022/BASELINE.json` (SHA-256 `f8eb87631cf1b6321b9ee6d481937da38f30b6b57e7a32e754cb81bcdb5ccd87`).
+Pre-change manifest: `BASELINE.json` (review artifact) (SHA-256 `f8eb87631cf1b6321b9ee6d481937da38f30b6b57e7a32e754cb81bcdb5ccd87`).
 
 ## Validation
 
@@ -64,4 +64,4 @@ Pre-change manifest: `.tmp/jp-notice58-path-pass-20261022/BASELINE.json` (SHA-25
 - `make png-check`, `python3 tools/gfx_export.py check`, `python3 tools/png_rules.py mk-check` and `git diff --check`: passed.
 - A source/path audit verified all 27 moved files against the pre-change hashes, found no old operational paths in the Japanese owner/catalog/build metadata, and found a historical mapping for every old/new pair.
 
-These checks validate this static source/path migration; they do not prove natural notice-page selection, display, hardware behavior or English-path parity.
+These checks validate this static source/path migration; they do not prove natural notice-page selection, display, hardware behavior English-path parity.

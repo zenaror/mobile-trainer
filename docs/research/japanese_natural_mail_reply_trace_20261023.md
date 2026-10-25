@@ -20,7 +20,7 @@ and 704 informational conditional-branch records.
 The fuzzer's original two-segment result predicted six additional starts that
 did not reproduce in the normal trace. That second segment was removed from
 the persistent macro; its exploratory result remains in the task-local
-`.tmp/jp-bank29-inbox-explore-20261023/` evidence. Therefore those six starts
+`jp-bank29-inbox-explore-20261023` (review artifact) evidence. Therefore those six starts
 are not claimed as natural coverage.
 
 ## Positive observations
@@ -63,7 +63,7 @@ three observed events; details and limits follow.
 The same ordinary-input scenario was replayed from the `tutorial_profile`
 save with screenshot events added at frames 21103 and 21104. The Japanese ROM,
 the existing resolved input and parent state were hash-checked in
-`.tmp/jp-reply-branch-capture-20261023/RESULT.json`; no `force` or `ramset`
+`RESULT.json` (review artifact); no `force` or `ramset`
 directive was added. Replay `coverage` and `callgraph` outputs are byte-identical
 to the committed scenario outputs (SHA-256 `7d8dd8c98d7f61391946e44c04fd7d10e1172bfb832c84c348b1c2d100dec0a4` and
 `77f4eb9eac1f45a2d763dd74db7929aa8f52cd7f1ab97984c96641543f477057`). The
@@ -107,10 +107,10 @@ identify every reply caller. `2B:6CF5` did not execute in this scenario, which d
 not change its UNKNOWN natural-entry status or prove it unreachable.
 
 The retained manifest/result and outputs are in
-`.tmp/jp-mail3-reply-route-20261023/`. Reproduction command:
+`jp-mail3-reply-route-20261023` (review artifact). Reproduction command:
 
 ```sh
-.cache/trace/mgba_trace --rom 'Mobile Trainer (Japan).gbc' --scenario jp_mail3_reply_v2 --outdir .tmp/jp-mail3-reply-route-20261023/replay_v2 --frames 20000 --mobile on --net fake --net-opt latency=2 --save-in .cache/trace/state/mail_receive.sav --mobile-config-in .cache/trace/state/mail_receive.cfg --macro .tmp/jp-mail3-reply-route-20261023/mail3_reply_v2.macro --record-input .tmp/jp-mail3-reply-route-20261023/replay_v2/input.txt --shots .tmp/jp-mail3-reply-route-20261023/replay_v2/shots --bank-obs
+.cache/trace/mgba_trace --rom 'Mobile Trainer (Japan).gbc' --scenario jp_mail3_reply_v2 --outdir replay_v2 --frames 20000 --mobile on --net fake --net-opt latency=2 --save-in .cache/trace/state/mail_receive.sav --mobile-config-in .cache/trace/state/mail_receive.cfg --macro mail3_reply_v2.macro --record-input input.txt --shots shots --bank-obs
 ```
 
 The ROM identity remains SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. The coverage, callgraph, screenshot and resolved-input hashes are pinned in `RESULT.json`.

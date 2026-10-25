@@ -43,7 +43,7 @@ display effect between the out-of-array write and that clear was not captured.
 ## Reproduction and retained evidence
 
 The exact fixture, macro, resolved inputs, tracer outputs and memory watch are
-retained under `.tmp/jp-html-img-list-limit-20261024/`. The decisive run is
+retained under `jp-html-img-list-limit-20261024` (review artifact). The decisive run is
 `RUN257_short/`; `RUN/` is the 256-tag partial-fetch comparison and `RUN257/`
 is the longer-page control that crossed the earlier resource guard. Preserve
 these differing cases together; they explain why identical tag-count inputs

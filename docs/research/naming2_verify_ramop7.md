@@ -230,7 +230,7 @@ Suggested fixes:
 * (1) In `bank_switch_before`, after finding the idiom, re-scan the segment before the site and refuse on: an unconditional `ret/jp/jr`; `call`/`farcall` to a routine not on a bank-neutral allow-list (or with a computed summary); `call BankSwitch_*`; `[$FF70]`/`[$FF8D]`.  Apply the same to the loop body in `loop_head_keeps_bank`.
 * (2) Treat `farcall_raw` as an unknown consumer.
 * (3) Lower-case operands and add `[c]` to the bc family.
-* (4) In `plan_elements`, refuse a match followed by an operator or preceded by `-`/`*`/`/`.
+* (4) In `plan_elements`, refuse a match followed by an operator preceded by `-`/`*`/`/`.
 * (5) Add an optional "name family" column to the rule file.
 
 The reader's patched variant of (1) with an allow-list, on the real tree, drops exactly 7 idiom-only elements and 0 operands: `mail_viewer_sender.asm:84,85` (correct) and 5 `mail_session.asm` ones (197, 447, 531, 1471, 1550) that are fine once `MailSession_UpdateTimerDisplay` is allow-listed.  The executed ones among them stay via the observation.

@@ -48,7 +48,7 @@ are recorded in `gfx_resource_path_map.tsv`.
 
 The exact 33-file pre/post sizes and SHA-256 values are retained in the
 ignored local receipt
-`.tmp/jp-gfx-path-integration-20261022/RENAME_RECEIPT.json`. Its sorted
+`RENAME_RECEIPT.json` (review artifact). Its sorted
 pre-rename manifest SHA-256 is
 `1490100a588bc4e84ec7378a80c89c6bd04a30b8475e47ed00c741f90079f194`.
 

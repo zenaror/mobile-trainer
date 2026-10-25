@@ -24,7 +24,7 @@ outputs is a HYPOTHESIS source only (see "Trust rules").
 
 ## 2. What was installed and what is missing
 
-Ghidra: `/home/rafael/Tools/Open-GBP/ghidra_12.1.3_PUBLIC` (application.version 12.1.3, PUBLIC, build 2026-Aug-17,
+Ghidra: `$GHIDRA_INSTALL_DIR` (application.version 12.1.3, PUBLIC, build 2026-Aug-17,
 git revision 8b4c91d4d5bd1549622bfbade0df199585b98365, requires Java 21; java 21.0.12.1 present).
 
 * CONFIRMED: no SM83 / Game Boy language is bundled. `Ghidra/Processors/Z80/data/languages/z80.ldefs` defines
@@ -81,7 +81,8 @@ Compatibility with Ghidra 12.1.3 (CONFIRMED by doing it, no source patch needed)
 swallowed every error with `|| true` and printed the project path with exit code 0; it now deletes stale exports first and dies if
 they are not rewritten.)
 
-```
+```sh
+export GHIDRA_INSTALL_DIR=/path/to/ghidra
 tools/ghidra/setup.sh              # clone pinned commit into .cache/GhidraBoy, sleigh-compile, javac, install (idempotent, ~5 s once cloned)
 tools/ghidra/setup.sh --force      # rebuild
 tools/ghidra/import.sh             # new project tools/ghidra/project/MobileTrainer + analysis + exports (~30 s)
@@ -90,7 +91,7 @@ tools/ghidra/decompile_function.sh 00:06D1     # C for one function; 6B:4C80 for
 tools/ghidra/check_language.sh     # SM83 language vs tools/sm83.py, all opcodes
 ```
 
-Environment: `GHIDRA_INSTALL_DIR` (default: the Open-GBP install above), `GHIDRA_MAXMEM` (default 4G), `JAVA_HOME`.
+Environment: `GHIDRA_INSTALL_DIR` (required: path to your installation), `GHIDRA_MAXMEM` (default 4G), `JAVA_HOME`.
 Needs a JDK (javac + jar), git, network only for the first clone.
 
 Isolation (CONFIRMED): `tools/ghidra/env.sh` starts the JVM directly, with the same command line as

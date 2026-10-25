@@ -19,7 +19,7 @@ For an SRAM image with two 16 KiB banks, bank 1 address `$A684` is file offset `
 
 The four relevant flag bytes are `$A686–$A689`; their labels and topic associations are documented at `ram/banked.asm:121–124`. Both scenarios use the same 512-byte adapter configuration image (SHA-256 `45fdd476f1adf5c1d87aedaeda675d11f610ab7d7d056231f955aff71c4769ef`).
 
-On the baseline save, page 1 item 3 visibly shows `????` (PNG SHA-256 `44407a63d507b799af9043ccbc43c69d3c02b22935c24be5d9b26a59c19cf8d3`) and page 2 item 2 shows `????` (`54b77c2ade0648fd0e70e7f5d54ac9a6738c9f6f257a5ba3e9b0d797451a7fac`). On the browser/page-list save, page 1 item 3 shows `ホームページって?` (`437c95b9722e165c7740ebe1a0688adc757607b321664623db94e87c62c730c0`), page 2 item 2 shows `アドレスちょう` (`0efbd8419685c26205beefe29b052db8ddfce3ff8244603201db6016a77bf2fd`), and page 3 item 2 shows `ページリスト` (`8a054f988dffc6f0eb29716912dd7bec9097fb90e1e180bff7820b14fedf96a3`). All screenshot hashes are for the corresponding PNGs under `.tmp/jp-help-unlock-followup-20261023/`.
+On the baseline save, page 1 item 3 visibly shows `????` (PNG SHA-256 `44407a63d507b799af9043ccbc43c69d3c02b22935c24be5d9b26a59c19cf8d3`) and page 2 item 2 shows `????` (`54b77c2ade0648fd0e70e7f5d54ac9a6738c9f6f257a5ba3e9b0d797451a7fac`). On the browser/page-list save, page 1 item 3 shows `ホームページって?` (`437c95b9722e165c7740ebe1a0688adc757607b321664623db94e87c62c730c0`), page 2 item 2 shows `アドレスちょう` (`0efbd8419685c26205beefe29b052db8ddfce3ff8244603201db6016a77bf2fd`), and page 3 item 2 shows `ページリスト` (`8a054f988dffc6f0eb29716912dd7bec9097fb90e1e180bff7820b14fedf96a3`). All screenshot hashes are for the corresponding PNGs under `jp-help-unlock-followup-20261023` (review artifact).
 
 The baseline macro cannot reach page 3: page 1 item 3 is still locked, so the attempted navigation remains on page 1. Its captures named `page3_item1/2` are actually page 1 item 4 and are excluded from the evidence. Likewise, an earlier setup attempt that missed the second A input entered Mobile Settings; its outputs are preserved in the private task directory and excluded. The valid pair uses the corrected route and matching frame recordings.
 
@@ -30,13 +30,13 @@ ROM SHA-256: `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
 Baseline invocation:
 
 ```sh
-./.cache/trace/mgba_trace --rom 'Mobile Trainer (Japan).gbc' --scenario help_before_feature_use_repro --outdir .tmp/jp-help-unlock-followup-20261023/repro-before --frames 4920 --macro .tmp/jp-help-unlock-followup-20261023/inputs-repro/help_before_feature_use_repro.macro --record-input .tmp/jp-help-unlock-followup-20261023/inputs-repro/help_before_feature_use_repro.txt --mobile on --net fake --mobile-config-in .tmp/jp-help-unlock-followup-20261023/state/help_before_feature_use.cfg --save-in .tmp/jp-help-unlock-followup-20261023/state/help_before_feature_use.sav --shots .tmp/jp-help-unlock-followup-20261023/repro-before/shots
+./.cache/trace/mgba_trace --rom 'Mobile Trainer (Japan).gbc' --scenario help_before_feature_use_repro --outdir repro-before --frames 4920 --macro help_before_feature_use_repro.macro --record-input help_before_feature_use_repro.txt --mobile on --net fake --mobile-config-in help_before_feature_use.cfg --save-in help_before_feature_use.sav --shots shots
 ```
 
 After-browser invocation:
 
 ```sh
-./.cache/trace/mgba_trace --rom 'Mobile Trainer (Japan).gbc' --scenario help_after_page_list_repro --outdir .tmp/jp-help-unlock-followup-20261023/repro-after --frames 4920 --macro .tmp/jp-help-unlock-followup-20261023/inputs/help_after_page_list_v2.macro --record-input .tmp/jp-help-unlock-followup-20261023/inputs-repro/help_after_page_list_repro.txt --mobile on --net fake --mobile-config-in .tmp/jp-help-unlock-followup-20261023/state/help_after_page_list_v2.cfg --save-in .tmp/jp-help-unlock-followup-20261023/state/help_after_page_list_v2.sav --shots .tmp/jp-help-unlock-followup-20261023/repro-after/shots
+./.cache/trace/mgba_trace --rom 'Mobile Trainer (Japan).gbc' --scenario help_after_page_list_repro --outdir repro-after --frames 4920 --macro help_after_page_list_v2.macro --record-input help_after_page_list_repro.txt --mobile on --net fake --mobile-config-in help_after_page_list_v2.cfg --save-in help_after_page_list_v2.sav --shots shots
 ```
 
 Both replays regenerated the captured screenshots byte-for-byte. The baseline and after-browser stats also match the earlier preserved runs in every metric; only the `scenario=` identifier differs. Each ran 4,920 frames; instruction counts were 29,860,544 and 30,006,906 respectively. The runtime reported `waitstable` reaching its documented 600-frame cap on blinking-cursor screens; the fixed-frame input sequence then continued normally.

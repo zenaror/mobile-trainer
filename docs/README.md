@@ -8,7 +8,7 @@ Japanese delivery is **accepted at 99.9%** by the Operator, with documented
 unknowns retained. This is not a measured semantic percentage. Start with the
 [accepted closure and evidence map](research/japanese_closure_audit_20261023.md#accepted-japanese-closure-2026-10-25).
 Older unresolved findings are retained uncertainty, not an automatic backlog.
-English/ZIP remains paused until separate explicit approval. OMM holds continuity.
+English/ZIP remains paused until separate explicit approval.
 The BMP length boundary and bottom-up `CopyBytes` intervals are traced through the converter; physical bounds remain conditional on unverified record and aggregate invariants. See [inline BMP record bounds](research/japanese_bmp_record_bounds_20261025.md).
 The exact historical homepage has no current Wayback capture; its broader query timed out, and Common Crawl returned gateway errors. A local inventory found no naturally sourced BMP among 45 files/25 unique hashes; this does not rule out other archives. See the [archive and corpus check](research/japanese_bmp_record_bounds_20261025.md#public-archive-availability-check-2026-10-25).
 The ROM0 audio stream reader's maintained song-table bank domain is bounded to Banks 04/05; see [Japanese audio stream reader domain](research/japanese_audio_stream_reader_domain_20261025.md).
@@ -30,20 +30,20 @@ Evidence lives in these places, from the source outwards:
 
 ## Project responsibilities
 
-The common project base maps to the existing RGBDS organization below. Sources stay at the repository root to preserve bank, include and linker relationships; a `src/` directory is not required. This specialization follows the OMM common-base organization rule (`e5a27e0e-7b46-455f-a84e-60925116bad9`); shared rules remain in OMM rather than being copied into this repository.
+The repository responsibilities map to the RGBDS organization below. Sources stay at the repository root to preserve bank, include and linker relationships; a `src/` directory is not required. Contribution rules are documented in `AGENTS.md`.
 
 | responsibility | canonical location |
 |---|---|
-| Agent entry and local restrictions | [`AGENTS.md`](../AGENTS.md); OMM scope `mobile-trainer`, common role `project-base` |
+| Agent entry and local restrictions | [`AGENTS.md`](../AGENTS.md) |
 | Purpose, installation and build | [`README.md`](../README.md), [`INSTALL.md`](../INSTALL.md) |
 | Maintained code and layout | `home/`, `engine/`, `data/`, `gfx/`, `audio/`, `lib/`, `ram/`, `constants/` and `layout.link`; directory map in [development reference](DEVELOPMENT.md#directory-layout) |
 | Architecture, formats and decisions | [`STYLE.md`](../STYLE.md), [`ROM_INFO.md`](ROM_INFO.md), `research/` notes indexed below; historical layout rationale in [`analysis/layout/README.md`](../analysis/layout/README.md) |
-| Status, open questions and continuity | [`REVERSE_ENGINEERING.md`](../REVERSE_ENGINEERING.md) and topic notes; operational handoff in OMM, without a second repository roadmap |
+| Status, open questions and continuity | [`REVERSE_ENGINEERING.md`](../REVERSE_ENGINEERING.md) and topic notes |
 | Validation and reproducible tools | `Makefile` and `tools/`; [development reference](DEVELOPMENT.md#how-to-verify) documents the existing commands and limits |
 | Language overlays | `languages/en/`; [`LANGUAGE_BUILDS.md`](LANGUAGE_BUILDS.md) and [`TRANSLATION.md`](TRANSLATION.md); default `make` retains the Japanese reconstruction |
 | Cleanup and evidence retention | [`AGENTS.md`](../AGENTS.md#cleanup-e-retenção); preserve unique evidence and reference artifacts before any scoped cleanup |
 
-Only this repository's maintained tree is covered by this map. Upstream projects and reference copies are evidence, not trees to reorganize. Repository code, documents and measured build results decide technical claims; OMM supplies shared guidance and continuity. No client-specific adapter directory is required.
+Only this repository's maintained tree is covered by this map. Upstream projects and reference copies are evidence, not trees to reorganize. Repository code, documents and measured build results decide technical claims.
 
 ## Status of the documents
 
@@ -55,6 +55,9 @@ Only this repository's maintained tree is covered by this map. Upstream projects
   (`make regen`, `verify`, `tree*` refuse to run; `make legacy-check` runs the generator in a temp dir).
 
 ## Top level
+
+The [Japanese delivery history](research/japanese_delivery_history.md) preserves
+dated checkpoints; the top-level status and accepted closure define the current state.
 
 Build targets, validation, directory layout and bootstrap history are collected
 in the [development reference](DEVELOPMENT.md).
@@ -357,10 +360,9 @@ Naming passes (names with evidence, HYPOTHESES kept under neutral names, open qu
 * `research/image_text_inventory.md` - which graphics contain Japanese text, per asset and per screen.
 * `research/sprite_format.md` - sprite object tables, frames, scripts; previews in `gfx/previews/` (screens checked against emulator captures, sprite sheets).
 
-## Regras e memória
+## Regras de contribuição
 
 * `REVERSE_ENGINEERING_RULES.md` - texto integral das regras de engenharia reversa (antes no `AGENTS.md`, que agora é um resumo curto).
-* A memória compartilhada do projeto (decisões, descobertas, handoff) fica na OMM, escopo `mobile-trainer`; veja a seção de memória do `AGENTS.md`.
 
 Bank 28 execution acceptance (2026-10-07): the two notes retain separate verified appendices. Executor, independent and coordinator canonical checks completed with 36 rc 0 plus the historical ordinal-27 schema rc 2; the coordinator rebuilt the original ROM byte for byte and retained the original SYM. The following entry records the completed publication and fresh validation.
 
@@ -387,7 +389,7 @@ The next original scope is the separate29:5090–5376 library-header correction,
 
 A separate coordinator readback checked all 12,540 Git blobs across actual JP, actual EN and the fresh JP checkout (198,013,136 bytes), with current complete regular rawGit file snapshots before and after equal; receipt SHA-256 1b21b2b1f9ae9a67a591c86f6f8543c2fcb97f93003eff4245aaf0cec0b8d1ba. This separate readback does not retrospectively supply per-command JP/fresh rawGit snapshots absent from the first fresh-check helper; that helper guarded their source, output, HEAD and status each command and the full EN owner. The successful three checks were not replayed.
 
-The bounded bank53/frame/asset audit is in [the 2026-10-20 report](research/pokemon_names_bank53_asset_audit_20261020.md), with earlier frame limits in [the Pokémon/frame asset report](research/assets_pokemon_frames_and_name_limits.md). It rechecks the name block, 137 bank41–47 assets, 53 PNG inversions and 17 editing views, finds no missing referenced or orphan asset in its reviewed scope, and retains eight KEEP windows. The sealed snapshot was reconciled to source `main` at `c2b33d2f`: 549/576 tracked inputs are unchanged, the remaining 27 ASM files differ only in comments/global labels, and no PNG or binary asset changed. Checkpoint `4a38c8b8` updates documentation only. Pokémon-name-to-image associations, computed readers, natural selection and global unused status remain unproved. The private receipt, snapshot and reconciliation are under `.tmp/agent-bank53-current-audit-20261021/` and `.tmp/root-bank53-head-reconcile-20261021/`.
+The bounded bank53/frame/asset audit is in [the 2026-10-20 report](research/pokemon_names_bank53_asset_audit_20261020.md), with earlier frame limits in [the Pokémon/frame asset report](research/assets_pokemon_frames_and_name_limits.md). It rechecks the name block, 137 bank41–47 assets, 53 PNG inversions and 17 editing views, finds no missing referenced or orphan asset in its reviewed scope, and retains eight KEEP windows. The sealed snapshot was reconciled to source `main` at `c2b33d2f`: 549/576 tracked inputs are unchanged, the remaining 27 ASM files differ only in comments/global labels, and no PNG or binary asset changed. Checkpoint `4a38c8b8` updates documentation only. Pokémon-name-to-image associations, computed readers, natural selection and global unused status remain unproved. The private receipt, snapshot and reconciliation are under `agent-bank53-current-audit-20261021` (review artifact) and `root-bank53-head-reconcile-20261021` (review artifact).
 
 
 ## Prepared original bank 29 library evidence limits (2026-10-07)
@@ -465,7 +467,7 @@ The [semantic note](research/typing_26_compare_word_deltas_alias.md) and [verifi
 - [Static choreography and entry limits](research/typing_7c_7d8d_choreography.md): incoming-A distinction, exact bound, polling/far-call contracts and finite natural-zero evidence; entry/purpose remain HYPOTHESIS.
 - [Prepared verification](research/typing_7c_verify_7d8d_choreography.md): two comment rows, unchanged LOC/emitters/locators, portable proof provenance and pending gates; future parent/integration NULL, English UNVALIDATED.
 
-- [Neutral 2D:4E42/4E54 scan and early-RET stack contracts](research/typing_2d_4e42_4e54_stack_scan.md) - PROBABLE static width12-cell scan, local flags and WRAM/RAMG effects; saved-BC transfer does not establish intended bug/error behavior or natural entry.
+- [Neutral 2D:4E42/4E54 scan and early-RET stack contracts](research/typing_2d_4e42_4e54_stack_scan.md) - PROBABLE static width12-cell scan, local flags and WRAM/RAMG effects; saved-BC transfer does not establish intended bug/error behavior natural entry.
 - [Verification of the 2D neutral comment proposal](research/typing_2d_verify_4e42_4e54_stack_scan.md) - original74-byte witness, independent-before-foreign provenance, finite189 evidence and nonemitting/prefix checks; future owner/parent/gates NULL.
 
 - [68:5D2F RET boundary](research/naming_68_5d2f_ret_boundary.md) — PROBABLE static
@@ -549,7 +551,7 @@ This three-document result appendix was added after the successful checks; only 
 
 ROOT and the independent reviewer accepted the frozen 22-path archival scope on published/fresh `8eab941`. The actual tree now contains 69 natural callgraphs (142,442 scenario-aggregate rows); all 19 restored files reproduce the guarded historical bytes. All 4,223 parent files outside the two documentation appendices remain byte-identical, and all 671 verified parent outputs remain byte-identical. The source inventory is 4,245 paths. Code, metadata, tools, assets, config, scenarios, the old 50 graphs and natural coverage/dataaccess are preserved. ROOT checked all current source/payload/output hashes and the qualified independent review; these are static preservation checks, not a new build, ROM execution or blind/human full-log review.
 
-No canonical37, mapper, generator or trace capture was replayed. The closed parent reconstruction and finite dependency audit justify carrying forward the unchanged emitted-output proof for this archival-only change. The separate mapper consumer and destructive lite-republication risk remain documented above. Restored19 zero targets for28 neutral-only groups establish only that bounded result; no semantic level, unreachable claim, names/frame mapping or hardware evidence changes. Earlier private/pending wording remains chronological history. Publication and post-publication Git-blob preservation checks follow this adoption.
+No canonical37, mapper, generator trace capture was replayed. The closed parent reconstruction and finite dependency audit justify carrying forward the unchanged emitted-output proof for this archival-only change. The separate mapper consumer and destructive lite-republication risk remain documented above. Restored19 zero targets for28 neutral-only groups establish only that bounded result; no semantic level, unreachable claim, names/frame mapping or hardware evidence changes. Earlier private/pending wording remains chronological history. Publication and post-publication Git-blob preservation checks follow this adoption.
 
 
 ## Private computed attribute lookup bounds

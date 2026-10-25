@@ -125,10 +125,10 @@ hardware behavior. This is synthetic mGBA evidence using an ordinary input
 fixture, not hardware evidence.
 
 Reproduction artifacts and hashes are indexed by
-`.tmp/jp-zero48-pc-trace-20261023/RESULT.json` (SHA-256
+`RESULT.json` (review artifact) (SHA-256
 `6a14f72e2ac869ba0fe804b76544e3d16a095d7196cb4882fdd04a89c8abb3f5`). The
 PC-only capture is retained there. The expanded stack/callsite evidence is in
-`.tmp/jp-zero48-pc-trace-20261023/RESULT-caller.json` (SHA-256
+`RESULT-caller.json` (review artifact) (SHA-256
 `31c4ee024897b7cbc0ff4e27a77f01a2710880b96d0b46d1fd3c51f52234fe0d`); it
 also pins the original ROM, fixture, tracer binary/source, loaded libmgba,
 GDB command/log, callgraph and scenario outputs.

@@ -27,7 +27,7 @@ For ordinary isolated exits, HL/DE advance M modulo65536. Except for B=FF,C a po
 
 BankSwitch_H/D select once per16-byte stage using the then-current high byte: nonzero bank selects ROM-low below80h, SRAM at80h..BFh or WRAM atC0h..FFh; bank 0 keeps the mapping at that stage, which a previous destination stage may already have changed. No original mapping, ROM-high, SRAM enable or VBK is restored/selected, and there is no DI or frame service. Crossing a region boundary inside 16 bytes is not normalized. FFB0/FFB1 and C10E..C11D are clobbered scratch. Source/destination/scratch/stack must not corrupt the algorithm, and the stack must remain visible across bank switches. Maximum additional stack is6 bytes including the nested bank-helper CALL, excluding the outer return word. A valid entry return frame is required.
 
-These contracts agree with the independent skeptical original-byte report for14C6..14E0 and172D..1770; the local static arithmetic/metadata work adds no runtime, emulator or hardware evidence.
+These contracts agree with the independent skeptical original-byte report for14C6..14E0 and172D..1770; the local static arithmetic/metadata work adds no runtime, emulator hardware evidence.
 
 ## Other bounded corrections and dependencies
 

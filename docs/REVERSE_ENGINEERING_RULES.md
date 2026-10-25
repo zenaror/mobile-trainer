@@ -1,6 +1,6 @@
 <!-- Texto integral das regras de engenharia reversa que estavam no AGENTS.md até o commit 262ed3d.
      Movido sem alterações em 2026-10-04, quando o AGENTS.md passou a ser um resumo curto em português.
-     A seção antiga "Memória compartilhada OMM" foi substituída pela seção de memória do novo AGENTS.md. -->
+     A seção antiga "Memória compartilhada" foi substituída pela seção de memória do novo AGENTS.md. -->
 
 # Mobile Trainer — Agent Instructions
 
@@ -183,11 +183,7 @@ Do not:
 
 # 4. Tooling
 
-The validated Ghidra installation is:
-
-```text
-/home/rafael/Tools/Open-GBP/ghidra_12.1.3_PUBLIC
-```
+Set `GHIDRA_INSTALL_DIR` to your Ghidra installation before using the optional analysis tools. The recorded evaluation used Ghidra 12.1.3; see `research/ghidra.md` for versioned results.
 
 Ghidra may be used for:
 
@@ -539,7 +535,7 @@ Do not infer protocol semantics from symbol names or surrounding terminology alo
 
 # 15. Dynamic analysis
 
-When static analysis becomes ambiguous, use an emulator or debugger.
+When static analysis becomes ambiguous, use an emulator debugger.
 
 Dynamic analysis may help determine:
 

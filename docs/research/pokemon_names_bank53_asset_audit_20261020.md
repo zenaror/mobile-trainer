@@ -23,7 +23,7 @@ name-symbol rows only in the bank53 owner; this is not a whole-program reader
 absence proof.
 
 The sealed private report is
-`.tmp/agent-bank53-current-audit-20261021/REPORT.md` (SHA-256
+`REPORT.md` (review artifact) (SHA-256
 `edddcd1a310ac0d4c9f028feffd1239e922567abc18089a474a9b7ac227b37c0`), with
 `RESULT.json` SHA-256
 `39a9c58444ba3237b083f8375c33f16cbc77521439117ec9c8234e0783788e2b` and
@@ -48,7 +48,7 @@ missing referenced file or orphan PNG/binary in the reviewed 208-file scope.
 It does not complete the eight KEEP screen compositions or establish any of
 the 25 Pokémon-name/frame associations, a universal reader search, natural
 selection or global unused status. Reconciliation counts and changed paths are
-preserved in `.tmp/root-bank53-head-reconcile-20261021/RESULT.json`.
+preserved in `RESULT.json` (review artifact).
 
 ## Bank53 name block
 
@@ -66,7 +66,7 @@ The bounded directories contain 208 files, including 71 PNGs. Every binary belon
 
 The generic table label `Table_53_4000` is now `Table_PokemonNamePointers`. The redundant co-located `String_53_4032` alias was removed; `PokemonName00` already marks the first string. The source search found no operands using either old name. The existing PROBABLE storage classifications remain. No bytes, frame assignments, runtime claims or hardware claims changed.
 
-The independent receipt and complete private snapshot are retained in `.tmp/bank53-asset-audit-20261020/`. `SEALED_RECEIPT.json` SHA-256 is `6847cc10f87612df2579747d019cbd765e137c31453c377fbb736fada568355f`; `REPORT.md` SHA-256 is `6527d83a72db278574c2601bf1c4f45b1da8c47b2868294c73bcd0802d4f2620`. The selected inputs were rehashed against the audited checkout. Unproved name/image associations, natural selection, universal reader absence and global unused status remain open.
+The independent receipt and complete private snapshot are retained in `bank53-asset-audit-20261020` (review artifact). `SEALED_RECEIPT.json` SHA-256 is `6847cc10f87612df2579747d019cbd765e137c31453c377fbb736fada568355f`; `REPORT.md` SHA-256 is `6527d83a72db278574c2601bf1c4f45b1da8c47b2868294c73bcd0802d4f2620`. The selected inputs were rehashed against the audited checkout. Unproved name/image associations, natural selection, universal reader absence and global unused status remain open.
 
 ## Reconciliation on current Japanese main a0b1cf8f (2026-10-21)
 

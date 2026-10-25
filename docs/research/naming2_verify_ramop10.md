@@ -96,7 +96,7 @@ the header of `wramx_consumers.tsv`, the header of `wramx_calls.tsv` (`Sound_Fra
 
 ### 7. Limits
 
-Dynamic evidence is only the repository's 41 bank-observed replays and 64 coverage scenarios; no emulator or tracer was run.  The independent dataflow models the real bank, the shadow, A and the stack; the control-flow graph is complete only because the tree has no non-jump mention of a local label; the shadow-desync window is not modelled.  The property-test machine has no `rst`, no `jp hl` tables, no HDMA timing; about 0.02% of simulations hit the step cap (they can only hide false accepts).
+Dynamic evidence is only the repository's 41 bank-observed replays and 64 coverage scenarios; no emulator tracer was run.  The independent dataflow models the real bank, the shadow, A and the stack; the control-flow graph is complete only because the tree has no non-jump mention of a local label; the shadow-desync window is not modelled.  The property-test machine has no `rst`, no `jp hl` tables, no HDMA timing; about 0.02% of simulations hit the step cap (they can only hide false accepts).
 R1 did not judge whether a name is true at its site (R2-R4) and did not examine the 271 by-hand rows or the respell lists.  The long Base64 routines and the whole closure of `HtmlUrl_Resolve` (27 routines) were checked only mechanically.
 
 ## 3. Reader of the mail library and the sound driver (R2): report

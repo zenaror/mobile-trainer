@@ -133,7 +133,7 @@ delay counter only when `wHelpScriptAdvanceMode` is zero, and skips it in the
 other modes. This pair is a control, not printable `@<`. The natural
 menu/display path and final glyph rendering are not established by this
 decode. The source bytes and lookup table match the original ROM; the bounded
-receipt is `.tmp/bank6c-welcome-string-audit-20261020/RESULT.json`. Its
+receipt is `RESULT.json` (review artifact). Its
 `source_sha256` is the pre-rename owner snapshot; the current symbol/comment
 edit preserves that audited byte interval. The superseded pre-review receipt
 is retained beside it to document the corrected parser interpretation.
@@ -214,4 +214,4 @@ The five-file pass replaces one literal lookup operand with the existing HelpScr
 
 ### Verified original bank72 dialog-reader documentation (2026-10-11)
 
-The three-document pass locates the list and record readers and replaces stale header and glyph-mapping descriptions. Private and ROOT canonical checks each completed 36 zero returns plus ordinal 27 with the expected return 2 and exact 97-byte diagnostic. All 671 build outputs equal the published 4ec9ad3 parent, including every object, dependency file, SYM, MAP and original ROM. ROOT make reports SHA-256 OK and RESULT: IDENTICAL; symbol and palette checks pass. Both canonical runs recorded 444 ResourceWarnings. This documentation and static-byte verification does not establish general index bounds, complete record execution, rendered glyphs, natural-menu behavior or hardware execution.
+The three-document pass locates the list and record readers and replaces stale header and glyph-mapping descriptions. Private and ROOT canonical checks each completed 36 zero returns plus ordinal 27 with the expected return 2 and exact 97-byte diagnostic. All 671 build outputs equal the published 4ec9ad3 parent, including every object, dependency file, SYM, MAP and original ROM. ROOT make reports SHA-256 OK and RESULT: IDENTICAL; symbol and palette checks pass. Both canonical runs recorded 444 ResourceWarnings. This documentation and static-byte verification does not establish general index bounds, complete record execution, rendered glyphs, natural-menu behavior hardware execution.

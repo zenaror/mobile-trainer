@@ -31,8 +31,8 @@ Comments for three additional tables outside the 12-owner label pass were correc
 
 ## Evidence and limits
 
-The Japanese ROM reference SHA-256 is `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. The 12 original owner hashes and the generated exact-label/reference manifest are retained in the ignored task evidence under `.tmp/jp-sprite-name-pass-20261022/PLAN.json`; the task-owned audit snapshots and cleanup manifests are recorded under `.tmp/cleanup-20261022-jp-sprite-audits/`. These are provenance records, not source authority.
+The Japanese ROM reference SHA-256 is `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. The 12 original owner hashes and the generated exact-label/reference manifest are retained in the ignored task evidence under `PLAN.json` (review artifact); the task-owned audit snapshots and cleanup manifests are recorded under `cleanup-20261022-jp-sprite-audits` (review artifact). These are provenance records, not source authority.
 
 The static walk established 116 frame tables, 249 frames, 138 scripts, and 139 rooted non-null groups among these owners. It did not establish a visual identity for every frame or prove global unreachability. In particular, retain as unresolved: `7F:70F0–70FD` (13-byte raw tail outside the walked page-list script), browser `72:79C2` (raw `$00`, not confirmed padding), and script-shaped unrooted tails at `28:5433`, `28:6F12`, `7F:7BAB`, and `7F:7BC7`. `MailServerMgr` at `2E:795C` remains a five-byte script-shaped hypothesis; `$7710–$77FA` remains a probable format with hypothetical use. Do not label these as unused without further evidence.
 
-Three static audits independently checked naming/ownership or reconstructed byte extents. The results are source-analysis evidence, not emulator or hardware observations. The English overlay remains paused pending the Operator's explicit confirmation.
+Three static audits independently checked naming/ownership or reconstructed byte extents. The results are source-analysis evidence, not emulator hardware observations. The English overlay remains paused pending the Operator's explicit confirmation.

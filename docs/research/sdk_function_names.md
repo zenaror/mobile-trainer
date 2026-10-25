@@ -206,7 +206,7 @@ The source integration is present in the current `main` history at `ecfec47e`; t
 `Function_75_[0-9A-F]{4}`. The old spellings are lookup history, not unresolved source names.
 
 On `HEAD 48f1f6a6980df41c82d8e5730902e7f7f72733ed`, the full Japanese tree was rebuilt with
-`make ROM=/tmp/mobile-trainer-audit-20261023.gbc BUILD=/tmp/mobile-trainer-audit-build-20261023`.
+`make ROM=build/review/mobile_trainer.gbc BUILD=build/review`.
 The output was 2,097,152 bytes with SHA-256
 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`,
 `SHA-256 OK`, and `RESULT: IDENTICAL`. The matching `sym-check` passed for 335 source files,

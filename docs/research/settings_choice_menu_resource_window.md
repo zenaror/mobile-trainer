@@ -128,5 +128,5 @@ Esta proposta requer revisão independente e validação futura do ROOT. O execu
 é o autor do estudo5510 anterior e das propostas Settings7/17/guarda, portanto
 não há autoaceite nem alegação de revisão cega. A coorte17, os estudos e todos os
 selos anteriores ficam intactos. Nenhum fonte mantido, TSV, catálogo, asset,
-idioma, Git ou OMM foi editado. Não se executou teste, checker, compilador ou
+idioma, Git foi editado. Não se executou teste, checker, compilador ou
 emulador. R4 continua estacionado.

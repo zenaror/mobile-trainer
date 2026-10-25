@@ -96,7 +96,7 @@ the converter's mainline remained in this loop. Frame advancement and the
 final PC do not mean the converter returned: final `75:6149` is
 `MobileSDK_StateDispatch`, reached from `75:58F2` during adapter processing.
 This confirms the conditional mainline hang in the synthetic mGBA scenario,
-not native-hardware behavior or general malformed-record safety.
+not native-hardware behavior general malformed-record safety.
 
 ## Exhaustive accepted-dimension and declared-length classes
 
@@ -178,7 +178,7 @@ frames. That probe replayed only the `browser_bookmarks` menu path; it did not
 navigate through the `a.html` image and scroll its viewport into the image.
 Its missing draw coverage was a scenario-coverage limitation, not evidence that
 the accepted record could never reach a renderer. Preserve that bounded result
-and its receipt at `.tmp/jp-bmp-topdown-20261025/`.
+and its receipt at `jp-bmp-topdown-20261025` (review artifact).
 
 ### Top-down conversion can reach the image renderer with crafted metadata
 
@@ -207,7 +207,7 @@ Still **unproven**: whether any natural Mobile Trainer server/resource supplies
 a top-down BMP with compatible pre-pixel bytes; whether an ordinary top-down
 BMP renders correctly; and physical adapter/hardware behavior. Reproduction
 inputs, hashes, coverage and screenshot are retained in
-`.tmp/jp-bmp-topdown-render-20261025/`; audit script SHA-256
+`jp-bmp-topdown-render-20261025` (review artifact); audit script SHA-256
 `8563b5a437e5db4a416ceb84e44b592e865cbbcf08996070c0cd978f40dee017`,
 `RESULT_RENDER.json` SHA-256
 `4ed9f6810854951c43259fef46aba78f91f7b5fab8bcef605b59a5f683c7d43e`.
@@ -217,10 +217,10 @@ bytes for BC=0. The row source pointer is restored after each copy, so those
 bytes come from P..P+255 repeatedly; the output-row pointer cannot advance
 and the mainline loop does not return. Positive widths execute the finite H
 row iterations; their row span is the table above plus P. The
-dimension matrix from .tmp/jp-bmp-dimension-domain-20261025/audit.py remains
+dimension matrix from audit.py remains
 valid for positive-width row arithmetic, but its zero-width zero-copy model and
 previous header-bound statement are superseded by the corrected indexed-read
-audit in .tmp/jp-bmp-access-interval-recheck-20261025/. Audit script SHA-256
+audit in . Audit script SHA-256
 bb84a31a54ddd03a64e3a1b4927ebd27d8510ddea92dd1890c461a4afca473b4;
 RESULT.json SHA-256 c5b8f21bfeff06e0f5dc53d232a96a43b11ddafdadac927ee9a00d38263fb999;
 dimension_matrix.csv SHA-256 15a02a32f236630b52ffc58080593eb80a4a29078bf8a49b3b501c68b29baf81.
@@ -244,7 +244,7 @@ this full-page envelope. P=5000 wraps the start into 0000..0FFF. Those windows
 no longer denote SRAM3; interpretation of banked/VRAM regions depends on the
 live CGB and mapper state. The palette pointer similarly uses B+14+S modulo
 65536. The address calculation audit is in
-.tmp/jp-bmp-access-interval-recheck-20261025/RESULT.json; it uses the entire
+RESULT.json; it uses the entire
 page as a conservative envelope, not a claim that every address is a natural
 nested-record start.
 
@@ -278,7 +278,7 @@ returned by physical SRAM beyond the nested record. It is evidence of a
 missing record-bound check and conditional out-of-record reads, not evidence
 of a security exploit or of natural external-network behavior. The receipt
 and all output hashes are in
-`.tmp/jp-bmp-payload-overread-20261025/RESULT.json`.
+`RESULT.json` (review artifact).
 
 ## Distinguish the other two copies
 
@@ -304,9 +304,9 @@ payload length. The record-bound omission remains confirmed. The synthetic
 trace confirms that the accepted zero-width bottom-up case loops on the
 mainline; it does not test native hardware or general malformed responses. The
 original run receipt is
-`.tmp/jp-bmp-malformed-http-20261025/RESULT.json`; it records the fixture,
+`RESULT.json` (review artifact); it records the fixture,
 resolved input, parent save/config, harness, and result hashes. The register
-and branch probe receipt is `.tmp/jp-bmp-malformed-http-20261025/PROBE.json`.
+and branch probe receipt is `PROBE.json` (review artifact).
 
 **Not established:** whether an external Mobile Adapter/network response can
 naturally supply a short or internally inconsistent image while still passing
@@ -324,7 +324,7 @@ with an empty capture list (`[]`). The Wayback availability API returned HTTP
 200 with an empty `archived_snapshots` object for the same URL. A broader
 prefix request for the game's path timed out, so it provides no result about
 other pages or images. The request URLs, response bodies/statuses and hashes
-are retained in `.tmp/jp-natural-bmp-archive-check-20261025/RESULT.json`
+are retained in `RESULT.json` (review artifact)
 (SHA-256 `36be07dce2a9b36fc0c6f82cff3b8ebefc4949f64268944ee53dbe9337657cf1`).
 
 The Common Crawl index was also queried for six historical collection prefixes
@@ -332,7 +332,7 @@ and the exact homepage URL in two collections. The six prefix requests returned
 HTTP 502/504 and both exact-URL requests returned HTTP 504, so those requests
 yielded no archive records. Gateway failures are not evidence that Common Crawl
 lacks captures. The responses are retained in
-`.tmp/jp-commoncrawl-original-home-archive-check-20261025/RESULT.json`
+`RESULT.json` (review artifact)
 (SHA-256 `07eb61de5fd0896fcd3d849784d7d3a88259c076dad50d806a1299ccb11fc468`)
 and `EXACT_QUERIES.json` (SHA-256
 `abcc72d6aa7f83ec62e230ea6f5e17eee570b951552bdc54f87ae33333a9bf4e`).
@@ -348,7 +348,7 @@ only positive trace for that conditional path.
 
 ### Retained local BMP corpus
 
-A bounded inventory of `.tmp/jp-bmp-*`, `traces/web/`, and
+A bounded inventory of `jp-bmp-*` (review artifact), `traces/web/`, and
 `.cache/trace/web/` found 45 BMP files representing 25 unique byte hashes:
 five experimental fixtures, 20 project-generated fake-server fixtures, and
 the 20 cached byte-identical copies. Provenance for the generated set is
@@ -359,7 +359,7 @@ top-down header predicate, only `img_topdown_canvas.bmp` has the deliberately
 constructed `P-4..P-1 = 20 01 08 24` renderer metadata and a positive rendered
 trace. No file in this inventory has verified historical-server provenance.
 The complete per-file paths, sizes, header fields, metadata bytes, and hashes
-are in `.tmp/jp-bmp-natural-source-census-20261025/RESULT.json` (SHA-256
+are in `RESULT.json` (review artifact) (SHA-256
 `218c94b71e3b01ee927bed57ae482c63197e1e52d40c5f745a16b442c779b5b7`).
 This closes only the local corpus inventory; it cannot rule out historical
 resources outside the checkout or other retained archives.
@@ -406,7 +406,7 @@ wrap, the input record must satisfy `Lold=O+r*H+2` (or an equivalent invariant
 of its format). Neither `Bmp_ConvertToTiles` nor `Html_NextResourceRecord`
 checks that relation. The exact stack landmarks, intervals, source hashes,
 and unresolved producer conditions are retained in
-`.tmp/jp-bmp-copybytes-stack-audit-20261025/RESULT.json` (SHA-256
+`RESULT.json` (review artifact) (SHA-256
 `351ba34f82fc35d58c3bc0ea8d0d2814aaac5641a1e50dd325bbbc31f152725b`).
 Classification: **CONFIRMED** for the instruction-level transforms and
 modular interval formulas; **OPEN** for unconditional physical bounds and
@@ -436,7 +436,7 @@ The scanner begins at `Q=T+2`; that is the next resource boundary only if
 `Lold=O+r*H+2`. Until that record-length relation and the natural chain's
 termination/containment are demonstrated, the conditional invariant cannot be
 promoted to the actual historical inline-image route. Receipt
-`.tmp/jp-bmp-scanner-aggregate-20261025/RESULT.json` (SHA-256
+`RESULT.json` (review artifact) (SHA-256
 `6250e15714e6803f797bc6a74123a0a33f4d5119ffa687790985a07393af8d32`).
 Classification: **CONFIRMED** for the accumulator and retained-register
 algebra; **OPEN** for the natural-chain preconditions and first-iteration
@@ -504,7 +504,7 @@ byte count. The source parser ignores the BMP file-size field, so the Japanese
 ROM contains no enforced relation between HTTP body length and the BMP fields
 used by the converter. A natural response with two trailing bytes could meet
 the equation; the source alone does not show that the actual historical image
-responses had them. See receipt `.tmp/jp-bmp-http-body-length-20261025/RESULT.json`
+responses had them. See receipt `RESULT.json` (review artifact)
 (SHA-256 `d7c405c9918ff22b46199f6c81e5574bca4524933e079dafef3a7035ea4670a9`).
 Classification: **CONFIRMED** for record/body-count and receive-ceiling
 semantics; **OPEN** for actual natural response lengths and converter bounds.
@@ -544,7 +544,7 @@ change to `wShadowOAM[0]` is shown. The aggregated DMA log confirms regular
 `$C0` OAM DMA, but does not establish exact same-frame DMA ordering.
 
 The run receipt is
-`.tmp/jp-bmp-tail-overflow-20261025/run2/RESULT.json` (SHA-256
+`RESULT.json` (review artifact) (SHA-256
 `b38130f65b76b44a8a0464e36a398d53cc3732dce048a9d680dd870619e37222`). It pins
 the ROM and harness, fixture inputs, adapter log, coverage and write-trace
 hashes. The earlier failed fixture remains preserved separately; its
@@ -564,15 +564,15 @@ server response, not hardware or public-network behavior.
 
 ```sh
 timeout 20s .cache/trace/mgba_trace --rom 'Mobile Trainer (Japan).gbc' \
-  --scenario browser_zero_width --outdir .tmp/jp-bmp-malformed-http-20261025/out \
-  --frames 9600 --input .tmp/jp-bmp-malformed-http-20261025/browser_zero_width.txt \
+  --scenario browser_zero_width --outdir out \
+  --frames 9600 --input browser_zero_width.txt \
   --mobile on --net fake \
   --save-in .cache/trace/state/browser_bookmarks.sav \
   --mobile-config-in .cache/trace/state/browser_bookmarks.cfg \
-  --shots .tmp/jp-bmp-malformed-http-20261025/out/shots \
+  --shots shots \
   --web-map '*/index.html=.cache/trace/web/index.html' \
   --web-map '*/a.html=.cache/trace/web/a.html' \
-  --web-map '*/img_a.bmp=.tmp/jp-bmp-malformed-http-20261025/fixtures/img_zero_width.bmp' \
+  --web-map '*/img_a.bmp=img_zero_width.bmp' \
   --web-map '*.html=.cache/trace/web/page.html'
 ```
 
@@ -586,9 +586,9 @@ FFD7 --watch C332 --watch C333 --watch C334 --watch C33F` recorded width 0,
 height `$20`, bottom-up flag 0, converted-output row stride 0, and rounded
 height `$24`. The instrumented branch probe then recorded 1,346 taken branches
 from `51:729C` to `51:7251` with `DE=$D000`, `F=$C0`, and stride 0; two sampled
-interrupts entered `$0050` and returned to the loop. Receipt `.tmp/jp-bmp-malformed-http-20261025/PROBE.json` pins the source, instrumented binary, run logs and hashes (SHA-256 `2edc3173eb1dfb90534861cf910867afc1a5e71944f284cbe1187bba2379635e`).
+interrupts entered `$0050` and returned to the loop. Receipt `PROBE.json` (review artifact) pins the source, instrumented binary, run logs and hashes (SHA-256 `2edc3173eb1dfb90534861cf910867afc1a5e71944f284cbe1187bba2379635e`).
 
-The earlier `.tmp/jp-bmp-malformed-http-20261025/RESULT.json` (SHA-256
+The earlier `RESULT.json` (review artifact) (SHA-256
 `c7fad49c5b2e323a34eca9c3d89639898273585128f34206edb4a3756f56d165`)
 labels the scenario as a contradiction because the process exited at its frame
 budget with `final_pc=0x1805`. That label is not supported by the same run's coverage:
@@ -609,7 +609,7 @@ zero-width fixture `c4894aaf0f1807b0b672ec0d98dab26fe9be883bb76adf2417a8175937c4
 resolved input `f19f18a9e0811789e0ec3834d3c9f93fe194ac5da722f999f13aebcc191759b7`;
 parent save `3bab29651c18b77dc0b43028f9fa6225da9c23587cb02fe855ab8966a0cd9121`;
 parent adapter config `45fdd476f1adf5c1d87aedaeda675d11f610ab7d7d056231f955aff71c4769ef`.
-The full output-hash inventory is retained in `.tmp/jp-bmp-malformed-http-20261025/RESULT.json`
+The full output-hash inventory is retained in `RESULT.json` (review artifact)
 (SHA-256 `c7fad49c5b2e323a34eca9c3d89639898273585128f34206edb4a3756f56d165`).
 `git diff --check` is the applicable documentation-only validation for this note.
 
@@ -618,12 +618,12 @@ The full output-hash inventory is retained in `.tmp/jp-bmp-malformed-http-202610
 
 A commit-pinned public repository, [REONTeam/pages](https://github.com/REONTeam/pages), describes itself as an archive of pages from `gameboy.datacenter.ne.jp`. Its commit [`baeec2f1e4348c36384297810ba18a1c0d172236`](https://github.com/REONTeam/pages/commit/baeec2f1e4348c36384297810ba18a1c0d172236) is dated 2026-09-24 and says files were added based on “Echelon's latest dump”; it does not provide a direct server-capture manifest or identify capture dates for the image bytes. We therefore treat it as a reproducible community archive with dump lineage, not a primary packet capture.
 
-The archived `Original Sitemap/01/CGB-B9AJ/index.html` (SHA-256 `7c987e8e61cf1f84188d8d8116a7f32f1f7f73af26f133dc55898afb41269934`) references `images/cl_02.bmp` and `images/hometitle_04.bmp`. The audit pinned all eight `.bmp` Git blob IDs and SHA-256 values in `.tmp/jp-archived-pages-bmp-20261025/RESULT.json`; every downloaded byte stream reproduces its commit's Git blob ID. Static reproduction of the maintained `Bmp_ParseHeader` / `Bmp_CheckSize` predicates found that only `other3.bmp`, `other4.bmp`, and `other5.bmp` pass the header and dimension checks. The two files referenced by the archived homepage are 144 pixels wide and encode standard top-down height `-48`; the ROM reads the height low byte as 208 and rejects it at the `<97` check. This is a concrete mismatch between standard BMP semantics and the ROM's byte-level predicate, not proof that the archived page files were never served.
+The archived `Original Sitemap/01/CGB-B9AJ/index.html` (SHA-256 `7c987e8e61cf1f84188d8d8116a7f32f1f7f73af26f133dc55898afb41269934`) references `images/cl_02.bmp` and `images/hometitle_04.bmp`. The audit pinned all eight `.bmp` Git blob IDs and SHA-256 values in `RESULT.json` (review artifact); every downloaded byte stream reproduces its commit's Git blob ID. Static reproduction of the maintained `Bmp_ParseHeader` / `Bmp_CheckSize` predicates found that only `other3.bmp`, `other4.bmp`, and `other5.bmp` pass the header and dimension checks. The two files referenced by the archived homepage are 144 pixels wide and encode standard top-down height `-48`; the ROM reads the height low byte as 208 and rejects it at the `<97` check. This is a concrete mismatch between standard BMP semantics and the ROM's byte-level predicate, not proof that the archived page files were never served.
 
-Passing the parser and dimension predicates does not establish that the other three files render correctly: the top-down converter consumes pre-pixel bytes as renderer metadata. A directed mGBA follow-up served the exact archived homepage and both linked BMPs through the fake network for 53,180 frames. The ROM fetched the homepage (1,818 bytes) at frame 6,855, `hometitle_04.bmp` (1,026 bytes) at frame 6,987, and `cl_02.bmp` (1,022 bytes) at frame 7,061. Coverage records 34 entries each at `51:70E0` (`Bmp_Validate`), `51:70F4` (`Bmp_ParseHeader`), and `51:7161` (`Bmp_CheckSize`), first at frame 7,206; `51:7175–7176` is the size-rejection path. `Bmp_ConvertToTiles` at `51:7177` and the bitmap renderer/blitter were not executed. The run used the protected Japanese ROM, the saved browser state, mGBA and a fake network; it is not a live server, hardware, or general reachability proof. Thus the community archive yields exact dump-derived candidates and a positive real-ROM parser rejection route, but does not establish an original server response or close the natural BMP/render path. Reproduction script and full receipt: `.tmp/jp-archived-pages-bmp-20261025/audit.py` (SHA-256 `900ae3021b8f7cca55410b378e5810020f93a63f133bd093c23cd54b77064f26`), `.tmp/jp-archived-pages-bmp-20261025/audit_dynamic.py` (SHA-256 `6f82451ec25f784aa19a9abf48ed011e54387bc4f61d1c8e7da1c9171465054c`), and `RESULT.json` (SHA-256 `ad7bf32138bb860f3e2da2847e1a6ed3d8e80bf3af45a962194eab6f728328df`).
+Passing the parser and dimension predicates does not establish that the other three files render correctly: the top-down converter consumes pre-pixel bytes as renderer metadata. A directed mGBA follow-up served the exact archived homepage and both linked BMPs through the fake network for 53,180 frames. The ROM fetched the homepage (1,818 bytes) at frame 6,855, `hometitle_04.bmp` (1,026 bytes) at frame 6,987, and `cl_02.bmp` (1,022 bytes) at frame 7,061. Coverage records 34 entries each at `51:70E0` (`Bmp_Validate`), `51:70F4` (`Bmp_ParseHeader`), and `51:7161` (`Bmp_CheckSize`), first at frame 7,206; `51:7175–7176` is the size-rejection path. `Bmp_ConvertToTiles` at `51:7177` and the bitmap renderer/blitter were not executed. The run used the protected Japanese ROM, the saved browser state, mGBA and a fake network; it is not a live server, hardware, or general reachability proof. Thus the community archive yields exact dump-derived candidates and a positive real-ROM parser rejection route, but does not establish an original server response or close the natural BMP/render path. Reproduction script and full receipt: `audit.py` (review artifact) (SHA-256 `900ae3021b8f7cca55410b378e5810020f93a63f133bd093c23cd54b77064f26`), `audit_dynamic.py` (review artifact) (SHA-256 `6f82451ec25f784aa19a9abf48ed011e54387bc4f61d1c8e7da1c9171465054c`), and `RESULT.json` (SHA-256 `ad7bf32138bb860f3e2da2847e1a6ed3d8e80bf3af45a962194eab6f728328df`).
 
 **Follow-up: accepted archived BMPs reach the bitmap blitter (2026-10-25).** A 160-file HTML/TXT census of the same pinned archive found a second BMP-referencing document, `Original Sitemap/01/CGB-B9AJ/today_mobile/today_mobile3 (v2).html` (2,802 bytes; SHA-256 `e2d0ccee4a49cc4513bd48e6364604e43fa672d36efc58c2a61d2cb80ff14800`; Git blob `863de0c9d36f2c263826fab92de21f522c669c23`). It references `other3.bmp`, `other4.bmp` and `other5.bmp`. The converter-layout audit finds the four bytes immediately before each pixel offset encode the expected raster-byte count, padded row width in bits and ROM row count: `other3` = `0x0180/64/48`; `other4` and `other5` = `0x0030/32/12`.
 
-A directed 14,000-frame mGBA/fake-network replay served the exact archived page body **at the homepage URL by explicit web-map override** and then served the three exact archive BMP byte streams. This was not natural navigation to the archived `today_mobile3 (v2).html` URL. The original subtree census found no inbound relative HTML link; a stronger follow-up scanned all 182 tracked HTML/HTM/TXT documents in the pinned repository (zero fetch errors), resolving relative and same-host `href`/`src` references, and still found no link to v2. It did find the linked route: archived `index.html` points to `today_mobile/index01.html`, which points to `today_mobile3.html`. The archive's upload commit `83cd69b0133482d7449a6feb8b146e9bac0e4a40` renames the prior page `Unsorted webpages/todays_mobile_information-pokemon_crystal_mobile_stadium.html` to `today_mobile3 (v1).html`; that v1 has no BMP references. The same commit adds v2 and `other3/4/5.bmp` as new files, so the converter/blitter trace exercised an unlinked community-added variant, while the route linked from the archived index reaches v1 without these BMPs. This establishes archive structure only, not what the live Nintendo server served, whether other original pages were omitted, or whether a direct/bookmarked URL existed. Scripts and server redirects are also outside the static link graph. As secondary corroboration, a technical account says the browser strips manual URL input and describes the home page as a portal of selectable links; it also says the original home-page content was lost: [Edge of Emulation, “Mobile Adapter GB - Part 1,” lines 38–45](https://shonumi.github.io/articles/art14.html). Receipts: subtree graph `.tmp/jp-archived-pages-bmp-20261025/LINK_GRAPH.json` (SHA-256 `9826b8519403bf3ca7dc821b5def0a906ca9a5e0aed105a465e95f99b071faf9`); whole-archive link scan `.tmp/jp-archived-pages-bmp-20261025/GLOBAL_LINK_GRAPH.json` (SHA-256 `a736ffd73f0ca0cc68f2e7c98e5fffd1253b232a50715b0da709d76b49ba0448`); version/rename route `.tmp/jp-archived-pages-bmp-20261025/NATURAL_V1_ROUTE.json` (SHA-256 `79b61a6dc1f137fc995f1955bca3e106b64fd7b036ea93b46e051aa9e91a47e8`). HTTP responses were observed at frames 6,855, 7,042, 7,086 and 7,111. All three images reached `Bmp_ConvertToTiles` success (`51:7177`, six hits; top-down success `51:73CB`, six hits); the browser bitmap route reached `4E:5A6D`/`4E:5B59` and `Image_BlitToTileCanvas` at `51:740D` (four hits each, first frame 11,548). The size-rejection branch `51:7175–7176` did not execute in this run. A screenshot at frame 12,102 is retained. This confirms that these exact dump-derived bytes can pass the maintained converter and reach its bitmap blitter in this forced-page mGBA route. It does not confirm correct visible pixels, a natural URL/navigation path, original server delivery, source capture provenance, or hardware behavior.
+A directed 14,000-frame mGBA/fake-network replay served the exact archived page body **at the homepage URL by explicit web-map override** and then served the three exact archive BMP byte streams. This was not natural navigation to the archived `today_mobile3 (v2).html` URL. The original subtree census found no inbound relative HTML link; a stronger follow-up scanned all 182 tracked HTML/HTM/TXT documents in the pinned repository (zero fetch errors), resolving relative and same-host `href`/`src` references, and still found no link to v2. It did find the linked route: archived `index.html` points to `today_mobile/index01.html`, which points to `today_mobile3.html`. The archive's upload commit `83cd69b0133482d7449a6feb8b146e9bac0e4a40` renames the prior page `Unsorted webpages/todays_mobile_information-pokemon_crystal_mobile_stadium.html` to `today_mobile3 (v1).html`; that v1 has no BMP references. The same commit adds v2 and `other3/4/5.bmp` as new files, so the converter/blitter trace exercised an unlinked community-added variant, while the route linked from the archived index reaches v1 without these BMPs. This establishes archive structure only, not what the live Nintendo server served, whether other original pages were omitted, or whether a direct/bookmarked URL existed. Scripts and server redirects are also outside the static link graph. As secondary corroboration, a technical account says the browser strips manual URL input and describes the home page as a portal of selectable links; it also says the original home-page content was lost: [Edge of Emulation, “Mobile Adapter GB - Part 1,” lines 38–45](https://shonumi.github.io/articles/art14.html). Receipts: subtree graph `LINK_GRAPH.json` (review artifact) (SHA-256 `9826b8519403bf3ca7dc821b5def0a906ca9a5e0aed105a465e95f99b071faf9`); whole-archive link scan `GLOBAL_LINK_GRAPH.json` (review artifact) (SHA-256 `a736ffd73f0ca0cc68f2e7c98e5fffd1253b232a50715b0da709d76b49ba0448`); version/rename route `NATURAL_V1_ROUTE.json` (review artifact) (SHA-256 `79b61a6dc1f137fc995f1955bca3e106b64fd7b036ea93b46e051aa9e91a47e8`). HTTP responses were observed at frames 6,855, 7,042, 7,086 and 7,111. All three images reached `Bmp_ConvertToTiles` success (`51:7177`, six hits; top-down success `51:73CB`, six hits); the browser bitmap route reached `4E:5A6D`/`4E:5B59` and `Image_BlitToTileCanvas` at `51:740D` (four hits each, first frame 11,548). The size-rejection branch `51:7175–7176` did not execute in this run. A screenshot at frame 12,102 is retained. This confirms that these exact dump-derived bytes can pass the maintained converter and reach its bitmap blitter in this forced-page mGBA route. It does not confirm correct visible pixels, a natural URL/navigation path, original server delivery, source capture provenance, or hardware behavior.
 
-The earlier homepage trace remains valid for its distinct two linked files, which are rejected by the ROM height predicate; the accepted route does not supersede that result. Reference census and converter metadata: `.tmp/jp-archived-pages-bmp-20261025/REFS.json` (SHA-256 `5bc978fb7b9caedf7e9f40afd038f5afd37a696868c026c9305905bee78a05e6`) and `METADATA.json` (SHA-256 `b9fb582e784a1649428c2e4c9f66d134abbc1993a1d979d34b265e771e549f7f`). Dynamic audit: `audit_dynamic_accepted.py` (SHA-256 `0d078a4b3ef3684a28f237c61ce1bfb4b0d92c9274db6a4b267ebebd22f98ae9`) and `ACCEPTED_RUN.json` (SHA-256 `4bf24684909ebc6904a95fba7eff97b15f62225e49cc8b6187b1e79d2da79753`).
+The earlier homepage trace remains valid for its distinct two linked files, which are rejected by the ROM height predicate; the accepted route does not supersede that result. Reference census and converter metadata: `REFS.json` (review artifact) (SHA-256 `5bc978fb7b9caedf7e9f40afd038f5afd37a696868c026c9305905bee78a05e6`) and `METADATA.json` (SHA-256 `b9fb582e784a1649428c2e4c9f66d134abbc1993a1d979d34b265e771e549f7f`). Dynamic audit: `audit_dynamic_accepted.py` (SHA-256 `0d078a4b3ef3684a28f237c61ce1bfb4b0d92c9274db6a4b267ebebd22f98ae9`) and `ACCEPTED_RUN.json` (SHA-256 `4bf24684909ebc6904a95fba7eff97b15f62225e49cc8b6187b1e79d2da79753`).

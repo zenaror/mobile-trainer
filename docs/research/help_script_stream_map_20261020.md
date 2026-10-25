@@ -38,7 +38,7 @@ and `dataaccess.tsv`
 `ebe9eff200807479b544674285aee3f4e62b16ba300c0ef35076f414a60eba73`.
 
 The replayed screen captures are retained under the ignored
-`.tmp/jp-help-runtime-review-20261020/shots/help/`: frames 2426 (help menu),
+`help` (review artifact): frames 2426 (help menu),
 3937 (first-use tutorial page), 5443/6711 (second entry), 8687 (third entry),
 10029/10663 (fourth entry), and 11931 (back at the title). The captures show
 Japanese text and graphics on these visited screens. At frame 10663 the fourth

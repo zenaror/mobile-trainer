@@ -219,7 +219,7 @@ are in the supporting `mt-jp-audio-naming-inventory-20261015/DATA` material, wit
 `4e294f4303f45e7f27806e0103b3be09db81148785f62c3c27e3cb9131b6f3f6`. The proposal DATA records BEFORE/after hashes, the exact six-line text patch and a
 comment-stripped source comparison. No instruction, operand or local spelling changes are proposed.
 Assembler, symbol and original-ROM checks remain required at integration; no new equivalence claim
-follows from this text inspection. No test, build, emulation, hardware, English work or OMM write was
+follows from this text inspection. No test, build, emulation, hardware, English work was
 performed by this proposal.
 
 Unresolved semantics remain visible: SelectAllTracks has no demonstrated entry; +$1E has no

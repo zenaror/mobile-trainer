@@ -36,5 +36,5 @@ source-set SHA-256
 `1e249e6dcc960fa8bba6c13533e80f7d5d2b0059fa8a3c6e65f0cf4bfcf32f2c`, over 347
 tracked ASM/INC files excluding `languages/` and
 `engine/mail/sample_data.asm`. Census and review artifacts are retained under
-ignored `.tmp/generic-coalias-post-d4deefda-20261021/`
+ignored `generic-coalias-post-d4deefda-20261021` (review artifact)
 (`RESULT.json`, `REVIEW_MAIL_MENU.md`).

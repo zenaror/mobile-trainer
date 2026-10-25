@@ -4,7 +4,7 @@
 # MGBA_SRC: the mGBA fork source tree (same default as run_trace.py); MGBA_BUILD: its build tree (default: <repo>/.cache/trace/mgba).
 set -e
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
-MGBA_SRC="${MGBA_SRC:-/media/rafael/Dados/Arquivos/Projetos/Gameboy Projects/MobileAdapterGB/mgba/mgba}"
+MGBA_SRC="${MGBA_SRC:-$ROOT/.cache/mgba-src}"
 B="${MGBA_BUILD:-$ROOT/.cache/trace/mgba}"
 OUT="${1:-$PWD/apu_probe}"
 SRC="$ROOT/tools/trace/apu_probe.c"

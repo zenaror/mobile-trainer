@@ -4,7 +4,7 @@ This checkpoint validates the private mGBA read-observer harness used for
 original-ROM tracing. It does not change the Mobile Trainer source or ROM.
 All runtime claims below are limited to the pinned build, library and replay
 profiles; they do not establish general emulator correctness, full memory
-coverage, hardware behavior or the semantic purpose of Data48.
+coverage, hardware behavior the semantic purpose of Data48.
 
 ## Build identity and synthetic controls
 
@@ -74,13 +74,13 @@ semantics.
 
 ## Reproducibility receipts
 
-Private supporting files are retained under `.tmp/`:
+Private supporting files are retained under `.tmp` (review artifact):
 
-- `.tmp/jp-zero48-memory-cap-native-fix2-20261021/` — source seal, build,
+- `jp-zero48-memory-cap-native-fix2-20261021` (review artifact) — source seal, build,
   ELF metadata and static review.
-- `.tmp/jp-zero48-memory-cap-controls-20261017/OUTPUT/root-r4-controls-20261020/RUN_FIX2_20261021/`
+- `RUN_FIX2_20261021` (review artifact)
   — four synthetic runtime controls.
-- `.tmp/jp-zero48-memory-cap-natural-fix2-20261021/OUTPUT/root-r4-natural-replay-fix2-20261021/`
+- `root-r4-natural-replay-fix2-20261021` (review artifact)
   — six original-ROM replay receipts and independent-review target.
 
 Earlier incomplete runs and their failure receipts remain preserved beside

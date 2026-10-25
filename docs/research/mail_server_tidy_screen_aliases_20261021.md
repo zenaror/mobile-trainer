@@ -33,8 +33,8 @@ macro/include dependence on the removed spellings. The existing neutral labels
 at other addresses remain untouched where no descriptive co-label was proven.
 This is an alias cleanup only; it makes no new claim about animation reach or
 application behavior. The review receipt is retained in
-`.tmp/agent-tidy-screen-alias-review-20261021/REVIEW.md`; the fresh source
-census is `.tmp/generic-coalias-post-1e10c1b1-20261021/RESULT.json`.
+`REVIEW.md` (review artifact); the fresh source
+census is `RESULT.json` (review artifact).
 
 Post-edit validation: `make` returned `RESULT: IDENTICAL` against the Japanese
 ROM SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
@@ -52,4 +52,3 @@ sprite scripts where their byte layouts support that structure. The six-byte
 script-shaped span at `2E:795C` remains a HYPOTHESIS candidate because no
 pointer was found in the bounded object-table walk. These changes are recorded
 in the [generic-name audit](generic_data_name_audit_20261020.md#bank-2e-mail-server-tidy-screen-data-structures-2026-10-21).
-

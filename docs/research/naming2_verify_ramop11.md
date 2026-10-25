@@ -33,6 +33,6 @@ Same defect outside the record: `mail.asm` `Mail_Base64DecodeChar`'s invalid-cha
 
 ## 4. Limits
 
-No emulator or tracer was run; `observed_banks.tsv` and `coverage_union.tsv` were taken as given (the rows of banks 0F, 04 and 25 were re-read).  The interrupt side of L5 (`Int_Serial`, `Int_Timer`, the STAT handlers, `Sound_FrameService`) is the earlier readers' reading, not re-derived; the ROM-wide entry scans are byte-pattern supersets plus `invariants_check`; the callers of every
+No emulator tracer was run; `observed_banks.tsv` and `coverage_union.tsv` were taken as given (the rows of banks 0F, 04 and 25 were re-read).  The interrupt side of L5 (`Int_Serial`, `Int_Timer`, the STAT handlers, `Sound_FrameService`) is the earlier readers' reading, not re-derived; the ROM-wide entry scans are byte-pattern supersets plus `invariants_check`; the callers of every
 ROM0 bank-switch helper were not traced for a computed `$0F`; the selector range is guarded only by the 12 constant `ld a, N`.  Roles in selectors 3, 5, 7 and 9-12 (every `$D023` judgement there) are static readings; nothing in them ran.  `wMailReplyRecord` rests on static reading plus presence and bank in the replays; `wSoundDrv_ParamDirtyMask` is a static reading of a family that never executed.
 Judgement call: the decoder rows are corrected because the name says "compose"; if a broader name is preferred, the DEF and all 39 `$D023` sites must change together.

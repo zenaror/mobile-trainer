@@ -10,7 +10,7 @@ Only five existing comment rows change across the two owners: one at sprites167 
 
 A new private canonical 37 protocol is prepared on010c/EN `7e5e` with writable0644 sources/PNGs, immutable0444 original refs, finite 671-output envelope, strict 334 dependency wholeSHA/order/primary/candidate bindings, full current owners/tools/rawGit/typed ignored guards and isolated empty no-write cache prefixes. It requires a new exact ROOT whole-read acceptance and ONE-run approval before any command. Expected results are 36 rc0 plus separately retained ordinal27's exact 97-byte historical missing-column schema rc2; never37PASS. Any unexpected guard or command result must stop without replay.
 
-No actual source/Git, OMM, home/archive or English integration is performed by this preparation. Any future accepted build supports byte reconstruction only; caller purpose, live entry/stack/bank context, runtime, visual and hardware remain unresolved.
+No actual source/Git, home/archive or English integration is performed by this preparation. Any future accepted build supports byte reconstruction only; caller purpose, live entry/stack/bank context, runtime, visual and hardware remain unresolved.
 
 ## Current native environment
 

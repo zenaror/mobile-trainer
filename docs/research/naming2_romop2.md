@@ -10,7 +10,7 @@
 |---|---|
 | operands written | **61** in 24 files: 24 palette reads as `Label + $offset`, 1 palette read at the start of a data line (`Palette_71_66C0`), 9 HDMA tile windows as `Label + $offset`, 10 tilemap Ptr reads as `Label + $offset`, 16 string pointers (15 distinct strings) as new `String_BB_AAAA` labels, 1 inline word (`dw CopyBytes`) |
 | new labels | **16**: 15 `String_BB_AAAA` and `Palette_71_66C0`, each in front of the exact `db` line that starts at its address |
-| left numeric | 22 `block kind` (a palette or a tilemap inside a block typed as tiles: the block is typed wrong; the graphics retyping), 15 `anchor names another destination`, 2 `no label`, 1 `read crosses`, 3 `vector or null`, and the operands with no rule |
+| left numeric | 22 `block kind` (a palette or a tilemap inside a block typed as tiles: the block is typed wrong; the graphics retyping), 15 `anchor names another destination`, 2 `no label`, 1 `read crosses`, 3 `vector null`, and the operands with no rule |
 | comment on every offset operand | `ld hl, Palette_5F_4CD0 + $10 ; 5F:4CE0`: an offset has no definition line that carries the address, so the use is found by grepping `BB:AAAA` |
 | executed | 56 of the 60 `ld hl` loads ran in the natural scenarios (`analysis/coverage_union.tsv`); the four that never ran are `comm/notice_dialog.asm` twice (`Palette_CommNotice + $40` and `+ $C0`), `error/comm_error_screen.asm` (`CommErr_Tilemap_Comm + $140`) and `help/help_menu.asm` (`Tilemap_6A_4B7C + $8C`); the inline word's call ran 25,154 times in 68 scenarios |
 | ROM | byte-identical (`make compare`: `RESULT: IDENTICAL`; `sym-check`, `sprite_chain_check`, `png-check` and every audit pass) |
@@ -42,7 +42,7 @@ The bank of the far call is the bank of the **data** that `CopyBytes` reads; a p
 * 15 HDMA windows whose sheet label states another VRAM destination (above); 2 operands with no label; 3 vectors; the rest has no rule or no proven length.
 * The label `Palette_71_66C0` is true (8 bytes, `7C00 7FFF 01FF 001F`) but the block it splits still carries heuristic headers (`data $66A0-$66C1`, `tiles-2bpp $66C1-$66C8`): a comment above it says so; the retyping of `gfx/account/screens_bank71.asm` will make one palette array of `$6688-$66C8`.
 
-**Since the graphics retyping** (`naming2_retype1.md`): the 22 palettes and tilemaps inside blocks typed as tiles, the four wrongly typed blocks, `Palette_4B_5870` and `Palette_71_66C0` are retyped; 25 operands became exact labels (23 by this tool); what stays numeric is 14 `anchor names another destination`, 2 `no label`, 1 `read crosses` (`engine/settings/confirm_screen.asm:42`), 3 `vector or null` and the operands with no rule.
+**Since the graphics retyping** (`naming2_retype1.md`): the 22 palettes and tilemaps inside blocks typed as tiles, the four wrongly typed blocks, `Palette_4B_5870` and `Palette_71_66C0` are retyped; 25 operands became exact labels (23 by this tool); what stays numeric is 14 `anchor names another destination`, 2 `no label`, 1 `read crosses` (`engine/settings/confirm_screen.asm:42`), 3 `vector null` and the operands with no rule.
 
 ## 5. Reproduce
 

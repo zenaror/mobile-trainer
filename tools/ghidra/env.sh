@@ -8,7 +8,7 @@
 # compiled-script (OSGi) cache are all project-local and git-ignored.
 #
 # Overridable environment variables:
-#   GHIDRA_INSTALL_DIR  Ghidra installation (default: the Open-GBP copy below)
+#   GHIDRA_INSTALL_DIR  Ghidra installation (set explicitly)
 #   GHIDRA_MAXMEM       JVM heap for Ghidra (default 4G)
 #   JAVA_HOME           JDK to use (default: `java` from PATH; Ghidra 12 needs 21+)
 
@@ -16,7 +16,7 @@ _gh_here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$_gh_here/../.." && pwd)"
 GHIDRA_TOOLS="$_gh_here"
 
-GHIDRA_INSTALL_DIR="${GHIDRA_INSTALL_DIR:-/home/rafael/Tools/Open-GBP/ghidra_12.1.3_PUBLIC}"
+GHIDRA_INSTALL_DIR="${GHIDRA_INSTALL_DIR:-}"
 GHIDRA_MAXMEM="${GHIDRA_MAXMEM:-4G}"
 
 CACHE_DIR="$REPO_ROOT/.cache"
@@ -43,6 +43,7 @@ fi
 gh_die() { echo "ERROR: $*" >&2; exit 1; }
 
 gh_check_install() {
+    [ -n "$GHIDRA_INSTALL_DIR" ] || gh_die "Set GHIDRA_INSTALL_DIR to your Ghidra installation"
     [ -f "$GHIDRA_INSTALL_DIR/Ghidra/application.properties" ] \
         || gh_die "GHIDRA_INSTALL_DIR='$GHIDRA_INSTALL_DIR' is not a Ghidra installation"
     [ -n "$JAVA" ] || gh_die "java not found (need JDK 21+)"

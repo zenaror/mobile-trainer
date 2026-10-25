@@ -26,7 +26,7 @@ animation is shared by entries 0 and 1; the names do not imply exclusivity.
 
 The independent reviewer accepted all eight labels, found no collision in its
 1,792-file source scan, and confirmed the direct consumers and emitted bytes.
-The review report is retained in the ignored `.tmp/agent-gfx-candidate-review-20261021/`
+The review report is retained in the ignored `agent-gfx-candidate-review-20261021` (review artifact)
 evidence directory (report SHA-256
 `6cbe179d8d3e0c838cb15a6df263d89f062065f721af166a47c6d8af8aa96947`, result
 SHA-256 `aa4d4b04a06dde5b291505409baa3375cbd922fa049112f2a8cb0d862a6d6c05`).

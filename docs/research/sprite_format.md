@@ -261,6 +261,6 @@ original bytes and 104 object-table second words point to those scripts in
 the same physical banks. This does not establish natural selection of every
 entry or elapsed frame timing. The unreferenced `2A:545C` candidate retains
 HYPOTHESIS; similarity alone does not supply its consumer. Reproduce the
-byte/pointer checks with `.tmp/jp-sprite-script-source-reconciliation-20261025/verify.py`;
+byte/pointer checks with `verify.py` (review artifact);
 its `RESULT.json` lists every script and referring pointer. No emitted bytes
 or symbol names change.

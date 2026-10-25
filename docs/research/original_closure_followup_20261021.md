@@ -173,7 +173,7 @@ scan reconciled 347 guarded source inputs to current `main` `2d73ecad`, with
 319 exact matches and 28 differences limited to comments, blank lines or
 global labels; 104,200 earlier indexed records still matched original bytes.
 No source, build, runtime or trace changed. The retained read-only report is
-`.tmp/agent-entry-return-reconcile-20261021/REPORT.md` (SHA-256
+`REPORT.md` (review artifact) (SHA-256
 `6f5f920ae3df5698496d799b9ca4e8516061e589f59b0075d9e3bfdb24a1e854`), with
 `RESULT.json` recording its input hashes.
 
@@ -343,7 +343,7 @@ a candidate/unreferenced region was established. This is a bounded source
 inventory, not proof against indirect/computed entry or universal non-use;
 prototype and candidate natural availability remains at its recorded
 evidence level. Inputs and scope are recorded in
-`.tmp/candidate-owner-audit-20261021/RESULT.json`.
+`RESULT.json` (review artifact).
 
 The bank-7F graphics owner is now `gfx/browser/page_list_candidate.asm` with
 assets under `gfx/browser/page_list_candidate/`. The linked engine owner
@@ -487,7 +487,7 @@ over-reads); `make png-check` passed (408 tile sheets, four raw byte views,
 passed (978 rules), and `git diff --check` was clean.
 
 The detailed private review receipts and inventories remain under the
-ignored `.tmp/` task directories until their dependent follow-up work and
+ignored `.tmp` (review artifact) task directories until their dependent follow-up work and
 retention review are complete.
 
 ### PNG-count correction (2026-10-21)
@@ -507,7 +507,7 @@ six neutral groups. All eight fell outside the detector's accepted shapes;
 516 of 522 groups remain undecided in this pass. A zero-row manifest is
 therefore not evidence of no readers. The complete bank-aware chains,
 classification and proposed bounded follow-up are in
-`.tmp/agent-data-consumer-mismatch-20261021/REPORT.md` (SHA-256
+`REPORT.md` (review artifact) (SHA-256
 `0235dfba74b8d468319e4e3725e471ddaeae9db02d3d78f9d82da2bf12196b8a`).
 
 The same review confirmed a stale comment at `2B:641` for `String_2B_5807`:
@@ -532,7 +532,7 @@ A Japanese-only static trace checked six literal `$53` contacts at `68:66E2`,
 flows `$53` supplies coordinates; bank and indirect pointer values come from
 separate fields. No bank53 consumer was demonstrated, and all 25
 name-to-frame associations remain HYPOTHESIS. The report and result are
-retained under `.tmp/agent-bank53-name-consumer-20261021/` (report SHA-256
+retained under `agent-bank53-name-consumer-20261021` (review artifact) (report SHA-256
 `abcfab2608126ff783fa2044d66ad2bea6c44e29b905c1a9f69a8a4ec514485f`);
 computed-pointer limits and two weak numeric candidates remain open.
 
@@ -560,7 +560,7 @@ Limits are 64 instructions per path, call depth 3, and 256 states per seed.
 Thirteen synthetic mechanism tests passed separately from ROM evidence. The
 first execution, which stopped at UNKNOWN_STACK for `2B:6D2A`, is preserved
 alongside the corrected run. Full output and command/source receipts remain
-under `.tmp/agent-consumer-read-prototype-20261021/` (`REPORT.md` SHA-256
+under `agent-consumer-read-prototype-20261021` (review artifact) (`REPORT.md` SHA-256
 `554649a2fdf3b6d69c9ed8dcb98f2870e34bc1d33beb986e20b8827ebc3cde2b`). This
 remains a private research prototype, not a source/tool integration or proof
 of natural execution. No build ran.
@@ -572,7 +572,7 @@ It found no new executable seed, but retained 217 indirect/component
 references across 161 groups as `UNKNOWN_INDIRECT_READ`. Together with the
 prior flow prototype, the current ledger is 4 `READ`, 162 `UNKNOWN`, and 356
 `UNRESOLVED`; unresolved groups are not declared unused. The report and
-per-group evidence are in `.tmp/agent-consumer-symbolic-expansion-20261021/`
+per-group evidence are in `agent-consumer-symbolic-expansion-20261021` (review artifact)
 (report SHA-256
 `b91bfb5ae82eaa24b3a2c4d52a4325368183b813705c8d4e235083098a91733b`).
 
@@ -585,7 +585,7 @@ All 28 operations are PROBABLE local descriptions, while natural entry and
 application purpose remain HYPOTHESIS. The bounded coverage file has zero
 entry rows and zero covered starts for those intervals; computed/stack/
 indirect transfers and unlabelled adjacent fragments remain open. The matrix
-is `.tmp/agent-neutral-routine-triage-20261021/REPORT.md` (SHA-256
+is `REPORT.md` (review artifact) (SHA-256
 `9dd94553cea8c2ced6177a700cb75e408db39d05a6340de954648ca4e54e0f5d`). No
 trace or build ran, so this is not a whole-ROM closure claim.
 
@@ -599,7 +599,7 @@ structurally coherent with candidate intervals but do not establish a
 consumer. Browser style selection masks to 0..127 for a 27-entry table, and
 the intervening frame service's C register preservation is unproven, so style
 2 remains unknown. Receipt:
-`.tmp/agent-indirect-bank-triage-20261021/REPORT.md` (SHA-256
+`REPORT.md` (review artifact) (SHA-256
 `6564982a3a8384e0e61311b4d4f16796cc1422fa7368d5160dc381b188db4248`).
 
 A separate finite byte/source slice for 28 historical routine addresses
@@ -610,7 +610,7 @@ the audio dispatches are internal table routes rather than new external
 roots. Computed, stack, RAM-copy, interrupt, and unsupported emitter paths
 remain outside this method. Evidence excludes the protected source and its
 corresponding ROM byte range before searching. Full graphs and exceptions
-are in `.tmp/agent-computed-entry-slices-20261021/REPORT.md` (SHA-256
+are in `REPORT.md` (review artifact) (SHA-256
 `3852272b339e561de37611b56be4577e33aeb0da977c7eb78518b5f0f4d81275`).
 Static routes do not prove natural execution; no build or runtime test ran.
 
@@ -892,7 +892,7 @@ At published main commit `9587f18ff5cb8bae693dc824351ce08f402510bc`, an exact
 scan of current source definitions and the rebuilt `build/mobile_trainer.sym`
 finds zero literal `Function_BB_AAAA` or `Label_BB_AAAA` names. The 28
 historical neutral routine addresses in
-`.tmp/agent-neutral-routine-triage-20261021/MATRIX.tsv` still resolve to their
+`MATRIX.tsv` (review artifact) still resolve to their
 recorded current operation names at the same bank/address in the rebuilt SYM
 (28/28). This reconciles the old `naming2_fn4.md` count of 27 neutrals against
 later source changes; that historical count must not be reported as the
@@ -918,7 +918,7 @@ exact `$ADDR` immediate for any target. The nine references are internal or
 conditional and do not establish a natural root. Computed, stack, copied-code
 and interrupt paths remain outside this scan, so all four priority slices
 remain UNKNOWN. Reproducible source guards and rows are retained in
-`.tmp/jp-routine-recheck-2281-20261021/` (`RESULT.json` SHA-256
+`jp-routine-recheck-2281-20261021` (review artifact) (`RESULT.json` SHA-256
 `fae135723363a995c71d85816d5442fdef454186a8b3c8773f6d8a0ed28a3075`,
 `SOURCE_GUARDS.json` SHA-256
 `fd0f3968f4121722debd9fa96f6782b53951698620c9150fa718b6ffcfaf1044`).
@@ -1296,7 +1296,7 @@ map use a candidate-qualified BG name; palette paths identify BG/OBJ roles.
 provides static transfer evidence, but the prototype's natural entry, displayed
 composition, and semantic meaning remain unproved. Confidence remains PROBABLE
 for each asset. Ten moved files' raw and generated payload hashes are recorded
-in `.tmp/jp-page-list-candidate-paths-20261022/PRE_MOVE.json` and
+in `PRE_MOVE.json` (review artifact) and
 `POST_MOVE.json`. The maintained Japanese GFX lexical census is now 72 stems in
 7 directories / 147 files, with 90 catalog rows (75 CONFIRMED / 15 PROBABLE).
 

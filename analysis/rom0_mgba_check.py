@@ -28,7 +28,7 @@ import tempfile
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..'))
 ROMPATH = os.path.join(ROOT, 'baserom.gbc')
-DEFAULT_BUILD = '/media/rafael/Dados/Arquivos/Projetos/Gameboy Projects/MobileAdapterGB/mgba/mgba/build-noble'
+DEFAULT_BUILD = os.path.join(ROOT, '.cache', 'trace', 'mgba')
 BUILD = os.environ.get('MGBA_BUILD', DEFAULT_BUILD)
 EXE = os.path.join(BUILD, 'sdl', 'mgba')
 FAILS = []

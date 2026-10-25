@@ -4,7 +4,7 @@ The candidate baseline is immutable published f5d0615, after docD fb5549c and th
 
 Private verification requires SHA-256 OK, RESULT: IDENTICAL and a byte-identical symbol file: 15535 banked labels (10070 global and 5465 local), plus 51 exported constants, 15586 total entries. The canonical 37-entry runner includes palette, PNG, sprite, layout and operand checks. Its unchanged historical ramop7 manual-schema rejection is expected to return two and is independently reproduced on baseline; the other 36 entries must return zero.
 
-All 289 maintained TSVs and all 649 generic active source-locator literals are audited without updates. Five scoped metadata context rows remain exact, with no line shifts. Original 142-byte coverage is 19 union/eight whole scenarios and 19/19/8/8 per string. No metadata, asset, code, alias, glyph table, generator or frozen configuration changes. Independent candidate review and coordinator main/fresh-clone publication gates remain pending.
+All 289 maintained TSVs and all 649 generic active source-locator literals are audited without updates. Five scoped metadata context rows remain exact, with no line shifts. Original 142-byte coverage is 19 union/eight whole scenarios and 19/19/8/8 per string. No metadata, asset, code, alias, glyph table, generator frozen configuration changes. Independent candidate review and coordinator main/fresh-clone publication gates remain pending.
 
 The confidence claim is limited to the original JP four-string unit. It does not certify the English localized padding, relocated title or English runtime; no English source is modified.
 

@@ -14,7 +14,7 @@ an immediate operand naming the target. It did not repeat the 69-scenario
 coverage scan or the prior 104,200-instruction immediate/literal scan.
 
 The byte-validated instruction index at
-.tmp/agent-computed-entry-slices-20261021/instruction_index.json has SHA-256
+instruction_index.json has SHA-256
 d1c3adee39382da45d09136b8209fa4f10ef559b5c447add08c5fd83ae11891d. Counting
 instructions whose physical next PC numerically equals each candidate yields
 1, 10, 11 and 12 predecessors respectively (34 total). An independent review
@@ -128,8 +128,8 @@ executes `2D:511E` four times; that is a different physical ROM bank and is not
 evidence for `29:511E`. No candidate natural-entry status changes: all four
 roots remain UNKNOWN.
 
-The retained local evidence is `.tmp/jp-ascii-draft-pass-20261023/`.
-`.tmp/jp-ascii-draft-pass-20261023/traces/inputs/mail_reply_ascii.macro` has SHA-256
+The retained local evidence is `jp-ascii-draft-pass-20261023` (review artifact).
+`mail_reply_ascii.macro` (review artifact) has SHA-256
 `6d8d175da48896680a3a5f0719ed135f97d01f7c8cb88e21e73e0c234bd4670d`; the
 coverage file hash is
 `6878e4f2857341f8cd4dc622c1c1dd2eb9bef0f86963f48c6d83a4dd5039a8ce`, and
@@ -220,7 +220,7 @@ two documented overreads, zero errors); make png-check passed (408/4/37/95).
 This follow-up changes documentation only. No ROM or ASM bytes, repository
 image files, language files, runtime traces or hardware evidence were changed
 or created. Two temporary contact sheets were generated under
-`/tmp/mobile-trainer-frame-audit/` for visual inspection and are not project
+`mobile-trainer-frame-audit` (review artifact) for visual inspection and are not project
 assets.
 
 ## Consolidated candidate-root audit at `60204c03e8637ee62577a90d68c58affea11761c` (2026-10-23)
@@ -253,7 +253,7 @@ The scenario committed in `4e1473bdbeb9d21a518035d2cc971ef5d86b11f0` was checked
 | `70:4740` | `0F` (2), `25` (6), `48` (2), `72` (3), `7F` (7,800) |
 | `55:5DF5` | `75` (7) |
 
-This is a static re-read of one committed synthetic mGBA scenario, not a new run. It contributes no positive caller/entry evidence and does not change any UNKNOWN/HYPOTHESIS status. The reproducible check and its result are retained in `.tmp/jp-candidate-latest-trace-20261023/`; `RESULT.json` SHA-256 is `d4ab70c1d04d307631b70e4bf2150997bb5f001f9649695250c4a22f577c63b3`.
+This is a static re-read of one committed synthetic mGBA scenario, not a new run. It contributes no positive caller/entry evidence and does not change any UNKNOWN/HYPOTHESIS status. The reproducible check and its result are retained in `jp-candidate-latest-trace-20261023` (review artifact); `RESULT.json` SHA-256 is `d4ab70c1d04d307631b70e4bf2150997bb5f001f9649695250c4a22f577c63b3`.
 
 ### Exact little-endian target-word reconciliation for `2D:4E42/4E54`
 
@@ -366,7 +366,7 @@ The 70-scenario natural corpus at this dated checkpoint was also checked against
 | `28:4BA6–4BC2` | 0 | 0 | 0 |
 | `4B:76CC–76D0` | 0 | 0 | 0 |
 
-The result and reproduction script are retained in `.tmp/jp-open-span-corpus-audit-20261023/` (`RESULT.json` SHA-256 `88cb8c64f759a483c733258a72620bb8ea6e40d1d5f21aee6469ec4cc54d39ac`; `audit.py` SHA-256 `72c424298927596db118728f98c5c9016403df642f541e278550f215d3f9943f`). This closes only the question of whether these exact starts, edges, or data-read intervals occur in that validated corpus. It does not prove global unreachability, dead code, unused data, or hardware behavior; the existing CONFIRMED/PROBABLE/HYPOTHESIS classifications remain unchanged.
+The result and reproduction script are retained in `jp-open-span-corpus-audit-20261023` (review artifact) (`RESULT.json` SHA-256 `88cb8c64f759a483c733258a72620bb8ea6e40d1d5f21aee6469ec4cc54d39ac`; `audit.py` SHA-256 `72c424298927596db118728f98c5c9016403df642f541e278550f215d3f9943f`). This closes only the question of whether these exact starts, edges, or data-read intervals occur in that validated corpus. It does not prove global unreachability, dead code, unused data, or hardware behavior; the existing CONFIRMED/PROBABLE/HYPOTHESIS classifications remain unchanged.
 
 ## Bank 29:50CE exact-target scan at `9f077cd0` (2026-10-24)
 
@@ -471,7 +471,7 @@ Without rereading the 70 prior scenario reports, the new scenario's three existi
 
 The source trace diff at commit cc2d80ac adds this scenario's artifacts and the generated aggregate union/validation outputs; no prior per-scenario coverage, callgraph, or dataaccess report changed.
 
-Reproduction used only the incremental checker `.tmp/jp-open-span-corpus-audit-20261023/delta_check_zzzz.py`, which reads the prior result/manifest summary, verifies the scenario-set delta, checks the current union count, and parses only the new scenario's coverage/callgraph/dataaccess. It wrote `.tmp/jp-open-span-corpus-audit-20261023/DELTA_ZZZZ_RESULT.json`. The checker asserts the original ROM hash before recording evidence.
+Reproduction used only the incremental checker `delta_check_zzzz.py` (review artifact), which reads the prior result/manifest summary, verifies the scenario-set delta, checks the current union count, and parses only the new scenario's coverage/callgraph/dataaccess. It wrote `DELTA_ZZZZ_RESULT.json` (review artifact). The checker asserts the original ROM hash before recording evidence.
 
 Receipt hashes:
 - Checker SHA-256: `99d0d20c723f9eb9021a22989634f83bc3e802f1799e45e0e638232795115ac2`.

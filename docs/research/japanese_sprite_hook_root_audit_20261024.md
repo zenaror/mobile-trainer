@@ -143,7 +143,7 @@ Both the protected original and current `mobile_trainer.gbc` have SHA-256
 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`; each
 of the 21 three-byte instruction slices is identical between them. The
 reproducible script is
-`.tmp/jp-sprite-hook-raw-literal-audit-20261024/scan.py` (SHA-256
+`scan.py` (review artifact) (SHA-256
 `370adc5c693fb23a6116f06c6e9d2baea403e53f37da11d9ae53caddcff2cd3e`); its
 result is `RESULT.json` (SHA-256
 `3bc12317084dd4f015102faf7b3855998950dc08aab970b26a4f20deafe1cbfe`). This
@@ -216,7 +216,7 @@ all arbitrary WRAM aliases are absent, or that no runtime-created hook exists.
 The unresolved helper/caller question therefore remains, but these 15 matches
 are not evidence for it.
 
-Reproduction: `.tmp/jp-00-0a2a-pointer-shape-audit-20261025/audit.py`
+Reproduction: `audit.py` (review artifact)
 (SHA-256 `ef9abdbee54a6f69dc11dc2622c39b909531368dbae749d3c1e2e298063d5461`)
 and `RESULT.json` (SHA-256
 `9026c176ab2c1e61f2329ff88235cc628566707509c85c95ea9e37a62947860b`). The
@@ -228,7 +228,7 @@ protected ROM SHA-256
 `a7a24320a22cd7f9eb2ed88ff544dfde17ed41c47bf4841ab5133e54857d6729`.
 
 The reproduction script is
-`.tmp/jp-sprite-hook-pointer-path-audit-20261024/scan.py` (SHA-256
+`scan.py` (review artifact) (SHA-256
 `318db18c27b23aca1596e4634188ebac3c595baa3bf0696ff8fe59061ff424e6`); its
 receipt is `RESULT.json` (SHA-256
 `d4ccc316c1356a0553c79726f552e0b0e704b69cd0e2ee721472871a6a03b71c`). The
@@ -244,8 +244,8 @@ rg -n 'call Sprite_SetHook|farcall Sprite_SetHook' engine home lib data --glob '
 rg -n '^(Sprite_HookAddSlideOffset|ConnIcon_UpdateState|ConnectDialog_ObjHook_Caret|ConnectDialog_ObjHook_FollowRaster)::' home engine lib data --glob '*.asm'
 rg -n 'wSpriteSlot[0-9]+ \+ \$0(B|C|D)\b|wSpriteSlots \+' home engine lib data gfx audio ram --glob '*.asm' --glob '*.inc'
 rg -n '\$DA(0B|0C|0D|1B|1C|1D|2B|2C|2D|3B|3C|3D|4B|4C|4D|5B|5C|5D|6B|6C|6D|7B|7C|7D|8B|8C|8D|9B|9C|9D|AB|AC|AD|BB|BC|BD|CB|CC|CD|DB|DC|DD)\b' home engine lib data gfx audio ram --glob '*.asm' --glob '*.inc'
-python3 .tmp/jp-sprite-hook-raw-literal-audit-20261024/scan.py
-python3 .tmp/jp-sprite-hook-pointer-path-audit-20261024/scan.py
+python3 scan.py
+python3 scan.py
 ```
 
 The callback bank/address labels are in `home/sprites.asm`,

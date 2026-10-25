@@ -474,7 +474,7 @@ an unconditional jump, a write of A, a `; raw` line or any line it does not know
 (consumer, register `hl`/`de`/`bc`, bank kind `A`, `mapped` or a bank number, data, length, proof), builds one marked copy of the tree to map every source line to its ROM address, writes the operands, the `ld a, BANK(Label)` loads, the `<Table>_Entry<N>` labels, the neutral labels in front of data lines,
 the `Label + $offset` operands with their `; BB:AAAA` comment and the inline word of `FarCall_Inline16`,
 runs `make`, checks the SHA-256 and `sym_check`, and restores every file on failure; it is idempotent.  `--report` writes one row per candidate operand with the outcome (`apply`, `bank only`, `no rule`, `bank not shown`, `no label`,
-`not a table entry`, `vector or null`, `name taken`, `block kind`, `read crosses`, `read not shown`, `unaligned`, `unaligned anchor`, `anchor names another destination`), which says which rule or label to write next.  Tests: `python3 tools/test_rom_operands.py` (74 tests, no build needed).
+`not a table entry`, `vector null`, `name taken`, `block kind`, `read crosses`, `read not shown`, `unaligned`, `unaligned anchor`, `anchor names another destination`), which says which rule or label to write next.  Tests: `python3 tools/test_rom_operands.py` (74 tests, no build needed).
 
 ## 11. Git and commits
 

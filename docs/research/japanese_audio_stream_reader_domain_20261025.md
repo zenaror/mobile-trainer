@@ -23,7 +23,7 @@ record. `Bank4_ReadStreamByte/Word` (`home/audio.asm:200-227`) select this
 recorded 9-bit bank before each stream read. The existing audio-format audit
 decodes the headers and streams for these records in those two banks.
 
-Reproduction: `.tmp/jp-audio-stream-reader-domain-20261025/audit.py`
+Reproduction: `audit.py` (review artifact)
 (SHA-256 `7ad5aca1f32a04eefee989d9b0122bead5f6a530ffcaef56613a5718bbabf5e7`);
 receipt `RESULT.json` (SHA-256
 `61b7947736d986ee159e523d0e6db842ab46f46d9c724b5d667203d4256726ef`). It

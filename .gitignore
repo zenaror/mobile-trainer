@@ -17,6 +17,3 @@ __pycache__/
 scratch/
 traces/*.bin
 tools/ghidra/project/
-
-# Índice local de uma CLI OMM antiga. A memória do projeto fica só na OMM (escopo mobile-trainer), não neste repositório.
-.omm/

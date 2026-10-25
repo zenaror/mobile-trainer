@@ -106,7 +106,7 @@ Isso é uma previsão de fonte, não um resultado de build deste candidato.
 O pacote privado registra BEFORE exato, pins dos 27 movimentos, células por
 chave/campo, diff, censo e projeção stdlib dos bytes com a ROM original. Os PNGs
 são cópias byte a byte, sem render ou reencode. O produtor não executou helpers,
-imports de projeto, testes, make, compilador, emulador, Git ou OMM, nem trabalhou
+imports de projeto, testes, make, compilador, emulador, Git, nem trabalhou
 no idioma inglês. Não foram copiados REVERSE_ENGINEERING.md ou docs/README.md.
 
 Só ROOT pode integrar, rodar os gates autorizados e confirmar a ROM e o SYM real.
@@ -118,7 +118,7 @@ unused nem encerra desconhecidos além do contrato documentado.
 
 O passe foi integrado na `main` em `c19640fffee619846994b1d49a4a8df26ef39882`.
 Os recibos preservados em
-`.tmp/jp-settings4a-path72-native-integration-20261018/ACTUAL/RESULT.json` e
+`RESULT.json` (review artifact) e
 `FRESH/RESULT.json` têm SHA-256
 `54eaacedbf7f22a4842ad49545eec399e50fce949cc6fba4371192593043ed76` e reportam
 38 checks aceitos cada. Ambos registram ROM original e reconstruída com

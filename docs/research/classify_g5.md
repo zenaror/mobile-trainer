@@ -104,7 +104,7 @@ attributes `ppp_id r_code d_code clear width align href name src left right all 
 ## 4. What is HYPOTHESIS and why
 
 * Code without an entry (1 635 bytes across 22, 29, 2A, 2B, 48, 67, 74): each was accepted only if the linear decode is legal to the boundary, every direct target is a known instruction start, it starts after a `ret`/unconditional jump
-  and ends in a terminator or falls into proven code, and nothing in the ROM (branch scan of all code regions, word scan, far-pointer scan, `ld r16` scan) targets it.  Typical case: the compiler-emitted dead `jr`/`ret` after an unconditional jump and
+  and ends in a terminator falls into proven code, and nothing in the ROM (branch scan of all code regions, word scan, far-pointer scan, `ld r16` scan) targets it.  Typical case: the compiler-emitted dead `jr`/`ret` after an unconditional jump and
   unreferenced sibling functions.  Revert to `data` if a later stage finds them to be data; bytes are unchanged either way.
 * `29:5090-5376`: see 3.3.  * Animation scripts (byte meaning unverified).  * `22:4468`, `2B:5807` blank strings (no reference).
 

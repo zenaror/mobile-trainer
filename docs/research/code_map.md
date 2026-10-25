@@ -233,7 +233,7 @@ I/O or MBC-area stores).  What it **found wrong** and what was changed:
 
 **Not found, checked:** any CONFIRMED call/jump/table edge into a span the map labels data/unknown (the only targets that are not code starts are the five
 discarded junk walks 00:21A0 (padding), 2E:58C4 / 2E:5FA2 / 2E:6DD0 (illegal opcode / padding), and the 2A:4441 mid-instruction entry); a
-code region ending in something other than a terminator or a following inline table (the 50 non-terminator run ends are all `call $0545/$056A` with their table, plus
+code region ending in something other than a terminator a following inline table (the 50 non-terminator run ends are all `call $0545/$056A` with their table, plus
 one `seq` at 2A:4440, now fixed).  **Still open (unchanged):** PROBABLE code reached from no trace has no ground truth (87.7 % of PROBABLE starts); the audit
 samples are a reading, not proof.
 

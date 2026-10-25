@@ -74,7 +74,7 @@ The five descriptors at 6581/65A0/65BF/65DE/65FD have the same 31-byte layout. T
 
 `Browser_LoadFrameGraphics` at6196–6291 directly consumes only offsets00–0E, but its complete call path also uses suffix fields. Its calls at625F/6265/626B target ClearBodyArea612B, ClearTitleArea60E4 and DrawScrollbarTrack5E11. The first two read0F/11 and fill map rectangles through4F:45C6; they also clear the body/title tile canvases through4F:4604. The track helper returns early if the scrollbar is disabled. Its enabled path reads1B, writes the track and attributes in WRAM7, and falls directly from the loop ending5E5A into UpdateScrollThumb5E5B, which conditionally reads1D. Consequently “MAIN reads only15 bytes” is valid only for the direct6196–6291 body, not its full helper path. Arrow, timer and connection-icon consumers are additional routines; this does not claim they are all invoked by that loader.
 
-All descriptor table reads above require ROM4E mapped. FarCall00:06D1 saves and restores the caller ROM bank around its inline target; resource transfers temporarily select the bank47 sources. Tilemap_FillAscendingWithAttr4F:45C6 explicitly selects WRAM7 and restores its incoming WRAM bank. DrawScrollbarTrack explicitly selects WRAM7; TileCanvas_FillRect4F:4604 instead writes tile staging banks2/3 and restores its incoming WRAM bank. These destination effects must not be confused with descriptor or source-ROM banks.
+All descriptor table reads above require ROM4E mapped. FarCall00:06D1 saves and restores the caller ROM bank around its inline target; resource transfers temporarily select the bank47 sources. Tilemap_FillAscendingWithAttr4F:45C6 explicitly selects WRAM7 and restores its incoming WRAM bank. DrawScrollbarTrack explicitly selects WRAM7; TileCanvas_FillRect4F:4604 instead writes tile staging banks2/3 and restores its incoming WRAM bank. These destination effects must not be confused with descriptor source-ROM banks.
 
 `Browser_FrameStylePreview_LoadGraphics` at6291–6543 has four direct suffix queries, all to0F/11. They use two selectors in distinct phases:
 
@@ -394,7 +394,7 @@ reader absence, global unused status, natural selection, or a name/frame mapping
 The independent reviewer accepted the audit with those limits; see the current
 Mobile Trainer handoff for the retained private receipt location.
 
-The retained follow-up receipt (`.tmp/agent-pokemon-frame-audit-20261020/REPORT.md`,
+The retained follow-up receipt (`REPORT.md` (review artifact),
 SHA-256 `765297e74430bbd89783e8bc88c8219ed1025017e5ce64e601c57767e508c2ea`)
 measured the 25 windows as 85,200 original bytes and confirmed exact source
 reemission. Each of the eight KEEP windows lacks an editable screen row but has
@@ -408,7 +408,7 @@ placement model. The earlier independent receipt did not authenticate its
 claimed snapshot revision. To close that provenance gap, the audit was rerun
 read-only against authenticated HEAD
 `16d461e1f23743842343b92fc78b66088bba6986` in
-`.tmp/bank53-frames-readonly-head-16d461e1/`. Its `RESULT.json` has SHA-256
+`bank53-frames-readonly-head-16d461e1` (review artifact). Its `RESULT.json` has SHA-256
 `cf0726b0d1486b7d124f6765efe1a3dc647e774ab3292e863a14f6f3f960922b`; the audit
 script is `53996cb1563208c1275ca49b8ce537f18e2b71c214b76f19c03d994c401dd8f6`.
 The fresh receipt confirms 25 name records (369 bytes, exact original bytes),
@@ -498,7 +498,7 @@ Audited control hashes are recorded in the checkpoint receipt and include
 `gfx/previews/screens.tsv`, the six Bank 41–46 frame owners and
 `gfx/browser/frames_2_3.asm`. The exact input sizes and SHA-256 values and
 measured results are retained in the ignored local receipt
-`.tmp/jp-bank53-revalidation-20261022/RECEIPT.json` (SHA-256
+`RECEIPT.json` (review artifact) (SHA-256
 `622b91ff343c465b6acfddb5b76ed27ec2ddad90e61de066c31323b013c87dc9`). This
 remains static asset-integrity evidence, not proof of natural selection,
 global unused status, universal reader absence, or name-to-image association.

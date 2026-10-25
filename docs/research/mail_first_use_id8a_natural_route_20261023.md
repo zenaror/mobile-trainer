@@ -14,6 +14,6 @@ This is a bounded emulator observation using the existing registered adapter sav
 
 ROM SHA-256: `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
 Tracer SHA-256: `c3a4ac33ea322822c3f1b0f44d8f1e4f7343ac4f39ec9f328f97d98c4ad48867`.
-The run macro, runtime identities, two trace summaries/data-access tables, SRAM outputs, and all capture hashes are recorded in the private ignored manifest `.tmp/jp-help-mail-id8a-natural-20261023/MANIFEST.json`.
+The run macro, runtime identities, two trace summaries/data-access tables, SRAM outputs, and all capture hashes are recorded in the private ignored manifest `MANIFEST.json` (review artifact).
 
 The first exploratory run stopped before the terminal input and is excluded from the result. The two complete runs are `recheck` and `recheck2`; each ended at frame 10,724 after 47,025,651 instructions.

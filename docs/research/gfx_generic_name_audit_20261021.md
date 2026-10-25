@@ -25,7 +25,7 @@ unproven, and verify each candidate's bank, exact address, references, local
 scope and file/path ownership before editing.
 
 The complete 625,149-byte private report is retained at
-`.tmp/agent-gfx-name-audit-private-20261021/REPORT.md` (SHA-256
+`REPORT.md` (review artifact) (SHA-256
 `7b511ddde653b245b02623e8f0bf8fcb25d24b63728e9b4fa2887f65d68c576e`). Its
 85-source aggregate SHA-256 is
 `9ce4241d25bbff70fc454a9a3fdcb43814ab7b6c61bae6193fd60bde127e9c5c`.
@@ -158,7 +158,7 @@ static source/consumer mappings in `engine/unreferenced/page_list_prototype.asm`
 and `gfx/browser/page_list_candidate.asm`; they do not establish natural entry,
 visible composition, or user-facing meaning. All seven catalog rows remain
 PROBABLE. The ten moved files retain their raw hashes and payload hashes in
-`.tmp/jp-page-list-candidate-paths-20261022/PRE_MOVE.json` and `POST_MOVE.json`.
+`PRE_MOVE.json` (review artifact) and `POST_MOVE.json`.
 
 The maintained Japanese GFX filename census after this pass is 72 address-only
 stems in 7 directories and 147 associated files; 90 catalog rows remain (75
@@ -190,7 +190,7 @@ a signed/unsigned tie with different rendered tiles. Static path mapping does
 not establish natural rendering or resolve those screen models.
 
 All 61 raw files retained their pre-move hashes. Asset payload hashes and raw
-file hashes are recorded in `.tmp/jp-account-5d5e-paths-20261022/PRE_MOVE.json`
+file hashes are recorded in `PRE_MOVE.json` (review artifact)
 and `POST_MOVE.json`; the old-to-new path ledger is in
 `gfx_resource_path_map.tsv`. The maintained Japanese GFX filename census is now
 44 address-only stems in five directories / 86 files, with 56 address-only

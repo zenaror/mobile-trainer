@@ -8,7 +8,7 @@
 | `Palette_5F_4CD0` | `Palette_SharedPanels_BgObj` | The exact 40-byte RGB555 block supplies BG6..7 and OBJ5..7. |
 | `Data_71_4300` | `Gfx_CommPanel_SharedVramSource` | A shared source contributes to two overlapping uploads with different destinations. |
 
-All three names are CONFIRMED for these source/load roles. All 36 instruction operands and eighteen consumer farcalls match the immutable ROM, including complete register vectors and selected-bank consumers. All consumers have existing natural coverage. Names do not claim a new content class, one visual screen, final displayed pixels, PPU behavior or hardware validation. Old aliases, binary paths and section boundaries remain intact.
+All three names are CONFIRMED for these source/load roles. All 36 instruction operands and eighteen consumer farcalls match the immutable ROM, including complete register vectors and selected-bank consumers. All consumers have existing natural coverage. Names do not claim a new content class, one visual screen, final displayed pixels, PPU behavior hardware validation. Old aliases, binary paths and section boundaries remain intact.
 
 The eight first-block readers use source5F:49D0..4CD0, C=$30 sixteen-byte blocks, DE=$8001, yielding VRAM8000/VB1. The name describes every reader across the keyboard and confirmation setup paths, rather than attributing a shared block to one screen.
 

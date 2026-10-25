@@ -10,7 +10,7 @@ encode, e.g. the game-side behaviour) is the Dan Docs text copy in
 `<GB>/MobileAdapterGB/MAGB-TestSuit/gbdk/docs/dandocs-magb.md` (public domain). Where a claim is also visible in the
 Trainer ROM the ROM evidence is given as `bank:addr` (see `docs/research/mobile_trainer_serial.md`).
 
-`<GB>` = `/media/rafael/Dados/Arquivos/Projetos/Gameboy Projects`.
+`<GB>` = `$REFERENCE_ROOT`.
 
 ---------------------------------------------------------------------------------------------------------------
 
@@ -119,7 +119,7 @@ adapter -> GB  : 99 66 (CC|80) 00 00 LL <data> KK KK (dev|80) 00     <- GB answe
 | `HEADER` | 4 bytes stored + summed; `data_size = header[3]`; `header[2] != 0` -> back to `WAITING`; before a session only `0x10` is accepted; unknown command sets `error = F0`; data present -> `DATA`, else `CHECKSUM` (44-86) |
 | `DATA` / `DATA_PAD` | store + sum; 32-bit padding (88-106) |
 | `CHECKSUM` | 2 bytes; mismatch sets `error = F1`; returns `dev|0x80`; -> `ACKNOWLEDGE` (108-120) |
-| `ACKNOWLEDGE` | checks console device byte (except blue adapter), returns `error or header[0]^0x80`; -> `IDLE_CHECK` (122-147) |
+| `ACKNOWLEDGE` | checks console device byte (except blue adapter), returns `error header[0]^0x80`; -> `IDLE_CHECK` (122-147) |
 | `IDLE_CHECK` | skips exactly one byte, then: `NULL` command (`0x0F`) or an error -> `WAITING`; byte != `0x4B` -> `WAITING`; else `RESPONSE_WAITING` (157-177) |
 | `RESPONSE_WAITING` | returns `D2` while the main loop processes the command (`mobile_actions_get`: `PROCESS_COMMAND`, `mobile.c:186-189`) (179-181) |
 | `RESPONSE_INIT/START` | `99`, `66` (183-198) |

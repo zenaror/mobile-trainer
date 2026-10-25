@@ -4,7 +4,7 @@
 
 This pass corrects 15 comment lines in `engine/gfx/unreferenced_palette_library.asm`, the 742-byte span `29:5090–5376` (end exclusive). All entries remain **HYPOTHESIS**. Its existing 18 global labels and aliases are retained. “Candidate library image” describes an interpretation; it does not establish live code, a caller, a copied image, or a relocated image.
 
-The proposal is explicitly based on published original `7fb572c0c58a996d508d3b4bd5f91219a90bf13f`, after source bank 29 templates `28c26377039742d48ad0c9a5b0afab85857e0220` and its documentation follow-up. The older prepared library overlay on `0bb401b59b54e14b8d31b8109125ae4cfd6b461e` is historical. A new direct OWN captured all 4,180 tracked files and Git blobs, current filesystem modes, raw Git/ref bindings, ROM/SYM, layout, 343 ASM / 348 ASM-inc sources, 289 analysis/gfx TSVs and the existing 188 natural files before the updated independent analytical packet was opened. Prior analysis and brief OMM state were known context, not substitutes for this capture.
+The proposal is explicitly based on published original `7fb572c0c58a996d508d3b4bd5f91219a90bf13f`, after source bank 29 templates `28c26377039742d48ad0c9a5b0afab85857e0220` and its documentation follow-up. The older prepared library overlay on `0bb401b59b54e14b8d31b8109125ae4cfd6b461e` is historical. A new direct OWN captured all 4,180 tracked files and Git blobs, current filesystem modes, raw Git/ref bindings, ROM/SYM, layout, 343 ASM / 348 ASM-inc sources, 289 analysis/gfx TSVs and the existing 188 natural files before the updated independent analytical packet was opened. Prior analysis and brief  state were known context, not substitutes for this capture.
 
 ## Raw facts and the former absence claim
 

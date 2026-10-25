@@ -16,7 +16,7 @@
 | new labels | **161**: 159 `<Table>_Entry<N>` (22 parent tables: `MailSession_ObjTable_72FB` 38, `Mailbox_ObjTable` 13, `MailResult_ObjTable` 13, `MailConnect_ObjTable` 11, ...) and 2 neutral `Table_BB_AAAA` names for object-table entries kept as `db` / `ds` |
 | files changed | 109: 86 of code (`engine/` 84, `lib/` 2) and 23 of `gfx/` that received labels |
 | rules | `analysis/naming2/rom_consumers.tsv`: 23 rows: 9 of bank kind `A` (the routine takes the ROM bank in A), 10 of kind `mapped` (it reads the bank that is mapped), 4 of a fixed bank (`75`) |
-| left numeric | 82 `no label`, 18 `not a table entry`, 3 `vector or null` among the operands of a consumer that has a rule (section 6); 3,143 operands whose consumer has no rule: 1,449 of them lie in `$0150-$7FFF` (1,694 below), most are counts, pairs and divisors |
+| left numeric | 82 `no label`, 18 `not a table entry`, 3 `vector null` among the operands of a consumer that has a rule (section 6); 3,143 operands whose consumer has no rule: 1,449 of them lie in `$0150-$7FFF` (1,694 below), most are counts, pairs and divisors |
 | tests | `python3 tools/test_rom_operands.py`: 47 tests (a synthetic tree in memory and `main()` on a mini tree: no build needed) |
 | ROM | byte-identical (`make compare`: `RESULT: IDENTICAL`; `sym-check`, the form checks, `sprite_chain_check`, `apply_banked_names --check`, `invariants_check` and every other audit of the repository pass); every changed line is an operand or a bank load replaced by an expression of the same value, or one of the 161 inserted labels |
 
@@ -54,7 +54,7 @@ A consumer that never ran (`SampleData_CopyString`, `Mail_EmitStringAndSuffix`) 
 | `Html_ScanAttributes` (00:1119) | BC | mapped | hands BC to `Html_MatchKeyword` (00:10E9: `ld a, [bc] / inc bc`): a table of string pointers in the caller's bank | 15 |
 | `Mobile_PacketSendBytes` (75:5F10), `...Expect` (75:5F0B), `...EmptyBody` (75:5F08), `...ReadConfig` (75:6371) | HL | 75 | stores HL in `wMobileSDK_TxPointer`; the bytes are read by `MobileSDK_TxNextByte` (75:5B2B) from the timer interrupt, which selects bank 75 first: a packet template of bank 75 whoever calls | 63, 62, 62, 62 |
 
-`Sprite_SetPosition` takes a Y,X *pair* in DE (`$5A47`): it has no rule, and neither has any routine whose DE, HL or BC is a count, a length, a divisor or a coordinate (section 6).
+`Sprite_SetPosition` takes a Y,X *pair* in DE (`$5A47`): it has no rule, and neither has any routine whose DE, HL or BC is a count, a length, a divisor a coordinate (section 6).
 
 ## 3. How the tool proves the operand
 
@@ -117,7 +117,7 @@ three live object-table entries kept as `db` / `ds` were left numeric; 7 consume
 
 ## 6. Left numeric
 
-* **103 operands of a consumer that has a rule**: 82 `no label` (the target is inside a block) + 18 `not a table entry` + 3 `vector or null` (below `$0150`).  The 100 pointers by target (readers R3 and R4, about 85 distinct targets): 43 inside a `.2bpp`
+* **103 operands of a consumer that has a rule**: 82 `no label` (the target is inside a block) + 18 `not a table entry` + 3 `vector null` (below `$0150`).  The 100 pointers by target (readers R3 and R4, about 85 distinct targets): 43 inside a `.2bpp`
   block (21 HDMA tile ranges at multiples of 16 bytes, 22 palettes and tilemaps inside a tile block: see section 5), 23 inside a `.pal` file (22 at multiples of 8: palette k of a bigger file, for example `Palette_5F_4CD0 + $10`
   at 8 sites), 10 sub-rectangles of a `.tilemap` (the help screens), 6 inside a `db` line (3 HDMA, 2 `CopyString`, 1 palette), 16 string `db` lines that no label starts (`TextTiles_Render*`: `String_ConnectDialog_Messages`
   + $47 and so on) and 2 palette `db` rows.  A label before the line (the last 18) and `Label + offset` or a line split (the others) are the next pass.

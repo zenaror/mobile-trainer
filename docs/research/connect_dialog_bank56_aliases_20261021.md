@@ -38,7 +38,7 @@ tracked non-language ASM/INC files excluding `engine/mail/sample_data.asm`,
 with source-set SHA-256
 `e8f5a54fd029b70ded630da26b7a1a96f87d2fb3832a2e7385f1f0e282303de2`.
 The census and independent review are retained under ignored
-`.tmp/generic-coalias-post-f4716767-20261021/` (`REVIEW_CONNECT_DIALOG.md`).
+`generic-coalias-post-f4716767-20261021` (review artifact) (`REVIEW_CONNECT_DIALOG.md`).
 
 ## Follow-up: stored-password HDMA continuation (2026-10-21)
 

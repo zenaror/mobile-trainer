@@ -41,7 +41,7 @@ English manifest, overrides, payloads and fallback maintenance remain suspended 
 
 ## Validation boundary
 
-This package contains exact BEFORE pins, source snapshots, five rename/deletion entries, keyed cell edits, append-only/line edit plans and a finite source/AST/ROM hash readset. It is not self-accepted or adopted. Only private static Python analysis ran; no repository helper was imported or executed, no unit test, make, compiler, emulator, renderer, Git or OMM operation ran. The predicted symbol-set delta is zero, without a fixed future parent or total. Actual rebuild/ROM identity and editing pipeline checks belong to ROOT after independent review. Equal source slices and PNG hashes alone are not an assembled-ROM comparison.
+This package contains exact BEFORE pins, source snapshots, five rename/deletion entries, keyed cell edits, append-only/line edit plans and a finite source/AST/ROM hash readset. It is not self-accepted or adopted. Only private static Python analysis ran; no repository helper was imported or executed, no unit test, make, compiler, emulator, renderer, Git operation ran. The predicted symbol-set delta is zero, without a fixed future parent or total. Actual rebuild/ROM identity and editing pipeline checks belong to ROOT after independent review. Equal source slices and PNG hashes alone are not an assembled-ROM comparison.
 
 ## ROOT integration ordering follow-up
 

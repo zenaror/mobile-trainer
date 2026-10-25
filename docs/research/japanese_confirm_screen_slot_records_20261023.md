@@ -24,4 +24,4 @@ The lookup has no local bounds check. If `wConfirmScreen_Slot` were `$03`, its w
 - `make sym-check`: 335 source files, 12,215 source/linker labels, 51 constants; OK. The four record labels resolve to `4B:76C0`, `4B:76C4`, `4B:76C8`, and `4B:76CC`; the pointer table remains at `67:53D6`.
 - `git diff --check`: clean after the source and documentation edits.
 
-These are static source and original-ROM facts. The earlier 70-scenario corpus check found no read interval over the zero record; that result remains bounded to that corpus and does not prove global non-use. No emulator or hardware behavior was tested in this pass.
+These are static source and original-ROM facts. The earlier 70-scenario corpus check found no read interval over the zero record; that result remains bounded to that corpus and does not prove global non-use. No emulator hardware behavior was tested in this pass.

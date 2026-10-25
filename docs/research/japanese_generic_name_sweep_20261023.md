@@ -136,7 +136,7 @@ The same current-tree pass rechecked all maintained source/resource paths, not o
 
 Historical snapshot: at the time of this earlier sweep, `Settings_ReadData_UnknownContent_7271` and `UnresolvedTiles_7F_7830` were explicit uncertainty labels. The latter was later replaced after the byte-identity review recorded below; do not treat this paragraph as current path/status.
 
-Validation on the pre-correction source at `1831eb4e`: `make -j2 BUILD=/tmp/mt-generic-audit-build ROM=/tmp/mt-generic-audit.gbc` produced `SHA-256 OK` and `RESULT: IDENTICAL` against the Japanese ROM (`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`); matching overrides passed `make sym-check` (335 files, 12,195 labels, 51 constants) and `make palette-check` (162 loads, 116 arrays, 2 documented over-reads, 0 errors). The checkout's default `build/` was read-only under this execution sandbox, so generated outputs were placed in `/tmp`. After the tool edit, `python3 tools/japanese_name_census.py --generic-list` exited 0 and reconciled all 2,764 local-anchor ledger rows while listing the ten RET-only names, two unresolved labels, 19 boundary clues, active path counts, and the owner-qualified bank-tagged paths. These source-independent checks are not rerun after documentation-only edits.
+Validation on the pre-correction source at `1831eb4e`: `make -j2 BUILD=build/review ROM=build/review/mobile_trainer.gbc` produced `SHA-256 OK` and `RESULT: IDENTICAL` against the Japanese ROM (`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`); matching overrides passed `make sym-check` (335 files, 12,195 labels, 51 constants) and `make palette-check` (162 loads, 116 arrays, 2 documented over-reads, 0 errors). The checkout's default `build/` was read-only under this execution sandbox, so generated outputs were placed in `/tmp`. After the tool edit, `python3 tools/japanese_name_census.py --generic-list` exited 0 and reconciled all 2,764 local-anchor ledger rows while listing the ten RET-only names, two unresolved labels, 19 boundary clues, active path counts, and the owner-qualified bank-tagged paths. These source-independent checks are not rerun after documentation-only edits.
 
 ### Linker-export cross-check at `be577515` (2026-10-23)
 
@@ -182,7 +182,7 @@ To cover code that has no symbol for a generic-name census to find, an exact sca
 | `engine/unreferenced/page_list_prototype.asm`, `7F:61E8` | Added `PageListProto_SelectWramBank7AndClearTimerA` | The body selects WRAM bank 7, clears `wTimerAFrames`, `wTimerASeconds`, `wTimerAMinutes`, and `wTimerAExtra`, then returns. Body effect is CONFIRMED; ret-delimited boundary PROBABLE; entry and reachability HYPOTHESIS because no caller/pointer is known. |
 | `engine/browser/status_sprites.asm`, `4E:6087` | Existing `ConnIcon_GetBrowserFramePos` retained | The body reads the descriptor word at offset `$19` using the same table lookup as the inline code in `ConnIcon_StartSprite`. The operation is PROBABLE; standalone entry/reachability remains HYPOTHESIS. The existing label is descriptive, not generic. |
 
-No ROM bytes or operands changed. A full Japanese rebuild with `ROM=/tmp/mobile-trainer-function-audit-20261023/mobile_trainer.gbc` and `BUILD=/tmp/mobile-trainer-function-audit-20261023/build` reported `RESULT: IDENTICAL` and SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`; `make sym-check` passed with 335 source files, 12,191 labels, and 51 constants; `make palette-check` passed 162 loads in 116 arrays with two documented over-reads and zero errors. These checks validate reconstruction and label addresses, not natural entry or execution of the two hypotheses.
+No ROM bytes or operands changed. A full Japanese rebuild with `ROM=review-output` (review artifact) and `BUILD=review-output` (review artifact) reported `RESULT: IDENTICAL` and SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`; `make sym-check` passed with 335 source files, 12,191 labels, and 51 constants; `make palette-check` passed 162 loads in 116 arrays with two documented over-reads and zero errors. These checks validate reconstruction and label addresses, not natural entry or execution of the two hypotheses.
 
 ### Complete `Mail_NextSramPage` caller-shape inventory
 
@@ -370,7 +370,7 @@ The historical 500-name batch built a byte-identical 2,097,152-byte ROM and pass
 ## Verification for this checkpoint (2026-10-23)
 
 After the source-comment, census-tool and research-note updates,
-`make ROM=/tmp/mobile-trainer-final-20261023 BUILD=/tmp/mobile-trainer-final-build-20261023`
+`make ROM=build/review/mobile_trainer.gbc BUILD=build/review`
 rebuilt 2,097,152 bytes with SHA-256
 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570` and
 `RESULT: IDENTICAL`. With the same overrides, `make sym-check` passed for 335

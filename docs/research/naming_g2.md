@@ -336,7 +336,7 @@ No instruction in `4C55–4D24` appears in the retained natural union; branch
 feasibility and complete callee/state guarantees remain unproved. This is a
 conditional original stack contract, not a repair or a new natural root.
 The exact-byte stack model, all 18 values, input hashes and trace row are in
-`.tmp/jp-branch-stack-returns-20261025/check_pagelist_stack.py` and
+`check_pagelist_stack.py` (review artifact) and
 `PAGELIST_CONTRACT.json`.
 
 The 2026-10-25 paired adapter-removal control starts both cases from the
@@ -349,7 +349,7 @@ case executes `4C55–4D24`. This confirms the early error exit for this input,
 not unreachability of the inactive branch or hardware behavior. The two
 replays use synthetic Internet responses without RAM forcing; their inputs,
 commands, observer/ROM/fixture hashes, watched writes and coverage are retained
-in `.tmp/jp-pagelist-disconnect-control-20261025/{RUN,RESULT}.json` and the
+in `{RUN,RESULT}.json` (review artifact) and the
 per-case files. Raw serial/MBC logs are capped and are not used as complete
 execution histories. The response-timeout producer remains a separate question.
 
@@ -384,9 +384,9 @@ evidence; the corrected run records the activation and timeout effects. Four
 additional unplug offsets (10063–10066) reach the early error exit instead,
 through `75:592A` or sync-miss writer `75:5849`.
 
-Reproduction and receipts are in `.tmp/jp-pagelist-response-wait-20261025/`:
+Reproduction and receipts are in `jp-pagelist-response-wait-20261025` (review artifact):
 `build.py`, `run.py` (retained failed driver), `run_fixed.py`, `run_exit.py`,
 `CONTROL.json`, and `RESULT.json`; original adapter-removal controls remain in
-`.tmp/jp-pagelist-disconnect-control-20261025/`. These observations are kept
+`jp-pagelist-disconnect-control-20261025` (review artifact). These observations are kept
 separate from the ordinary trace union and hardware evidence. None establishes
 the missing six candidate roots or a Bank53 name/frame consumer.

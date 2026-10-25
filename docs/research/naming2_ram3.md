@@ -107,7 +107,7 @@ Each point was re-derived by the reader of the package (details and addresses in
 * **`C27C-C283`.**  The roles are per screen, as ram2 said, but the lead "C27E = idle counter low byte" is wrong: in the title screen C27E:C27F is a 16-bit *big-endian* frame counter
   (`0E:40CA-40E5`, C27E the high byte, compared with `$00B4` = 3 s; `Title_StateMenu` identical with `$2A30` = 3 min).  In `CommScene_Step` C27E is the argument and C27F the result (1 running, 2 B
   pressed, 0 finished).  In the notice pages C27E:C27F is a little-endian pointer to the six-byte page record (`$4BDE + 6 * page`, `65:48B4-48BD`) and C27C the page number.  C27C is also an entry
-  argument (`Account_ResultPage` kind 0-4, `Registration_DeleteConfirmPage`) and the verify result of the registration flow; C27D an entry argument, an edited-field selector or a cancel flag
+  argument (`Account_ResultPage` kind 0-4, `Registration_DeleteConfirmPage`) and the verify result of the registration flow; C27D an entry argument, an edited-field selector a cancel flag
   depending on the screen; C27E a slot index 0-2 in the settings-phone screens.  `C280`/`C281` of the comm scene place two *sprites* (a walking figure and a blue "@" icon: `SpritePairX`,
   `SpritePairVariant`), not text: "TextObjTable" and "SetTextSprites" in the labels are a misnomer that a later pass can fix.
 * **`C286` is not an "API poll counter".**  It is a one-shot latch of the adapter animation sound (`Sound_PlaySfx` bc = `$0046` plays once when frame index 2 of sprite slot 0 appears, the flag is

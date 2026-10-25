@@ -6,7 +6,7 @@ Prior readonly independent review upheld the complete26-artifact derivation with
 
 The canonical private37-check battery must be inspected by individual result. Required expected outcome is36 rc0 checks plus the unchanged historical apply_manual_sites ramop7 rc2 schema failure. Make must report SHA-256 OK and RESULT: IDENTICAL, with byte-exact symbols; a37-PASS statement is prohibited. Fresh coordinator main and remote gates remain pending.
 
-Privacy: no sample records or private ROM payloads are publication artifacts. No main, real EN, Git or OMM mutation by this private pass. Whole original/English runtime and hardware observations remain outside its scope.
+Privacy: no sample records or private ROM payloads are publication artifacts. No main, real EN, Git by this private pass. Whole original/English runtime and hardware observations remain outside its scope.
 
 The completed private canonical battery has 36 rc0 results and the reproduced historical ramop7 rc2 schema failure. The original and rebuilt ROMs are byte-identical (SHA-256 6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570); the full symbol file remains byte-identical, SHA-256 cbc229d7ec60c419e78a9bf2aacf848eb9b3a47e690c95f0a26484a575aa26ce, with 15,535 banked labels plus 51 exported constants. Four comment lines change at14/27/45/59, with zero source line movement and no literal metadata updates. Independent executable review and coordinator publication gates remain pending. This result appendix was added after the source battery; it changes documentation only.
 

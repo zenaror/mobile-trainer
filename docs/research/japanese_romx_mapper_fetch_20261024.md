@@ -4,7 +4,7 @@
 
 CONFIRMED static result on source based on `b4863f2a7916936ac75da56088c6773a6618d403`: 333 maintained ASM/INC files contain 55 resolved textual `ld [absolute], a|sp` stores into $2000–$3FFF. Three sites belong to ROMX owners. All recognized absolute expressions resolved. This is not an exhaustive census of computed writes, macro/data-emitted instructions, or execution outside declared owners.
 
-Original ROM SHA-256: `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. The three instruction encodings were checked against this ROM. Reproduction script, source hashes and rows are retained in `.tmp/jp-romx-mapper-write-20261024/`; these are static evidence, not new runtime observations.
+Original ROM SHA-256: `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. The three instruction encodings were checked against this ROM. Reproduction script, source hashes and rows are retained in `jp-romx-mapper-write-20261024` (review artifact); these are static evidence, not new runtime observations.
 
 | Physical source | Instruction bytes | Next fetch | Interpretation |
 | --- | --- | --- | --- |
@@ -53,7 +53,7 @@ Both `Html_ParsePage` and `Html_ScanPage` set the page header to D000 in WRAM4, 
 
 ### Evidence and retention
 
-The second-pass script and hashes are in `.tmp/jp-bank-helper-contracts-20261024/audit.py` and `RESULT.json`; the matrix is versioned with this note. Only small task evidence is retained. No ROM execution or translation build was performed for this analysis, and no historical evidence was deleted. The next analysis must address the remaining pointer invariants or copied-code producers rather than rediscovering these 57 sites.
+The second-pass script and hashes are in `audit.py` (review artifact) and `RESULT.json`; the matrix is versioned with this note. Only small task evidence is retained. No ROM execution or translation build was performed for this analysis, and no historical evidence was deleted. The next analysis must address the remaining pointer invariants or copied-code producers rather than rediscovering these 57 sites.
 
 ## Observed RAM execution producers
 
@@ -111,7 +111,7 @@ All these destinations remain in the WRAM region, so their two font helper calls
 
 The dynamic contracts are: typed password buffer with0..8 valid full-width glyphs and terminator; debug hex builders with fixed prefix/suffix and masked digit indexes (7glyphs for flags,8for error,6for sound); flags bit builder16glyphs; flags decimal builder copies a15-byte,7glyph template and overwrites at most five digit cells. The relevant16-pair hexadecimal alphabets and decimal template were checked against original bytes for leading CR/NUL and termination. For the name-pointer site, `DebugFlags_Run` clears C0E5 to0, the increment branch rejects1 and decrement rejects0; under this initialized-state path the sole selected pointer is19:4912→4914. This does not prove entry into DebugFlags_Run or close the table under arbitrary index values.
 
-The finite script checks all32title start columns and the11direct ROM strings; dynamic bounds encode the source-inspected constructor limits and are not independent CPU execution. Reproducible inputs, original source-byte hashes and per-site output are retained in `.tmp/jp-texttiles-producer-bounds-20261024/check.py` and `RESULT.json`. No source/ROM/build output changed in this documentation-only pass; the preceding byte-identical build remains the source baseline. The remaining TextTiles branch is `TextTiles_RenderLine`, whose unbounded loop needs actual source lengths and destination producers; the grid results must not be generalized to it.
+The finite script checks all32title start columns and the11direct ROM strings; dynamic bounds encode the source-inspected constructor limits and are not independent CPU execution. Reproducible inputs, original source-byte hashes and per-site output are retained in `check.py` (review artifact) and `RESULT.json`. No source/ROM/build output changed in this documentation-only pass; the preceding byte-identical build remains the source baseline. The remaining TextTiles branch is `TextTiles_RenderLine`, whose unbounded loop needs actual source lengths and destination producers; the grid results must not be generalized to it.
 
 ## RenderLine: producer batch and exact continuation list
 
@@ -128,7 +128,7 @@ The model does not prove natural reachability, producer-index validity, SRAM int
 
 The22remaining calls are two browser-menu rows; five generic-dialog rows; one help-script row; four mail-session rows; two progressive mail-result scratch rows; six delete-screen decimal rows; and two delete-progress rows. These are the next concrete producer obligations, alongside the separate HTML/browser pointer invariants. Existing Bank22 text and Bank29 decimal evidence was reused, not reopened as unfinished inventory.
 
-Reproduction is `.tmp/jp-textline-bounds-20261024/check.py` and `RESULT.json`, with immutable ROM hash and maintained source hashes. This pass changes documentation only; the last verified RGBDS source/build remains7b1f83f1. No emulator run or new natural-edge observation is claimed. Small script/results retained; no ROM copy, source clone or historical evidence removal.
+Reproduction is `check.py` (review artifact) and `RESULT.json`, with immutable ROM hash and maintained source hashes. This pass changes documentation only; the last verified RGBDS source/build remains7b1f83f1. No emulator run or new natural-edge observation is claimed. Small script/results retained; no ROM copy, source clone or historical evidence removal.
 
 ## Remaining RenderLine producers resolved within their declared domains
 
@@ -142,7 +142,7 @@ The preceding22 residual rows now have explicit conditional contracts in the mat
 
 These results rely on intact scratch/stack and ordinary callee returns, just as the prior bounded contracts. They eliminate these declared text-rendering paths as ROM-bank-changing destinations in that domain; they do not establish a new natural path to any candidate or a Pokémon/frame link. The remaining investigation moves to the42HTML/browser pointer sites and their actual producers, not another TextTiles inventory.
 
-Reproduction: `.tmp/jp-textline-interprocedural-20261024/check.py` and `RESULT.json`; original bytes supply all68records,142lines,six menu strings,eight messages,five captions and numeric suffixes. The output retains hashes of the decoded original strings. Only small task artifacts are retained; no source clone or historical data removal.
+Reproduction: `check.py` (review artifact) and `RESULT.json`; original bytes supply all68records,142lines,six menu strings,eight messages,five captions and numeric suffixes. The output retains hashes of the decoded original strings. Only small task artifacts are retained; no source clone or historical data removal.
 
 
 ## HTML resource-chain guards: exact local boundary
@@ -176,7 +176,7 @@ Consequently the initial B000/0FFC request must not yet be promoted to a proven
 bound on every resource-chain length. Even if N<=0FFA is established for that
 request, ListEnd can reach BFFE; acceptance of another URL is narrower (<=BEFC).
 
-Reproduction: `.tmp/jp-html-resource-guards-20261024/check.py`, RESULT.json and
+Reproduction: `check.py` (review artifact), RESULT.json and
 INPUTS.json. The finite model checks the guard only, independently of HTTP input
 validity. Three small files retained, no ROM/source clone. Documentation-only
 change; source-build baseline remains e37d96b8. This narrows the HTML obligations;
@@ -228,7 +228,7 @@ The two dictionary rows in the helper matrix are now resolved for this declared
 55-page domain, leaving40HTML/browser rows requiring their contracts. This is
 not a global unused-code claim: a substituted page/list or direct entry is outside
 the proof, and no claim is made that all55 pages ran on a console or emulator.
-Reproduction: `.tmp/jp-html-consumer-domains-20261024/check.py` and RESULT.json,
+Reproduction: `check.py` (review artifact) and RESULT.json,
 with per-record source hashes, lengths, tag offsets and pinned SDK opcode checks.
 Source/ROM bytes are unchanged; the e37d96b8 build remains the source baseline.
 
@@ -278,7 +278,7 @@ buffer. Do not conflate a bounded published length with correct payload placemen
 Malformed/incomplete header parsing and unrelated state mutations are outside
 this conditional contract, not proven safe or naturally reachable.
 
-Reproduction: `.tmp/jp-http-initial-body-20261024/check.py`, RESULT.json and
+Reproduction: `check.py` (review artifact), RESULT.json and
 INPUTS.json. This closes the local zero-window/zero-count ambiguity and narrows
 future work to real producer alternatives; do not rerun the same branch census.
 No source changes, emulator execution or new natural scenario are claimed.
@@ -328,7 +328,7 @@ check. Do not replace this exact producer question with another label census.
 
 The matrix now has30 unresolved HTML/browser rows; the two dictionary rows and
 these ten have explicit domains. Reproduction is
-`.tmp/jp-html-record-domain-20261024/check.py`, RESULT.json and INPUTS.json.
+`check.py` (review artifact), RESULT.json and INPUTS.json.
 Only1715bytes of task artifacts retained; no source/ROM changes or new runtime.
 
 ### Current residual count after the BMP and URL-list boundary reviews
@@ -384,7 +384,7 @@ substituted for the postprocessed prefix. The observed+2 is preserved as runtime
 evidence; broader charset contracts remain separate.
 
 Reproduction fixtures/script and both runs are in
-`.tmp/jp-bmp-capacity-witness-20261024/` (about0.97MB before the verification
+`jp-bmp-capacity-witness-20261024` (review artifact) (about0.97MB before the verification
 manifest). RUN2_INPUTS.json contains the exact command; `index_v2.html` is the
 positive page, `x.bmp` its image. The82-byte BMP SHA256 is
 `9266c67c16fe79e52f6358102b1a510061ff7da5f454eab05acdbcb8b0efaee3`.

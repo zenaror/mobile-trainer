@@ -24,8 +24,8 @@ usa `Palette_SettingsPhone_ChoiceMenu_Bg`; os dois nomes ainda são coaliases em
 retirada/renomeação de `Data_4D_5510`, sem corrigir essa célula por consumidor,
 faria o helper antigo devolver161 cargas em vez de162. Este pacote não faz a
 renomeação nem a correção do TSV. O estudo e a revisão selados em
-`.tmp/jp-settings-mixed-upload-source-study-20261017/` e
-`.tmp/jp-settings-mixed-upload-review-20261017/` mantêm a proposta5510 separada.
+`jp-settings-mixed-upload-source-study-20261017` (review artifact) e
+`jp-settings-mixed-upload-review-20261017` (review artifact) mantêm a proposta5510 separada.
 
 A guarda proposta troca apenas esse `continue` por
 `PaletteMetadataError`, subclasse de `ValueError`, com caminho do TSV, linha
@@ -94,7 +94,7 @@ menciona `PaletteMetadataError`. Assim o arquivo novo carrega com o helper antig
 para a prova negativa. Somente `ast.parse` foi usado aqui para verificar sintaxe
 e preservação estrutural das funções/testes existentes. Isso não confirma que
 os testes passaram. O plano operacional posterior está em
-`.tmp/jp-palette-metadata-guard-proposal-20261018/DATA/ROOT_TEST_PLAN.md`.
+`ROOT_TEST_PLAN.md` (review artifact).
 
 O executor também escreveu o estudo5510 precedente; esta preparação não se
 apresenta como revisão independente. A proposta permanece privada e depende de

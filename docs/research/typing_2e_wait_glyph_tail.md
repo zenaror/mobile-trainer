@@ -55,7 +55,7 @@ A mudança deve ficar em comentários/documentação, preservando nomes, bytes18
 
 ## Proveniência
 
-SOURCE6 privado4190 manifest550cb873; ROM2097152 SHA6d802e66; SYM5c83bce5; preseal56492e91. ROM-first registra192 guards; confronto posterior425 (617 registros, com duplicatas entre estágios). Scripts próprios stdlib leem apenas `/tmp` e não importam/rodam helpers estrangeiros. Nenhuma leitura actual, Git, native, captura nova, build, gate, rede ou OMM. Nenhum conteúdo de amostra pessoal.
+SOURCE6 privado4190 manifest550cb873; ROM2097152 SHA6d802e66; SYM5c83bce5; preseal56492e91. ROM-first registra192 guards; confronto posterior425 (617 registros, com duplicatas entre estágios). Scripts próprios stdlib leem apenas `/tmp` e não importam/rodam helpers estrangeiros. Nenhuma leitura actual, Git, native, captura nova, build, gate, rede. Nenhum conteúdo de amostra pessoal.
 
 Negativo preservado: a primeira versão do parser falhou ao encontrar bank `WRAM` em coverage; não emitiu fatos finais. A versão corrigida exclui explicitamente WRAM/HRAM do censo de endereços ROM. O script falho foi preservado. A primeira procura de fonte emengine/mail não localizou o arquivo; o caminho correto privado éengine/mail_server/tidy_screen.asm. Releitura do confronto após selar ROM-FIRST apenas ajustou seu guard de modo privado644 para444; bytes permaneceram iguais.
 
@@ -66,7 +66,7 @@ Guarded private SOURCE4210 is preserved outside scope11: three owners/comments22
 
 Historical packets and8596 private guard files were reread as old data, not new natural captures. Corpus69coverage/69data/50graphs remains finite,19missinggraphs unfilled; zero scoped observed rows and computed/raw references do not establish unreachable entries. Forced187/460 bank29 proof stays separate. The corrected ROOT preliminary WRAM7 attribution toLCDOn and historical2E counted-loop wording remain explicit. No sampled fields, hardware, emulator, fresh native capture or semantic asset audit.
 
-One new private literal37 completed36rc0 plus ordinal27rc2/historicalschema exact97B, sole top-levelmake ordinal1. WholeROM IDENTICAL original; wholeSYM15538labels/51constants/MAP and all671 outputs equal private54. D334raw/10912rules exact;5623currentdependencybindings rebind the three owner SHA values with BEFORE4210/AFTER4216 distinct. Six notes receive this explicit documentation-only appendix after37; no code/output changes or rerun. Candidate stable for IND. ROOT/INDadoption, actual/published parent, canonical DOCrebase, actual integration, fresh checks, publication and future authority remain NULL. No actual/Git/OMM action.
+One new private literal37 completed36rc0 plus ordinal27rc2/historicalschema exact97B, sole top-levelmake ordinal1. WholeROM IDENTICAL original; wholeSYM15538labels/51constants/MAP and all671 outputs equal private54. D334raw/10912rules exact;5623currentdependencybindings rebind the three owner SHA values with BEFORE4210/AFTER4216 distinct. Six notes receive this explicit documentation-only appendix after37; no code/output changes or rerun. Candidate stable for IND. ROOT/INDadoption, actual/published parent, canonical DOCrebase, actual integration, fresh checks, publication and future authority remain NULL. No actual/Git action.
 
 
 ## Operation alias for the counted wait calls (2026-10-15)

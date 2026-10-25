@@ -31,7 +31,7 @@ The reviewer also reconstructed the owner's `INCBIN`, palette and padding
 emission for `5E:4800–78A0` (12,448 bytes) and matched the original ROM. The
 final review confirmed that the actual diff is restricted to the 16 approved
 declarations; its receipt is retained at
-`.tmp/generic-coalias-post-fae0a378-20261021/REVIEW_ACCOUNT_5E.md`.
+`REVIEW_ACCOUNT_5E.md` (review artifact).
 
 Post-edit validation: `make` produced `RESULT: IDENTICAL` against the original
 2 MiB ROM (SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`);

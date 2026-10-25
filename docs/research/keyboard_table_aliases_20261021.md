@@ -5,6 +5,6 @@ Each was an unreferenced same-address alias of an existing `Kbd_*` or
 `Table_Kbd_*` symbol. The aliases cover three direction/dispatch tables, the
 cursor-sprite offset pointer list, the page-graphics type table, and the
 type-specific keyboard-page loader lists. The retained names already present
-in source are the only descriptions adopted; no new behavior or caller contract
+in source are the only descriptions adopted; no new behavior caller contract
 is inferred. Table contents, target addresses, confidence and ROM bytes remain
 unchanged.

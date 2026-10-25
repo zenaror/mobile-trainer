@@ -162,7 +162,7 @@ their readers. Keep their statuses unchanged. Reopen only on a new computed or
 indirect control-flow edge or a natural trace containing an entry into one of
 the spans.
 
-Reproduction script `.tmp/jp-semantic-controlflow-20261025/reach_candidate_spans.py`
+Reproduction script `reach_candidate_spans.py` (review artifact)
 (SHA-256 `9aedfb87f3cfce31990ed1548e0877cf9c88af6d69d84d3ee382d21cd1057661`);
 receipt `reach_candidate_spans.json` (SHA-256
 `bd433e8ee397f5cbfee334728a33c4e5081a5981a6f382fc32553f4f5d772aca`). The
@@ -195,7 +195,7 @@ returns, other callees that alter mapper state, split/raw MBC writes, relocated
 code, and arbitrary execution remain outside this check; candidate reachability
 and use status do not change.
 
-Reproduction: `.tmp/jp-cross-bank-return-remap-20261025/audit.py` (SHA-256
+Reproduction: `audit.py` (review artifact) (SHA-256
 `c21173c76a7c4f90f532d0dfb3360db3f2aa10dd21ab624047ba512445d9051e`);
 receipt `RESULT.json` (SHA-256
 `5bd07bee7a6884bd7da5634b2de61a9a6144447d938c9f0bf8192bedbabf4c22`). The
@@ -239,7 +239,7 @@ an executed MBC store. The high-count natural store at `2E:534F` is the
 `MailServerMgr_ClearTextTiles` loop writing zero to WRAM bank 2; its MBC ledger
 also has no ROM-bank-register write.
 
-Reproduction: `.tmp/jp-candidate-mbc-writer-boundaries-20261025/audit.py`
+Reproduction: `audit.py` (review artifact)
 (SHA-256 `f2108915119e73bf0e875c2333a7e4f1845b13f803c0dd75f6996f63102e9edc`)
 and `RESULT.json` (SHA-256
 `f1ebff9b3e89589abcf302fb0aa534cbf0369e815c9e1cc5dd78902cbf0f1e36`). The
@@ -277,7 +277,7 @@ The original ROM hash is `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16eb
 reviewed source files are unchanged between published source base
 `88147255c555f4d1caf7080ebb71723e644b5073` and current main `a458205210284ffe3183610bdfb76109e63b489a`;
 their individual hashes and the Bank29 `$7BB7` bytes are pinned in
-`.tmp/jp-candidate-root-contracts-20261025/RESULT.json` (SHA-256
+`RESULT.json` (review artifact) (SHA-256
 `9915a07cb5808f11ad7d777ead67f116de7cf0b7e21f356771c348ee2a56cd98`),
 reproduced by `audit.py` (SHA-256
 `e2acc7d732d0a100b330df5c687ee2ac453ac74092207b13b30657bf482f03bf`).
@@ -307,7 +307,7 @@ read of `42:6132` through this route.
 This does not prove absence under arbitrary computed writes, re-entry,
 corrupted state, or every interrupt/reentrancy interleaving, and it says
 nothing about other consumers of the candidate window. Reproduction:
-`.tmp/jp-bank42-result-kind-liveness-20261025/audit.py` (SHA-256
+`audit.py` (review artifact) (SHA-256
 `cbdc6828c1d83e98fe45119ea4c478e05ab755c8864000cfea0554d26ce08402`), receipt
 `RESULT.json` (SHA-256
 `3fff3410bfa6253a18c040fb4eb440540e3b518e0debc6188b9ea3a3eaca5fad`). It pins
@@ -335,7 +335,7 @@ This is **CONFIRMED only for those hashed inputs and exact query forms**. It
 does not rule out a computed/copy-based loader, an unrecorded state, arbitrary
 entry, or hardware/server behavior, and it does not justify global non-use or
 relabelling the candidate as dead. Reproduce with
-`.tmp/jp-bank42-tailtile-6132-domain-20261025/audit.py` (SHA-256
+`audit.py` (review artifact) (SHA-256
 `fb1f3f487af83bc834e2ca98b1afd9c7311e445bebc805f443f10f014c4223a1`),
 `INPUTS.json` (`639da2e0e42616fd2f16ae07aa3e64a207a899312d83c6036abd2ee53db38e06`),
 and `RESULT.json` (`8bbd994042b2eee14e15e13ff2472faaa97935eb26f3e90b8c2e3c3aede1ad0b`).
@@ -373,7 +373,7 @@ conditional `$B5` descriptor remains a confirmed malformed-state path, not a
 natural Bank 42 read established by these callers. This is static source
 evidence only; computed pointers, arbitrary corruption, unmodeled re-entry,
 and external API callers are not excluded. Reproduce with
-`.tmp/jp-result-kind-interrupt-liveness-20261025/audit.py` (SHA-256
+`audit.py` (review artifact) (SHA-256
 `4e9e54634233b1870792b8358c63a665ca7dcc0afb898392893d8432d3a8ff3f`);
 receipt `RESULT.json` (SHA-256
 `745aba694658f33d195b94bea8ce49dc749d05948b884f01f8f40976923da85b`). It
@@ -428,7 +428,7 @@ The retained natural trace union contains `73:62AA` (287 starts in 19
 scenarios) and no start at `73:62E2`; this corroborates the bounded result but
 does not expand it to unmodeled state. The direct control/data-flow audit and
 its input, script and receipt hashes are retained under
-`.tmp/jp-browser-start-cursor-domain-20261025/`. It
+`jp-browser-start-cursor-domain-20261025` (review artifact). It
 pins the startup clear, cursor initialization and writers, both toggle paths,
 description dispatch, SRAM aliases, source table, trace union and protected
 ROM. This is static-source plus retained-trace evidence; no new emulator or
@@ -459,7 +459,7 @@ dispatches/trampolines. No newly discovered stack-return target enters the
 candidate code/data spans in the table above. This is an enumeration of the
 stated source pattern and its reviewed owners, not proof against arbitrary
 stack corruption, computed writes, or unrecognized control flow. Reproduction:
-`.tmp/jp-return-stack-dispatch-census-20261025/audit.py`
+`audit.py` (review artifact)
 and `INPUTS.json` (SHA-256 `5bfb08ab4e784a2192e9590cb1dd2777e02878f6c7eeb59d8731371b03a9ac33`);
 `RESULT.json` SHA-256 `4bca13783c020bcc8bcf36b1517e723b538c21b6186fe0e7db78317598d72a6a`.
 
@@ -487,7 +487,7 @@ protected Bank 53 table and searched its full byte sequence (including the
 terminating NUL) at every offset of the original 2 MiB ROM. All 25 complete
 sequences occur only at their own Bank 53 source locations; there are zero
 exact copies outside physical Bank 53. Receipt:
-`.tmp/jp-bank53-raw-name-occurrences-20261025/RESULT.json` (SHA-256
+`RESULT.json` (review artifact) (SHA-256
 `9bda24ea4950c50fffa6b837a7a1d6fd3065ff216a1bea891426962453fe72bd`);
 reproduction script `scan.py` SHA-256
 `ce930eff2c8d386afb1668225d106d646ef551102d6eb442f51ea48714177cc4`.
@@ -554,7 +554,7 @@ across the ROM, plus contiguous ordered runs and the exact 50-byte table. There
 are 420 raw word coincidences outside Bank 53 across 24 targets; none is a
 contiguous run of two or more table-order pointers, and the full table has no
 copy outside Bank 53. The individual words are unclassified byte matches, not
-pointer evidence. Receipt `.tmp/jp-bank53-raw-name-occurrences-20261025/POINTER_WORDS.json`
+pointer evidence. Receipt `POINTER_WORDS.json` (review artifact)
 (SHA-256 `64b837958e137c592cff198bb6830a702bff84e1fb4f95d52e6f56fc98290a99`);
 script SHA-256
 `cd3ae5c32a5c4b45ad74e129806b611a202b61e3e4e3596cf98e25493cc01945`.
@@ -588,7 +588,7 @@ coincidences. The other 403 occur in sections assembled as GFX/font/text/audio
 payloads. None supplies a reference to physical Bank 53. This closes the raw
 word-hit classification against the current linked section map; it does not
 exclude a computed, copied, bank-implicit, RAM/SRAM or externally supplied
-reader. Reproduction: `.tmp/jp-bank53-raw-name-occurrences-20261025/classify_pointer_words.py`
+reader. Reproduction: `classify_pointer_words.py` (review artifact)
 (SHA-256 `048779792d8e4265b1c08933352fd2ddb9cb814c83ce75925f0208e7f15970e0`),
 using map SHA-256 `163fdad3cb91b55a523d51fecf6b45ec19c639fe032a8b89731e0200cda33d43`;
 receipt `POINTER_WORD_OWNERS.json` SHA-256
@@ -611,7 +611,7 @@ There are zero enumerated indirect dispatch targets in that range. This closes
 that specific indirect-transfer form for the retained matrix; it does not
 close generic reader/copy paths, unmodeled computed transfers, or arbitrary
 runtime state. Reproduce with
-`.tmp/jp-bank53-inline-dispatch-crosscheck-20261025/audit.py` (SHA-256
+`audit.py` (review artifact) (SHA-256
 `92d60b2ad5009cf25c13101ae9fa72a10156cc64cebf51ba3a9ab6024d7c6a06`); its
 receipt `RESULT.json` has SHA-256
 `003aaa9ab5974dd93c773565ceaddb079b53c4aeb7946c15bb186d6ab4d9f806` and pins
@@ -634,12 +634,12 @@ ROM descriptors and remain conditional. The maintained producer limits and
 the chooser's lack of a natural caller are unchanged. No name ordinal or
 candidate window is shown globally unused.
 
-Reproduction: `.tmp/jp-browser-oob-bank47-tail-20261024/audit.py` (SHA-256
+Reproduction: `audit.py` (review artifact) (SHA-256
 `0b6dba5651faaa2c94ef0c35c8b588fe73a0d233033f8cd5dbf1a31be705badb`),
-which reuses `.tmp/jp-browser-oob-selector-frame-route-20261024/RESULT.json`
+which reuses `RESULT.json` (review artifact)
 (SHA-256 `17c3233fad4d3d1783ecb4a090ab7bbaff8bd5d7e9770929d271762b8c2be1b6`)
 and confirms its ROM/source pins before filtering the omitted range. The new
-receipt is `.tmp/jp-browser-oob-bank47-tail-20261024/RESULT.json` (SHA-256
+receipt is `RESULT.json` (review artifact) (SHA-256
 `0d4ac74dff8427e16ceeccf97886c31f3c752079d6e3f925bcfd6ce16420444f`).
 
 ### Mutable descriptor pointers are out-of-table selector artifacts (2026-10-24)
@@ -664,7 +664,7 @@ conclusion.
 This closes the 16 out-of-ROM records as evidence for a natural selector edge;
 it does not connect any Pokémon ordinal to an asset or prove global frame
 use/non-use. The 25 name-to-frame associations remain unresolved. Reproduce
-with `.tmp/jp-bank53-selector-natural-domain-20261024/audit.py`; its result
+with `audit.py` (review artifact); its result
 pins the ROM, six source files, and prior 101-index receipt.
 
 ### Indirect malformed-index path to the frame preview (2026-10-25)
@@ -702,9 +702,9 @@ shown above. It provides no executable `PokemonNameXX`-to-window edge; a
 separate ordered asset comparison gives only a PROBABLE intended visual/index
 crosswalk for ordinals 01–23. This route does not classify any resource
 globally used or unused. Reproduction:
-`.tmp/jp-preview-indirect-overflow-20261025/audit.py` (SHA-256
+`audit.py` (review artifact) (SHA-256
 `29681c0adb66b742c4b1d7fb1a05f9b0f0ab1c4761389a430a0def992310dcda`);
-receipt `.tmp/jp-preview-indirect-overflow-20261025/RESULT.json` (SHA-256
+receipt `RESULT.json` (review artifact) (SHA-256
 `12403d10045d69f8520c85ad9fa1cb5532fe0ae5b32a40e78e6cc1e4dc8169fc`).
 
 ## Remaining work required for semantic closure
@@ -725,7 +725,7 @@ receipt `.tmp/jp-preview-indirect-overflow-20261025/RESULT.json` (SHA-256
    only for a new producer/transfer form or evidence that changes the current
    producer domains; this bounded result is not a whole-ROM reachability proof.
 4. Continue the Bank53 consumer/ordinal search only when a concrete producer,
-   selector or state edge appears. Current evidence supports no PNG repair and
+   selector state edge appears. Current evidence supports no PNG repair and
    no global unused-frame conclusion.
 
 This pass changes source comments, documentation, and the ignored targeted
@@ -753,7 +753,7 @@ source censuses:
   Pokémon sprites in a ROM and later attached `BetaP2.JPG`, but supplies no ROM
   hash, bank, offset, or extraction recipe. The 191x175 attachment is a sprite
   sheet, not a browser-frame image. It was fetched to
-  `.tmp/jp-beta-p2-pixel-match-20261025/BetaP2.JPG` (SHA-256
+  `BetaP2.JPG` (review artifact) (SHA-256
   `f6ce4db01ff0364209407f8216e3d9088ef462022df14d7558f63b58394ebf53`). A
   bounded local comparison of 108 exact tile entries, the common Bank 47
   graphics, and selected OBJ sheets at `70:5490`, `70:5890`, and Bank 26 Mail
@@ -795,7 +795,7 @@ reference is the [191x175 lossy JPEG linked by the June 2018 Project Pokémon
 post](https://projectpokemon.org/home/forums/topic/39815-unreleased-prototype-pokemon/page/37/#comment-225659);
 the post attributes the attachment to Porygon2 but supplies no ROM hash or
 extraction metadata. The preserved file is
-`.tmp/jp-beta-p2-pixel-match-20261025/BetaP2.JPG`, SHA-256
+`BetaP2.JPG` (review artifact), SHA-256
 `f6ce4db01ff0364209407f8216e3d9088ef462022df14d7558f63b58394ebf53`.
 
 With each JPEG pixel classified by luminance thresholds 48/128/190, black
@@ -826,10 +826,10 @@ This supports **PROBABLE** visual association of the Porygon2 name at
 not establish a complete sprite-frame boundary, an executable ordinal-to-frame
 selector, or runtime use/non-use of the candidate span.
 
-Reproduction: `.tmp/jp-beta-p2-pixel-match-20261025/verify_composite_match.py`
+Reproduction: `verify_composite_match.py` (review artifact)
 (SHA-256
 `a300123d5deaa96fb935e548655e0e1bb5c9c7a95548b3a448ec67d84b330b2c`), with
-the screenshot tile scan `.tmp/jp-beta-p2-pixel-match-20261025/scan_beta_8x8_bank51.py`
+the screenshot tile scan `scan_beta_8x8_bank51.py` (review artifact)
 (SHA-256 `f75453141c622cc3963c975c45a02598325248dedaf76e607b69c04d276cb7ee`)
 and its receipt `BETA_8X8_SCAN.json` (SHA-256
 `5418c931bc25fc8419459607ed946f070e80acb662b82aec87ec39ecdb0a2759`), and receipt
@@ -838,7 +838,7 @@ and its receipt `BETA_8X8_SCAN.json` (SHA-256
 script pins the Japanese ROM hash and the maintained candidate asset hash;
 the receipt records the forum URL, quantizer, coordinates, whole-ROM
 aligned-tile comparison, and scope limits. Static comparison only; no
-emulator or hardware execution.
+emulator hardware execution.
 
 ### Bank 51 Pokémon-art candidate boundary correction (2026-10-25)
 
@@ -861,7 +861,7 @@ the indexed 128x144 PNG is
 `94de1ed246c2eca3e5516ee605fea86f485baeb7bee637718111f2c8e0138ea1`. Using
 the project's `tools/gfx_export.py` tile renderer and `rgbgfx -c embedded -x
 1`, the PNG reconstructs the 4,592-byte binary exactly. Reproduction script
-`.tmp/jp-beta-p2-pixel-match-20261025/extract_aligned_candidate.py` has SHA-256
+`extract_aligned_candidate.py` (review artifact) has SHA-256
 `7ceaf6d954605aeac69910ff76446498039fbfcdf29a51dff73ef148cfb64f19`; its
 receipt `ALIGNED_CANDIDATE_RESULT.json` has SHA-256
 `439fd6a7e207b311692b5281fc86a97ce11d87a25c32abcdcedc5edaed038639` and pins
@@ -883,7 +883,7 @@ rewritten by this correction.
 To check whether the unresolved `PokemonName00` (Porygon) might have an
 unnoticed editable image outside the 25 Bank 41–47 windows, I reviewed the
 existing whole-catalog contact sheets in
-`.tmp/jp-porygon-global-tile-census-20261025/`. The generator enumerates every
+`jp-porygon-global-tile-census-20261025` (review artifact). The generator enumerates every
 `tiles` row in `gfx/assets.tsv` whose PNG mode is `exact`, requires the PNG to
 exist, and records its path and SHA-256. That is 424 exact tile PNGs across 12
 sheets. The same generator includes all 48 derived object-table preview sheets
@@ -908,7 +908,7 @@ Reproduction and inventory receipts: `contact.py` SHA-256
 `9a7c7ec6848d372c9fcfa9dcb1edb1e8448e594a985ca65c1180d48b296b7bfe`.
 The tile receipt pins `gfx/assets.tsv` SHA-256
 `ab4e9d903187fc038213d17ae98923d7b99ec2be4949492ac0d4b2780a4991b5` and
-per-PNG hashes. The files remain in ignored `.tmp/` as the visual reference
+per-PNG hashes. The files remain in ignored `.tmp` (review artifact) as the visual reference
 for this bounded review.
 
 ### Bank 51 candidate-tile data-read census (2026-10-25)
@@ -942,7 +942,7 @@ computed reads outside reported data accesses, or unrecorded execution remain
 unresolved.
 
 The census is reproducible with
-`.tmp/jp-bank51-candidate-data-read-census-20261025/audit.py` (SHA-256
+`audit.py` (review artifact) (SHA-256
 `dbd68e7a0376ce03ccfa2ee772376bff67baa13756ae066c1652f35160cce86a`). Its
 `RESULT.json` (SHA-256
 `b66c594aef88d2ddb77d01a39b5c36927eb21310f2e25a8c5d680b9677421bfb`)
@@ -967,7 +967,7 @@ No ROM, ASM, or graphic asset was changed for this analysis.
 
 ### Correction: community archived BMP examples (2026-10-25)
 
-A commit-pinned community archive now provides eight exact BMP candidates. Its homepage references two files that the ROM rejects by height. A separate archived v2 page references three other BMPs whose metadata matches the converter's layout; in a 14,000-frame fake-network replay their exact bytes reached `Bmp_ConvertToTiles` success and `Image_BlitToTileCanvas`. The page body was mapped to the homepage URL. A scan of all 182 tracked HTML/HTM/TXT files in the pinned archive found no href/src link to v2; the linked route instead runs `index.html` → `today_mobile/index01.html` → `today_mobile3.html`, represented in the archive as v1, which has no BMP references. Git history shows v2 and its three BMPs were added separately while v1 was renamed from an unsorted-page path. Thus the trace exercised an orphan community-added variant, not the page reached by the archive's index. This proves archive structure only, not original server content or archive completeness; scripts and redirects remain outside the static census. See the [community archive audit](docs/research/japanese_bmp_record_bounds_20261025.md#community-archive-bmp-payloads-2026-10-25), `.tmp/jp-archived-pages-bmp-20261025/GLOBAL_LINK_GRAPH.json` (SHA-256 `a736ffd73f0ca0cc68f2e7c98e5fffd1253b232a50715b0da709d76b49ba0448`) and `NATURAL_V1_ROUTE.json` (SHA-256 `79b61a6dc1f137fc995f1955bca3e106b64fd7b036ea93b46e051aa9e91a47e8`).
+A commit-pinned community archive now provides eight exact BMP candidates. Its homepage references two files that the ROM rejects by height. A separate archived v2 page references three other BMPs whose metadata matches the converter's layout; in a 14,000-frame fake-network replay their exact bytes reached `Bmp_ConvertToTiles` success and `Image_BlitToTileCanvas`. The page body was mapped to the homepage URL. A scan of all 182 tracked HTML/HTM/TXT files in the pinned archive found no href/src link to v2; the linked route instead runs `index.html` → `today_mobile/index01.html` → `today_mobile3.html`, represented in the archive as v1, which has no BMP references. Git history shows v2 and its three BMPs were added separately while v1 was renamed from an unsorted-page path. Thus the trace exercised an orphan community-added variant, not the page reached by the archive's index. This proves archive structure only, not original server content or archive completeness; scripts and redirects remain outside the static census. See the [community archive audit](docs/research/japanese_bmp_record_bounds_20261025.md#community-archive-bmp-payloads-2026-10-25), `GLOBAL_LINK_GRAPH.json` (review artifact) (SHA-256 `a736ffd73f0ca0cc68f2e7c98e5fffd1253b232a50715b0da709d76b49ba0448`) and `NATURAL_V1_ROUTE.json` (SHA-256 `79b61a6dc1f137fc995f1955bca3e106b64fd7b036ea93b46e051aa9e91a47e8`).
 
 ### Candidate-span cross-bank byte identity screen (2026-10-25)
 
@@ -994,7 +994,7 @@ patterns show that the screen can find shared low-level templates and are not
 unique evidence of semantic identity. No exact match of at least 16 bytes was
 found for `2D:4E42-4E8C`, `29:5090-5376`, `55:5DF5-5E02`, or `28:4BA6-4BC2`.
 
-Reproduction: `.tmp/jp-candidate-byte-alias-screen-20261025/audit.py` (SHA-256
+Reproduction: `audit.py` (review artifact) (SHA-256
 `19d0dfe3294c2547d8a1fc3f2b27e19ba2b858784bc6b6f8cfac61e9f8ccfaff`) and its
 `RESULT.json` (SHA-256
 `000679cbdbee10fa62d0fd3a9873655e2359127d44a1dbe8506a7ed49631cb7b`), pinned
@@ -1017,7 +1017,7 @@ reply operation through Bank 25, and a bounded negative for the candidate
 variant in this specific retained scenario. It does not prove that the Bank
 2B copy is globally unreachable or unused, nor identify any other caller.
 
-Reproduction: `.tmp/jp-mailreply-bank2b-natural-route-20261025/audit.py`
+Reproduction: `audit.py` (review artifact)
 (SHA-256 `65c64345455411c95498ea6a0a4c03512192bdec11aae3d75d359ee48a461a79`)
 and `RESULT.json` (SHA-256
 `f4f3422c8e8b922c023a3735d33b712076fd05938d4e811ab31fa769d9dfbd08`). The
@@ -1076,14 +1076,14 @@ saved states with synthetic network/pages, so they cannot substitute for a
 primary server capture or physical hardware observation. Candidate statuses
 remain unchanged except for the exact local behavior now demonstrated at
 `24:5064–5084` and `26:48B4–48B8`. Search directories, six replay outputs,
-input manifests, and hash-pinned evidence remain in `.tmp/jp-browser-semantic-
-explore-fixed2-20261025/`, `.tmp/jp-mail-semantic-explore-fixed2-20261025/`,
-and `.tmp/jp-semantic-followup-batch-20261025/corrected-search-replays/`.
+input manifests, and hash-pinned evidence remain in `jp-browser-semantic-
+explore-fixed2-20261025/`, `jp-mail-semantic-explore-fixed2-20261025`,
+and `corrected-search-replays` (review artifact).
 Re-run the consolidated checks from the repository root with
-`.tmp/jp-semantic-followup-batch-20261025/corrected_audit.py` (SHA-256
+`corrected_audit.py` (review artifact) (SHA-256
 `4d7b0208f37c2ff3312da8882938263f2c7f4604acf3767f0ff73c8cb9fd95af`); its
 receipt is
-`.tmp/jp-semantic-followup-batch-20261025/corrected-search-replays/CORRECTED_AUDIT.json`
+`CORRECTED_AUDIT.json` (review artifact)
 (SHA-256 `4d288fb7bed809c03466663d2216e5dd21894a78c74070fd1b8af47f44e9e926`).
 The receipt pins the corrected tracer binary (`48263bb44ab8618d864d360bc1f29f8e4592d5f269c30084f1be1bce80130553`),
 libmgba (`b44dfd7edb816fefa892c10dc2563d5d4bbe871d68702a8dcc3dde2532959719`),
@@ -1124,10 +1124,10 @@ unreachability.
 The replay receipt pins the ROM, tracer, libmgba, explorer and tracer source,
 scenario registry, coverage union, save/config bytes, fake mail fixtures,
 all 11 input macros and their replay output hashes:
-`.tmp/jp-body-editor-locator-search-20261025/REPLAY_AUDIT.json` (SHA-256
+`REPLAY_AUDIT.json` (review artifact) (SHA-256
 `2510c602a0ee7886306e2df8df0a6ad765bf525a86dd67a01d113ed735c9d67f`). The
 saved state bytes are preserved beside it under `inputs/`. The top-level
-`.tmp/jp-semantic-followup-batch-20261025/RESULT.json` is a separate stale
+`RESULT.json` (review artifact) is a separate stale
 receipt whose hashes/counts do not match the current search files; it is
 preserved but not used as evidence. No ROM or source assembly bytes changed.
 
@@ -1149,7 +1149,7 @@ input/stack contract. Their matrix statuses remain unchanged. Evidence is
 synthetic mGBA execution, not native hardware.
 
 Reproduce the retained-report check with
-`.tmp/jp-mailbody-locator-natural-route-20261025/audit.py` (SHA-256
+`audit.py` (review artifact) (SHA-256
 `ba318c48a43fa6cda42320d7ff4db602e0bfb9c2fa44c8c0e6159c0681ca14cd`) and
 `RESULT.json` (SHA-256
 `ac0255b18b4f95381c170c492ebf2fbb76bb2d7e0b93c0a1b0a724cac1162a1c`). The
@@ -1180,7 +1180,7 @@ attributed to Bank 25, while Bank 2B is also active for the separate upload
 helper. This does not identify every possible caller of the Bank 2B clone.
 
 Reproduce by parsing the retained reports with
-`.tmp/jp-mailbox-bank2b-adjacent-return-20261025/audit.py` (SHA-256
+`audit.py` (review artifact) (SHA-256
 `d27f11c463994b05fb4c357e8778e1652dbb00329c266aee6b5179c2ee04a088`) and its `RESULT.json` (SHA-256 `062d7e23675dbfb85f00927345eb639cc84c5276d468ce40fd5e4da1372fa1ee`). The receipt pins
 the ROM, `mail_inbox` scenario row, coverage/MBC/callgraph reports and
 `engine/mail/mail_viewer_sender.asm`. No trace was regenerated; no ROM or
@@ -1233,7 +1233,7 @@ sprite-record consumer does not spill into the candidate in those scenarios.
 This gives a concrete boundary for that loader and corpus; it does not identify
 the candidate's format, rule out other readers, or establish global non-use.
 
-The first receipt `.tmp/jp-bank23-targeted-read-audit-20261025/RESULT.json`
+The first receipt `RESULT.json` (review artifact)
 (SHA-256 `d1c338de01ff8802ad13fe45ad76e3186640419f80a677c8c13113f58d4e337a`)
 has a wrong candidate-slice hash. Its script used decimal `23` in the physical
 offset expression instead of hexadecimal bank `$23`; it therefore hashed
@@ -1241,7 +1241,7 @@ bank `$17` for that field. The 149 pinned input files are unchanged, and a
 rerun with the corrected bank expression reproduces the same trace counts and
 five boundary reads. The original receipt is preserved unchanged.
 
-Corrected reproduction: `.tmp/jp-bank23-corrected-read-audit-20261025/audit.py`
+Corrected reproduction: `audit.py` (review artifact)
 (SHA-256 `882160a3c694f043e1dd95a2405e8c00b8a93eab600c479a37ab5a59cc18dd06`)
 and `RESULT.json` (SHA-256
 `f409349fb114c8b93fa598fd177b966e951084138f97d7a7f1bb6999675732fc`). The
@@ -1285,12 +1285,12 @@ evidence, not a global uniqueness proof. None of the four corrected 200-byte
 pairs, nor its 100-byte tile half, occurs elsewhere verbatim in the original
 ROM. Lack of a duplicate is not proof of non-use.
 
-Reproduce with `.tmp/jp-bank23-paired-map-alignment-20261025/audit.py` and
+Reproduce with `audit.py` (review artifact) and
 `tile_contexts.py`; `RESULT.json` pins the pair and PNG hashes and the loaded
 art/palette inputs, and `TILE_CONTEXTS.json` records the six heuristic contexts.
 The four `paired_*.png` previews use ROM attributes and the existing MailSession
 screen asset context. They are not emulator screenshots or newly proven live
-assets. The earlier `.tmp/jp-bank23-format-preview-20261025` receipts remain
+assets. The earlier `jp-bank23-format-preview-20261025` (review artifact) receipts remain
 historical evidence of the rejected segmentation; do not re-use that geometry
 or its separate-tail claim. The corrected ROM slice hash and bounded no-reader
 results in the preceding section remain valid. No asset is missing from the
@@ -1320,7 +1320,7 @@ mail-status panel interpretation, not a proven historical removal or global
 non-use. The atlas itself is loaded and parts of it are used; do not call its
 whole byte range unused. There is still no demonstrated Bank23 map loader.
 Reproduce the byte/cell/domain checks with
-`.tmp/jp-bank23-paired-map-alignment-20261025/active_counterpart.py`; the receipt
+`active_counterpart.py` (review artifact); the receipt
 `ACTIVE_COUNTERPART.json` pins the source files, maps and atlas. No new runtime
 trace or hardware evidence is claimed.
 
@@ -1346,7 +1346,7 @@ instruction-index SHA-256 is
 `77ed524f29e27610a2401bcb6595afe27bc6690e2ab5b203b2c7880fbe245024`; the
 linker-map SHA-256 is
 `f23ca429a45d4047e03d5a9aa940cbebefdd2e2331e1c9695ff52bcb564e3838`.
-Reproduce with `.tmp/jp-bank23-literal-far-pointer-shapes-20261025/audit.py`
+Reproduce with `audit.py` (review artifact)
 (SHA-256 `33256e55e395271b77a0abc99e7b23be905ec41533407a984f2860a6fcfabd11`)
 and `RESULT.json` (SHA-256
 `e4c532450c9cb0c7ef0b70fcc8f4aee6ccd19527df2ad01c06789590c5cb53e2`).
@@ -1389,7 +1389,7 @@ the maintained source contracts and the exact ROM bytes. It does not resolve
 computed/split targets, arbitrary mapper writes, runtime-created/copied code,
 or global entry/use. Candidate statuses therefore remain as listed in the
 matrix above. Reproduce with
-`.tmp/jp-cross-bank-callee-return-20261025/audit.py` (SHA-256
+`audit.py` (review artifact) (SHA-256
 `22577938b27862d9b20f3f10746d53f0977ad9cccb9cab2b5e3e097721bcce0b`); its
 receipt is `RESULT.json` (SHA-256
 `2c428464edec4bf19c443a10d6705467ae13bdc448eda03b113f9eef25a2b50b`). The

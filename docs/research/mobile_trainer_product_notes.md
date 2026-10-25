@@ -9,7 +9,7 @@ Source tags:
 * **[Web7z]** `<GB>/MobileAdapterGB/Mobile_Trainer_Web_Pages.7z`, extracted to the scratchpad only (24 files: 19 HTML, 5 BMP + a `Fixed BMP Images` copy).
 * **[ROM]** `baserom.gbc` (bytes read directly).
 
-`<GB>` = `/media/rafael/Dados/Arquivos/Projetos/Gameboy Projects`.
+`<GB>` = `$REFERENCE_ROOT`.
 
 Verifier review (2026-09-29): string/URL addresses in section 2, the 55-record help-page chain, the default/test configuration images (+ their layouts), the tag table, the `.bmp` scanner `4C:4DFB-4E44`, the template strings `4C:4F11-4F55` and the goo.ne.jp bookmark copy `24:42B0-42D0` were re-read from the ROM and hold.
 Corrections applied below: the test dial number is at `68:4E46` (was `68:4E43`), the developer-test routine starts at `68:4E51`, the ROM help pages equal the archived pages except for one trailing CRLF, and the BMP validator tests bytes `14` (width) and `18` (height) not at all.

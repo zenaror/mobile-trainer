@@ -273,7 +273,7 @@ No sampled account/email/password/name contents are included here.
 The private proposal preserves BEFORE owner files, source after hashes, the exact text patch and
 an instruction/local-label text invariant. These are not assembled-ROM comparisons. Integration,
 independent review, make, sym-check and original-ROM byte comparison remain ROOT checks; this
-proposal ran no build, test, replay, emulation, hardware, Git mutation, OMM write or English work.
+proposal ran no build, test, replay, emulation, hardware, Git mutation,  or English work.
 Historical reference tables remain untouched. No claim of complete original analysis follows.
 
 

@@ -3,7 +3,7 @@
 This Japanese-source pass corrects eight stale `label` cells in
 `gfx/assets.tsv` to symbols already defined at the corresponding data in
 `gfx/settings/screens_bank4d.asm`. The evidence establishes catalog-to-owner
-consistency, not new runtime behavior or a new interpretation of the assets.
+consistency, not new runtime behavior a new interpretation of the assets.
 
 | Catalog address | Previous label | Current owner label | Asset |
 |---|---|---|---|

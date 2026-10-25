@@ -16,7 +16,7 @@ The independent current-base confrontation agrees on raw742 bytes, conditional46
 
 ROOT must review the finite source/docs diff and complete evidence packet, then authorize a separately prepared guarded protocol. No new canonical37 protocol is part of this static proposal. The required checks include `make`, `make sym-check` and a byte comparison against the immutable original ROM. Only successful comparison can support `RESULT: IDENTICAL` or rebuilt-ROM equivalence. The symbol/layout/metadata checks must confirm preserved locators and labels on the actual candidate.
 
-Any later source, base, environment or output-envelope change needs an explicit new captured/reviewed state. Actual JP and EN sources, Git, OMM and backups were not modified by this preparation. All library entries remain HYPOTHESIS; a successful reconstruction build would still not prove live reachability or intended behavior.
+Any later source, base, environment or output-envelope change needs an explicit new captured/reviewed state. Actual JP and EN sources, Git,  and backups were not modified by this preparation. All library entries remain HYPOTHESIS; a successful reconstruction build would still not prove live reachability or intended behavior.
 
 
 ## Verified and published reconstruction (2026-10-08)

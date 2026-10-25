@@ -143,3 +143,28 @@ commands below document the existing build interface; they are not a resumption 
 See `docs/TRANSLATION.md` (text, images, fonts, limits) and `gfx/previews/README.md` (what each screen/sprite preview shows and how it was checked against the emulator).
 
 `make english` builds the pinned English overlay separately under `build/en`, using explicit file overrides in `languages/en/` and pinned original files where no English override is selected. The default `make` reconstructs the original Japanese ROM byte for byte. Overrides include text and source, sprites, tiles, box layouts, tilemaps, attributes, palettes and editable PNGs. Run `make english-check` for the locale checks. See [docs/LANGUAGE_BUILDS.md](../docs/LANGUAGE_BUILDS.md) for the selected inputs, cache and tool options, and [docs/TRANSLATION.md](../docs/TRANSLATION.md) for translation history and reuse limits. ZIP reuse remains incomplete; only the bounded first FullHelp page is adapted in its 63-byte slot, and complete WholeHelp is not adopted. English natural execution, rendering, translation fidelity and hardware remain unvalidated.
+
+
+## Optional analysis dependencies
+
+Optional analysis tools use explicit settings or project-local defaults:
+
+| Setting | Purpose | Default |
+|---|---|---|
+| `MGBA_SRC` | Matching mGBA fork sources and headers | `.cache/mgba-src` under the repository |
+| `MGBA_BUILD` | Existing mGBA build for analysis/probes | `.cache/trace/mgba` |
+| `GHIDRA_INSTALL_DIR` | Ghidra installation | Required for Ghidra tools |
+| `CRYSTAL_REFERENCE_ROOT` / `--gb-root` | External reference builds for `tools/crystal_match.py` | `.cache/crystal-references` |
+
+The Crystal reference directory has `eng/pokecrystal.gbc`, `eng/pokecrystal.sym`,
+`eng/source/`, `ptbr/pokecrystal.gbc`, `ptbr/pokecrystal.sym` and the `ptbr/`
+source tree. The optional Japanese reference is `jp/baserom-jp.gb`, overridable
+with `--jp`. External ROMs and dependency checkouts are not bundled.
+
+### Reading historical research
+
+Current status is summarized in `REVERSE_ENGINEERING.md`; dated validation
+records are collected in `research/japanese_delivery_history.md`. Research
+notes retain addresses, original hashes, assumptions and bounded results.
+Review artifact names and checksums identify supporting evidence; a named
+private review artifact is not a file distributed by the repository.

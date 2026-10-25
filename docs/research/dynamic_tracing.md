@@ -58,7 +58,7 @@ python3 tools/trace/contact_sheet.py out.png .cache/trace/shots/<scenario>/*.png
 ```
 
 Needs: `cmake make gcc python3` (Pillow only for `contact_sheet.py`), the mGBA fork source tree
-(`MGBA_SRC`, default `/media/rafael/Dados/Arquivos/Projetos/Gameboy Projects/MobileAdapterGB/mgba/mgba`), and
+(`MGBA_SRC`, default `.cache/mgba-src` relative to the repository), and
 `baserom.gbc` (hash-checked). Nothing needs a display or an X server (no SDL, no audio, no window is ever created).
 Build products live in `.cache/trace/` (git-ignored; `make clean` does not touch it); screenshots go to
 `.cache/trace/shots/<scenario>/` (not committed).
@@ -369,7 +369,7 @@ mis-decode as code (this matters for `gen_asm`).
   reports with `hwregs.tsv` record `rDMA` writes only from `HRAM:FF82` with
   source page `C0` (52 scenarios, 1,561,837 writes), so those observed OAM-DMA
   sources are in WRAM rather than ROM. The pinned source and report census are
-  preserved in `.tmp/jp-dma-source-census-20261024/`.
+  preserved in `jp-dma-source-census-20261024` (review artifact).
 * A callee that never returns (e.g. the endless loop at `00:06B7`) or the last instruction of a run always shows up as `FALL_MISSING` in the validation.
 
 ## 8. Next steps enabled by this harness

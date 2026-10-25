@@ -19,7 +19,7 @@ A fresh census of the six maintained Japanese source roots counted exactly 333 `
 
 The same fresh definition scan found ten strict `Data_BB_AAAA` labels, matching the existing ten-span evidence table, and zero strict address-form definitions in the searched Function/Func/Sub/Unknown/Code/Label/Font/Tiles/Tile/Tilemap/Attrmap/Palette families. A GFX path scan found no `bankNN` directories. The ten data names remain neutral because no stronger type/entry role is supported; do not rename them from opcode appearance or negative literal-reference scans alone. This strict-pattern census complements, but does not replace, the broader qualified-name and path reviews in [`japanese_generic_name_census_followup_20261023.md`](japanese_generic_name_census_followup_20261023.md).
 
-The source of each partition’s counts, per-row rationale, pre-change ledger digest and independent review is retained in the ignored task evidence directory `.tmp/jp-generic-name-batch-20261022-evidence/`:
+The source of each partition’s counts, per-row rationale, pre-change ledger digest and independent review is retained in the ignored task evidence directory `jp-generic-name-batch-20261022-evidence` (review artifact):
 
 - `retained-2024-symbol-census-ledger.tsv` (2,024 rows; SHA-256 `31193a38e9175abc242709847c1283c430cbd0bc17e2ba3ca52c32cb71c6bff1`) and its 110-row proposal and cross-review reports;
 - `retained-engine-owner-review/owner_ledger.tsv` (1,157 rows; SHA-256 `e57026ebf95cf7bf37078de31874c60c122ed1058bde8406b9e9249e99f83ae9`) and its 44-row proposal and review;

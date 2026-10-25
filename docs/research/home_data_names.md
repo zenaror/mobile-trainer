@@ -92,7 +92,7 @@ The private baseline linked-symbol file has 15,437 symbols, SHA256
 This isolated pass predicts 15,426 symbols: remove the 11 aliases below, preserve all
 remaining name/address pairs. ROOT must rebase this delta over Function483+Font33
 before integration. The isolated prediction is not a linked result for that combined
-tree. No build, sym-check, original-ROM comparison, emulator or hardware run was
+tree. No build, sym-check, original-ROM comparison, emulator hardware run was
 performed here. Native validation is required before any byte-identity claim.
 
 ## Retired alias map

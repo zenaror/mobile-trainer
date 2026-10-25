@@ -6,7 +6,7 @@ Before execution, the actual published rectangle baseline and fresh receipts, fu
 
 Required private verification is the canonical 37-check battery inspected individually: 36 rc0 checks and the unchanged historical ramop7 rc2 schema error. Original make must report SHA-256 OK and RESULT: IDENTICAL; all symbol bytes must match the baseline. Full-source guards, exact macro emission, complete metadata ownership, and active catalogue/rules totals are checked independently. This candidate still requires independent executable review and coordinator publication/fresh gates.
 
-No root, real EN, Git or OMM mutation occurs in this private pass. No sample records or private ROM payload are publication artifacts.
+No root, real EN, Git occurs in this private pass. No sample records or private ROM payload are publication artifacts.
 
 The completed private canonical battery has 36 rc0 results and the reproduced historical ramop7 rc2 schema failure. Original and rebuilt ROMs are byte-identical, SHA-256 6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570. Full symbols remain byte-identical, SHA-256 cbc229d7ec60c419e78a9bf2aacf848eb9b3a47e690c95f0a26484a575aa26ce. All original aliases are preserved; source delta is 25 lines with zero metadata locator updates. The two retired catalogue/rules rows preserve exact old text and line counts. All other tracked files, including the historical palette file, frozen configuration, PNG make rules and second 76-byte chain remain unchanged. Independent executable review and coordinator publication/fresh gates remain pending. This appendix was added after the source battery and changes documentation only.
 

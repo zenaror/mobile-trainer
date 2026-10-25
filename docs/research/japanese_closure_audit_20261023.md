@@ -50,7 +50,7 @@ Use this accepted disposition first, then the consolidated table below, the
 [residual evidence register](japanese_remaining_semantics_batch_20261024.md).
 Dated research sections are historical evidence, not an automatic work queue.
 The maintained ASM/assets remain at the repository root; frozen config tables
-remain historical. OMM holds operational continuity and artifact retention.
+remain historical.
 
 Recent accepted corrections include Bank71 caption meanings/selectors
 (`0211b73e`), five Settings highlights and corrected retained read coverage
@@ -83,7 +83,7 @@ the following source findings are now integrated through
   now has a demonstrated producer and return under persistent `$D2` serial
   fault injection: `24:4C55` is entered and saved `BC=0` returns through
   `24:4DB9 -> 00:0000 -> 24:4206`. This closes the bounded fault-model question,
-  not real-adapter behavior or arbitrary-BC safety
+  not real-adapter behavior arbitrary-BC safety
   ([contract](naming_g2.md#page-list-action-menu-stack-paths-2026-10-25)).
 - `f6cc34ae`, `7d851762`: corrected the Bank23 candidate layout to 13 leading
   zeros and four tilemap/attribute pairs; identified the PROBABLE mail-status
@@ -132,7 +132,7 @@ or comment when warranted and carry one concise supporting research update.
 Do not change instructions merely to produce an ASM diff: reconstruction must
 preserve the original bytes, including original defects. An exhausted search
 can remain unresolved; it must not be reported as completed semantic work.
-Operational pause/resume state and the next authorized action belong in OMM.
+
 
 ## Delivery on main (2026-10-24)
 
@@ -255,7 +255,7 @@ original audit was recorded at `91e1c957437e24b3837e87fdf0a210c9abac54f3`;
 the latest gate summary is the `e65b07ba` section above, recorded in
 `979fc0a5`, on
 `codex/japanese-census-ram-ledger`. It uses only the canonical checkout
-`/home/rafael/_PROJETOS/Mobile Trainer`; the English overlay and Operator ZIP
+`.`; the English overlay and Operator ZIP
 remain paused and were not examined.
 
 | Requirement | Current evidence | Status and limit |
@@ -303,7 +303,7 @@ The bounded Bank 53/frame evidence and limits are in
 
 ## Japanese verification snapshot at `9a44ec66` (2026-10-24)
 
-At canonical checkout `/home/rafael/_PROJETOS/Mobile Trainer`, commit
+At canonical checkout `.`, commit
 `9a44ec66c0003d6ead80420b76c0ad545a0f3fb7`, the Japanese source still builds
 byte-for-byte to the protected 2 MiB original (SHA-256
 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`).
@@ -332,7 +332,7 @@ paused.
 
 ## Revalidation at `e6119102` (2026-10-24)
 
-At the canonical checkout `/home/rafael/_PROJETOS/Mobile Trainer`, commit
+At the canonical checkout `.`, commit
 `e6119102b820fd54bbda007bcba98604a9a3785a` refines the Bank 51 GFX boundary:
 `51:5EE1..70D1` is the 4,592-byte candidate tile source, `51:70D1..70E0` is
 fifteen zero bytes, and confirmed code `Bmp_Validate` starts at `51:70E0`.
@@ -344,7 +344,7 @@ candidate for those remaining spans; it does not prove global asset or use
 completeness.
 
 The isolated build command
-`make BUILD=/tmp/mobile-trainer-bank51-tail-check-20261024/BUILD ROM=/tmp/mobile-trainer-bank51-tail-check-20261024/mobile_trainer.gbc`
+`make BUILD=build/review ROM=build/review/mobile_trainer.gbc`
 returned `SHA-256 OK` and `RESULT: IDENTICAL` against the protected original
 ROM SHA-256
 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
@@ -386,7 +386,7 @@ sheets, 95 screens); the GFX catalog passed (988 assets), PNG rules passed
 (987), the RAM ledger passed (786/786), the name census matched all 15
 families with zero explicitly open, and the banked-name check passed (240
 names, 171 overlapping pairs, zero errors, 10 notes). This validates the
-current rebuild and declared inventories, not runtime behavior or semantic
+current rebuild and declared inventories, not runtime behavior semantic
 closure.
 
 The follow-up also scanned the Japanese ROM for every `CE 50` byte pair as a
@@ -429,7 +429,7 @@ A fresh `tools/mapper.py` run against the immutable Japanese ROM and the current
 
 The mapper exits with status 1 because it reports one executed-start mismatch at `2A:4440`; it has zero sweep failures, boundary crossings or tiling problems. This is the previously documented mid-instruction edge `2A:5760 CALL $4441`, which targets the second byte of the executed `ld a,$00` at `2A:4440`. The current source label `.l4440` and the trace's length-2 instruction row at `2A:4440` preserve the aligned loop decode; `2A:4441` is not established as an independent function. See [`code_map.md`](code_map.md#5-limits-and-unresolved-constructs) and [`original_closure_followup_20261021.md`](original_closure_followup_20261021.md#current-numeric-call-target-review-2026-10-22).
 
-This reconciliation establishes symbol coverage only for the mapper's 414 direct call/far-call entry candidates. It does not validate the semantics of every name, identify every unlabelled code span, or close computed/indirect entry paths. Reproduction and pinned inputs/outputs are retained in `.tmp/jp-current-code-map-20261023/` and `.tmp/jp-code-entry-symbol-reconciliation-20261023/` (`MANIFEST.json` SHA-256 `97c2b028b24e294039ef2df1ccd467dac9d30f68220da1b8b18dabd19d619cfc`).
+This reconciliation establishes symbol coverage only for the mapper's 414 direct call/far-call entry candidates. It does not validate the semantics of every name, identify every unlabelled code span, or close computed/indirect entry paths. Reproduction and pinned inputs/outputs are retained in `jp-current-code-map-20261023` (review artifact) and `jp-code-entry-symbol-reconciliation-20261023` (review artifact) (`MANIFEST.json` SHA-256 `97c2b028b24e294039ef2df1ccd467dac9d30f68220da1b8b18dabd19d619cfc`).
 
 ## Closure boundary
 
@@ -445,7 +445,7 @@ review is complete and the Operator explicitly authorizes resumption.
 
 ## Revalidation at canonical checkout `303acbaa` (2026-10-23)
 
-The audit was revalidated in `/home/rafael/_PROJETOS/Mobile Trainer` at
+The audit was revalidated in `.` at
 `303acbaa591be7590bb6635893e89a334260e018`. The original build again reports
 `SHA-256 OK` and `RESULT: IDENTICAL` for ROM SHA-256
 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`;
@@ -493,7 +493,7 @@ identity/intention, rendered output, global reachability, and hardware
 behavior remain unknown. This is synthetic mGBA evidence, not a hardware
 test. Full command, tool/input/output hashes, and limits are recorded in [the
 Bank 48 reader note](font_reader_69ab_bounds_20261020.md#direct-read-pc-witness-2026-10-23) and
-`.tmp/jp-zero48-pc-trace-20261023/RESULT-caller.json`.
+`RESULT-caller.json` (review artifact).
 
 ## Japanese census and build gates at `d88444c2` (2026-10-23)
 
@@ -542,7 +542,7 @@ English overlay and Operator ZIP remain paused and were not inspected.
 
 ## Historical gate revalidation at `826dbdec` (2026-10-23)
 
-The canonical checkout `/home/rafael/_PROJETOS/Mobile Trainer` was revalidated
+The canonical checkout `.` was revalidated
 at `826dbdec66b9ce1d3ba82ef32d9149e52430226a`. `make` reports SHA-256 OK and
 `RESULT: IDENTICAL` for the protected 2 MiB Japanese ROM. `make sym-check`
 passes with 335 source files, 12,212 labels and 51 constants; `make
@@ -560,7 +560,7 @@ used/unused claims. Its 109/545 census counts were superseded by the current
 
 ## Current Japanese gate revalidation at `3f55d26e` (2026-10-23)
 
-At the canonical checkout `/home/rafael/_PROJETOS/Mobile Trainer`, `make`
+At the canonical checkout `.`, `make`
 passed with SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`
 and `RESULT: IDENTICAL` for the 2,097,152-byte original ROM. `make sym-check`
 passed with 335 source files, 12,212 labels and 51 constants. `make
@@ -581,7 +581,7 @@ zero-instruction stub at HRAM `FFA8`, whose current source identity is
 `hFarCallTrampoline` (`ram/hram.asm`), initialized by `Bank_InitState`
 (`home/bank_switch.asm`). It is not an unnamed ROM routine. The bounded result
 and input hashes are in
-`.tmp/jp-ghidra-current-symbol-audit-20261023/RESULT.json` (SHA-256
+`RESULT.json` (review artifact) (SHA-256
 `ce76e2a4233f325d46414efdf2ba2099fd06ab6fd3eab79ad85c1c7b937d8e8c`),
 reproduced by `audit.py` (SHA-256
 `b0811989c3942e0cac391e88baabbda12f5f227d9663eefe5fa8dabb3d4d95f5`).
@@ -602,7 +602,7 @@ limits are recorded in
 
 ## Gate revalidation at canonical Japanese HEAD `e8efde2f` (2026-10-23)
 
-At `/home/rafael/_PROJETOS/Mobile Trainer`, branch
+At `.`, branch
 `codex/japanese-census-ram-ledger`, HEAD `e8efde2f82e8fad660dffc76f133a36d4b6237ce`,
 the worktree was clean before the checks. `make` verified the immutable
 2,097,152-byte original (SHA-256
@@ -758,7 +758,7 @@ The scenario was added to `traces/scenarios.tsv` and `traces/inputs/zzzz_mailbox
 
 The same full-source census exposed a ledger drift that prior checkpoint text missed: `Padding_BmpValidateEntryAlignment_51_70D1` was already a descriptive owner-qualified label but absent from both address-suffix ledgers. Its row now records the 15 original zero bytes, the PROBABLE alignment interpretation and the unknown exact use. Current `tools/japanese_name_census.py` passes with 15/15 families: 107 strict bank/address suffix labels, 540 broad dispositions (435 address-suffix rows plus 268 `Candidate` rows with 163 overlaps), 2,764 local anchors, 786 RAM equates, and zero missing, stale, duplicate or incomplete rows. There are zero strict address-only globals, generic function prefixes, unreviewed generic markers, bare `gfx/bankNN` paths or address-only asset basenames. The ledger correction does not establish every symbol's semantic purpose or close the Japanese ROM review.
 
-Replay and reconciliation receipts, commands and hashes are retained under `.tmp/jp-mail-natural-explore-20261024/RESULT.json`. The unresolved function-entry candidates, auxiliary spans, Bank 53 name/frame associations, natural frame selection, Porygon assignments and global used/unused status remain open as previously bounded. English/ZIP remains paused pending completion of the Japanese review and explicit Operator approval.
+Replay and reconciliation receipts, commands and hashes are retained under `RESULT.json` (review artifact). The unresolved function-entry candidates, auxiliary spans, Bank 53 name/frame associations, natural frame selection, Porygon assignments and global used/unused status remain open as previously bounded. English/ZIP remains paused pending completion of the Japanese review and explicit Operator approval.
 
 
 ## Consolidated residual matrix

@@ -16,6 +16,6 @@ This Japanese-only path pass renames nine address-only 2bpp tile basenames and t
 
 Each row also includes the neighboring `.png` exact source. Owner INCBIN paths, `gfx/assets.tsv`, `gfx/screens.tsv`, generated PNG rules/Makefile and GFX README were synchronized. All 18 files match their pre-change SHA-256 and size. The historical path map records all 18 direct old-to-new paths.
 
-Validation: `make` returned `SHA-256 OK` and `RESULT: IDENTICAL` for the 2,097,152-byte Japanese ROM (`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`); `make sym-check`, `make palette-check`, `make png-check`, `gfx_export check`, `png_rules mk-check`, and `git diff --check` passed. These results validate the path migration, not new runtime/hardware behavior or English parity.
+Validation: `make` returned `SHA-256 OK` and `RESULT: IDENTICAL` for the 2,097,152-byte Japanese ROM (`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`); `make sym-check`, `make palette-check`, `make png-check`, `gfx_export check`, `png_rules mk-check`, and `git diff --check` passed. These results validate the path migration, not new runtime/hardware behavior English parity.
 
-Pre-change manifest: `.tmp/jp-kbd-panel-vram-paths-20261022/BASELINE.json` (SHA-256 `bd2f9fd7671c2b7d42374f0b7e8676992749416b90216dab13c3dcb8897d043e`).
+Pre-change manifest: `BASELINE.json` (review artifact) (SHA-256 `bd2f9fd7671c2b7d42374f0b7e8676992749416b90216dab13c3dcb8897d043e`).

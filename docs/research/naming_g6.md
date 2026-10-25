@@ -40,7 +40,7 @@ Evidence sources used (all reproducible from the repository):
      0 Startup_NoAdapter    68:4870 classifies the SRAM state -> mostly NoAdapter screen (63:732F) + soft reset (Entry, A=$11);
                             state 4 continues offline (Startup_VerifySaveData)
      1 Startup_ConfigValid  68:4870 state -> Startup_ConfigValidJumpTable (fresh / info error / resume / continue)
-     2 Startup_ConfigBlank  68:4870 state -> Startup_ConfigBlankJumpTable -> Registration_Run (fresh or resume) 
+     2 Startup_ConfigBlank  68:4870 state -> Startup_ConfigBlankJumpTable -> Registration_Run (fresh or resume)
    Startup_VerifySaveData: 22:4FF6, 48:4899, 4E:46CF; failure -> error F0/01/11 (5C) + reinitialise (22:4FA9, 48:4920, 4E:4749)
 ```
 
@@ -88,7 +88,7 @@ for the bank-68 helpers `68:7401`/`68:766E`.
 Every screen module follows the same pattern, which made the helper functions nameable by pattern (`<Screen>_Setup`, `_Loop`,
 `_PlaceCursor`, `_BuildTextMap`, `_PrintText/_PrintPrompt/_PrintFields`, `_UploadTextTiles`, `_LoadTilemap`):
 
-* result in `C27C` (0 = B / cancel, n = choice, 1 = ok), cursor or state in `C27D`, variant argument in `C27E` (all three are
+* result in `C27C` (0 = B / cancel, n = choice, 1 = ok), cursor state in `C27D`, variant argument in `C27E` (all three are
   reused with other meanings by the other screens and by `65:487C`, so they are not proposed as RAM names);
 * setup: `7D:7C00 (b=$15,c=3)`, sprite reset `00:09B6`, HDMA tile loads (`00:0787`), palettes into the staging buffers `D800/D840`
   (`4F:4000`), tilemap copy `00:08EA`, text in three steps: `4F:45C6` (tilemap indices of the text rectangle), `4F:4604` (clear
@@ -739,4 +739,3 @@ were re-decoded from the ROM and agree.  No name was refuted; no status was down
 | `ram_g6.tsv` `C277` | wrong address `65:4234` for the `C277 == 2` test | `65:427D` |
 | `ram_g6.tsv` `C28C` | `wRegHiddenPhoneStep` is narrower than the use (also the hidden mode of the settings menu, see g7) | renamed `wHiddenModeFlag` (same as g7) |
 | `ram_g6.tsv` `DEEE` | the buffer is also the login-ID scratch of `67:5B27` | note added; name kept for the phone flows |
-

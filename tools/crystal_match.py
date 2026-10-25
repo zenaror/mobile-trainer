@@ -43,11 +43,11 @@ Pipeline (``python3 tools/crystal_match.py``; ``-h`` for options; ~45 s)
 
 Inputs (all read-only; paths overridable, see ``--help``):
   baserom.gbc                         Trainer ROM (repo root)
-  <GB>/Pokemon Crystal English Project/pokecrystal.{gbc,sym}                ref 'eng'  (primary)
-  <GB>/Pokemon Crystal BR/pokecrystal-mobile-ptbr/pokecrystal.{gbc,sym}     ref 'ptbr' (cross-check)
-  <GB>/Pokemon Crystal BR/comparativo/pokecrystal-mobile-eng/               source tree of 'eng' (label kinds, constants)
-  <GB>/aaaaa/baseroms/jp/baserom-jp.gb   Japanese Crystal (optional; no symbols; a second target to compare)
-where <GB> = "/media/rafael/Dados/Arquivos/Projetos/Gameboy Projects" (``--gb-root``).
+  <GB>/eng/pokecrystal.{gbc,sym}                ref 'eng'  (primary)
+  <GB>/ptbr/pokecrystal.{gbc,sym}     ref 'ptbr' (cross-check)
+  <GB>/eng/source/               source tree of 'eng' (label kinds, constants)
+  <GB>/jp/baserom-jp.gb   Japanese Crystal (optional; no symbols; a second target to compare)
+where <GB> is the configured reference directory (``--gb-root``).
 
 Outputs (default ``analysis/``; every file skips '#' lines):
   crystal_matches.tsv        one row per (unit, Trainer location) hit
@@ -79,7 +79,7 @@ ROOT = os.path.abspath(os.path.join(HERE, '..'))
 sys.path.insert(0, HERE)
 from sm83 import decode  # noqa: E402
 
-GB_ROOT_DEFAULT = '/media/rafael/Dados/Arquivos/Projetos/Gameboy Projects'
+GB_ROOT_DEFAULT = os.environ.get('CRYSTAL_REFERENCE_ROOT', os.path.join(ROOT, '.cache', 'crystal-references'))
 
 # --------------------------------------------------------------------------
 # reference definitions
@@ -90,19 +90,19 @@ def ref_table(gb):
     return {
         'eng': dict(
             desc='pokecrystal-mobile-eng build (PM_CRYSTAL BXTE, mobile enabled, code disassembled from JP ROM)',
-            rom=os.path.join(gb, 'Pokemon Crystal English Project', 'pokecrystal.gbc'),
-            sym=os.path.join(gb, 'Pokemon Crystal English Project', 'pokecrystal.sym'),
-            src=os.path.join(gb, 'Pokemon Crystal BR', 'comparativo', 'pokecrystal-mobile-eng')),
+            rom=os.path.join(gb, 'eng', 'pokecrystal.gbc'),
+            sym=os.path.join(gb, 'eng', 'pokecrystal.sym'),
+            src=os.path.join(gb, 'eng', 'source')),
         'ptbr': dict(
             desc='pokecrystal-mobile-ptbr build (PM_CRYSTAL BXTE, pt-BR text on the same mobile code)',
-            rom=os.path.join(gb, 'Pokemon Crystal BR', 'pokecrystal-mobile-ptbr', 'pokecrystal.gbc'),
-            sym=os.path.join(gb, 'Pokemon Crystal BR', 'pokecrystal-mobile-ptbr', 'pokecrystal.sym'),
-            src=os.path.join(gb, 'Pokemon Crystal BR', 'pokecrystal-mobile-ptbr')),
+            rom=os.path.join(gb, 'ptbr', 'pokecrystal.gbc'),
+            sym=os.path.join(gb, 'ptbr', 'pokecrystal.sym'),
+            src=os.path.join(gb, 'ptbr')),
     }
 
 
 def jp_rom_path(gb):
-    return os.path.join(gb, 'aaaaa', 'baseroms', 'jp', 'baserom-jp.gb')
+    return os.path.join(gb, 'jp', 'baserom-jp.gb')
 
 
 # --------------------------------------------------------------------------
@@ -2362,7 +2362,7 @@ def main():
     ap.add_argument('--trainer', default=os.path.join(ROOT, 'baserom.gbc'))
     ap.add_argument('--refs', default='eng,ptbr', help='comma list of references (eng,ptbr)')
     ap.add_argument('--primary', default='eng', help='reference used for symbol_map / ram_map naming')
-    ap.add_argument('--jp', default=None, help='JP Crystal ROM; default <gb-root>/aaaaa/baseroms/jp/baserom-jp.gb; "none" disables')
+    ap.add_argument('--jp', default=None, help='JP Crystal ROM; default <gb-root>/jp/baserom-jp.gb; "none" disables')
     ap.add_argument('--out', default=os.path.join(ROOT, 'analysis'))
     ap.add_argument('--keep-ldh', action='store_true', help='do not mask ldh operands')
     ap.add_argument('--seed-min', type=int, default=4)

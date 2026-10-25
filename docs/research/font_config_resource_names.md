@@ -60,7 +60,7 @@ remain assumptions.
 `Dial_LoadDefaultsForAdapterType` (68:46C8, `engine/account/helpers.asm`) also indexes
 the table, reads interior+76 for the number conversion and+7E for the bounded comment
 copy. Images0/1 are equal and images2/3 are equal; pair equality does not identify a
-provider, model, color or undisclosed field. No sample account/dial/password contents
+provider, model, color undisclosed field. No sample account/dial/password contents
 are reproduced here. See the historical `naming_g7.md` record for earlier interpretation.
 
 ## Historical alias map

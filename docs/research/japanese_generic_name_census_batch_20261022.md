@@ -2,7 +2,7 @@
 
 ## Scope and decision
 
-This checkpoint consolidates the Japanese source review instead of treating each subsystem as a separate discovery. It is based on source commit `2d264633c846d44986ad42f15480c283261d3b91` in `/home/rafael/_PROJETOS/Mobile Trainer`; a previously used checkout was stale and is excluded. The English overlay and Operator ZIP were neither read nor changed; the English branch remains paused pending the Operator's explicit approval.
+This checkpoint consolidates the Japanese source review instead of treating each subsystem as a separate discovery. It is based on source commit `2d264633c846d44986ad42f15480c283261d3b91` in `.`; a previously used checkout was stale and is excluded. The English overlay and Operator ZIP were neither read nor changed; the English branch remains paused pending the Operator's explicit approval.
 
 The census enumerated every address-only local definition of the form `.lAAAA` in the maintained Japanese ASM/INC source set (333 files, excluding protected `engine/mail/sample_data.asm`). It counted **3,871 definitions** in three exhaustive partitions:
 
@@ -23,7 +23,7 @@ All 546 rows were checked against the current definition, owner, block, and in-o
 - **Remaining symbol-census subsystems:** 112 accepted, with zero owner/definition mismatches, collisions, or missing references.
 - **Engine path-review subsystems:** 25 accepted, with zero owner/definition/reference mismatches or collisions.
 
-The corrected 112-row review also found 24 proposal evidence notes that needed wording fixes, without changing the names: eight gave the wrong LY immediate, four claimed a counter for NUL-terminated scans, and twelve copied an unrelated candidate-screen caveat. The final mapping records the reviewed evidence; the curated proposal/review tables in ignored `.tmp/jp-generic-name-batch-20261022-evidence/` preserve the audit trail and input hashes after the private build worktree was removed.
+The corrected 112-row review also found 24 proposal evidence notes that needed wording fixes, without changing the names: eight gave the wrong LY immediate, four claimed a counter for NUL-terminated scans, and twelve copied an unrelated candidate-screen caveat. The final mapping records the reviewed evidence; the curated proposal/review tables in ignored `jp-generic-name-batch-20261022-evidence` (review artifact) preserve the audit trail and input hashes after the private build worktree was removed.
 
 The resulting 546 names are operational local labels only. Confidence describes static instruction evidence, not natural reachability, hardware execution, product purpose, or a full caller contract. The four replacements and all remaining uncertainties retain narrow wording.
 

@@ -14,4 +14,4 @@ ROM SHA-256: `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
 
 The complete run ended at frame 23412 after 99,562,533 instructions. The `waitstable` macro command hit its 600-frame cap on captures; the fixed input sequence still emitted all screenshots, and an independent complete replay reproduced all 32 images byte-for-byte. A separate 13,000-frame recheck ended after 15 captures and is excluded as incomplete.
 
-Private evidence manifest: `.tmp/jp-help-mail-natural-20261023/MANIFEST_recheck.json`, SHA-256 `32224dfb6a565e84550ce092c903a65414f54c15b89aca0f13d4414e39cd5a7f`. It records the command, runtime/input hashes, both replay capture hashes, SRAM before/after bytes, dynamic write spans and limitations.
+Private evidence manifest: `MANIFEST_recheck.json` (review artifact), SHA-256 `32224dfb6a565e84550ce092c903a65414f54c15b89aca0f13d4414e39cd5a7f`. It records the command, runtime/input hashes, both replay capture hashes, SRAM before/after bytes, dynamic write spans and limitations.

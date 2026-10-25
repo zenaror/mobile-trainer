@@ -19,7 +19,7 @@ The two internal CALLs remain conditional edges inside code whose outer root is 
 
 All four natural-entry questions remain **UNKNOWN**. No function, table, caller, or runtime status is inferred from this pass. The operation names remain bounded descriptions of their local mechanics. Further progress needs a concrete natural producer of the stack/bank state or a trace that records the actual source caller and selected bank.
 
-The machine-readable receipt is retained at `.tmp/jp-entry-byte-construction-20261023/RESULT.json` (SHA-256 `7bd621bfe65ff9a2e71e148c6b8e317553b88af636f411394d275ab878a50248`). It records the instruction-index, allowlist and parent-report hashes, the original ROM hash, all 104,200 byte checks, and every bounded raw-pair hit. No source or ROM bytes were modified.
+The machine-readable receipt is retained at `RESULT.json` (review artifact) (SHA-256 `7bd621bfe65ff9a2e71e148c6b8e317553b88af636f411394d275ab878a50248`). It records the instruction-index, allowlist and parent-report hashes, the original ROM hash, all 104,200 byte checks, and every bounded raw-pair hit. No source or ROM bytes were modified.
 
 ## Indirect-dispatch review at Japanese main `40cb409b` (2026-10-23)
 

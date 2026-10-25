@@ -79,7 +79,7 @@ are recorded here so future passes can compare against a fixed baseline.
 
 ## Source changes from this pass
 
-Six `_Unknown` names in `engine/mail/result_screens.asm` were renamed using direct content and consumer evidence. The three text blocks at bank `29`, addresses `47B2`, `4AC4`, and `4D80`, each contain exactly five full-width question marks and a NUL (`81 48` repeated five times, then `00`). Each text block has an associated wrapper; each wrapper passes its corresponding block to `TextTiles_RenderLine` three times and uploads the staged question-mark tiles. The upload helper is now named `MailServerStatus_UploadQuestionMarkTileStage`; its static consumers are exactly these three wrappers. The labels now say `FiveQuestionMarks`; the associated branch labels say `QuestionMarks`. This identifies the rendered glyphs and behavior without claiming why the program chooses them. The private patch proof and reverse-diff receipt are retained at `.tmp/jp-comprehensive-census-7973/entries/RENAME_PROOF/`.
+Six `_Unknown` names in `engine/mail/result_screens.asm` were renamed using direct content and consumer evidence. The three text blocks at bank `29`, addresses `47B2`, `4AC4`, and `4D80`, each contain exactly five full-width question marks and a NUL (`81 48` repeated five times, then `00`). Each text block has an associated wrapper; each wrapper passes its corresponding block to `TextTiles_RenderLine` three times and uploads the staged question-mark tiles. The upload helper is now named `MailServerStatus_UploadQuestionMarkTileStage`; its static consumers are exactly these three wrappers. The labels now say `FiveQuestionMarks`; the associated branch labels say `QuestionMarks`. This identifies the rendered glyphs and behavior without claiming why the program chooses them. The private patch proof and reverse-diff receipt are retained at `RENAME_PROOF` (review artifact).
 
 The graphics audit identified three payloads previously called candidates whose exact byte intervals are fully covered by static HDMA requests. Labels and asset paths now describe them as HDMA source slices:
 
@@ -89,7 +89,7 @@ The graphics audit identified three payloads previously called candidates whose 
 | `24:5EF1–62D1` (992 bytes) | `24:5EE0–62E0` to VRAM0 `8000–8400` | VRAM0 `8011–83F1` | Starts at byte phase +1; name does not assert aligned tiles or PNG appearance. |
 | `25:6BD1–6CE1` (272 bytes) | `25:69F0–6CF0` to VRAM0 `8000–8300` | VRAM0 `81E1–82F1` | Starts at byte phase +1; no arrow/label visual identity or natural display claim. |
 
-The binary and PNG payload hashes are unchanged by path renames. The independent full graphics matrix, including all original hashes and evidence boundaries, is retained under `.tmp/jp-comprehensive-census-7973/gfx/audit/` (`AGENT_REPORT.md`, `transfer_slices.tsv`, and `scoped_sha256.json`). The earlier statement that neighboring HDMA blocks did not prove these exact spans was corrected in `mixed_candidate_graphics_paths_20261021.md`.
+The binary and PNG payload hashes are unchanged by path renames. The independent full graphics matrix, including all original hashes and evidence boundaries, is retained under `audit` (review artifact) (`AGENT_REPORT.md`, `transfer_slices.tsv`, and `scoped_sha256.json`). The earlier statement that neighboring HDMA blocks did not prove these exact spans was corrected in `mixed_candidate_graphics_paths_20261021.md`.
 
 ## Names intentionally left unresolved
 

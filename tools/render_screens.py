@@ -1025,7 +1025,7 @@ def cmd_capture(a):
     mg = os.path.join(cache, 'mgba')
     if not os.path.exists(os.path.join(mg, 'libmgba.so.0.11.0')):
         sys.exit('build the tracer once first: python3 tools/trace/run_trace.py --only noadapter  (builds libmgba in .cache/trace/mgba)')
-    msrc = os.environ.get('MGBA_SRC', '/media/rafael/Dados/Arquivos/Projetos/Gameboy Projects/MobileAdapterGB/mgba/mgba')
+    msrc = os.environ.get('MGBA_SRC', os.path.join(ROOT, '.cache', 'mgba-src'))
     flags = open(os.path.join(mg, 'CMakeFiles', 'mgba.dir', 'flags.make')).read()
     defs = [d for d in re.search(r'^C_DEFINES = (.*)$', flags, re.M).group(1).split() if d not in ('-DMGBA_DLL', '-Dmgba_EXPORTS')]
     exe = os.path.join(work, 'mgba_trace_vs')

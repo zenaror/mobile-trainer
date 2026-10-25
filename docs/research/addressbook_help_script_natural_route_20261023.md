@@ -21,7 +21,7 @@ The emulator exited 0 at frame 12064 after 55,317,248 instructions. It used the 
 Original ROM SHA-256: `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. Tracer SHA-256: `c3a4ac33ea322822c3f1b0f44d8f1e4f7343ac4f39ec9f328f97d98c4ad48867`. Linked `libmgba.so.0.11.0` SHA-256: `4c221287ee524eeb8fcd21ae45c330a70fe10c162637b284e1f9d87fd7dc8923`.
 
 ```sh
-./.cache/trace/mgba_trace --rom 'Mobile Trainer (Japan).gbc' --scenario help_addressbook_bounded --outdir .tmp/jp-help-addressbook-natural-20261023/run-bounded --frames 13000 --macro .tmp/jp-help-addressbook-natural-20261023/addressbook_bounded.macro --record-input .tmp/jp-help-addressbook-natural-20261023/addressbook_bounded.txt --mobile on --net fake --mobile-config-in .tmp/jp-help-unlock-followup-20261023/state/help_after_page_list_v2.cfg --save-in .tmp/jp-help-unlock-followup-20261023/state/help_after_page_list_v2.sav --save-out .tmp/jp-help-addressbook-natural-20261023/run-bounded/addressbook_return.sav --shots .tmp/jp-help-addressbook-natural-20261023/run-bounded/shots
+./.cache/trace/mgba_trace --rom 'Mobile Trainer (Japan).gbc' --scenario help_addressbook_bounded --outdir run-bounded --frames 13000 --macro addressbook_bounded.macro --record-input addressbook_bounded.txt --mobile on --net fake --mobile-config-in help_after_page_list_v2.cfg --save-in help_after_page_list_v2.sav --save-out addressbook_return.sav --shots shots
 ```
 
-Private evidence manifest: `.tmp/jp-help-addressbook-natural-20261023/MANIFEST.json`, SHA-256 `73520b71ae81e07b4b9ffeab939b07385d309424d3182b0ad17c4045ead6bcbb`. It records command, ROM/tool/config/seed/input/output/stats/data-access hashes and all screenshot hashes.
+Private evidence manifest: `MANIFEST.json` (review artifact), SHA-256 `73520b71ae81e07b4b9ffeab939b07385d309424d3182b0ad17c4045ead6bcbb`. It records command, ROM/tool/config/seed/input/output/stats/data-access hashes and all screenshot hashes.

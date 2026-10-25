@@ -28,7 +28,7 @@ tile resources and one list palette:
 
 The destination and consumer checks use the maintained setup routines and the
 static transfer records in `gfx/previews/screen_ops.tsv`. They support the
-resource paths, not claims about hardware behavior or untraced screens. The
+resource paths, not claims about hardware behavior untraced screens. The
 four Bank 29 tile extents have executed ROM reads recorded in the source
 headers. The path names keep owner semantics and transfer destinations while
 leaving unknown tile content unclassified.

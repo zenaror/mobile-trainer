@@ -412,7 +412,7 @@ No66, a macroSFX amostra o shadowWRAM de entrada, salva esse byte emAF, selecion
 
 Os32 headers UNCLASSIFIED/storage pertencem a um escopo separado desses72 comentários. A auditoria finita dos32 emissores db conferiu122 bytes originais. O header54:4CAD foi corrigido para texto CONFIRMED:81 63 00 é elipse Shift-JIS maisNUL, consumida por Text_TruncateSjis/CopyString ou CopyBytes. O header24:4BCC agora descreve1B em vez de10. Os outros31 intervalos continuam storage UNCLASSIFIED; não foi demonstrada uma função viva com mecanismo local ausente nesses bytes. Decode legal e contrato hipotético não bastam para converterdb a código; ver classify_g6.md, seção7. As listas145/72/32 se sobrepõem e não se somam como funções. Outros intervalos sem comentário/callers computados/limites de entrada não foram cobertos universalmente.
 
-As correções de comentários qualificam bypass sequencial, contagens e frames; não inventam novos caminhos. Os nomes e níveis existentes não são prova suficiente sozinhos. Não foram feitos novos negativos de cenários, wordscans/callers, gates/build, replay/emulação, Git, OMM, tradução ou auditoria de assets/frames/PNGs. Nenhuma equivalência de reconstrução nova decorre deste fechamento estático.
+As correções de comentários qualificam bypass sequencial, contagens e frames; não inventam novos caminhos. Os nomes e níveis existentes não são prova suficiente sozinhos. Não foram feitos novos negativos de cenários, wordscans/callers, gates/build, replay/emulação, Git, tradução ou auditoria de assets/frames/PNGs. Nenhuma equivalência de reconstrução nova decorre deste fechamento estático.
 
 ### Identidades dos lotes usados
 
@@ -477,8 +477,7 @@ Input identity: accepted private source snapshot corresponding to root revision
 `MEASUREMENTS.json` SHA-256 `b917ed674218be088b39b46769050c265101986b81dc56781f4f146ac770c520` from the `mt-jp-raw31-remaining-20261015/DATA`
 analysis. The new proposal's DATA readset also records the two edited-file baselines and the hardware,
 HRAM and banked-RAM definitions used to resolve operands. Exact bytes, labels and source changes are
-available in that proposal's DATA reports. No build, gates, emulator, hardware, Git mutation, OMM
-write or English work was performed by this private proposal; reconstruction comparison remains a
+available in that proposal's DATA reports. No build, gates, emulator, hardware, Git mutation or English work was performed by this private proposal; reconstruction comparison remains a
 separate required integration check.
 
 

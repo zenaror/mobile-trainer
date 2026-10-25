@@ -15,7 +15,7 @@ instructions, operands, data, and whitespace are unchanged. The `.sym` delta is
 exactly 72 removed and 72 added names at the same addresses, with no other
 symbol-address changes. Per-name mapping, input/output hashes, and reviewed
 diffs are retained in the ignored task evidence under
-`.tmp/local-label-pass-20261023/`.
+`local-label-pass-20261023` (review artifact).
 
 | Source owner | Count | Address range | Examples of adopted operation labels |
 |---|---:|---|---|

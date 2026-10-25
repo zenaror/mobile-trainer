@@ -39,7 +39,7 @@ All 21 records map to exactly one existing same-address semantic label, have
 zero references in other source files or tools, and zero local labels scoped
 under the generic declaration. The independent reviewer also found no uses in
 the owner file beyond each declaration. The receipt is retained in ignored
-`.tmp/generic-coalias-post-1bfd44b5-20261021/RESULT.json`.
+`RESULT.json` (review artifact).
 
 Confidence: **CONFIRMED** that these were redundant exports under the recorded
 source set and owner-local inspection. No new claim is made about natural

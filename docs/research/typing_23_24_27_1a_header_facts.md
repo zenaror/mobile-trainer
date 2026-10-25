@@ -16,7 +16,7 @@ At 27:4EF5–4F0B, the 22 original bytes contain `ld a,$07; ldh [$FF4B],a`: 7 is
 
 The explicit scouting extension at 1A:477E–47A4 contains six NUL-terminated strings in 38 bytes: “ＩＳＰ”, “ＰＤＣ”, “ＰＨＳ”, “Ｗｅｂ”, “ＷＷＷ”, “＠”. Their starts are 477E/4785/478C/4793/479A/47A1. The header's seven-string count, “ＩＤＳＰ” and “※” are corrected; all emitted strings and aliases were already correct. The header stays PROBABLE.
 
-The existing 69 natural coverage files, 69 merged ROM data-access files, 50 available callgraphs and coverage union contain no matching rows in the three original target spans. Absence is not proof of impossibility. Merged data-access ranges do not establish instruction execution or temporal attribution. No forced scenario, emulator or hardware test was run. The 1A extension is supported by raw bytes, source and exact string boundaries; it does not promote execution or caller evidence.
+The existing 69 natural coverage files, 69 merged ROM data-access files, 50 available callgraphs and coverage union contain no matching rows in the three original target spans. Absence is not proof of impossibility. Merged data-access ranges do not establish instruction execution or temporal attribution. No forced scenario, emulator hardware test was run. The 1A extension is supported by raw bytes, source and exact string boundaries; it does not promote execution or caller evidence.
 
 The four source files retain their line counts and all noncomment rows, including blanks. All 348 tracked ASM/inc vectors, globals/local scopes and 289 metadata TSV bytes remain exact. Seven comment rows change in the order23→24→27→1A. The broader lexical scout is a finite candidate screen, not a claim that every other header is correct.
 

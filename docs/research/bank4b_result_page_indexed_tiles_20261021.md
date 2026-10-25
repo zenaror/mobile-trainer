@@ -16,7 +16,7 @@ No producer/consumer chain or stronger format evidence was recovered in this pas
 
 ## Reproduction and retained evidence
 
-The independent audit compared each descriptor-derived intersection with original ROM bytes and the complete upload source; the extraction SHA-256 is also recorded by `gfx/png_rules.tsv`. Read-only reports are retained under `.tmp/agent-bank4b-positive-consumer-20261021/`: `REPORT.md` SHA-256 `076a1e1140d5a50064b200328d1f0e69b6cfd626d4a2be638d2cadb74b85c69a`; `ADDENDUM.md` SHA-256 `c3c1beef31a92f265b5a2718c6182d67ff870d112c5f8d6a8c72413981ef87b9`; `ADDENDUM_RESULT.json` SHA-256 `4b19a1635efd32d905566d562074b8033d44c42cfa587b41f6990a9bd8267908`. The audit base was `d1ad7596e84f04262e790d39e678a1b75e56e8ad`; subsequent checkout changes affected the same-address menu aliases and the graphics representation, not the bank 68 descriptors or ROM bytes.
+The independent audit compared each descriptor-derived intersection with original ROM bytes and the complete upload source; the extraction SHA-256 is also recorded by `gfx/png_rules.tsv`. Read-only reports are retained under `agent-bank4b-positive-consumer-20261021` (review artifact): `REPORT.md` SHA-256 `076a1e1140d5a50064b200328d1f0e69b6cfd626d4a2be638d2cadb74b85c69a`; `ADDENDUM.md` SHA-256 `c3c1beef31a92f265b5a2718c6182d67ff870d112c5f8d6a8c72413981ef87b9`; `ADDENDUM_RESULT.json` SHA-256 `4b19a1635efd32d905566d562074b8033d44c42cfa587b41f6990a9bd8267908`. The audit base was `d1ad7596e84f04262e790d39e678a1b75e56e8ad`; subsequent checkout changes affected the same-address menu aliases and the graphics representation, not the bank 68 descriptors or ROM bytes.
 
 
 ## Addendum (2026-10-22): second-banner transfer
@@ -33,7 +33,7 @@ now use filenames derived from `AccountResultPage_CandidateTiles_5080` and
 (896 bytes) and `account_result_page_candidate_tiles_5420` (1,104 bytes). The
 matching exact PNG sources moved with them. All four payload/source hashes match
 the pre-move manifest at
-`.tmp/jp-bank4b-candidate-asset-paths-20261022/PRE_MOVE.json` (SHA-256
+`PRE_MOVE.json` (review artifact) (SHA-256
 `b58ad27ecac7dd328a05e51c96a8094231643e5c88af4900bbd6e4778e5fef94`). The
 rename does not promote their PROBABLE classifications or claim complete-screen
 composition, natural selection, or Pokémon/frame identity.

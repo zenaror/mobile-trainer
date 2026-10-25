@@ -41,7 +41,7 @@ demonstrated.
 The static reviewer accepted the 15-label subset, confirmed zero other
 references in the 347 in-scope ASM/INC files and 142 tools, and verified the
 local-scope exception above. The receipt is retained at
-`.tmp/generic-coalias-post-3019597c-20261021/REVIEW_PAGE_LIST.md`.
+`REVIEW_PAGE_LIST.md` (review artifact).
 
 After the change, `make` reported `RESULT: IDENTICAL` against original ROM
 SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.

@@ -3,7 +3,7 @@
 This is a bounded Japanese-original audit of the bank53 name table, the candidate
 frame windows, and the active PNG extraction inventory. The detailed per-window
 and per-ordinal matrices, commands, source locations, and hashes are retained in
-`.tmp/parallel-jp-assets-20261020/BANK53_PNG_FOLLOWUP.md` (SHA-256
+`BANK53_PNG_FOLLOWUP.md` (review artifact) (SHA-256
 `3d34bd60cc6960cf687ea9bbdb95e74d0c1d2bd546808cfa38dd168cdbd54bf7`).
 
 The report authenticated its private source snapshot against commit
@@ -49,7 +49,7 @@ An independent static placement audit fixed its inputs to
 `bef896d02a0476acfc92d32dfe615f3dbd0b34fa` and the original ROM SHA above. It
 checked only these eight KEEP windows. The existing descriptor table has 27
 style words and five distinct descriptors whose far pointers select bank 47.
-The loader preserves `LCDC.bit4`. No selector or source path was found for
+The loader preserves `LCDC.bit4`. No selector source path was found for
 these bank41–46 windows, and the scan found zero symbolic code references to
 their labels.
 
@@ -74,8 +74,8 @@ but none of the eight windows gains a justified original editing view. Preserve
 their `KEEP` status and all 25 unproved name-to-image associations.
 
 The detailed report, matrix and result are retained in the ignored
-`.tmp/agent-keep-frame-placement-20261021/` directory; result SHA-256
+`agent-keep-frame-placement-20261021` (review artifact) directory; result SHA-256
 `6cc28e19009428e51be45c56da1ec0c9963a952047bcabc9bc42fa37da2e001e`. The
-audit made no source, build, emulator or tracked-file changes. This finite
+audit made no source, build, emulator tracked-file changes. This finite
 negative result does not prove global reader absence or that any frame is
 unused.

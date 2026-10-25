@@ -115,7 +115,7 @@ JIS run reaches `POP HL` at `510F` before Base64 conversion. This records
 the original behavior without repairing the ROM or claiming natural entry
 into RAM. A small fail-closed interpreter of the original leaf bytes checks
 ASCII, unclosed B/@, and closed-B cases with synthetic RAM/stack; it is not
-a native emulator or hardware observation.
+a native emulator hardware observation.
 
 The maintained SMTP header producer has a narrower domain: for complete
 valid SJIS units without literal ESC, at most 83 source bytes (64 address,
@@ -127,7 +127,7 @@ domain. It does not prove every stored input has complete SJIS units, no
 embedded ESC, or stable nonaliasing state. The body conversion is a different
 route and is outside this header result. No candidate root or Bank53/frame
 association is established. Reproduction and per-path states:
-`.tmp/jp-branch-stack-returns-20261025/check_header_contract.py` and
+`check_header_contract.py` (review artifact) and
 `HEADER_CONTRACT.json`. The broad `probe.py`/`RESULT.json` in that directory
 are candidate generation only: balanced calls assumed, bounded stacks, no
 register/memory/mapper tracking; their other rows are not confirmed defects.

@@ -12,7 +12,7 @@ This does **not** prove that every candidate window is used, that any frame is u
 
 - The 25 pointers at 53:4000–4032 (50 bytes) and Shift-JIS/NUL strings at 53:4032–4171 (319 bytes) match the ROM exactly. The complete contiguous block is 53:4000–4171 (369 bytes). No image assignment follows from table order.
 - The 25 candidate windows are each `$D50` bytes. Their source fragments re-emit exactly; the 2,416 bytes outside currently active tile/raw leaves remain represented in source and are not missing ROM bytes.
-- All 137 inventoried Bank 41–47 assets exist and match emitted sizes/hashes. The 53 inverse conversions and 17 views match the documented models. The 24 preview files decode as valid 160×144 PNGs with valid CRCs. These checks establish file and declared-model consistency, not natural loader behavior or LCD output.
+- All 137 inventoried Bank 41–47 assets exist and match emitted sizes/hashes. The 53 inverse conversions and 17 views match the documented models. The 24 preview files decode as valid 160×144 PNGs with valid CRCs. These checks establish file and declared-model consistency, not natural loader behavior LCD output.
 - Eight `KEEP` maps retain uncovered cells under the conditional U160 model; these are not evidence of unused graphics. The distinct 47:68F0 candidate has its own existing editable screen PNG and lies outside the 25-window stride set.
 - The 18 screen-catalog rows include a separate partial 47:5850 row (357/360 cells). It is not a 26th `$D50` window and is not one of the 17 fully modeled views.
 - A bounded lexical scan found Bank 53 name-table symbols only at their owner definitions/pointers, and did not find external uses of the extracted candidate asset labels. The negative scan does not cover arbitrary computed pointers, runtime copies, or every bank-selection path.
@@ -50,7 +50,7 @@ open.
 
 The bounded recheck examined 349 Japanese source files (including the 333 maintained files in the six primary source roots) and 149 exported symbols. It reproduced the 25 name entries and 369-byte block, all 25 candidate windows (85,200 bytes), 137 assets (93,264 emitted bytes), 53 PNG inversions (69,520 bytes), 18 catalogued screen rows (17 complete views), 24 candidate previews plus five descriptor previews, 27 selector words and five descriptors. The eight resource directories contain exactly 208 tracked files (137 assets and 71 PNGs); the inventory reports no missing, orphaned or expected-but-untracked files. All 29 preview images matched the declared pixel model after the audit renderer included the unloaded-cell hatch. The initial reviewer ledger had 13 preview mismatches because it omitted that hatch; this was an audit-model error and is preserved with its correction in the ignored evidence directory.
 
-The recheck does not close any of the 25 name-to-window associations or prove natural/unused status for a frame. The exact selector chain still points only to the previously identified Bank 47 resource families. Full report and reproduction hashes are retained under `.tmp/jp-generic-name-batch-20261022-evidence/bank53-e97026b8-independent-v2/`.
+The recheck does not close any of the 25 name-to-window associations or prove natural/unused status for a frame. The exact selector chain still points only to the previously identified Bank 47 resource families. Full report and reproduction hashes are retained under `bank53-e97026b8-independent-v2` (review artifact).
 
 ## Reconciliation at Japanese main 8bb48e53
 
@@ -113,7 +113,7 @@ The current checkout contains 69 per-scenario `traces/coverage_*.tsv` files. Re-
 
 ## Scenario data-read corpus recheck at `5e6d275` (2026-10-23)
 
-The current checkout has 70 paired per-scenario `traces/coverage_*.tsv` and `traces/detail/*/dataaccess.tsv` files. Re-reading the data-access reports found 81,995 `rom_read`, 762 `sram_read` and 896 `sram_write` merged ranges, with zero `rom_read` ranges intersecting the Bank 53 name/pointer interval `53:4000–4171` (end-exclusive). The report writer records data loads through `hookLoad8` after mapping the address to a ROM bank; instruction fetches are explicitly excluded. The input set is pinned by aggregate SHA-256 `b9ebe5fbf81b30d7782425f645df7f0c503436e1f972e5045b9669b74bd3dc27`; reproducible counts and limits are in `.tmp/jp-bank53-dataaccess-20261023/RESULT.json`.
+The current checkout has 70 paired per-scenario `traces/coverage_*.tsv` and `traces/detail/*/dataaccess.tsv` files. Re-reading the data-access reports found 81,995 `rom_read`, 762 `sram_read` and 896 `sram_write` merged ranges, with zero `rom_read` ranges intersecting the Bank 53 name/pointer interval `53:4000–4171` (end-exclusive). The report writer records data loads through `hookLoad8` after mapping the address to a ROM bank; instruction fetches are explicitly excluded. The input set is pinned by aggregate SHA-256 `b9ebe5fbf81b30d7782425f645df7f0c503436e1f972e5045b9669b74bd3dc27`; reproducible counts and limits are in `RESULT.json` (review artifact).
 
 This is a re-read of the committed scenario corpus, not a new emulator execution. It establishes only that these 70 recorded scenarios contain no data-load range intersecting the table interval. It does not prove that the names are globally unread, that frames are unused, or that no computed/unobserved reader or scenario exists. The finite PNG/asset inventory remains closed; the name-to-window mapping and natural selection remain unresolved.
 
@@ -122,7 +122,7 @@ This is a re-read of the committed scenario corpus, not a new emulator execution
 
 A path-scoped scan covered 333 tracked `.asm`/`.inc` files in `home/`, `engine/`, `data/`, `gfx/`, `audio/` and `lib/`, excluding `engine/mail/sample_data.asm` before reading and excluding `languages/`. It enumerated `ld a, immediate` values written in hexadecimal, decimal, or binary whose value is `$53`. The six matches are bounded assignments in `engine/account/confirm_screens.asm` (to `hTextY`) and `engine/browser/page_list.asm` (to `wSpriteSlot2` fields); none writes a ROM-bank selector. The scan also found no external symbolic references to `Table_PokemonNamePointers` or `PokemonName00..24` in that source set.
 
-Reproduction artifacts are in `.tmp/jp-bank53-literal-selector-census-20261023/`: `audit.py` SHA-256 `d6381934766db6b69a3da868a222732ac776871a59dd58940674cfc779405f3a`, `INPUTS.json` SHA-256 `8f4edb32cf2f6e38b91441cd5f026a03b69e68676b8711b763b0743af3e94afb`, and `RESULT.json` SHA-256 `2b8e2a2bc5d9bebc542c1f841c99fab2025b8cbe8424ef816ae87177ccd1bc92`. The immutable original ROM SHA-256 remains `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
+Reproduction artifacts are in `jp-bank53-literal-selector-census-20261023` (review artifact): `audit.py` SHA-256 `d6381934766db6b69a3da868a222732ac776871a59dd58940674cfc779405f3a`, `INPUTS.json` SHA-256 `8f4edb32cf2f6e38b91441cd5f026a03b69e68676b8711b763b0743af3e94afb`, and `RESULT.json` SHA-256 `2b8e2a2bc5d9bebc542c1f841c99fab2025b8cbe8424ef816ae87177ccd1bc92`. The immutable original ROM SHA-256 remains `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
 
 This closes only the direct immediate-`A` selector check for the declared source set. It does not exclude values computed at runtime, other instruction forms, pointers or tables, or accesses outside this set. It does not link any Pokémon name to a candidate frame, identify natural Bank 53 selection, or establish used/unused status. No Japanese source, asset, or ROM bytes changed.
 
@@ -131,7 +131,7 @@ This closes only the direct immediate-`A` selector check for the declared source
 
 A second bounded check inspected the immutable 2 MiB original ROM (SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`) for the documented inline conventions `call $06D1 ; dw target ; db bank` (`CD D1 06`) and `call $072E ; dw target ; db bank` (`CD 2E 07`), plus direct helper-call opcodes for `FarJumpTable` (`CD 51 05`) and `JumpTableBank` (`CD 40 05`). The whole-file scan found 5,274 raw FarCall opcode-pattern matches and zero whose following inline bank byte is `$53`; it found zero patterns for the other three helper entries. It also found no FarCall-pattern target word equal to ROM0 jump-table helpers `$0540`, `$0545`, `$0551`, or `$056A`. The 5,274 are raw byte matches, not all individually verified instruction starts.
 
-Reproduction: `.tmp/jp-bank53-inline-farptr-census-20261023/audit.py` SHA-256 `c75c816d613aa77f53b33e8626b28bf3fa35b5ea463b0376e3bcc58105f9eda6`; `RESULT.json` SHA-256 `3e4c9cd8d30d065c6f14f05f1bca499ff36e41367c43bea6fe0504542c77d287`. This excludes only direct inline FarCall/FarJump and direct calls to these table helpers in their documented encodings. Computed bank values, indirect tables, other readers, and natural access remain open; no name-to-frame mapping or used/unused classification follows.
+Reproduction: `audit.py` (review artifact) SHA-256 `c75c816d613aa77f53b33e8626b28bf3fa35b5ea463b0376e3bcc58105f9eda6`; `RESULT.json` SHA-256 `3e4c9cd8d30d065c6f14f05f1bca499ff36e41367c43bea6fe0504542c77d287`. This excludes only direct inline FarCall/FarJump and direct calls to these table helpers in their documented encodings. Computed bank values, indirect tables, other readers, and natural access remain open; no name-to-frame mapping or used/unused classification follows.
 
 ## Whole-ROM raw far-pointer-shaped byte scan at `8d8f024c` (2026-10-24)
 
@@ -164,9 +164,9 @@ ASM, graphics, or ROM bytes changed. After rebuilding the current checkout,
 `make` reports `RESULT: IDENTICAL` at the pinned ROM hash and `make sym-check`
 passes (335 source files, 12,214 labels, 51 constants).
 
-Reproduction: `.tmp/jp-bank53-farptr-scan-20261024/scan.py` SHA-256
+Reproduction: `scan.py` (review artifact) SHA-256
 `78b723fd9d754abc1386ae58cc720ad83df22f99b03174f8477781d6f5f20734`;
 `RESULT.json` SHA-256
 `32f857573f244ad65a3efc8f89da0580417f1473b0afbd8f38aa63bde4aca24b`.
 The scan pins the rebuilt map and symbol inputs in that result. The private
-`.tmp/` artifacts remain retained under the project cleanup policy.
+`.tmp` (review artifact) artifacts remain retained under the project cleanup policy.

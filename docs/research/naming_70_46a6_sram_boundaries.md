@@ -10,7 +10,7 @@ was added after the historical “unlabelled segment” snapshots below. Their
 statements about a prospective change, private validation, or no label at
 4740 describe those earlier stages, not the current checkout. The static
 boundary and conditional mechanics documented below remain applicable; this
-reconciliation adds no natural-execution, emulator or hardware evidence.
+reconciliation adds no natural-execution, emulator hardware evidence.
 
 The original ROM bytes at bank70 [46A6,477F), physical offsets [1C06A6,1C077F), total217 bytes, agree with the107 maintained instruction starts. There is no emitting data directive in this maintained span. This establishes the bounded source/byte correspondence; clean decode alone does not establish entry or exclude another interpretation/overlapping entry. The preceding maintained block returns at46A5. The neighbouring named block starts at477F; neither selected segment falls through into it in ordinary execution.
 
@@ -68,7 +68,7 @@ establish the complete natural value domain, exclude nonzero writers through
 other inputs or generic copies, or prove global unreachability of the Bank 70
 readers. The operation entry and application purpose remain HYPOTHESIS. The
 replay command, hashes, retained watchpoint, and cleanup receipt are in
-`.tmp/jp-a9ed-natural-writer-20261024/` (`RESULT.json` SHA-256
+`jp-a9ed-natural-writer-20261024` (review artifact) (`RESULT.json` SHA-256
 `77f25021f6d04fa0b10b6e2b902b4ba325541f9b98118c31102db06e3c9e02a1`).
 
 ### `WriteByteFar` caller census and bounded SRAM write routes (2026-10-24)
@@ -250,7 +250,7 @@ Own raw217 bytes/107 starts were sealed before proposal facts, then all107 maint
 
 The first region requires A9EDbit6, mask30 nonzero andA9EE0. Stable bit7 clear uses two Random16 calls, discards the first HL, divides the second by3 and writes2+remainder (2..4), returningA2. Bit7 set uses one Random16, divide6, writes0A+remainder (0A..0F), returnsA1. Failed tests write noA9EE and returnA0. Pure unsigned arithmetic covers all65536 numerator values; it does not establish RNG uniformity, independence, frequency or seed. The second region returns A9EDbit7 inB/A as0/1 without establishing the complete field domain or purpose. Write exits/second exit restore saved entryF under shown ordinary assumptions; failed exit XOR A yieldsZ1/NHC0. There is no universal AF/register preservation. Entry/purpose remainHYPOTHESIS; bounded mechanicsPROBABLE conditional.
 
-ROM0 Random16/Random/Divide16 source/raw ranges and current bounded consumers were read; Random table is data, not code. ReadByteFar's SRAM branch restores bank shadow but forces enable0, a distinct contract. Indexed FillBytes reset of[A9E8,A9F8) includes A9ED/A9EE, refuting whole-block writer absence from literal-field searches. Sibling bit7 readers are contexts, not incoming proof. Own word46A6=3 and4740=8 occurrences lie in other banks; finite348 search cannot exclude computed/interior/overlapping entry or binary tables. Historical union69 records no scoped starts; no fresh/full69/69/50 review or19 missing graphs is supplied and absence is not global unreachability. No sampled fields, credentials, new natural/emulator or hardware evidence were used.
+ROM0 Random16/Random/Divide16 source/raw ranges and current bounded consumers were read; Random table is data, not code. ReadByteFar's SRAM branch restores bank shadow but forces enable0, a distinct contract. Indexed FillBytes reset of[A9E8,A9F8) includes A9ED/A9EE, refuting whole-block writer absence from literal-field searches. Sibling bit7 readers are contexts, not incoming proof. Own word46A6=3 and4740=8 occurrences lie in other banks; finite348 search cannot exclude computed/interior/overlapping entry or binary tables. Historical union69 records no scoped starts; no fresh/full69/69/50 review or19 missing graphs is supplied and absence is not global unreachability. No sampled fields, credentials, new natural/emulator hardware evidence were used.
 
 One new private literal37 completed36rc0 plus ordinal27rc2/exact97B. Ordinal1 was the only top-level make; make/compare/sym-check/palette-check succeeded and wholeROM is IDENTICAL to the original reference. All671 raw outputs, wholeSYM15538 labels/51constants and MAP equal guarded private73 outputs. RawD334/10912 rules remain identical;5623 current bindings rebind only comm_scene.asm with parent BEFORE4204 separate from current AFTER4206. All147 frozen source.py hashes/sizes/timestamps are exact; no source.pyc copied. Native/tool membership remains historical, no new capture or actual-owner proof. No closed pipeline replay or foreign helper execution occurred.
 

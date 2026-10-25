@@ -6,7 +6,7 @@ verification fixes (same regions in the regenerated `audit_samples.txt`, checked
 unknown-span population changed (false code-pointer tables removed, 2A:4440 loop fixed, zero runs cut): the author's 30 spans no longer exist as such.
 Sections C and D are the verifier's own independent samples.  Evidence vocabulary:
 CONFIRMED / PROBABLE / HYPOTHESIS.  What "plausible" means here: the bytes decode to legal SM83 instructions from the first to the
-last byte, the region ends in a terminator or runs into the next code region, every direct branch/call target is sane and lands on
+last byte, the region ends in a terminator runs into the next code region, every direct branch/call target is sane and lands on
 an instruction start, and the register use is coherent (values loaded before use, push/pop balanced, loops with a counter).
 It is a reading by the author of the mapper, not a proof; the objective checks are in `holdout.md` and `report.md`.
 

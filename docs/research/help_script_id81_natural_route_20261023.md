@@ -16,4 +16,4 @@ This is a bounded mGBA observation using the existing registered adapter and fak
 
 ROM SHA-256: 6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570.
 Tracer SHA-256: c3a4ac33ea322822c3f1b0f44d8f1e4f7343ac4f39ec9f328f97d98c4ad48867.
-The exact derived macro, tool/runtime/save hashes, both isolated runs, every capture hash, and canonical full-route comparison are recorded in .tmp/jp-help-gate81-natural-20261023/MANIFEST.json.
+The exact derived macro, tool/runtime/save hashes, both isolated runs, every capture hash, and canonical full-route comparison are recorded in MANIFEST.json.

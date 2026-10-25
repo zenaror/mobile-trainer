@@ -331,7 +331,7 @@ for the effects; block A (lines 4-5) applies alone (dry run).  Without the conve
 * The noise channel's pitch formula (04:4F2D), `StartNote`'s channel take-over rules (04:4B06-4B18) and `SoundDrv_PlaySfx`'s `flags < $80` branch (never used by the data) were read but not verified in depth.
 * Shape words for the wave patterns remain interpretation of the samples; only the sine fit of pattern 0 and the exact forms of 1, 2 and 4-7 are computed.
 * The `SoundSfx` prefix rests on caller classification (static immediates, 367 sites) and the sound-test text; per-id execution was not checked (ids `$29-$46` except `$37` have an immediate caller; `$37` was never played in the 64 scenarios and has none).
-* Nothing was written to the real repository, to the OMM, or to the network.
+* Nothing was written to the real repository, or to the network.
 
 ## Maintained-source follow-up (2026-10-20)
 
@@ -408,4 +408,3 @@ The optional whole-tree `python3 tools/audio_to_macros.py --check` exits 1 in
 this checkout because 26 other audio files are not yet in the form written by
 that converter; `audio/sfx.asm` is not among the listed files. This is outside
 the alias-only pass and is not treated as a gate result for it.
-

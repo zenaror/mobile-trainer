@@ -20,7 +20,7 @@ Usage:
   tools/trace/run_trace.py --shots DIR        also keep the screenshots requested by 'shot' lines (default: .cache/trace/shots)
 
 Environment:
-  MGBA_SRC   mGBA fork source tree (default: the path recorded below)
+  MGBA_SRC   mGBA fork source tree (default: .cache/mgba-src in the repository)
   BASEROM    ROM to trace (default: <repo>/baserom.gbc)
 Needs: cmake, make, gcc, python3, (Pillow only for tools/trace/contact_sheet.py).
 """
@@ -37,7 +37,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 CACHE = ROOT / ".cache" / "trace"
-MGBA_SRC = Path(os.environ.get("MGBA_SRC", "/media/rafael/Dados/Arquivos/Projetos/Gameboy Projects/MobileAdapterGB/mgba/mgba"))
+MGBA_SRC = Path(os.environ.get("MGBA_SRC", str(ROOT / ".cache" / "mgba-src")))
 BASEROM = Path(os.environ.get("BASEROM", ROOT / "baserom.gbc"))
 SCEN_FILE = ROOT / "traces" / "scenarios.tsv"
 TRACES = ROOT / "traces"
