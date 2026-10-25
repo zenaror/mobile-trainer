@@ -359,8 +359,17 @@ mis-decode as code (this matters for `gen_asm`).
 * `waitstable` timing depends on the emulator; scripts are replayed from `.txt`, so they stay reproducible even if a macro's waits change.
 * SRAM is initialised to 0xFF (blank); a real cartridge's initial contents may differ, changing the first-boot path only.
 * Screenshots and the built emulator are not committed; the fork source path is machine specific (`MGBA_SRC`).
-* Instruction tracing counts *dispatched* instructions; the interrupt dispatch itself and DMA transfers are not instructions. Data reads by DMA (OAM/HDMA) are not
-  seen by `dataaccess.tsv` (the wrapper only sees CPU accesses).
+* Instruction tracing counts *dispatched* instructions; the interrupt dispatch itself and DMA transfers are not instructions. The `rom_read` ranges in
+  `dataaccess.tsv` include HDMA source reads in the pinned mGBA revision
+  `22506cf00823746fa15a9e2416717612d89cf37d`: `_GBMemoryHDMAService` calls
+  `cpu->memory.load8`, which `tools/trace/mgba_trace.c` wraps with `hookLoad8`.
+  OAM DMA source reads are not included: `_GBMemoryDMAService` calls `GBLoad8`
+  directly and bypasses that wrapper. This is a tracer/source-level property;
+  trace absence remains bounded to the exercised scenarios. The current retained
+  reports with `hwregs.tsv` record `rDMA` writes only from `HRAM:FF82` with
+  source page `C0` (52 scenarios, 1,561,837 writes), so those observed OAM-DMA
+  sources are in WRAM rather than ROM. The pinned source and report census are
+  preserved in `.tmp/jp-dma-source-census-20261024/`.
 * A callee that never returns (e.g. the endless loop at `00:06B7`) or the last instruction of a run always shows up as `FALL_MISSING` in the validation.
 
 ## 8. Next steps enabled by this harness
