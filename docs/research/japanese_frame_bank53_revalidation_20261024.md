@@ -307,6 +307,50 @@ This narrows the literal adjacent-field and immediate-code forms only. It does n
 
 The broader Japanese source review remains separate from this finite frame inventory: the current name census has no strict address-only `Function_`, `Data_`, or `Font_` placeholders and all 16 finite coverage families reconcile (latest census checkpoint `e65b07ba`), while five named operation-entry candidates still lack proven natural roots. Those entry/purpose uncertainties do not imply that an unnamed generic function remains in the maintained source.
 
+### Reconciliation of all retained trace reads and raw name-pointer words (2026-10-25)
+
+A fresh read-only pass over the 75 tracked `traces/**/dataaccess.tsv` reports
+reconciles the 72 natural `traces/detail/` reports and all three
+`traces/forced/detail/` reports. Across 86,789 merged ROM/SRAM intervals
+(85,013 `rom_read`, 843 `sram_read`, 933 `sram_write`), none of the 85,013 ROM
+data-read ranges intersects physical Bank 53 `$4000–$4170`. The natural subset
+is the previously documented 83,242 reads; the three forced reports add 1,771
+reads. This is a re-census of existing reports, not a new emulator run. It
+closes the exact tracked read-report domain only; it does not establish that
+the scenarios cover every natural input, nor does it prove that the table is
+globally unread or that any image is unused. The audit pins the ROM hash and
+each trace-file hash in `.tmp/jp-bank53-trace-read-census-20261025/INPUTS.json`
+(SHA-256 `d59ca4e7e5f120b133d06ffb1e8ac15869ad19a9bde5da3eca4a95d1e1cfbf81`).
+Reproduction: `audit.py` (SHA-256
+`76fdc027877337cc7480bd39596945af966b790b7fd273c382cd2e22adc116d4`);
+receipt `RESULT.json` (SHA-256
+`e86c6ad7816de5e7cb588900fd842624833ef74af1f7bffe6984c116aa4fe469`).
+
+A separate exact-word scan checked all 25 little-endian string-start addresses
+outside the Bank 53 table/string extent. It found 155 aligned raw occurrences
+for 20 of the 25 address values, but no adjacent two-or-more ordinal sequence
+and no `[pointer16, $53]` or `[$53, pointer16]` triple for those exact starts.
+The three hits that fall in proposed pointer-table regions are confirmed local
+references instead: `55:401E` points within the keyboard page data in physical
+Bank 55; `74:4062` points to the HTML attribute name at `74:4066`; and
+`74:40EE` points to the HTML tag item at `74:4157`. Equal 16-bit CPU addresses
+do not identify a physical ROM source without the selected bank. Other raw
+matches fall in proposed code/data/graphics/text regions and remain byte
+coincidences unless a reader and bank contract are demonstrated. This scan
+does not cover odd-offset/split/computed pointers or arbitrary runtime state.
+Reproduction: `.tmp/jp-bank53-raw-pointer-followup-20261025/audit.py` (SHA-256
+`ea1deebb7315e3030ce283571a1a577d8a36d26222de6faefb9d7d9ec8681255`), receipt
+`RESULT.json` (SHA-256
+`b890396508e8508d35edf4718326179a7947119fd5620c3dead84e264a8afaab`). The
+current name-source SHA-256 is
+`eac460828daee81f7a4e86eefc6e0a88661e4ffaca77a53f0ad53fe65c89121d`.
+
+Together, these checks find no executable name-to-frame edge and no
+Bank-53-name read in the retained corpus. The visual/index crosswalk remains
+**PROBABLE**, while executable ordinal selection and global use/non-use remain
+unresolved. A new positive selector/reader trace or source edge is still
+required to promote those claims.
+
 ## Reproduction and validation
 
 The original receipt `.tmp/jp-bank53-frame-reconcile-20261024/RESULT.json` (SHA-256 `4679a38fbfb7d8d651d9b0d1f56d432f839ba559d9cace1c0065e7a8bcd8184a`) and `audit.py` (SHA-256 `2fbd8d7a38085495ef29d2702b45fecec8958fcb2ff7cd246f957a72306126f5`) are a **historical snapshot** pinned to source baseline `25501d4b` / HEAD `8dd8d59d`. They assert 137 assets / 93,264 bytes and must not be presented as reproducing the later six-asset delta or current counts.
