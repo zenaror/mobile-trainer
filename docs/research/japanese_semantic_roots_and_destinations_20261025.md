@@ -618,3 +618,48 @@ script pins the Japanese ROM hash and the maintained candidate asset hash;
 the receipt records the forum URL, quantizer, coordinates, whole-ROM
 aligned-tile comparison, and scope limits. Static comparison only; no
 emulator or hardware execution.
+
+### Bank 51 candidate-tile data-read census (2026-10-25)
+
+To test whether the pixel-matched candidate bytes have an observed data
+consumer, a reproducible census parsed every retained
+`traces/detail/*/dataaccess.tsv` report. All 72 reports were checked against
+Bank 51 interval `[5EE0,70D1)` using half-open interval intersection; none has
+a `rom_read` row for Bank 51 that intersects it. These files report ROM bytes
+read as DATA, not instruction fetch. Separately, `analysis/coverage_union.tsv`
+contains no executed instruction start in the interval across its 72
+scenarios. This result is limited to the retained corpus and does not prove
+global non-use, absence of computed reads, or behavior in unrecorded execution.
+
+The `settings_cgi` trace provides a concrete boundary. Its callgraph records
+the executed indirect dispatch at `69:40D7` and the table-selected
+`ConnIcon_LoadGraphics_Request2` at `69:40E0`, followed by the two graphics
+loader calls at `69:40EC` and `69:40FE` and the palette load at `69:410F`. The
+maintained routine loads `51:58C0` for `$400` bytes to VRAM `$8200`, `51:5CC0`
+for `$200` bytes to VRAM `$8600`, and the palette at `51:5EC0` for `$20`
+bytes. The trace's merged Bank 51 data-read row is `58C0–5EE0` (end
+exclusive), so it reaches the byte before the candidate grid start but does
+not include `51:5EE0` or any of the candidate tile interval. This is only the
+observed Request2 route in `settings_cgi`; other display state, code fetch,
+computed reads outside reported data accesses, or unrecorded execution remain
+unresolved.
+
+The census is reproducible with
+`.tmp/jp-bank51-candidate-data-read-census-20261025/audit.py` (SHA-256
+`dbd68e7a0376ce03ccfa2ee772376bff67baa13756ae066c1652f35160cce86a`). Its
+`RESULT.json` (SHA-256
+`5a85be84afc8a2c8fafd0d25fc5e34e9804b46c35fb985230fd8e7cdbf12ae63`)
+records the 72 report paths and hashes, the protected ROM hash, the empty
+data-read intersection list, the empty instruction-start list, and
+`analysis/coverage_union.tsv` SHA-256
+`0c1986ea507df1172474f07f4a8959b6a872b2fd49912c31bafd551c1dfa37ae`. The
+audit script SHA-256 is
+`4f3e84eb4eb5360152def2778d3c5afac4dd782469d73a4a13e6801f34d02be1`, and the
+receipt SHA-256 is
+`7dc2e43eff313faa3155a50647a12b74c37b4575f86acddb81897865736a8156`. For the
+focused route, `traces/detail/settings_cgi/dataaccess.tsv`
+has SHA-256
+`343842c568dfb0acb5908a29ec99bfea32b8a6c88763d3831a36dd8e56e934b4`, and
+`traces/detail/settings_cgi/callgraph.tsv` has SHA-256
+`aad0e4318860607fa80efc23e6361e77cbe45f5ae22ddb020e678c1c5d7709af`.
+No ROM, ASM, or graphic asset was changed for this analysis.
