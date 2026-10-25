@@ -80,6 +80,7 @@ PNG_TILE_OUTS := \
 	gfx/address_book/entry_screen_bank29/abook_view_tiles9700_vb1.2bpp \
 	gfx/address_book/entry_screen_bank2a/addr_book_entry_tiles8000.2bpp \
 	gfx/address_book/entry_screen_bank2a/addr_book_entry_tiles8f00.2bpp \
+	gfx/address_book/list_tiles_bank22/addr_book_tiles_bank22.2bpp \
 	gfx/address_book/name_editor/abook_name_tiles8800.2bpp \
 	gfx/address_book/name_editor/abook_name_tiles9300_vb1.2bpp \
 	gfx/address_book/name_editor/abook_name_tiles9700_vb1.2bpp \
@@ -509,6 +510,7 @@ gfx/address_book/entry_screen_bank29/abook_view_tiles9300_vb1.2bpp: PNG_SIZE := 
 gfx/address_book/entry_screen_bank29/abook_view_tiles9700_vb1.2bpp: PNG_SIZE := 64
 gfx/address_book/entry_screen_bank2a/addr_book_entry_tiles8000.2bpp: PNG_SIZE := 176
 gfx/address_book/entry_screen_bank2a/addr_book_entry_tiles8f00.2bpp: PNG_SIZE := 224
+gfx/address_book/list_tiles_bank22/addr_book_tiles_bank22.2bpp: PNG_SIZE := 2560
 gfx/address_book/name_editor/abook_name_tiles8800.2bpp: PNG_SIZE := 768
 gfx/address_book/name_editor/abook_name_tiles9300_vb1.2bpp: PNG_SIZE := 1024
 gfx/address_book/name_editor/abook_name_tiles9700_vb1.2bpp: PNG_SIZE := 256

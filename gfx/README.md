@@ -45,10 +45,10 @@ gfx/assets.tsv                                 one line per asset: kind, size, b
 | raw bytes (conditional byte-view codec; purpose unknown) (`.bin`) | 4 | 80 |
 | validity bitmap (`.bin`) | 1 | 8198 |
 | tile-index map (`.tilemap`) | 181 | 52098 |
-| 2bpp tiles (`.2bpp`) | 424 | 366448 |
-| **all** | **994** | **627530** |
+| 2bpp tiles (`.2bpp`) | 425 | 369008 |
+| **all** | **995** | **630090** |
 
-PNGs: 424 exact rgbgfx sources (`.png`), 4 explicit raw byte-view codec sources (`.png`, purpose unknown), 39 font binaries with an editable sheet PNG (`.png`), 1 view-only picture (`_view.png`).
+PNGs: 425 exact rgbgfx sources (`.png`), 4 explicit raw byte-view codec sources (`.png`, purpose unknown), 39 font binaries with an editable sheet PNG (`.png`), 1 view-only picture (`_view.png`).
 
 ## Still `db`
 
@@ -56,11 +56,11 @@ Blocks of the graphics regions that are not converted (the note / label does not
 
 | what | blocks | bytes |
 |---|---:|---:|
-| data without graphics evidence in the note | 24 | 6204 |
+| data without graphics evidence in the note | 23 | 3670 |
 | object / animation tables (by label name) | 97 | 3642 |
 | HYPOTHESIS data (content type or purpose not established) | 13 | 956 |
 | sprite / OAM frame records, animation scripts, object tables (not tile art) | 26 | 476 |
-| gfx fragments of fewer than 4 whole tiles | 4 | 81 |
+| gfx fragments of fewer than 4 whole tiles | 3 | 55 |
 | region kind zero | 4 | 34 |
 | region kind words | 1 | 16 |
 | tilemap+attr blocks clipped by the analysis (size differs from 2 x rows x cols) and 4-byte tile/attr record lists | 4 | 13 |
@@ -301,6 +301,12 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 |---|---|---:|---|---|---|---|---|
 | `abook_list.tilemap` | tile-index map | 360 | 2F:4D40 | CONFIRMED | - | 20x18 | `gfx/address_book/list.asm` |
 | `abook_list.attrmap` | attribute map | 360 | 2F:4EA8 | CONFIRMED | - | 20x18 | `gfx/address_book/list.asm` |
+
+### `gfx/address_book/list_tiles_bank22/`
+
+| asset | kind | bytes | bank:addr | status | png | dims | source |
+|---|---|---:|---|---|---|---|---|
+| `addr_book_tiles_bank22.2bpp` | 2bpp tiles | 2560 | 22:5CD0 | CONFIRMED | exact | - | `gfx/address_book/list_tiles_bank22.asm` |
 
 ### `gfx/address_book/name_editor/`
 
@@ -1539,7 +1545,7 @@ make png-export       (maintainers) PNGs regenerated from the binaries; never ov
 
 | kind | PNG source | files | notes |
 |---|---|---:|---|
-| 2bpp tile blocks | `name.png` (exact `rgbgfx` source of `name.2bpp`) | 424 | All tile blocks in the active catalogue; shades 0-3 are grey indices, not the game's colours (the game colours come from palettes and tile attributes; see screens) |
+| 2bpp tile blocks | `name.png` (exact `rgbgfx` source of `name.2bpp`) | 425 | All tile blocks in the active catalogue; shades 0-3 are grey indices, not the game's colours (the game colours come from palettes and tile attributes; see screens) |
 | JIS 12x12 glyphs (11 binaries) | `data/fonts/jis12x12_rows_*.png`, 94 glyphs per sheet row | 9 sheets | bank 7C's three contiguous binaries share one complete sheet |
 | 8x16 font runs | `data/fonts/glyph_runs_8x16/sjis_*.png`, 16 glyphs per row | 27 sheets | |
 | 6x12 Latin font | `data/fonts/ascii_6x12.png` | 1 sheet | 6 pixel wide cells (the two unused bits of each byte stay 0) |

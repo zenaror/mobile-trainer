@@ -165,6 +165,7 @@ gfx/address_book/entry_view_screen_bank2c/data_addr_book_entry_tilemap_attr.attr
 gfx/address_book/entry_view_screen_bank2c/data_addr_book_entry_tilemap_attr.tilemap	-	tilemap				360	59d6a433856cfce96be64531afeaefd3486f718e45b7c554cbdef96319a3d13a
 gfx/address_book/list/abook_list.attrmap	-	attrmap				360	0fc395cbd36032e1e1f6af282336a5841dae10f6b00811f575f080750dc88b5d
 gfx/address_book/list/abook_list.tilemap	-	tilemap				360	5303ce6255811b02dc10e1ccd9b4d0e75c897ff2c7daadc5667f056da1f808d3
+gfx/address_book/list_tiles_bank22/addr_book_tiles_bank22.2bpp	gfx/address_book/list_tiles_bank22/addr_book_tiles_bank22.png	tiles			0	2560	2581a15d75351404f14fd0fa8b4bf3e116898309cfc3281f3d0538c486a0747b
 gfx/address_book/name_editor/abook_name.attrmap	-	attrmap				360	19f90b0bc6326f858cbd5550ba89d48fb553730a6a784ac9c96df31a0f11628b
 gfx/address_book/name_editor/abook_name.tilemap	-	tilemap				360	7d30a4c1d62ba2adf9ff37d80980d6bc5f58c60d1b505cbf8791418863bfed7f
 gfx/address_book/name_editor/abook_name_bg_palette.pal	-	palette				519	3886e508040e0cf0916b9d61ef65b5ffddda84e38eb78cf62fd33c00dc1f1839
