@@ -509,6 +509,42 @@ responses had them. See receipt `.tmp/jp-bmp-http-body-length-20261025/RESULT.js
 Classification: **CONFIRMED** for record/body-count and receive-ceiling
 semantics; **OPEN** for actual natural response lengths and converter bounds.
 
+## Synthetic boundary witness for the five-byte tail (2026-10-25)
+
+A second directed fake-HTTP run now reaches the converter's tail stores at the
+top of SRAM3. The page route was entered through the original ROM; the local
+adapter log records HTTP 200 for `/01/CGB-B9AJ/index.html` (30 bytes) and
+`/01/CGB-B9AJ/x.bmp` (4,048 bytes). The synthetic bottom-up BMP has `W=144`,
+`H=1`, pixel offset `$0EE0`, source stride 20, and converted extent 240. With
+the fixture's postprocessed page length of 32, the observed BMP base is
+`$B02C`; the converted pixel end is therefore `$B02C+$0EE0+240 = $BFFC`.
+
+The instrumented CPU write trace records five zero stores from the converter:
+
+| Store | Address | PC |
+|---|---:|---:|
+| 1 | `$BFFC` | `51:73B7` |
+| 2 | `$BFFD` | `51:73B9` |
+| 3 | `$BFFE` | `51:73BB` |
+| 4 | `$BFFF` | `51:73BD` |
+| 5 | `$C000` | `51:73BF` |
+
+`$C000` is `wShadowOAM[0]` in `ram/wram.asm`. Thus the five-byte tail can
+cross from the upper edge of the SRAM window into WRAM in this accepted,
+synthetically constructed response. This is **CONFIRMED for the exact
+synthetic mGBA scenario** and establishes that the converter has no effective
+five-byte reservation at this boundary. It does not establish that a
+historical Japanese page served such a BMP, that ordinary public responses can
+reach these exact fields, or that the write causes a visible/gameplay effect.
+The fifth store was observed; its downstream effects were not tested.
+
+The immutable run receipt is
+`.tmp/jp-bmp-tail-overflow-20261025/run2/RESULT.json` (SHA-256
+`d4f006b03f0f66d622b37e820393ff78ac07995d17f5da3bb0b1ef48905db2fa`). It pins
+the ROM and harness, fixture inputs, adapter log, coverage and write-trace
+hashes. The earlier failed fixture remains preserved separately; its
+nonzero auxiliary BMP header fields were rejected before conversion.
+
 ## Reproduction points
 
 The static claims can be rechecked directly at the listed source locations. The
