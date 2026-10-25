@@ -660,6 +660,39 @@ non-use. Frozen `config/` tables and the dated census receipts retain the
 original source label and interval as historical evidence; they are not
 rewritten by this correction.
 
+### Whole-catalog visual atlas review for the Porygon asset gap (2026-10-25)
+
+To check whether the unresolved `PokemonName00` (Porygon) might have an
+unnoticed editable image outside the 25 Bank 41–47 windows, I reviewed the
+existing whole-catalog contact sheets in
+`.tmp/jp-porygon-global-tile-census-20261025/`. The generator enumerates every
+`tiles` row in `gfx/assets.tsv` whose PNG mode is `exact`, requires the PNG to
+exist, and records its path and SHA-256. That is 424 exact tile PNGs across 12
+sheets. The same generator includes all 48 derived object-table preview sheets
+across two sheets; the associated screen atlas covers 160 composed screen
+previews across six sheets. I visually reviewed the complete tile, sprite, and
+screen atlases at their generated thumbnail scale.
+
+The visual pass yielded no additional image that could be assigned
+confidently to `PokemonName00` or that changes the existing **PROBABLE**
+Porygon2 pixel match at Bank 51 `[5EE0,70D0)`. The contact sheets are a
+triage aid: their reduced thumbnails do not establish pixel identity, asset
+ownership, natural loading, or runtime use. This does not prove that no
+Porygon asset exists in unclassified data, a non-tile resource, or an external
+page. The executable name-to-frame link and global used/unused status remain
+open. No source or asset changed.
+
+Reproduction and inventory receipts: `contact.py` SHA-256
+`e57ce7909b79fe59c1cf6eaad18c7e6eda30732fcb53e9736b365116a866ebab`,
+`RESULT.json` SHA-256
+`e9af114a5e76bb2d738f734b2007665719c27b5b2b290abf4dd244bc071b1d40`, and
+`SCREEN_RESULT.json` SHA-256
+`9a7c7ec6848d372c9fcfa9dcb1edb1e8448e594a985ca65c1180d48b296b7bfe`.
+The tile receipt pins `gfx/assets.tsv` SHA-256
+`ab4e9d903187fc038213d17ae98923d7b99ec2be4949492ac0d4b2780a4991b5` and
+per-PNG hashes. The files remain in ignored `.tmp/` as the visual reference
+for this bounded review.
+
 ### Bank 51 candidate-tile data-read census (2026-10-25)
 
 To test whether the pixel-matched candidate bytes have an observed data
