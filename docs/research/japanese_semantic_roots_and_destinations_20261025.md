@@ -588,6 +588,12 @@ because the reference is JPEG and the scale/quantizer are explicit model
 choices, it does not authenticate the author's ROM dump or establish the
 original extraction procedure.
 
+At the repeated 16-pixel screenshot grid phase `(x=2,y=10)`, 50 of 110 full
+8x8 cells have exact ROM matches, with 50 unique tile signatures. All use the
+same identity palette mapping. This spatially distributed set makes the
+result stronger than an isolated patch, while retaining the JPEG/model limits
+above.
+
 The lower-right body region of the image has an independently checked
 24x16 logical pixel region at screenshot origin `(114,138)`. Its six tile
 placements are `51:6D40`, `51:6D50`, `51:6D60` / `51:6D60`, `51:6D70`,
@@ -601,13 +607,13 @@ selector, or runtime use/non-use of the candidate span.
 
 Reproduction: `.tmp/jp-beta-p2-pixel-match-20261025/verify_composite_match.py`
 (SHA-256
-`04a582c0ce9d412bdc5995f416487789ea91f4eb39f813f5bebf1711b3a53bce`), with
+`a300123d5deaa96fb935e548655e0e1bb5c9c7a95548b3a448ec67d84b330b2c`), with
 the screenshot tile scan `.tmp/jp-beta-p2-pixel-match-20261025/scan_beta_8x8_bank51.py`
 (SHA-256 `f75453141c622cc3963c975c45a02598325248dedaf76e607b69c04d276cb7ee`)
 and its receipt `BETA_8X8_SCAN.json` (SHA-256
 `5418c931bc25fc8419459607ed946f070e80acb662b82aec87ec39ecdb0a2759`), and receipt
 `COMPOSITE_MATCH_RESULT.json` (SHA-256
-`128ec12cd3c4da8f20de17c3944582eb9cc8f37232e283fc35625af83ed71fcb`). The
+`870c33f2f9f1c7ecf7d88c4b91ac258fc14494e2a8e50efbeccc4d6171aebfa4`). The
 script pins the Japanese ROM hash and the maintained candidate asset hash;
 the receipt records the forum URL, quantizer, coordinates, whole-ROM
 aligned-tile comparison, and scope limits. Static comparison only; no
