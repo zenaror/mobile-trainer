@@ -327,6 +327,16 @@ other pages or images. The request URLs, response bodies/statuses and hashes
 are retained in `.tmp/jp-natural-bmp-archive-check-20261025/RESULT.json`
 (SHA-256 `36be07dce2a9b36fc0c6f82cff3b8ebefc4949f64268944ee53dbe9337657cf1`).
 
+The Common Crawl index was also queried for six historical collection prefixes
+and the exact homepage URL in two collections. The six prefix requests returned
+HTTP 502/504 and both exact-URL requests returned HTTP 504, so those requests
+yielded no archive records. Gateway failures are not evidence that Common Crawl
+lacks captures. The responses are retained in
+`.tmp/jp-commoncrawl-original-home-archive-check-20261025/RESULT.json`
+(SHA-256 `07eb61de5fd0896fcd3d849784d7d3a88259c076dad50d806a1299ccb11fc468`)
+and `EXACT_QUERIES.json` (SHA-256
+`abcc72d6aa7f83ec62e230ea6f5e17eee570b951552bdc54f87ae33333a9bf4e`).
+
 This is a current query of one public archive, not proof that no copy survives
 elsewhere or that the historical service never returned image resources. A
 published reverse-engineering account likewise reports that the exact former
@@ -353,6 +363,54 @@ are in `.tmp/jp-bmp-natural-source-census-20261025/RESULT.json` (SHA-256
 `218c94b71e3b01ee927bed57ae482c63197e1e52d40c5f745a16b442c779b5b7`).
 This closes only the local corpus inventory; it cannot rule out historical
 resources outside the checkout or other retained archives.
+
+### Bottom-up converter `CopyBytes` intervals
+
+A separate stack/register derivation closes the arithmetic at the two
+bottom-up converter sinks (`engine/browser/inline_image_blit.asm:535` and
+`:541`, ROM addresses `51:7383` and `51:73A5`). This does not prove that
+natural records satisfy the bounds.
+
+Let `P` be the BMP base, `O=word[P+0x0A]` the pixel offset,
+`r=4*ceil(ceil(W/8)/4)` the original row stride,
+`T=P+O+r*H` the end of the original bottom-up pixel rows,
+`W'=12*ceil(W/12)`, `H'=12*ceil(H/12)`,
+`t=4*ceil(ceil(W'/8)/4)`, and `N=t*H'` the converted raster size.
+The scanner retains an aggregate `M`; all pointer arithmetic is 16-bit
+modular unless a no-wrap condition is stated. For `W=1..144` and
+`H=1..96`, `N` is `0x30..0x780`. Width zero passes the validator but its
+zero-stride row loop does not normally reach these sinks.
+
+| Sink | Read interval | Write interval | Exact caveat |
+|---|---|---|---|
+| First copy, source line 535 | `[T,T+K)` | `[0xD000+N,0xD000+N+K)` | `K=(M-N) mod 65536`; call is skipped only for `K=0`. Only if `M>=N` without wrap is `K=M-N` and the staging destination ends at `0xD000+M`. |
+| Second copy, source line 541 | `[0xD000,0xD000+C(M))` | `[P+O,P+O+C(M))` | `C(M)=M` when `M!=0`; `C(0)=256` because `CopyBytes` treats `BC=0` as a 256-byte page when `B=0`. |
+| Five following stores, lines 543–551 | — | `[P+O+C(M),P+O+C(M)+5)` | Writes five zero bytes without a separate capacity check. |
+
+The initial capacity branch checks only the high byte of modular
+`P+O+N` against `$C0`; it does not verify carry, the nested resource length,
+the old length field, or space for the final five bytes. Scanner iterations
+advance the aggregate by `u+5+Lnext` modulo 65536, where `u` is the URL length
+before its NUL. URL termination, the next record's declared length and
+monotonicity/no-wrap are not established by this scanner. Thus `M<=0xFFF`
+alone does not bound the first copy: if `M<N`, `K` can become very large; if
+`M=0`, the second copy transfers 256 bytes. Under the additional assumptions
+`W>0`, `M>=N`, `M<=0xFFF` and no wrap, the first destination ends no later than
+`0xDFFF`; it may still exceed the declared `0x900`-byte `wTileStage3` symbol.
+
+The converter changes the previous length word from `Lold=word[P-2]` to
+`Lnew=(O+N+2) mod 65536`, then propagates
+`delta=(Lnew-Lold) mod 65536` through matching layout pointers. The byte
+displacement of the moved suffix is `N-r*H`. To make those agree without
+wrap, the input record must satisfy `Lold=O+r*H+2` (or an equivalent invariant
+of its format). Neither `Bmp_ConvertToTiles` nor `Html_NextResourceRecord`
+checks that relation. The exact stack landmarks, intervals, source hashes,
+and unresolved producer conditions are retained in
+`.tmp/jp-bmp-copybytes-stack-audit-20261025/RESULT.json` (SHA-256
+`351ba34f82fc35d58c3bc0ea8d0d2814aaac5641a1e50dd325bbbc31f152725b`).
+Classification: **CONFIRMED** for the instruction-level transforms and
+modular interval formulas; **OPEN** for unconditional physical bounds and
+natural-record invariants.
 
 ## Reproduction points
 
