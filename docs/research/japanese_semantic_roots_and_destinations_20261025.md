@@ -536,10 +536,9 @@ source censuses:
   `f6ce4db01ff0364209407f8216e3d9088ef462022df14d7558f63b58394ebf53`). A
   bounded local comparison of 108 exact tile entries, the common Bank 47
   graphics, and selected OBJ sheets at `70:5490`, `70:5890`, and Bank 26 Mail
-  Session entries found no exact attribution. The complete existing contact
-  sheets showed no obvious visual match, but they are not a pixel-level proof
-  that the sprite is absent from every ROM byte or an unexported resource.
-  Preserve the forum image as an external lead, not binary evidence.
+  Session entries found no exact attribution. That bounded list did not test
+  the Bank 51 `CandidateTiles_51_5EE1` span described below, so its negative
+  result was not a whole-ROM pixel comparison.
 * A separate small follow-up of candidate roots at `48:4A8C`, `4E:47EB`, and
   `00:0A2A` found no new maintained caller or dispatch edge. Code behavior can
   be named from local instructions, but natural entry still needs the concrete
@@ -559,9 +558,57 @@ and the bounded archive/local-corpus checks in
 These results answer why the semantic questions cannot honestly be marked
 closed from the present evidence: the ROM's name block has no explicit image
 mapping, no reviewed natural or forced trace contains a read of the names or
-candidate windows, the outside sprite screenshot has no ROM locator, and the
-historical server body is not available in the sources checked. The remaining
-claims are therefore **UNKNOWN/HYPOTHESIS**, not an assertion that the code
-or assets are unused. A new ROM-located sprite payload, a producer/consumer
-trace carrying ordinal and physical frame address, a natural candidate entry,
-or a primary archived server response would change that status.
+candidate windows, and the historical server body is not available in the
+sources checked. A later pixel-level match supplies a ROM byte location for
+part of the outside sprite sheet, but not its extraction provenance or a
+runtime name/frame edge. The remaining claims are therefore
+**UNKNOWN/HYPOTHESIS**, not an assertion that the code or assets are unused.
+A producer/consumer trace carrying ordinal and physical frame address, a
+natural candidate entry, or a primary archived server response would change
+the relevant status.
+
+### BetaP2 sprite-sheet pixels match the Japanese ROM (2026-10-25)
+
+A new pixel comparison covered the previously untested Bank 51 region. The
+reference is the [191x175 lossy JPEG linked by the June 2018 Project Pokémon
+post](https://projectpokemon.org/home/forums/topic/39815-unreleased-prototype-pokemon/page/37/#comment-225659);
+the post attributes the attachment to Porygon2 but supplies no ROM hash or
+extraction metadata. The preserved file is
+`.tmp/jp-beta-p2-pixel-match-20261025/BetaP2.JPG`, SHA-256
+`f6ce4db01ff0364209407f8216e3d9088ef462022df14d7558f63b58394ebf53`.
+
+With each JPEG pixel classified by luminance thresholds 48/128/190, black
+fixed to 2bpp value 0, and a 2x nearest-neighbour pixel scale, 57 distinct
+16-byte-aligned tile positions in the Japanese ROM match patterns in the image
+search span `[51:5EE0, 51:70D1)`. They contain 53 distinct tile signatures;
+none of those signatures occurs at any other 16-byte-aligned tile position
+in the full 2 MiB ROM. Starting the same scan at the maintained asset label
+`51:5EE1` produces zero exact tiles. This identifies a real, ROM-local pixel pattern;
+because the reference is JPEG and the scale/quantizer are explicit model
+choices, it does not authenticate the author's ROM dump or establish the
+original extraction procedure.
+
+The lower-right body region of the image has an independently checked
+24x16 logical pixel region at screenshot origin `(114,138)`. Its six tile
+placements are `51:6D40`, `51:6D50`, `51:6D60` / `51:6D60`, `51:6D70`,
+`51:6D80`; all 384 sampled pixel classes match, with zero differences. The
+maintained candidate binary itself is byte-identical to `[51:5EE1, 51:70D1)` and
+has SHA-256 `1cfbd808774a62c716ecd4fd48afcf94d1b7ef2b1ab762704a25eaae2f029a8b`.
+This supports **PROBABLE** visual association of the Porygon2 name at
+`PokemonName24` (`53:4164`) with pixels in this Bank 51 candidate span. It does
+not establish a complete sprite-frame boundary, an executable ordinal-to-frame
+selector, or runtime use/non-use of the candidate span.
+
+Reproduction: `.tmp/jp-beta-p2-pixel-match-20261025/verify_composite_match.py`
+(SHA-256
+`04a582c0ce9d412bdc5995f416487789ea91f4eb39f813f5bebf1711b3a53bce`), with
+the screenshot tile scan `.tmp/jp-beta-p2-pixel-match-20261025/scan_beta_8x8_bank51.py`
+(SHA-256 `f75453141c622cc3963c975c45a02598325248dedaf76e607b69c04d276cb7ee`)
+and its receipt `BETA_8X8_SCAN.json` (SHA-256
+`5418c931bc25fc8419459607ed946f070e80acb662b82aec87ec39ecdb0a2759`), and receipt
+`COMPOSITE_MATCH_RESULT.json` (SHA-256
+`128ec12cd3c4da8f20de17c3944582eb9cc8f37232e283fc35625af83ed71fcb`). The
+script pins the Japanese ROM hash and the maintained candidate asset hash;
+the receipt records the forum URL, quantizer, coordinates, whole-ROM
+aligned-tile comparison, and scope limits. Static comparison only; no
+emulator or hardware execution.
