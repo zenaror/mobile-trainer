@@ -1706,6 +1706,11 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	ld a, [wTimerEnable]
 	ld [wDialogOnlineSnapshot], a
 	pop bc
+	; [CONFIRMED conditional] 4CD1/4CD2 save BC twice. With balanced callees
+	; and a stable nonaliasing stack, the path back to 4BD5 retains one copy.
+	; An ordinary later exit consumes it as PC; a later abort discards it.
+	; For ordinary action B=0..2, row C=0..5, that first PC is in ROM0.
+	; No execution of 4C55-4D24 is present in the retained natural union.
 	push bc
 	push bc
 	push af
@@ -1747,6 +1752,10 @@ PageList_ActionMenu_Loop:: ; 24:4BD5
 	jp PageList_ActionMenu_Loop
 
 .return_abort ; 24:4D25
+	; With no retained inactive-path word, POP AF discards the CALL4203 return
+	; (4206): RET exits PageList_Main too. browser_pagelist records 4D38->06FF.
+	; After one inactive path, POP AF instead discards its extra BC and RET
+	; returns to 4206, conditional on balanced callees and stable stack state.
 	; [CONFIRMED] 225 insn(s) executed; cut out of the PROBABLE region 4BCD-53FE by apply_coverage
 	; --split [executed in 1 scenarios]
 	pop bc

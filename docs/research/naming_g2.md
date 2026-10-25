@@ -315,3 +315,26 @@ Function rows only, statuses as written in the TSV; data, table and string rows 
 ## 8. Files
 
 * `config/symbols/bank24.tsv` .. `bank29.tsv` (277 rows), `analysis/naming/ram_g2.tsv` (13 rows), this note.
+
+## Page-list action-menu stack paths (2026-10-25)
+
+The branch-aware review distinguishes the ordinary warning abort from the
+previously unobserved timer-inactive branch. With no retained extra word,
+`24:4D25` pops the loop BC and then discards the `CALL 4203` return (`4206`);
+`RET 4D38` exits `PageList_Main` as well. The existing `browser_pagelist`
+callgraph records `ret_unmatched 24:4D38 -> 00:06FF` once at frame 37696,
+corroborating that nested unwind; this is retained emulator evidence.
+
+In `4C55–4D24`, the consecutive `PUSH BC` at `4CD1/4CD2` leave one saved
+BC below the next loop frame after all local push/pop pairs are accounted
+for. Assuming balanced callees, stable mapper/stack and no stack aliases,
+an ordinary later exit consumes this BC as PC. One subsequent abort instead
+pops it and returns to `4206`. Under the normal menu domains B=0..2 and
+C=0..5, the former produces 18 ROM0 addresses, not a direct entry into any
+scoped candidate ROMX region. Further execution is not classified here.
+No instruction in `4C55–4D24` appears in the retained natural union; branch
+feasibility and complete callee/state guarantees remain unproved. This is a
+conditional original stack contract, not a repair or a new natural root.
+The exact-byte stack model, all 18 values, input hashes and trace row are in
+`.tmp/jp-branch-stack-returns-20261025/check_pagelist_stack.py` and
+`PAGELIST_CONTRACT.json`.
