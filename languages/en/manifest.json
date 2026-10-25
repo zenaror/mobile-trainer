@@ -3,10 +3,10 @@
   "language": "en",
   "base_commit": "ef41bff1fb24f2239661c230a48500f92bff4559",
   "english_commit": "d0ef9a448d078e6697e2a226ba0f5eab42c16409",
-  "expected_ROM": "ba7cc4dc82f3dc713edcf92868a77a70ed306798379c9ea536459ec571457a19",
-  "global_checksum": "AA7A",
+  "expected_ROM": "bc28c001cad4d2bc3c0aca411d4f08b68e0752de44a7771cf48c7bc343ccc67e",
+  "global_checksum": "657A",
   "expected_symbols_DEBUG0": {
-    "labels": 12412,
+    "labels": 12413,
     "constants": 51
   },
   "overrides": {
@@ -88,6 +88,12 @@
       "bytes": 35234,
       "payload_path": "languages/en/data/text/help_script.asm"
     },
+    "data/text/mobile_dictionary_entries_en.asm": {
+      "base_sha256": null,
+      "payload_sha256": "135047f2da10da8313a7a78cc2ccdfee347354fd9055e2c5dd9225a2678de0f3",
+      "bytes": 4231,
+      "payload_path": "languages/en/data/text/mobile_dictionary_entries_en.asm"
+    },
     "data/text/pokemon_names_bank53.asm": {
       "base_sha256": "eac460828daee81f7a4e86eefc6e0a88661e4ffaca77a53f0ad53fe65c89121d",
       "payload_sha256": "8667cd81c437add3e618689610b9fc4ff67eaff782d15705fbb9dc33fd7101e4",
@@ -99,6 +105,12 @@
       "payload_sha256": "2519213be56811da43114a7d958e825a04196cea2ee04610c25463ae7831f063",
       "bytes": 46689,
       "payload_path": "languages/en/engine/address_book/address_picker.asm"
+    },
+    "engine/help/mobile_dictionary.asm": {
+      "base_sha256": "e033f9aa9adc4e9edb49942215f8da9c136379e0c8c5f3907ed5009c60025085",
+      "payload_sha256": "e9af40f124ff5d5b5fce4636ccfe6a251aa63fe9b3dd85b46c6dc2aefa6f76c0",
+      "bytes": 20927,
+      "payload_path": "languages/en/engine/help/mobile_dictionary.asm"
     },
     "engine/mail/mail_session_screen.asm": {
       "base_sha256": "5154f72ad6aae7812533f7cf62e7f6fa1ef59d3664a4ddd16d7d48b551bb936a",
@@ -3594,7 +3606,7 @@
     },
     "home/header.asm": {
       "base_sha256": "5fda60c901ace35b75aa897a2ef5d6d3fb7846cbbee624f14fe6cdf3ca647ebd",
-      "payload_sha256": "f3c90089af78ab3c7c6252395f557703e08dc3a85cc845b335e9ee8f34a1c018",
+      "payload_sha256": "2275c3116842bda3a21adc4b49ae845bf51f520857d8a64c11cd0559ca6d3f24",
       "bytes": 3145,
       "payload_path": "languages/en/home/header.asm"
     }
@@ -22023,7 +22035,7 @@
       "sha256": "612a597b8c3f5752f5c83ca0aa35c4c86d0de04b7876c6e92b4a2512f72fc7e9"
     }
   },
-  "overrides_count": 598,
+  "overrides_count": 600,
   "fallback_count": 4592,
   "source_parity_commit": "271f768b2b538c390328ffddceb9b18f034c7567",
   "published_branch_parent": "7a68640ce4ab0091de37c8efb2cb389a3a61f42c"
