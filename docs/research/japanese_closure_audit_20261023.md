@@ -5,7 +5,7 @@
 This section takes precedence over older status/count summaries below. The
 initial reconciliation covered `4f7e9ac4bf4f33cda227922f40d6e0e4145fbebb`;
 the following source findings are now integrated through
-`c19f6275452d19ad24b444d700809cba0b1fe2ee`:
+`7d851762b0d6cfb827a3dc9b68be814150ae4117`:
 
 - `2a8caae9`: corrected 26 stale animation-script field classifications in
   four mail GFX owners using the existing ROM0 reader contract
@@ -14,17 +14,27 @@ the following source findings are now integrated through
   conditional SMTP input bounds in `lib/mobile/mail.asm` and
   `engine/mobile/smtp.asm`
   ([contract](mail_sdk_data_names.md#header-encoder-stack-contract-2026-10-25)).
-- `c19f6275`: distinguished the observed nested menu abort from the conditional,
-  unobserved timer-inactive stack path in `engine/browser/page_list.asm`
+- `c19f6275`, `7b5d19f5`, `a24252a9`: distinguished the ordinary menu
+  abort and adapter-removal exit from the timer-inactive stack path. The latter
+  now has a demonstrated producer and return under persistent `$D2` serial
+  fault injection: `24:4C55` is entered and saved `BC=0` returns through
+  `24:4DB9 -> 00:0000 -> 24:4206`. This closes the bounded fault-model question,
+  not real-adapter behavior or arbitrary-BC safety
   ([contract](naming_g2.md#page-list-action-menu-stack-paths-2026-10-25)).
+- `f6cc34ae`, `7d851762`: corrected the Bank23 candidate layout to 13 leading
+  zeros and four tilemap/attribute pairs; identified the PROBABLE mail-status
+  captions and distinguished their VRAM1 tiles from the active rasterized
+  VRAM0 captions. Geometry and the active-display comparison are closed;
+  the candidate reader/selector remains unknown
+  ([evidence](japanese_semantic_roots_and_destinations_20261025.md)).
 
 These commits changed source comments and supporting explanations, not ROM
 instructions, data or labels. Each passed `make` (`RESULT: IDENTICAL`),
-`make sym-check` and `make palette-check`. The conditional stack models are
-not new natural executions; the cited existing menu trace corroborates only
-the ordinary abort. No concrete ASM edit remains uncommitted at this revision.
-The table below still describes unresolved semantics, not functions awaiting
-implementation. None of these three findings establishes the missing candidate
+`make sym-check` and `make palette-check`. Static models, controlled serial
+fault execution and ordinary emulator traces retain their separate evidence
+levels. No concrete ASM edit remains uncommitted at this revision.
+The table below describes unresolved semantics, not functions awaiting
+implementation. These findings do not establish the six missing candidate
 roots or the executable Bank53 name-to-frame link.
 
 | Scope | Already delivered | Exact remaining question / closure evidence |
@@ -33,6 +43,7 @@ roots or the executable Bank53 name-to-frame link.
 | Six candidate code regions in Banks 2B, 2D, 29, 70, 26 and 28 | Decoded bodies and qualified operation names; Bank2D includes a wrapper and its local helper | Demonstrate a rooted control transfer and compatible register, stack and mapper state; use the per-entry acceptance table in the semantic audit. These regions are not six functions awaiting implementation or an exhaustive uncertainty count. |
 | Bank53 names and frame inventory | All 25 strings decoded; scoped assets and PNGs accounted for; 01–23 have a PROBABLE visual/index crosswalk and 24 has a separate PROBABLE Bank51 art association | Establish an executable name-read-to-frame selection chain. Entry 00 still has no identified visual asset. Do not repeat the closed inventory or visual corpus without changed inputs. |
 | Bank23 `7C03–7F30` | Bytes retained; corrected PROBABLE layout is 13 leading zero bytes plus four 20×5 tilemap/attribute pairs; mail-status captions render with existing MailSession graphics | Identify a Bank23 reader/loader and selection contract. The former separate `$08` tail is superseded; structural/visual evidence alone does not establish use. |
+| Bank71 caption maps | Eight 4×12 tile/attribute pairs and their consumer are identified | Resolve caption meanings and phase/variant selector contracts as one batch; do not repeat format extraction or count this as eight unidentified functions. |
 | Eight KEEP compositions and other qualified source findings | Backing bytes/assets retained and operation-level findings recorded | Supply missing VRAM placement or a specific consumer/entry contract. Historical counts and overlapping findings are not additive tasks. |
 | Global used/unused claims | Negative results retained with their exact domains | A bounded non-use proof must cover its declared roots and inputs; unobserved paths alone cannot prove universal non-use. |
 
