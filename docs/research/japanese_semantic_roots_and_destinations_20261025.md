@@ -787,41 +787,67 @@ state and cannot establish global non-use. No ROM or assembly bytes changed.
 
 ### New normal-input exploration of browser and inbox paths (2026-10-25)
 
-To seek a positive entry without repeating the closed source/table censuses, I
-ran two five-minute coverage-guided searches over ordinary button inputs. The
-browser search used the documented `addressbook_full` saved state, its
-`browser_bookmarks.macro`, fake adapter/network, and all synthetic web pages;
-2,266 trials produced eight new instruction starts in menu-return/fallback
-paths. A separate inbox search used the documented `mail_receive` parent,
-`mail_inbox.macro`, and the five existing message fixtures; 2,746 trials
-produced 15 new instruction starts. Neither search used `force` or `ramset`.
+To seek positive entries without repeating the closed source/table censuses, I
+ran two corrected five-minute coverage-guided searches over ordinary button
+inputs. The browser search used the documented `addressbook_full` saved state,
+its `browser_bookmarks.macro`, fake adapter/network, and synthetic web pages;
+2,107 jobs produced 353 entries, three strong entries, and 19 new instruction
+starts. The inbox search used the documented `mail_receive` parent,
+`mail_inbox.macro`, and existing message fixtures; 2,345 jobs produced 299
+entries, three strong entries, and 15 new starts. Neither search used `force`,
+`ramset`, or injected network faults.
 
-Four accepted input sequences were replayed from their documented parent
-states with the ordinary mGBA tracer. The browser replays naturally executed
-`Browser_Menu_PageList_Restore` (`4E:4E6E`) and the later End-prompt return
-branch (`4E:4FC3`); one inbox replay executed the new
-`29:439D–43B6` instructions. A second inbox entry was reported by the
-fork-server search as discovering `26:48B4–48B8`, but replaying its resolved
-input with the `mail_receive` save/config and pinned ROM did not execute any
-of those five starts. The discrepancy remains unexplained, so those starts are not confirmed execution and do not support a semantic
-claim. The replay matrix checked six candidate code intervals and 28 data
-intervals: the 25 frame windows, the Bank 51 art candidate, the Bank 53 name
-block, and `1A:4A85–4A90`. It found zero candidate instruction starts, zero
-candidate callgraph destinations, and zero ROM data read overlaps. The browser
-runs each reported ten `waitstable` waits reaching their 900-frame cap; those
-waits are retained as a limit, not treated as successful screen transitions.
+All six accepted entries were replayed from their documented parent states
+with the ordinary mGBA tracer. Browser e51 reached `4E:4FC3` and the ordinary
+browser menu-return path; e138 executed `24:5064–5084`, the row-index-2
+save-animation setup in `engine/browser/page_list.asm`; e149 executed
+`27:43E4`. Inbox e111 reached `27:43E4`, e197 executed `29:439D–43B6`, and
+e185 executed `26:48B4–48B8`. The last block is the normal B-held exit before
+POP3 retrieval: static code tests `hJoyHeld & PADF_B`, pops the saved register
+set, then jumps to `MailSession_Cancel`. Its execution is CONFIRMED only for
+this ordinary-input synthetic mGBA replay, not for a physical adapter/server.
 
-This adds verified natural-input behavior for those specific emulator runs,
-but it does not identify a Bank 53 reader, link a name ordinal to a frame, or
-prove any candidate globally unused or unreachable. The search starts from
-two saved states and uses synthetic networking/pages; it cannot substitute
-for an original server capture or physical hardware observation. The open
-candidate statuses and confidence levels therefore stay unchanged. Reproduce
-the grouped interval/callgraph check with
-`.tmp/jp-semantic-followup-batch-20261025/audit.py` (SHA-256
-`468802dcf2b875d22e7191d4ff79b3e7365b2691317a60cc1bfe2b0840650539`) and
-`.tmp/jp-semantic-followup-batch-20261025/RESULT.json` (SHA-256
-`ba16fa0baef05576fe2ffb7733dd44dcbe1e791fb94384218b202b40a3706fff`). The
-receipt pins the protected ROM, tracer/library, each parent save/config, input
-macro and coverage/dataaccess/callgraph output. No ROM, assembly, or asset
-bytes changed.
+The earlier e131-only fork-server claim for the same five addresses was not a
+valid attribution. Exact investigation found two harness defects: suffix macro
+execution reset `gap` and `taplen` rather than inheriting prefix settings, and
+the whitespace-delimited `JOB` protocol could not parse absolute paths in this
+checkout, whose name contains spaces. `tools/trace/mgba_trace.c` now keeps
+macro settings across prefix/suffix execution; `tools/trace/explore.py` runs
+the server from the repository root, uses relative protocol paths, checks the
+exact `DONE` path, and errors if a result file is missing. Corrected e131
+replay no longer reports the five starts; independent ordinary replay e185
+does. This resolves the harness discrepancy without discarding the real,
+separately reproduced code path.
+
+The six-replay matrix checked six candidate code intervals and 28 data
+intervals: 25 frame windows, the Bank 51 art candidate, Bank 53 name block,
+and `1A:4A85–4A90`. Across these six replays it found no instruction starts
+inside those six scoped code intervals, no candidate callgraph destinations,
+and no ROM data reads overlapping those 28 intervals. This finite result does
+not negate the positive execution sites above: the new sites lie outside those
+candidate intervals. Browser e51/e138 each retained ten `waitstable` waits
+that hit their 900-frame cap; those waits remain limits, not proven UI
+transitions.
+
+These runs add verified behavior for specific synthetic emulator scenarios;
+they do not identify a Bank 53 reader, establish an executable name-ordinal to
+frame edge, or prove global non-use/unreachability. Inputs begin from two
+saved states with synthetic network/pages, so they cannot substitute for a
+primary server capture or physical hardware observation. Candidate statuses
+remain unchanged except for the exact local behavior now demonstrated at
+`24:5064–5084` and `26:48B4–48B8`. Search directories, six replay outputs,
+input manifests, and hash-pinned evidence remain in `.tmp/jp-browser-semantic-
+explore-fixed2-20261025/`, `.tmp/jp-mail-semantic-explore-fixed2-20261025/`,
+and `.tmp/jp-semantic-followup-batch-20261025/corrected-search-replays/`.
+Re-run the consolidated checks from the repository root with
+`.tmp/jp-semantic-followup-batch-20261025/corrected_audit.py` (SHA-256
+`4d7b0208f37c2ff3312da8882938263f2c7f4604acf3767f0ff73c8cb9fd95af`); its
+receipt is
+`.tmp/jp-semantic-followup-batch-20261025/corrected-search-replays/CORRECTED_AUDIT.json`
+(SHA-256 `4d288fb7bed809c03466663d2216e5dd21894a78c74070fd1b8af47f44e9e926`).
+The receipt pins the corrected tracer binary (`48263bb44ab8618d864d360bc1f29f8e4592d5f269c30084f1be1bce80130553`),
+libmgba (`b44dfd7edb816fefa892c10dc2563d5d4bbe871d68702a8dcc3dde2532959719`),
+ROM, search corpora, saved states/configs, resolved inputs, and per-replay
+coverage/data/callgraph output hashes. The protected ROM hash remained
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
+No ROM or asset bytes changed.

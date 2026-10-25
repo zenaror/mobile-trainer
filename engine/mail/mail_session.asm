@@ -1051,8 +1051,10 @@ MailSession_ReceiveMailsLoop:: ; 26:471B
 	and a, PADF_B
 	jr z, .l48BB
 
-	; [PROBABLE] 5 insn(s) never executed in the traced runs; cut out of the PROBABLE region
-	; 4705-4A8A by apply_coverage --split
+.cancel_on_b_before_retrieval ; 26:48B4
+	; [CONFIRMED] Ordinary-input synthetic mGBA replay jp_mail_fixed_replay_e185
+	; reaches this B-held exit, cleans the saved register stack, and jumps to
+	; MailSession_Cancel.
 	pop hl
 	pop de
 	pop bc

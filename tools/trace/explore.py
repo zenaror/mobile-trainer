@@ -167,7 +167,10 @@ class Search:
                 kb.write_bytes(bytes(self.known))
             cmd = self.base + ["--macro", str(mac), "--known", str(kb), "--outdir", str(base)]
             errf = open(base / "stderr.txt", "w")
-            p = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=errf, text=True, bufsize=1)
+            # The fork-server JOB protocol is whitespace-delimited. Keep the
+            # process cwd at ROOT and pass relative macro/result paths so a
+            # checkout whose path contains spaces still parses correctly.
+            p = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=errf, text=True, bufsize=1, cwd=ROOT)
             try:
                 line = p.stdout.readline()
                 if not line.startswith("READY"):
@@ -182,11 +185,12 @@ class Search:
                     res = base / "job.res"
                     if res.exists():
                         res.unlink()
-                    p.stdin.write("JOB %d %s %s\n" % (self.a.maxframes, sm, res))
+                    p.stdin.write("JOB %d %s %s\n" % (self.a.maxframes, os.path.relpath(sm, ROOT), os.path.relpath(res, ROOT)))
                     p.stdin.flush()
                     line = p.stdout.readline()
-                    if not line.startswith("DONE"):
-                        break
+                    expected_done = "DONE " + os.path.relpath(res, ROOT)
+                    if line.strip() != expected_done:
+                        raise RuntimeError("fork server returned %r; expected %r" % (line.strip(), expected_done))
                     self.jobs += 1
                     self.consume(e, suf, res, prefix_frames)
             finally:
@@ -204,8 +208,8 @@ class Search:
     def consume(self, e, suf, res, prefix_frames):
         try:
             rows = res.read_text().splitlines()
-        except FileNotFoundError:
-            return
+        except FileNotFoundError as exc:
+            raise RuntimeError("fork server did not create result file %s" % res) from exc
         info = {}
         keys = []
         for r in rows:

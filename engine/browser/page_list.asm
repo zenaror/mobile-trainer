@@ -2161,8 +2161,8 @@ PageList_SaveCurrentPage:: ; 24:4F14
 	cp a, $02
 	jr nz, .check_row_3
 
-	; [PROBABLE] 13 insn(s) never executed in the traced runs; cut out of the PROBABLE region
-	; 4BCD-53FE by apply_coverage --split
+	; [CONFIRMED] Ordinary-input synthetic mGBA replay jp_browser_fixed_replay_e138
+	; executes this row-index-2 save-animation setup at 24:5064-5084.
 	ld hl, wSpriteSlot4
 	ld de, PageList_ObjTable_Entry28
 	ld a, BANK(PageList_ObjTable_Entry28)

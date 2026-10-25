@@ -1746,11 +1746,16 @@ static const char* keyName(int keys, char* buf) {
  *   waitchange [max M]     run until the LCD image differs from the current one
  *   end                    stop
  */
+/* Macro settings are machine-independent interpreter state. In fork-server mode a child
+   continues the prefix script, so suffix scripts must inherit the prefix's gap/tap length. */
+static int macroGap = 14;
+static int macroTaplen = 4;
+
 static void runMacro(const char* path) {
 	FILE* f = fopen(path, "r");
 	if (!f) { fprintf(stderr, "cannot open macro %s\n", path); exit(2); }
 	char line[512];
-	int gap = 14, taplen = 4, keysHeld = 0;
+	int keysHeld = 0;
 	int lineno = 0;
 	char kb[128];
 	{
@@ -1774,8 +1779,8 @@ static void runMacro(const char* path) {
 		if (!strcmp(cmd, "wait")) {
 			int k = atoi(p);
 			for (int i = 0; i < k; ++i) runOneFrame(keysHeld);
-		} else if (!strcmp(cmd, "gap")) gap = atoi(p);
-		else if (!strcmp(cmd, "taplen")) taplen = atoi(p);
+		} else if (!strcmp(cmd, "gap")) macroGap = atoi(p);
+		else if (!strcmp(cmd, "taplen")) macroTaplen = atoi(p);
 		else if (!strcmp(cmd, "tap") || !strcmp(cmd, "hold")) {
 			char btn[128];
 			int arg = 0;
@@ -1791,12 +1796,12 @@ static void runMacro(const char* path) {
 			}
 			int keys = parseKeys(btn);
 			int reps = hold ? 1 : arg;
-			int len = hold ? arg : taplen;
+			int len = hold ? arg : macroTaplen;
 			for (int r = 0; r < reps; ++r) {
 				if (recFile) fprintf(recFile, "%d %s\n", curFrame, btn);
 				for (int i = 0; i < len; ++i) runOneFrame(keys);
 				if (recFile) fprintf(recFile, "%d -\n", curFrame);
-				for (int i = 0; i < gap; ++i) runOneFrame(0);
+				for (int i = 0; i < macroGap; ++i) runOneFrame(0);
 			}
 			(void) keyName; (void) kb;
 		} else if (!strcmp(cmd, "monkey")) {
@@ -1838,7 +1843,7 @@ static void runMacro(const char* path) {
 				char nm[32];
 				keyName(keys, nm);
 				if (recFile) fprintf(recFile, "%d %s\n", curFrame, nm);
-				for (int i = 0; i < taplen; ++i) runOneFrame(keys);
+				for (int i = 0; i < macroTaplen; ++i) runOneFrame(keys);
 				if (recFile) fprintf(recFile, "%d -\n", curFrame);
 				for (int i = 0; i < (int) mgap; ++i) runOneFrame(0);
 			}

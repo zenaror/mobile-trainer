@@ -545,6 +545,20 @@ are byte-identical, except that `traces/detail/browser_errors/adapter.log` and `
 `run_trace.py --verify-determinism` (macro run vs replay of its recording, whole chain twice) was run for `kbd_compose` (8 scenarios, 264 output files) and `forced_screens` (7 scenarios incl. `force` directives, 233 files): identical.
 A full replay of the 63 natural scenarios that existed at that point (`fuzz_register` was added afterwards) from the recorded `traces/inputs/*.txt` reproduced the files written when each scenario was first run (same exception).
 
+**Fork-server macro-state and path-space correction (2026-10-25).** The initial
+e131 fork-server report for `26:48B4–48B8` was a harness artifact: suffix
+execution reset macro `gap`/`taplen` instead of inheriting prefix settings, and
+the whitespace-delimited `JOB` protocol could not parse absolute checkout paths
+containing spaces. The macro interpreter now preserves those settings across
+forked prefix/suffix execution, and `explore.py` runs the server from the
+repository root with relative protocol paths and validates the returned result
+path. The corrected replay of e131 does not execute the five starts. However,
+corrected search entry e185 independently reaches the same B-held cancel block
+in an ordinary full replay, so `26:48B4–48B8` is confirmed reachable in that
+bounded synthetic mGBA scenario. Do not conflate the false e131 attribution
+with the independently reproduced e185 path. Updated search, replay and
+interval receipts are in `docs/research/japanese_semantic_roots_and_destinations_20261025.md`.
+
 | addition | syntax / file | notes |
 |---|---|---|
 | fork server | `mgba_trace --serve [--known FILE]` (after the `--macro`/`--input` script) | the process that has just replayed a *prefix* answers `JOB <max_frames> <macro> <result> [<record>]` lines on stdin, forks one child per job; the child runs the suffix macro from exactly that machine state (memory, adapter, fake Internet) and writes the ROM instruction starts that are not in the *known* bitmap (`--known FILE` / `KNOWN FILE`: 128 x 2048 bytes; everything the prefix executed is known too), the frame count and a hash of the BG tile maps; `QUIT` ends it. About 30 jobs per second per core. |
