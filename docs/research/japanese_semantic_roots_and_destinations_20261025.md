@@ -168,6 +168,33 @@ No new maintained natural entry was demonstrated for the previously open
 candidates. The local mechanics are bounded, but an operation's valid-looking
 instruction sequence does not establish a caller or its input state.
 
+#### Cross-bank return remapping immediately before candidate instructions (2026-10-25)
+
+To test one control-flow form omitted by the direct CFG, I inspected the three
+bytes immediately before every decoded instruction start in each of the six
+candidate code spans, across all 127 physical ROMX banks. The question was
+whether a `CALL`/conditional `CALL` to `BankSwitch_H`, `BankSwitch_D`,
+`BankSwitch_B`, or the physical Bank 68 `BankSwitch_H_Local` could return into
+the candidate CPU address after selecting its physical bank. The two source
+spans already treated as code by the maintained assembly (Bank 26 and Bank 28)
+were reclassified in memory only; frozen config was not changed.
+
+Across 226 decoded instruction starts, the scan found zero such immediate
+return sites. Several other-bank byte views contain calls to `FarCall` before
+candidate-shaped addresses, but `FarCall` saves and restores the caller's ROM
+bank in `home/farcall.asm` before returning; these do not provide the remapped
+return edge tested here. This closes only direct immediate calls to the four
+named bank selectors at candidate instruction boundaries. Computed stack
+returns, other callees that alter mapper state, split/raw MBC writes, relocated
+code, and arbitrary execution remain outside this check; candidate reachability
+and use status do not change.
+
+Reproduction: `.tmp/jp-cross-bank-return-remap-20261025/audit.py` (SHA-256
+`c21173c76a7c4f90f532d0dfb3360db3f2aa10dd21ab624047ba512445d9051e`);
+receipt `RESULT.json` (SHA-256
+`5bd07bee7a6884bd7da5634b2de61a9a6144447d938c9f0bf8192bedbabf4c22`). The
+receipt pins the protected ROM and current coverage union.
+
 This matrix was reconciled against current `main` at
 `a8dbd86eba25fe205aee5375fdf245a2a0cfaa00`. A path-limited Git comparison
 confirmed no maintained `.asm`, `.inc`, GFX, or ROM-manifest changes since the
