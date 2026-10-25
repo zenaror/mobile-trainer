@@ -971,6 +971,45 @@ coverage/data/callgraph output hashes. The protected ROM hash remained
 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
 No ROM or asset bytes changed.
 
+### Targeted mail-body cursor input search (2026-10-25)
+
+To seek a new route into the unresolved `2D:4E42/4E54` locator helpers, I ran
+`tools/trace/explore.py` from the saved `mail_reply_body_cursor` SRAM/config
+state with the fixed fake adapter/network, eight workers, seed `20261025`,
+and a ten-minute budget. It completed 15,518 jobs, retained 1,323 corpus
+entries, accepted 11 strong entries, and reported 94 instruction starts not
+present in the prior 72-scenario union. Ten accepted macros contain only
+ordinary button input; `e1285.macro` also injects `net http_status=500`, so
+that one is kept separate from ordinary-input interpretation. None uses
+`force` or `ramset`.
+
+All 11 accepted macros were replayed through `mgba_trace` from the same pinned
+save/config state. Across the replays, there were zero instruction starts in
+the six scoped code intervals, zero callgraph destinations into those
+intervals, and zero ROM-data-read overlaps in the 28 monitored frame/name/
+resource intervals. The search therefore does not supply the missing natural
+entry for `2D:4E42/4E54` or another candidate; its negative result is limited
+to these inputs and the saved state.
+
+The accepted ordinary-input entry `e371` reached the fall-through call at
+`4E:56F3` in `Browser_SelectPrevLink`, then called `Browser_FindVisibleLink`
+at `4E:55E8` once (frame 3261). Entry `e434` reached the Bank 75
+`MobileAPI_TelephoneStatus` body and timer helpers, including calls
+`75:55DC -> 75:565C` and `75:5AB2 -> 75:4029`; this is one synthetic adapter
+route, not hardware evidence. These are additional bounded path observations;
+they do not change any candidate's entry/use status or prove global
+unreachability.
+
+The replay receipt pins the ROM, tracer, libmgba, explorer and tracer source,
+scenario registry, coverage union, save/config bytes, fake mail fixtures,
+all 11 input macros and their replay output hashes:
+`.tmp/jp-body-editor-locator-search-20261025/REPLAY_AUDIT.json` (SHA-256
+`2510c602a0ee7886306e2df8df0a6ad765bf525a86dd67a01d113ed735c9d67f`). The
+saved state bytes are preserved beside it under `inputs/`. The top-level
+`.tmp/jp-semantic-followup-batch-20261025/RESULT.json` is a separate stale
+receipt whose hashes/counts do not match the current search files; it is
+preserved but not used as evidence. No ROM or source assembly bytes changed.
+
 ### Natural mail-body editor bypasses the 2D:4E42 locator (2026-10-25)
 
 I parsed three retained natural synthetic-network reports (`mail_compose`,
