@@ -191,6 +191,31 @@ and confirms its ROM/source pins before filtering the omitted range. The new
 receipt is `.tmp/jp-browser-oob-bank47-tail-20261024/RESULT.json` (SHA-256
 `0d4ac74dff8427e16ceeccf97886c31f3c752079d6e3f925bcfd6ce16420444f`).
 
+### Mutable descriptor pointers are out-of-table selector artifacts (2026-10-24)
+
+I reconciled the 16 pointers that the earlier 0–127 decode classified as
+outside ROM. The original selector table contains exactly 27 entries, for
+indices 0–26, and each resolves to one of the five descriptor records in
+`4E:6581–661C`. The 16 mutable-memory addresses (`VRAM`, `SRAM`, or `WRAM`)
+come only from indices above 26, where the selector has already read beyond
+the declared table. They are not additional declared descriptors.
+
+The maintained ordinary route constrains its selector: `SaveCheck_Verify`
+accepts only low-seven-bit values 1–26; `Browser_Entry` verifies the saved
+block and resets it if invalid; session-start code uses fixed styles 0 or 1,
+and the dictionary sets 2. The preview's first instruction still copies an
+externally supplied A value to its style scratch, but no maintained direct
+call to `Browser_FrameStylePreview_Run` was found. Thus the 16 mutable reads
+are not supported by a maintained natural selector route. Direct external
+entry, corrupted memory, and other unmodeled execution remain outside this
+conclusion.
+
+This closes the 16 out-of-ROM records as evidence for a natural selector edge;
+it does not connect any Pokémon ordinal to an asset or prove global frame
+use/non-use. The 25 name-to-frame associations remain unresolved. Reproduce
+with `.tmp/jp-bank53-selector-natural-domain-20261024/audit.py`; its result
+pins the ROM, six source files, and prior 101-index receipt.
+
 ## Remaining work required for semantic closure
 
 1. BMP source-length handling is now statically reconciled: the natural caller
