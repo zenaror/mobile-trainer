@@ -536,11 +536,16 @@ synthetic mGBA scenario** and establishes that the converter has no effective
 five-byte reservation at this boundary. It does not establish that a
 historical Japanese page served such a BMP, that ordinary public responses can
 reach these exact fields, or that the write causes a visible/gameplay effect.
-The fifth store was observed; its downstream effects were not tested.
+The trace then records `00:0A12` writing zero to `$C000` in the same frame.
+`home/sprites.asm:129-145` identifies that PC as the loop in
+`Sprite_ClearShadowOAM`, which clears all 160 shadow-OAM bytes. In this run the
+normal clear therefore rewrites the same byte to the same value; no persistent
+change to `wShadowOAM[0]` is shown. The aggregated DMA log confirms regular
+`$C0` OAM DMA, but does not establish exact same-frame DMA ordering.
 
-The immutable run receipt is
+The run receipt is
 `.tmp/jp-bmp-tail-overflow-20261025/run2/RESULT.json` (SHA-256
-`d4f006b03f0f66d622b37e820393ff78ac07995d17f5da3bb0b1ef48905db2fa`). It pins
+`b38130f65b76b44a8a0464e36a398d53cc3732dce048a9d680dd870619e37222`). It pins
 the ROM and harness, fixture inputs, adapter log, coverage and write-trace
 hashes. The earlier failed fixture remains preserved separately; its
 nonzero auxiliary BMP header fields were rejected before conversion.
