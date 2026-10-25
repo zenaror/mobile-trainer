@@ -7,6 +7,7 @@ written in the source comments.
 Current Japanese source delivery: [integrated on main, with finite-scope limits](research/japanese_closure_audit_20261023.md#delivery-on-main-2026-10-24). Semantic closure work remains active; see the current [root and destination reconciliation](research/japanese_semantic_roots_and_destinations_20261025.md).
 The BMP length boundary is now statically traced through the nested HTTP record and converter; see [inline BMP record bounds](research/japanese_bmp_record_bounds_20261025.md).
 The ROM0 audio stream reader's maintained song-table bank domain is bounded to Banks 04/05; see [Japanese audio stream reader domain](research/japanese_audio_stream_reader_domain_20261025.md).
+The result-page kind's named interrupt/frame-service liveness is bounded for the maintained caller set; see the [Bank 42 liveness follow-up](research/japanese_semantic_roots_and_destinations_20261025.md#interruptframe-service-interleaving-for-result-page-kind-2026-10-25).
 For future authorized ZIP parity, start with the [Japanese reuse contract](TRANSLATION.md#japanese-baseline-and-reuse-contract-2026-10-24).
 Dated checkpoint paragraphs below preserve historical results; use the current
 top-level status and semantic audit for active work. English remains paused.

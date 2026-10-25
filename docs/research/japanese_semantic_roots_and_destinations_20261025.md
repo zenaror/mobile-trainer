@@ -150,6 +150,43 @@ the protected ROM, the 338-file maintained ASM/INC source set
 the sole banner callsite, and the helper alias-reference screen. No ASM or ROM
 bytes changed; no runtime or hardware execution was performed.
 
+#### Interrupt/frame-service interleaving for result-page kind (2026-10-25)
+
+The preceding check covered the named synchronous helpers before the banner
+lookup, but did not enumerate the hardware interrupt paths that can run during
+`VBlank_Wait`, `Sound_FrameService`, or `Gfx_StartHDMAWithService`. A focused
+source audit now parses all 25 declared `$C27C` overlay aliases, then screens
+the installed vector targets, ROM0 VBlank/timer/serial handlers, the named
+ticker/connect-dialog STAT handlers, the audio/frame-service helpers, and the
+MobileSDK source for either those aliases or a literal `$C27C`. It finds zero
+such mentions in that enumerated path set.
+
+The vector installation maps VBlank through `CBF1` to `00:03BA`, Timer through
+`CBF7` to `00:01ED` and then `75:58EA`, and Serial through `CBFA` to `00:01B7`
+and then `75:56D2`; STAT is `RETI` by default, with named ticker and connection
+dialog handlers touching their own display/WRAM state. The interrupt-facing
+MobileSDK outputs are dynamic, so the audit also pins the existing 100-site
+maintained API call census: indices `$32` (`MobileAPI_TelephoneStatus`, which
+stores a caller-supplied result pointer) and `$3A` (`MobileAPI_PeerReceive`,
+which accepts a caller-supplied destination) have zero direct maintained
+callers. Their external callers remain out of scope. Other maintained
+caller-rooted SDK output destinations remain bounded by the separate
+[MobileSDK destination matrix](japanese_mobile_sdk_output_destinations_20261024.md).
+
+**Result:** within the enumerated maintained interrupt/frame-service paths and
+the pinned caller-rooted API domain, no natural `$C27C` clobber was found
+between storing the result-page kind and reading it for the banner. The
+conditional `$B5` descriptor remains a confirmed malformed-state path, not a
+natural Bank 42 read established by these callers. This is static source
+evidence only; computed pointers, arbitrary corruption, unmodeled re-entry,
+and external API callers are not excluded. Reproduce with
+`.tmp/jp-result-kind-interrupt-liveness-20261025/audit.py` (SHA-256
+`4e9e54634233b1870792b8358c63a665ca7dcc0afb898392893d8432d3a8ff3f`);
+receipt `RESULT.json` (SHA-256
+`745aba694658f33d195b94bea8ce49dc749d05948b884f01f8f40976923da85b`). It
+pins the protected ROM, all enumerated source files, and the earlier API
+destination receipt. No ASM/ROM bytes or runtime state changed.
+
 These are the terminal results of the reviewed maintained caller, hook, table,
 stack-return and state domains. They are **not** claims that all bytes are
 unreachable: any candidate can be reopened by a newly demonstrated positive
