@@ -2,12 +2,30 @@
 
 ## Consolidated source disposition (2026-10-25)
 
-This section takes precedence over older status/count summaries below. It
-reconciles the source at `4f7e9ac4bf4f33cda227922f40d6e0e4145fbebb` and the
-previously staged MBC-store audit; it adds no runtime evidence. The last eight
-commits at that revision changed documentation only. No concrete ASM correction
-was pending in the working diff. This is not semantic completion, and unknown
-comments are not automatically fresh defects or unimplemented functions.
+This section takes precedence over older status/count summaries below. The
+initial reconciliation covered `4f7e9ac4bf4f33cda227922f40d6e0e4145fbebb`;
+the following source findings are now integrated through
+`c19f6275452d19ad24b444d700809cba0b1fe2ee`:
+
+- `2a8caae9`: corrected 26 stale animation-script field classifications in
+  four mail GFX owners using the existing ROM0 reader contract
+  ([evidence](sprite_format.md)).
+- `fbadfb0a`: annotated the header encoder's saved-HL return path and the
+  conditional SMTP input bounds in `lib/mobile/mail.asm` and
+  `engine/mobile/smtp.asm`
+  ([contract](mail_sdk_data_names.md#header-encoder-stack-contract-2026-10-25)).
+- `c19f6275`: distinguished the observed nested menu abort from the conditional,
+  unobserved timer-inactive stack path in `engine/browser/page_list.asm`
+  ([contract](naming_g2.md#page-list-action-menu-stack-paths-2026-10-25)).
+
+These commits changed source comments and supporting explanations, not ROM
+instructions, data or labels. Each passed `make` (`RESULT: IDENTICAL`),
+`make sym-check` and `make palette-check`. The conditional stack models are
+not new natural executions; the cited existing menu trace corroborates only
+the ordinary abort. No concrete ASM edit remains uncommitted at this revision.
+The table below still describes unresolved semantics, not functions awaiting
+implementation. None of these three findings establishes the missing candidate
+roots or the executable Bank53 name-to-frame link.
 
 | Scope | Already delivered | Exact remaining question / closure evidence |
 |---|---|---|
