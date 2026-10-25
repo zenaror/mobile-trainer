@@ -4,7 +4,11 @@ Documentation of the *Mobile Trainer (Japan)* disassembly.  The source is the ha
 [`../REVERSE_ENGINEERING.md`](../REVERSE_ENGINEERING.md).  This directory holds the reference documents and the research notes that carry the evidence behind the statuses (`CONFIRMED` / `PROBABLE` / `HYPOTHESIS`)
 written in the source comments.
 
-Current Japanese source delivery: [integrated on main, with finite-scope limits](research/japanese_closure_audit_20261023.md#delivery-on-main-2026-10-24). For unresolved source questions and the criteria for further investigation, start with the [consolidated source disposition](research/japanese_closure_audit_20261023.md#consolidated-source-disposition-2026-10-25). Operational pause/resume state is maintained in OMM.
+Japanese delivery is **accepted at 99.9%** by the Operator, with documented
+unknowns retained. This is not a measured semantic percentage. Start with the
+[accepted closure and evidence map](research/japanese_closure_audit_20261023.md#accepted-japanese-closure-2026-10-25).
+Older unresolved findings are retained uncertainty, not an automatic backlog.
+English/ZIP remains paused until separate explicit approval. OMM holds continuity.
 The BMP length boundary and bottom-up `CopyBytes` intervals are traced through the converter; physical bounds remain conditional on unverified record and aggregate invariants. See [inline BMP record bounds](research/japanese_bmp_record_bounds_20261025.md).
 The exact historical homepage has no current Wayback capture; its broader query timed out, and Common Crawl returned gateway errors. A local inventory found no naturally sourced BMP among 45 files/25 unique hashes; this does not rule out other archives. See the [archive and corpus check](research/japanese_bmp_record_bounds_20261025.md#public-archive-availability-check-2026-10-25).
 The ROM0 audio stream reader's maintained song-table bank domain is bounded to Banks 04/05; see [Japanese audio stream reader domain](research/japanese_audio_stream_reader_domain_20261025.md).

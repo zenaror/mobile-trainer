@@ -1,5 +1,11 @@
 # Consolidated Japanese residual matrix (2026-10-24)
 
+> Disposition: the Operator accepted Japanese delivery at 99.9% on 2026-10-25.
+> The unknowns in this report remain evidence limits, not an active task queue.
+> See [accepted closure](japanese_closure_audit_20261023.md#accepted-japanese-closure-2026-10-25).
+> Earlier continuation instructions below are historical; English remains paused.
+
+
 Source and documentation baseline: cc2d80ac17a741a7507b4d3fc7c9d98a0ff2a893. Three independent, read-only, disjoint-scope reviews were merged here. They did not modify source, ROM, or assets and reused the prior scans and inventories. No generic-name census, PNG/frame re-emission, or 70-scenario corpus scan was repeated.
 
 ## How to use this matrix

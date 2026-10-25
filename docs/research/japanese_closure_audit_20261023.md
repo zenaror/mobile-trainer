@@ -1,5 +1,69 @@
 # Japanese ROM closure audit (2026-10-23)
 
+## Accepted Japanese closure (2026-10-25)
+
+The Operator accepted **99.9%** as the project status and closed the Japanese
+investigation with the documented unknowns retained. This is an acceptance
+label, not a measured percentage of understood instructions or a claim of
+100% semantic understanding. The original ROM is reconstructed byte for byte.
+No remaining implementation change is required for this accepted delivery.
+
+This decision supersedes older operational instructions to continue until every
+natural entry, reader or purpose is established. The evidence and confidence
+levels below remain valid in their stated domains. Unknown does not become
+unused, and PROBABLE/HYPOTHESIS claims are not promoted by acceptance.
+
+### Final acceptance checks
+
+On the accepted Japanese source, `make` returned `SHA-256 OK` and
+`RESULT: IDENTICAL`: 2,097,152 bytes, SHA-256
+`6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`.
+`make sym-check` passed 336 source files / 12,224 labels / 51 constants;
+`make palette-check` passed 162 loads / 116 arrays / two documented over-reads
+and zero errors. `make png-check` passed 425 tile sheets, four raw views,
+37 font sheets and 95 screen PNGs. `make test` exited zero, including 1,786
+SM83 instructions, 48 CFG tests, PNG/rule checks (994 rules), 24 palette tests
+and six retype tests. The existing non-fatal `ResourceWarning` at
+`tools/test_cfg.py:398` remains recorded; it did not fail the suite.
+These checks certify their stated reconstruction/tool scopes, not the accepted
+unknown semantics or hardware behavior. No English build was run.
+
+### Accepted residual uncertainty
+
+- Six highlighted candidate regions in Banks 2B/2D/29/70/26/28: local behavior
+  decoded, natural entry and compatible caller state not demonstrated.
+- Bank53: 25 names and scoped graphics/PNG inventory accounted for; visual
+  associations retain their confidence levels, entry 00 has no demonstrated
+  visual match, and no executable name-to-frame selection chain is established.
+- Bank23: four paired 20×5 mail-status panels after 13 leading zero bytes;
+  intended association PROBABLE, natural reader/selector unknown.
+- Eight retained KEEP compositions, other small code/data/helper candidates,
+  padding interpretations and global use/non-use questions retain the detailed
+  limits in the residual matrix. These overlap and are not an additive task count.
+- Emulator, static and synthetic evidence do not become hardware evidence;
+  unavailable historical network content is not reconstructed by assumption.
+
+### Canonical evidence and reuse
+
+Use this accepted disposition first, then the consolidated table below, the
+[semantic contracts](japanese_semantic_roots_and_destinations_20261025.md) and
+[residual evidence register](japanese_remaining_semantics_batch_20261024.md).
+Dated research sections are historical evidence, not an automatic work queue.
+The maintained ASM/assets remain at the repository root; frozen config tables
+remain historical. OMM holds operational continuity and artifact retention.
+
+Recent accepted corrections include Bank71 caption meanings/selectors
+(`0211b73e`), five Settings highlights and corrected retained read coverage
+(`1d274f21`, `09baadfe`), and fixed sample-copy/consumer contracts
+(`50429182`, `95296027`). Do not revive the superseded no-read claims for the
+hidden phone highlight or the seven top-menu records.
+
+Reopen a Japanese question only with a concrete new input, contradiction or
+Operator request. The English/ZIP workstream remains paused: this closure is
+**not authorization to resume translation**. On future authorization, reuse the
+Japanese source contracts and the existing ZIP-parity records rather than
+repeat disassembly. See the [reuse contract](../TRANSLATION.md#japanese-baseline-and-reuse-contract-2026-10-24).
+
 ## Consolidated source disposition (2026-10-25)
 
 This section takes precedence over older status/count summaries below. The

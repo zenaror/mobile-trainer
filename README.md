@@ -17,6 +17,14 @@ original ROM is **not** needed to build; it is only used, if you have it, to com
 that the `.asm` files `INCBIN`; Shift-JIS text is written as readable strings (`db "メール", 0`) through a charmap; jump targets inside a function are local labels (`.loop`, `.l04E1`);
 every function has a `[CONFIRMED]`/`[PROBABLE]`/`[HYPOTHESIS]` note under its label.  The conventions are in [STYLE.md](STYLE.md).
 
+## Japanese delivery status
+
+The Operator accepted the Japanese work at **99.9%** on 2026-10-25, closing this
+stage with documented semantic unknowns. The percentage is an agreed status,
+not a measurement; the ROM reconstruction remains byte-identical. See the
+[accepted closure and residual limits](docs/research/japanese_closure_audit_20261023.md#accepted-japanese-closure-2026-10-25).
+English translation remains paused pending separate authorization.
+
 ## AI assistance
 
 Parts of this project were developed with assistance from AI tools, including code generation. This note describes work on this repository and does not attribute AI use to the upstream projects credited here.

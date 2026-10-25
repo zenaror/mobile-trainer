@@ -1,5 +1,11 @@
 # Japanese semantic roots and destination reconciliation (2026-10-25)
 
+> Disposition: the Operator accepted Japanese delivery at 99.9% on 2026-10-25.
+> The unknowns in this report remain evidence limits, not an active task queue.
+> See [accepted closure](japanese_closure_audit_20261023.md#accepted-japanese-closure-2026-10-25).
+> Earlier continuation instructions below are historical; English remains paused.
+
+
 Status: **partial semantic closure; static and bounded synthetic-runtime evidence**. Canonical source
 base: `zenaror/mobile-trainer` `main` at `49aad2b2e7214227348eb5f19958f77f78cfa5b8`.
 Protected ROM SHA-256:

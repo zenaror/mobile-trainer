@@ -1,5 +1,11 @@
 # Japanese indirect-entry and boundary review (2026-10-24)
 
+> Disposition: the Operator accepted Japanese delivery at 99.9% on 2026-10-25.
+> The unknowns in this report remain evidence limits, not an active task queue.
+> See [accepted closure](japanese_closure_audit_20261023.md#accepted-japanese-closure-2026-10-25).
+> Earlier continuation instructions below are historical; English remains paused.
+
+
 ## Scope and provenance
 
 This review reconciles three independent static reviews of the remaining Japanese operation-entry candidates and adjacent code/data spans. Their snapshots were based on `dd004b924ac116573c36f9e9a13c567ccd03042c`; the relevant source files were compared against that revision. The original ROM is 2,097,152 bytes with SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`. The coordinator independently recomputed the ROM and key slice hashes below against the canonical checkout after commit `6e2a5437ea3b8876dd8df3c91265878e2092015b`. These are static/source and original-byte findings, not runtime or hardware evidence.
