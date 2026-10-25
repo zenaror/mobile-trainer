@@ -30,6 +30,10 @@ MailSession_Tiles_61E0:: ; 26:61E0
 ; ---- gfx $62E0-$66E0 (1024 bytes) [CONFIRMED] tiles-vram: 1 call site(s); first: hdma_rom_to_vram at 26:5230: hl=$62E0 a=$26 c=$40 de=$9001 (dest VRAM $9000, vbank=1)
 
 MailSession_Tiles_62E0:: ; 26:62E0
+	; [PROBABLE association] Contains the prebaked mail-status captions rendered
+	; by Bank23 candidate pairs 7C10/7CD8/7DA0/7E68. The active screen uses this
+	; atlas for other cells, but its base map and timer updater do not select
+	; the 34 candidate title indices. Active messages use rasterized VRAM0 tiles.
 
 	INCBIN "gfx/mail/session_scenery/mail_session_tiles_62e0.2bpp"
 

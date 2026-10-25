@@ -1161,6 +1161,10 @@ MailSession_Msg_Blank:: ; 26:588E
 	db $81, $40, $81, $40, $81, $40, $81, $40, $00
 
 MailSession_UploadMsgTiles:: ; 26:58B7
+	; [CONFIRMED] Active captions are rasterized text: WRAM2 D400 -> VRAM0 9400.
+	; The base map rows 14/15 use VBK0 indices40-53/60-73. The separately
+	; identified Bank23 candidate panels use prebaked VRAM1 title tiles instead;
+	; this upload does not select those maps or their title atlas.
 
 	; [CONFIRMED] 57 insn(s); 57 executed (in up to 2/18 scenarios); entry proven: target of an
 	; executed call/far call

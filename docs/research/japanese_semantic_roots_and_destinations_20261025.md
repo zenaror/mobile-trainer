@@ -1290,6 +1290,34 @@ or its separate-tail claim. The corrected ROM slice hash and bounded no-reader
 results in the preceding section remain valid. No asset is missing from the
 ROM reconstruction, and no loader or editable-screen contract is invented.
 
+#### Bank 23 panels versus the active mail-status display
+
+The corrected candidate maps have a concrete layout counterpart: their first
+row equals row 13 of `Tilemap_CommProgress_Screen`, and their B-cancel columns
+14–19 in the last two rows equal active rows 16–17, including attributes.
+Their two title rows use 34 distinct nonblank indices in VRAM1. None is selected
+by the active base map in that bank. In contrast, active rows 14/15 select
+VRAM0 indices `$40–$53` / `$60–$73` with attributes `$00`.
+
+`MailSession_ShowMsgSending` and `MailSession_ShowMsgReceiving` render Shift-JIS
+strings through `TextTiles_RenderLine` into WRAM2 `$D400/$D600`.
+`MailSession_UploadMsgTiles` selects VBK0 and transfers `$400` bytes from
+WRAM2 `$D400` to VRAM0 `$9400`; its earlier `$D000/$9000/$3F` loads are overwritten.
+These live strings use “そうしん/じゅしん”, whereas the candidate atlas captions
+use “おくる/うけとる”. The existing timer updater writes indices `$40` or above
+for its byte-valued quotient/remainder inputs (or the fixed `$45/$49` case),
+so it does not activate the candidate title indices either.
+
+This establishes separate caption implementations within the named base-map,
+message-upload and timer-update contracts. It supports a PROBABLE alternative
+mail-status panel interpretation, not a proven historical removal or global
+non-use. The atlas itself is loaded and parts of it are used; do not call its
+whole byte range unused. There is still no demonstrated Bank23 map loader.
+Reproduce the byte/cell/domain checks with
+`.tmp/jp-bank23-paired-map-alignment-20261025/active_counterpart.py`; the receipt
+`ACTIVE_COUNTERPART.json` pins the source files, maps and atlas. No new runtime
+trace or hardware evidence is claimed.
+
 #### Bank 23 raw far-pointer shape scan (2026-10-25)
 
 A bytewise scan of the entire protected ROM checked both contiguous far-pointer
