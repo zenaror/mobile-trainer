@@ -535,3 +535,31 @@ Reproduce the source assertions and retained-report reconciliation with `.tmp/jp
 A retained source-only census was reproduced on the current Japanese source set: 333 tracked ASM/INC files across `home/`, `engine/`, `data/`, `gfx/`, `audio/`, and `lib/`, explicitly excluding `engine/mail/sample_data.asm` before reading it. It records 311 textual sites across `CopyBytes`, `CopyString`, `CopyStringMax`, the zero-entry variant, `SampleData_CopyString`, and the three `MobileSDK_Copy*` helpers. Joining per-site nearest-`HL` operands to the current linker symbols resolves zero direct symbolic sources inside the nine catalogued candidate spans (including Bank 53 names and the four code candidates). This is a source-operand reconciliation, not interprocedural proof: 77 sites remain `derived-lexical`, pointer arithmetic and register/stack-derived inputs are not followed, and inline `FarCall_Inline16` or handwritten readers are outside this family.
 
 Reproduce from repository root with `.tmp/jp-reader-census-20261024/scan.py` (SHA-256 `c2f87122cbdd35db70a8ca0359f0d563246f0889890e1cb2f96e9503f8b5437a`). Current receipt SHA-256 `bfb36f367ed9d1362725ef7f07314cc12b7ad6d2783cc409225512c317419436`; it pins source manifest `586656649691e15a1d2a05bd902bdd69465520711e809cf015e5d94f21b67e9e`, linker symbols `6373908de7aa1b10c772bd7aa9087bff13eb1e2352b0c71f24e7a26b82ad1598`, and screen operation source `888f78456d6d82544727d405487f9e5744902ced904e4d3823497dc3c80000aa`. The per-site and provenance TSVs remain alongside the receipt in the same `.tmp` directory.
+
+### `ReadBytesFar` direct-entry follow-up (2026-10-24)
+
+`ReadBytesFar` at ROM0 `00:1686–16A1` is a bank-selecting byte-range reader,
+but it has no maintained caller in the tracked source. A bounded follow-up
+checked all 349 tracked Japanese `.asm`/`.inc` files (excluding the paused
+English overlay and protected sample-data file), the immutable ROM for direct
+`CALL`/`JP` and inline far-call/far-jump encodings to `00:1686`, all recognized
+inline dispatch-table targets, and retained instruction/data-read evidence.
+The only source occurrence is its own definition; all four literal transfer
+shapes have zero matches; the retained inline tables contain no `1686` target;
+and neither the 72-scenario instruction union nor any of its 72 data-access
+reports records an instruction extent or ROM0 data read overlapping
+`00:1686–16A1`.
+
+This narrows only these maintained direct-reference forms and the retained
+scenario corpus. It does not exclude arbitrary computed `JP HL`, copied code,
+runtime-created pointers, unrecognized tables or execution outside the corpus;
+it does not establish global non-use. The helper's role remains **PROBABLE**
+from its body, while natural entry remains unproved.
+
+Reproduce with `.tmp/jp-readbytesfar-entry-20261024/audit.py` (SHA-256
+`b6074d47b602d827485447e204c555c35545f8e9c04e6d3749173ec853471693`). Receipt
+`.tmp/jp-readbytesfar-entry-20261024/RESULT.json` (SHA-256
+`4fdb7c6eaa86a9840ac1beb029adf387a36462577f746310f0a34726e6b2282e`) pins
+ROM SHA-256 `6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570`,
+the 349-file source manifest, `analysis/mapper/inline_tables.tsv`,
+`analysis/coverage_union.tsv`, and all 72 data-access reports.
