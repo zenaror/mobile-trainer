@@ -484,6 +484,29 @@ This inventory covers explicit source register writes and lexical direct calls o
 
 Reproduce with `.tmp/jp-explicit-mbc-writer-census-20261024/audit.py` (SHA-256 `a398f576262f30208f0a6859c75fc0786d3badae6217b88f3d87ad23bf13ff45`); it pins the protected ROM and 339-file source manifest SHA-256 `33ed650f60cf18dcf9dd48f457c8f15d38c05c953124d70e1a4a5708b8b7b036`. Receipt `RESULT.json` SHA-256 `f473c7298964295cec9c2800c7606a9b58098c8f517ccf84f88f3b222f58e51d`.
 
+### Backward-copy reader family (2026-10-24)
+
+A separate source-to-sink pass covered all five maintained calls to the ROM0
+helper `CopyBytesBackward` (`home/copy.asm:90–123`), which was not part of the
+311 forward-copy call census above. The helper reads only through `[HL--]`,
+writes only through `[DE--]`, and does not select a ROM bank. For nonzero BC it
+copies exactly BC bytes; BC=0 follows the helper's 256-byte wrap case. Four
+dialog calls select WRAM bank 7 and copy within the two declared screen maps:
+tile map `$D000–$D3FF` and attribute map `$D400–$D7FF`. The fifth call is the
+browser image wrapper: its ordinary producer selects SRAM bank 3, computes the
+source span and a backward destination in `sBrowserPageBuf` (`$B000`), and
+checks the combined length against the 4 KiB bank window before the overlapping
+move. Under those declared buffer/length contracts, all five sites read RAM;
+none reads ROM or routes into Bank 53 or the candidate frame windows.
+
+This closes only the five direct `CopyBytesBackward` caller contracts. The
+browser's high-byte-only overflow test does not validate a corrupt length by
+itself; corrupt headers, unterminated URLs, damaged/overlapping stack state,
+arbitrary selector changes and other indirect readers remain outside scope.
+No execution was performed for this pass. The exact source revision is
+`305333c4a8f2076fef42abfe82d0cee511c9338d`; source hashes and per-site ranges
+are recorded in the OMM handoff for this checkpoint.
+
 
 ### Current source reconciliation of the screen-loader matrix (2026-10-24)
 
