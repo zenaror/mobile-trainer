@@ -1025,3 +1025,37 @@ Reproduce by parsing the retained reports with
 the ROM, `mail_inbox` scenario row, coverage/MBC/callgraph reports and
 `engine/mail/mail_viewer_sender.asm`. No trace was regenerated; no ROM or
 assembly bytes changed.
+
+### Reconcile tilemap-shaped resource candidates and zero-fill ranges (2026-10-25)
+
+A source-address review of the remaining map/attribute-shaped intervals
+separates established records from the one unexplained candidate block. The
+review follows the maintained owner labels and direct reader contracts; it
+does not turn a data format into proof of every variant's natural selection or
+visual purpose.
+
+| Physical range | Maintained interpretation and reader | Closure within reviewed evidence |
+|---|---|---|
+| `1E:4357–48C1` | Seven 9×11 tile-index/attribute frame pairs (`$C6` bytes each), selected through `TopMenu_AnimTilemapFrames` by `engine/menus/top_menu.asm`. | **CONFIRMED format and consumer.** Retained reads cover only part of the seven-frame set; do not claim all frames reached. |
+| `4A:5770–5838` | Five 2×10 tile-index/attribute records selected via the cursor-indexed pointer table in `engine/account/settings_menu.asm`; copied by `Tilemap_CopyRectAndAttr`. | **CONFIRMED layout and indexed-reader structure.** Natural traces did not read entry 4; its runtime selection stays unverified. The 40-byte tail is an object-table entry, not another map. |
+| `5D:5000–5320` | Four 5×20 tilemap/attribute pairs at `$C8` stride, selected by the password-entry variant table and copied by the account-screen path. | **CONFIRMED format and source selection contract.** The records are structured screen data, not missing 2bpp art. |
+| `71:5038–5338` | Eight 4×12 tile-index/attribute pairs at `$60` stride, indexed by `CommPanel_CaptionMaps`. | **CONFIRMED format and table consumer.** Natural traces cover only part of the set; caption meanings and every variant's selection remain unresolved. |
+| `73:438F–45DD` | Browser-start map/attribute rectangles plus five 5×7 tile-index animation frames and their attribute suffix. | **CONFIRMED reader and format** for the addressed rectangles and 175 frame-index bytes. The final three bytes at `45DD–45E0` are zero and outside the retained reads; do not include them in the frame asset. |
+| `58:7E48–7EA0` | Two variants of eleven four-byte page-counter column records; `Notice_DrawPageCounter` selects the record and copies a two-tile column. | **CONFIRMED record fields and consumer.** This is object-tile metadata, not a tilemap image. |
+| `4B:5B68–5B90` | Ten four-byte digit tile/attribute records indexed by `Account_ResultPage_DrawTimeDigits`. | **CONFIRMED record fields and consumer.** This is sprite/tile upload metadata, not a tilemap image. |
+| `26:7AB0–7AC0`, `2D:5E80–5EC0` | Zero-filled tails included in existing graphics HDMA transfers. | **CONFIRMED zero-fill bytes in those transfers.** No tile-index consumer is established; these are not omitted editable art. |
+| `23:7C03–7F30` | `CandidateMapData_23_7C03`, an 813-byte low-valued, row-patterned block currently labeled HYPOTHESIS. The maintained search finds no symbolic or literal reader in the application sources. | **Unresolved.** Byte shape alone cannot distinguish map/attribute data from other packed data, and the bounded no-reader result is not global non-use. Keep the candidate label and do not export it as confirmed graphics. |
+
+This closes the format/consumer reconciliation for the listed positive cases
+and prevents them from recurring as generic “missing assets” work. It does not
+close unobserved variants, assign visual semantics where none are proven, or
+resolve the Bank 23 candidate. No source bytes, assets, ROM, or build outputs
+changed in this review; the source addresses are the existing maintained
+labels in `gfx/top_menu/top_menu.asm`,
+`gfx/account/settings_menu_and_manual_confirm_bank4a.asm`,
+`gfx/account/password_and_registration_config_bank5d.asm`,
+`gfx/account/comm_panel_and_registration_delete_bank71.asm`,
+`gfx/browser/start_choice.asm`,
+`gfx/registration/registration_notice_art_bank58.asm`,
+`gfx/account/result_page_bank4b.asm`, `gfx/mailbox/objects.asm`,
+`gfx/mail/body_editor.asm`, and `gfx/mail_server/delete_progress.asm`.
