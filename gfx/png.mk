@@ -5,7 +5,7 @@
 # file; they are deterministic and give back the committed bytes (the old file is kept when the bytes are identical).  The size of a binary must
 # not change (the ROM layout is pinned by layout.link): a PNG that converts to another size is refused with an explanation.
 #
-# Variables used (defined in the Makefile): RGBGFX, PYTHON, Q.  Without rgbgfx / python3 the rules are not included (the committed binaries are used).
+# Variables used (defined in the Makefile): RGBGFX, PYTHON, Q. The Makefile requires these tools; generated binaries are not versioned.
 
 # rebuild $@ from $<: $@.tmp was written by the converter; size must be PNG_SIZE; identical bytes keep the old file (only touched)
 define png_finish

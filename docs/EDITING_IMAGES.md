@@ -1,10 +1,8 @@
 # Editing the game's images (PNG -> ROM)
 
-PNG is the **editable source** of the graphics.  `make` rebuilds the binaries that the assembly `INCBIN`s from their PNGs, so an edited PNG ends up in
-the ROM.  Nothing else has to be run by hand.  Unedited PNGs give back the committed bytes: a fresh checkout still builds the byte-identical ROM
-(`SHA-256 OK`).  The full reference (formats, constraints, why some things stay binary) is the "Editing images" section of `gfx/README.md`.
+PNG is the **editable source** of the graphics.  `make` generates the binaries that assembly `INCBIN`s from versioned PNG sources, so edited PNGs end up in the ROM. Nothing else has to be run by hand. A fresh checkout builds the byte-identical ROM (`SHA-256 OK`). Generated `.2bpp` files are not versioned. The full reference (formats, constraints, why some resources stay binary) is the "Editing images" section of `gfx/README.md`.
 
-Needs only what building needs: RGBDS (`rgbgfx` is part of it; tested with 1.0.3) and, for fonts and the checks, `python3`.
+Build requirements: RGBDS (`rgbgfx` is part of it; tested with 1.0.3) and Python 3.
 
 ## 1. Workflow
 
@@ -13,7 +11,7 @@ edit a PNG   ->   make            ->   open mobile_trainer.gbc
                   make png-check       (explains every problem in plain words)
 ```
 
-* `make` converts every PNG that is newer than its binary (tile sheets with `rgbgfx`, font sheets with `tools/font_png.py`), checks the size of the
+* `make` converts every PNG whose binary is missing or older (tile sheets with `rgbgfx`, font sheets with `tools/font_png.py`), checks the size of the
   result, assembles and links.  With edited graphics the ROM differs from the original on purpose: `make` then prints `EDITED GRAPHICS` and the list of
   changed files instead of failing the SHA-256 gate, and `tools/compare_rom.py` shows where the ROM differs.  Any other difference is still a
   `SHA-256 MISMATCH`.
@@ -76,7 +74,7 @@ black and pure white inside glyph cells.  Cell = glyph + 1 pixel grid.
 
 `gfx/png_rules.tsv` (generated: `python3 tools/png_rules.py rules`) is the manifest of every PNG -> binary rule with per-asset parameters (`rgbgfx -x`
 padding, font type, glyph counts) and the hash of each binary in the original ROM state; `gfx/png.mk` is generated from it and included by the
-`Makefile`.  Without `rgbgfx` or `python3` the rules are skipped and the committed binaries are used.  Tests: `python3 tools/test_png.py`.
+`Makefile`. `rgbgfx` and Python 3 are required to build; generated `.2bpp` files are ignored by Git and created from the PNG sources. Tests: `python3 tools/test_png.py`.
 
 ## 6. Resources with special formats
 

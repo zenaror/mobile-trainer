@@ -17,3 +17,9 @@ __pycache__/
 scratch/
 traces/*.bin
 tools/ghidra/project/
+
+# generated .2bpp assets (source PNGs are versioned)
+gfx/**/*.2bpp
+languages/en/**/*.2bpp
+!gfx/account/settings_menu_and_manual_confirm_bank4a/settings_menu_cursor_frames_anim_script_byteview_4a_5860.2bpp
+!gfx/settings/adapter_check_and_phone_entry_bank4a/legacy_byteviews/adapter_check_object_data_4a_68d0.2bpp

@@ -31,7 +31,7 @@ gfx/assets.tsv                                 one line per asset: kind, size, b
 * **Status** is the status word of the region header in the `.asm` (`CONFIRMED` / `PROBABLE` / `HYPOTHESIS`, see STYLE.md).  A `tiles-2bpp: heuristic` block is a
   *guess* by pixel coherence: it may contain tilemap or other bytes; the file is still exactly the ROM bytes of that region.
 * **Regenerate everything** from the sources: `python3 tools/gfx_export.py png` (binary -> PNG), `bin` (exact PNG -> binary through rgbgfx), `check`, `readme`.
-  `make` rebuilds a binary from its PNG by itself (gfx/png.mk); without rgbgfx the committed binaries are used.  `INCBIN` / `INCLUDE` paths are relative to the repository root (`rgbasm -I .`).
+  `make` generates binaries from PNG sources (gfx/png.mk); generated `.2bpp` files are not versioned, and rgbgfx is required.  `INCBIN` / `INCLUDE` paths are relative to the repository root (`rgbasm -I .`).
 
 ## Totals
 
@@ -1517,7 +1517,7 @@ Columns: `bank:addr` is the original ROM position of the first byte; `status` is
 
 ## Editing images
 
-PNG is the editable source of the graphics: `make` rebuilds the binary that the `.asm` INCBINs from its PNG (short form: `docs/EDITING_IMAGES.md`).
+PNG is the editable source of the graphics: `make` generates the binary that the `.asm` INCBINs from its PNG (short form: `docs/EDITING_IMAGES.md`).
 (Font sheets and screen PNGs, described here, supersede the "view-only PNG" wording above: the font rows marked `view` in the tables are now editable
 `name.png` sheets; only `sjis_valid_bitmap_view.png` is still a picture.)
 
@@ -1530,11 +1530,11 @@ make png-bins         rebuild only the graphics binaries (no ROM)
 make png-export       (maintainers) PNGs regenerated from the binaries; never over a PNG with edits not built yet (FORCE=1 overrides)
 ```
 
-* `make` runs `rgbgfx` (tile sheets) and `tools/font_png.py` (font sheets) for every PNG newer than its binary, checks that the result has exactly
+* `make` runs `rgbgfx` (tile sheets) and `tools/font_png.py` (font sheets) whenever a binary is missing or its PNG is newer, checks that the result has exactly
   the size of the binary (the ROM layout is pinned by `layout.link`), then assembles and links.  The rules are generated from `gfx/png_rules.tsv`
   into `gfx/png.mk` (one line per binary: PNG, kind, rgbgfx padding, glyph counts, size, hash in the original state; `python3 tools/png_rules.py rules`).
-  A fresh git checkout has arbitrary file times, so the rules may rebuild every binary; they are deterministic and reproduce the committed bytes
-  (an unedited checkout still prints `SHA-256 OK`).  Without `rgbgfx` or `python3` the rules are skipped and the committed binaries are used.
+  A fresh git checkout has no generated `.2bpp` files, so the rules build those outputs; they are deterministic and reproduce the original bytes
+  (an unedited checkout still prints `SHA-256 OK`).  `rgbgfx` and Python 3 are required; generated `.2bpp` files are not versioned.
 * With edited graphics the ROM is meant to differ from the original: `make` then prints `EDITED GRAPHICS` and the list of changed files instead of
   `SHA-256 MISMATCH` (a difference that no edited graphics file explains is still a mismatch).  `python3 tools/compare_rom.py "Mobile Trainer (Japan).gbc" mobile_trainer.gbc`
   shows the changed bytes (an edit to one tile changes only that tile's 16 bytes, at that tile's offset in its `.2bpp`).

@@ -17,7 +17,7 @@ The manifest records hashes, expected outputs and the permitted source set.
 Text, sprites, tiles, boxes, maps, attributes, palettes and editable PNGs can all
 be selected by this mechanism.
 
-The English source view, build outputs and cache are under `build/en/`.
+English PNG overrides generate their `.2bpp` outputs during the build; these generated binaries are not stored in the language overlay. The English source view, build outputs and cache are under `build/en/`.
 Changing `DEBUG` or other effective inputs changes the cache key and can recreate
 that source view. It is generated output, not the editable language source.
 

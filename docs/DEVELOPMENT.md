@@ -12,9 +12,7 @@ every function has a `[CONFIRMED]`/`[PROBABLE]`/`[HYPOTHESIS]` note under its la
 
 ## Building
 
-Requirements: [RGBDS](https://rgbds.gbdev.io/) **1.0.3** (`rgbasm`, `rgblink`) and GNU make.  Python 3 and `rgbgfx` (part of RGBDS) support the validation and PNG conversion tools.
-When available, the build regenerates graphics binaries from PNGs as needed;
-otherwise it uses the committed binaries.  Details: [INSTALL.md](../INSTALL.md).
+Requirements: [RGBDS](https://rgbds.gbdev.io/) **1.0.3** (`rgbasm`, `rgblink`, `rgbgfx`), GNU make and Python 3. Graphics binaries are generated from PNG sources during the build; `.2bpp` files are not versioned. Details: [INSTALL.md](../INSTALL.md).
 
 ```
 make                 # assemble every file, link, check the SHA-256 (+ byte-compare if the original ROM is present)
@@ -54,7 +52,7 @@ is its own object (`rgbasm -P includes.asm`, dependency files `-M -MP`), so an e
 * **Symbols**: `make sym-check` (labels vs the linker's `.sym`).
 * **Layout coverage** (analysis of the pin table, needs the original ROM): `python3 tools/check_layout.py`.
 * **Form of the source** (Python, no ROM needed): `python3 tools/tidy_comments.py --check`, `python3 tools/localize_labels.py --check`, `python3 tools/gen_sjis_charmap.py --check`
-  (the charmap is generated from the ROM's text regions or from `mobile_trainer.gbc`), `python3 tools/gfx_export.py check` (PNGs vs `.2bpp`, needs `rgbgfx`).
+  (the charmap is generated from the ROM's text regions or from `mobile_trainer.gbc`), `python3 tools/gfx_export.py check` (PNGs vs generated `.2bpp`, needs `rgbgfx`).
 * **ROM pointer operands** (needs a built tree and rgbasm): `python3 tools/apply_rom_operands.py --check` lists the `ld hl|de|bc, $XXXX` ROM pointers that a consumer rule proves and that are still numeric; `python3 tools/test_rom_operands.py` tests the tool.
 * **Palette loads** (needs a built tree): `python3 tools/palette_reads_check.py` (`make palette-check`) fails when a palette that the code loads is cut into fragments, typed as tiles or typed as unknown; `python3 tools/test_palette_reads.py` tests the tool.
 * **Joypad masks** (no build needed): `python3 tools/apply_pad_masks.py --check` lists a test of hJoyHeld, hJoyPressed or hJoyPressedRepeat that is still a bare number; `python3 tools/test_pad_masks.py` tests the tool.
@@ -132,7 +130,7 @@ It is a commercial ROM and is **not** in the repository; see [INSTALL.md](../INS
 
 ## Editing images
 
-Graphics are built from their PNGs: edit the PNG (tile sheets `gfx/**/*.png`, font sheets `data/fonts/*.png`, or a whole screen through its `*.screen.png` and `tools/screen_png.py import`) and run `make`; it prints `EDITED GRAPHICS` with the list of changed files instead of failing the SHA-256 gate. See `docs/EDITING_IMAGES.md`. Without `rgbgfx` or Python, `make` uses the committed binaries.
+Graphics are built from their PNGs: edit the PNG (tile sheets `gfx/**/*.png`, font sheets `data/fonts/*.png`, or a whole screen through its `*.screen.png` and `tools/screen_png.py import`) and run `make`; it prints `EDITED GRAPHICS` with the list of changed files instead of failing the SHA-256 gate. Generated `.2bpp` files are not versioned. See `docs/EDITING_IMAGES.md`.
 
 ## Translation
 

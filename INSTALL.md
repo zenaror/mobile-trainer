@@ -1,19 +1,16 @@
 # Installation
 
-To build the ROM you need two things: **RGBDS 1.0.3** and **GNU make**.  Nothing else is required: no Python, no reference ROM, no
-graphics conversion.  The graphics are committed as binary asset files (`.2bpp`, `.1bpp`, `.tilemap`, `.attrmap`, `.pal`, `.bin` under `gfx/` and `data/fonts/`) that the `.asm` files `INCBIN`/`INCLUDE`;
-`rgbgfx` (shipped with RGBDS) is **optional**: it is only needed if you edit a PNG and want to regenerate its `.2bpp` (`python3 tools/gfx_export.py bin`), `make` regenerates graphics from PNGs when the conversion tools are available.
-(Python 3.12 is only needed for the optional tools in `tools/`: `make test`, `make sym-check`, `make compare`, the source-form checks, the analysis scripts.)
+To build the ROM you need **RGBDS 1.0.3**, **GNU make**, and **Python 3**. RGBDS supplies `rgbasm`, `rgblink`, and `rgbgfx`; the build generates graphics binaries from versioned PNG sources. Generated `.2bpp` files are not stored in Git. A reference ROM is optional and used only for byte comparison.
 
 ## Toolchain
 
 | tool | version | needed for |
 |---|---|---|
-| [RGBDS](https://rgbds.gbdev.io/) (`rgbasm`, `rgblink`) | **1.0.3** (developed and verified with it; other 1.0.x are expected to work, the Makefile warns when `rgbasm --version` is not `v1.0.x`) | the build |
+| [RGBDS](https://rgbds.gbdev.io/) (`rgbasm`, `rgblink`, `rgbgfx`) | **1.0.3** (developed and verified with it; other 1.0.x are expected to work, the Makefile warns when `rgbasm --version` is not `v1.0.x`) | the build |
 | GNU make | 4.x (verified with 4.3) | the build |
 | `sha256sum` (or `shasum -a 256`) | any | the hash check `make` prints |
-| Python | 3.12 (standard library only) | `make compare`, `make sym-check`, `make test`, `tools/*.py` (optional) |
-| `rgbgfx` (RGBDS) | 1.0.3 | optional: PNG -> `.2bpp` (`tools/gfx_export.py bin` / `check`); used by PNG rules when conversion tools are available |
+| Python | 3.12 (standard library only) | graphics generation and checks (`make compare`, `make sym-check`, `make test`, `tools/*.py`) |
+| `rgbgfx` (RGBDS) | 1.0.3 | required: generates `.2bpp` tiles from PNG sources during builds |
 
 `rgbfix` is not used: the cartridge header is part of the source (`home/header.asm`).  RGBDS 0.x is **not** supported (the source uses `DEF`, `MACRO`,
 `-P`/`--preinclude`, and the 1.0 linker-script syntax).
@@ -105,4 +102,4 @@ python3 tools/apply_pad_masks.py --check       # no test of the joypad variables
 `make regen`, `make verify` and `make tree*` refuse to run: the bootstrap generator (`tools/gen_asm.py` + `config/`) that produced the source once is frozen history and must not be run over it
 (`make legacy-check`, which needs the reference ROM, runs it in a temp directory).  `make progress` and `make conventions-check` read the frozen `config/` tables, not the source.  See `README.md`, "History".
 
-`rgbgfx` (part of RGBDS 1.0.x; tested with 1.0.3) is needed only to rebuild PNG-sourced graphics. Without it, or without python3, `make` uses the committed `.2bpp`, `.1bpp` and `.bin` files.
+`rgbgfx` (part of RGBDS 1.0.x; tested with 1.0.3) and Python 3 are required. PNG-sourced graphics are generated during builds; there is no checked-in `.2bpp` fallback.
