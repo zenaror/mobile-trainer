@@ -1,16 +1,15 @@
 # Image text inventory: which graphics carry language-bound content
 
-Purpose: a translator needs to know which pictures contain Japanese text (or other language-bound content), what it says, where the pixels live and what else must change.
-This document lists every tile PNG under `gfx/` (406 exact tile sheets; five rows of section 3 are marked removed by the graphics retyping and two sheets were added as 410-411), the font data, and the screens that show them.  Method, evidence and limits are in section 1; the practical guide is
+This catalog identifies graphics that contain Japanese text or other language-bound content, maps them to the screens that use them, and distinguishes text baked into tiles from text drawn at runtime. The practical editing guide is
 [`docs/TRANSLATION.md`](../TRANSLATION.md).
 
-## 1. How this was made, and how far to trust it
+## 1. Reading and status
 
-* **What was looked at**: all 409 tile PNGs (409 at the time; the graphics retyping changed 14 of them, see the rows of section 3) (contact sheets at 3x), the 39 font / bitmap view sheets, and 125 composed screens (`gfx/previews/screens/`, `tools/render_screens.py`; 87 of them confirmed against emulator screenshots, see `gfx/previews/README.md`), plus emulator screenshots of the help, browser, registration and mail screens.
-* **Transcriptions** are read by eye from the rendered images.  CONFIRMED here means only: the string is visible in a composed screen whose static cells match an emulator screenshot pixel for pixel (section 2, "screen" table) *and* was read there.  Readings from the tile sheets of section 3 are **pieces**: the text images are stored as continuous streams cut into tiles (16 tiles per PNG row, a line of text wraps across rows), so a sheet shows fragments; where a fragment could not be read the row says so.  Nothing in a "reading" column was OCR-ed by a program.
-* **English renderings are suggestions** (marked "suggestion"); they carry no evidence about the original intent beyond the literal meaning of the kana.
-* `tile` counts: one tile = 8x8 pixels = 16 bytes.  `WxH` = the PNG layout (16 tiles per row where possible), not the on-screen shape.
-* Classes: **TXT** text baked into tiles (185); **MIX** text and art (10); **FRM** frame art with legend text (33); **KBD** keyboard glyph page (40); **NUM** digits / numbers (9); **ART** art, no text seen (73); **LAT** Latin text in image (1); **ERR** not tile art (typed as tiles) (4); **UNK** not classified / unreadable (54).
+* Screen text is CONFIRMED only when the static composition matches an emulator capture pixel for pixel and the text is legible in that image.
+* A reading from a tile sheet alone may be only a fragment because strings can continue across tiles and rows.
+* English renderings are suggestions based on the visible Japanese text; they do not establish the original author's intent.
+* One tile is 8×8 pixels and 16 bytes. PNG `WxH` describes the sheet layout, not the on-screen dimensions.
+* Classes: **TXT** text baked into tiles; **MIX** text and art; **FRM** frame art with legend text; **KBD** keyboard glyph page; **NUM** digits; **ART** art without observed text; **LAT** Latin text; **ERR** non-tile data represented as tiles; **UNK** unreadable or unclassified.
 
 Two separate text systems exist (details in `docs/TRANSLATION.md`): (1) text **baked into tile pictures** (this inventory), edited by editing the PNG; (2) text **drawn at run time from font data** (strings under `data/text/`, the HTML store, tickers, dialogs), edited in the `.asm` strings, see `data/fonts/` for the glyph sets.  The hatched checker cells in `gfx/previews/screens/*.png` mark where system (2) draws into a screen.
 
@@ -101,7 +100,7 @@ Screens composed but without text pictures of their own (only art, icons, frames
 
 The renderer builds 24 candidate compositions from four $D50-stride windows in each bank 41-46. Their bank-47-style record layout is **HYPOTHESIS by analogy**. The names `BrowserFrameCandidate_BB_k` describe this model and its bank/address, not a confirmed original role. The separate window at 47:68F0 is outside these 24 compositions. The candidate previews reuse the palette, tile and map arrangement in the model; they are not screenshots or evidence that the original game displays these records.
 
-Their artwork contains Japanese kana (スタート ▶メニュー / B ▶モドル, スタート メニュー / B もどる), Latin (START MENU / B BACK) and mixed forms. The visual reading and resemblance to browser chrome remain hypotheses; see the bounded inventory in `assets_pokemon_frames_and_name_limits.md` for source and asset limits.
+Their artwork contains Japanese kana (スタート ▶メニュー / B ▶モドル, スタート メニュー / B もどる), Latin (START MENU / B BACK) and mixed forms. The visual reading and resemblance to browser chrome remain hypotheses; these observations do not establish a Pokémon association or runtime use.
 
 The finite selection check reads the 27 entries in `Table_Browser_FrameDescriptors` at 4E:654B, corresponding to styles 0..26. Those entries select five descriptors at 4E:6581, 65A0, 65BF, 65DE and 65FD; each descriptor's five graphics far pointers use bank 47. This establishes that these 27 table entries do not select the 24 candidate windows in banks 41-46. It does not establish that no other loader, computed reference, out-of-range style, alternate entry or use exists. The runtime masks the stored style to seven bits, so behavior above style 26 is outside this finite check.
 

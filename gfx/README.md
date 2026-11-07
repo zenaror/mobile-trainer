@@ -15,7 +15,7 @@ gfx/assets.tsv                                 one line per asset: kind, size, b
 ```
 
 * **Directory**: `gfx/<area>/<file>/` holds the assets of `gfx/<area>/<file>.asm` (`gfx/frame_designs/foliage_ribbon_and_beveled_panels_41.asm` -> `gfx/frame_designs/foliage_ribbon_and_beveled_panels_41/`); fonts are under `data/fonts/`, including `glyph_runs_8x16/` (SJIS-keyed runs).
-* **Names**: descriptive resource paths can name a visible design or a demonstrated consumer without changing generic global aliases; see [the bounded path migration](../docs/research/gfx_resource_names.md). A filename does not promote a storage status or prove a natural loader, original display or species. A block with a semantic label is otherwise named after it in `snake_case` (`Gfx_Title_Tiles8000Vb0` -> `title_tiles_8000_vb0`, `Palette_Title_Bg` -> `title_bg.pal`);
+* **Names**: descriptive resource paths can name a visible design or a demonstrated consumer without changing generic global aliases. A filename does not promote a storage status or prove a natural loader, original display or species. A block with a semantic label is otherwise named after it in `snake_case` (`Gfx_Title_Tiles8000Vb0` -> `title_tiles_8000_vb0`, `Palette_Title_Bg` -> `title_bg.pal`);
   a block with only a generic label is `<kind>_<addr>` with the address in the bank (`tiles_4000.2bpp`, `tilemap_5bc0.tilemap`).
   Names say what the label / header note says and no more: `tiles_...` means "the analysis typed this block as 2bpp tile data", see status below.
 * **Kinds**: `.2bpp` 2bpp tiles; `.tilemap` / `.attrmap` tile-index / CGB attribute bytes (a `tilemap+attr` pair that `copy_tilemap_rect_pair` loads is

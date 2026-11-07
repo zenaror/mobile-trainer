@@ -1,26 +1,6 @@
 # Mobile Trainer (Japan) - Game Boy side of the Mobile Adapter link
 
-In the current tree (`home/ engine/ data/ gfx/ audio/ lib/`) a `Label_BB_AAAA` that is only used inside its own function is a local label of that function (`.lAAAA`, `AAAA` = the address, or `.loop`/`.done`/`.skip`); one referenced from elsewhere keeps its global name; `Function_BB_AAAA`, `Data_BB_AAAA`, ... are unchanged, and where a semantic name was adopted the neutral name often remains as an alias label under it.
-
-**Addresses (`bank:addr`) remain valid**: find the code with `grep -rn '; BB:AAAA' --include=*.asm .` or in `build/mobile_trainer.sym`.
-
-The developer-test routine that loads the canned image    starts at `68:4E51` (`ld de,$C271 ; ld hl,$0068 ; ld a,2 ; call $0150`); `68:4E5A` is not an instruction boundary.
-
-**Wrong template**: the WriteConfig header template used by API `$04` is `75:6059` (`99 66 1A 00 00`, `ld hl,$6059` at `75:42DA`), not `605E` (that is DNSQuery). 3.
-
-**Imprecise (read-config sizes)**: the two `0x60` ReadConfig templates (`75:6041/604D`) are used only by the connect state (`$0B`).
-
-API `$38` and API `$04` (used by the SRAM mirror, section 10) build    their packets dynamically in 0x80-byte chunks: `75:4329-4385` copies the 6-byte header of template `6041`, then offset = `[C722]` and size = min(`[C721]`, `$80`).
-
-The adapter log of the    emulator traces confirms `Read EEPROM offset 00 size 80` + `offset 80 size 40` (API `$38`, 0xC0 bytes) and `offset 00 size 60` + `offset 60 size 60` (connect). 5.
-
-They **corroborate** (execution, not semantics): `00:01B7` (28500x), `00:01ED` (443001x), `00:04A0`, `75:4390`, `75:56D2`, `75:58EA`, `75:5B2B`, `75:5B3D` (2574 SC writes = 2574 `SB` transfer-complete events) and `75:5F6C` all executed;    `SC` is written only from `75:5B3F/5B43`; `rKEY1=01` at `00:060E` (double speed); `rTMA=$B0` at `75:40FA` (table offset 12, Blue = 610 us) - only this value was ever observed, so the Yellow/Red timing rows remain untested;    `rIE` becomes `$0D` at `75:4395` (interrupt enable) and returns to `$01` at `75:569B` (`75:5693` clears IE bits 2-3 and reloads `[C709]`; not mentioned in the original note);    the adapter log shows the expected exchanges (`10 Start session: NINTENDO`, `11`, `17 Status`, `19`, `1A`, `12 Call (prot 0): #9677`, `21 PPP connect (id: g111111111; dns1: 210.196.3.183; dns2: 210.141.112.163)`, `28`, `23`, `15 Transfer data (conn 0)`, `1F`, `22`, `13`) and `User-Agent: CGB-B9AJ-00` on the emulated HTTP socket.
-
-**Upgrade**: API `$3E` (`75:43A9`) is now PROBABLE, see section 8.1. 8.
-
-**Raw-pattern hits (claim C20)**: the statement that the other 185 hits are "not inside any code" is too strong: two of them (`22:505B`, `22:50BF`) are the operand bytes of an executed `ld bc,$01E0` in bank 22 (coincidental, verified).
-
-Read libmobile completely (`mobile_protocol.md`), plus Dan Docs and the Crystal SDK source (`lib/mobile/main.asm`, `mail.asm`, `home/mobile.asm`). 2.
+This reference describes the Trainer-side serial and Mobile Adapter SDK behavior using original `bank:address` coordinates. Protocol message roles are summarized in [Mobile Adapter protocol](mobile_protocol.md).
 
 ## 2. Where things are (bank map for the mobile stack)
 
@@ -226,17 +206,8 @@ upper-case header keywords for parsing (`0F:419C-4235`), `=?ISO-2022-JP?B?` (`0F
 ## 10. How the Trainer uses the stack
 
 * **SRAM config mirror** (banks 67/68): SRAM bank 2 (`ldh [$FF8C],2 ; ld [$4000],a`) `$A000-A0BF` holds a copy of the adapter configuration with checksum at `A0BE/A0BF`. API `$38` (`67:54AE`, `de=$A000 bc=$00C0`) loads it from the adapter; API `$04` (`hl=$A000 c=$C0 de=0`, `67:55FF`) writes it back; `68:45A8` verifies, `67:56D8`/`68:45F1` recompute the checksum. (CONFIRMED by call-site bytes.)
-* **Developer test config** (`68:4E51-4EA6` + image `68:4EA7-4F66`; corrected addresses): loads a canned 0xC0-byte configuration (`4D 41 81 00 AC 10 13 BA AC 10 13 BA "itoh" ... "pop.d6.dion.ne.jp" ... "NINTENDO TEST"`), computes the checksum and writes it with API `$04`. The dial number `0755311973` (`68:4E46`, corrected; preceded by `test@test.test` at `68:4E37`) is identical to libmobile's `isp_number_test`.
+* **Developer test config** (`68:4E51-4EA6` + image `68:4EA7-4F66`): loads a canned 0xC0-byte configuration (`4D 41 81 00 AC 10 13 BA AC 10 13 BA "itoh" ... "pop.d6.dion.ne.jp" ... "NINTENDO TEST"`), computes the checksum and writes it with API `$04`. The dial number `0755311973` (`68:4E46`; preceded by `test@test.test` at `68:4E37`) matches libmobile's `isp_number_test`.
 * **Default configuration images**: four 0xC0-byte images at `68:67E0`, `68:68A0` (both `DION PDC/CDMAONE`, byte-identical), `68:6960`, `68:6A20` (both `DION DDI-POCKET`, byte-identical); each: `"MA" 01 00`, DNS `D2 C4 03 B7 / D2 8D 70 A3`, slot 1 number `A9 67 7F 00 00 F0 00 00` = "#9677" (PDC) or `00 77 48 77 51 F0 00 00` = "0077487751" (DDI) in BCD, ID string at +0x7E, checksum bytes `00 00` (computed at run time). PDC and DDI images differ only in slot 1 (offsets 0x76-0x7A, 0x83-0x8D). The developer test image `68:4EA7` has slot 1 number `07 55 31 19 73 F0` = "0755311973".
 * **DION registration/password CGIs** (bank 67): `http://mgb.dion.ne.jp/cgi-bin/mgb/daa_gb_pwdchg.cgi` (`67:5E43`) with `PPP_ID=`, `&PASSWD=`, `&NEWPASSWD=` (`67:5E77-5EC5`) and `http://mgb.dion.ne.jp/cgi-bin/mgb/daa_gb_jikan.cgi` (`67:61D2`), `http://gameboy.datacenter.ne.jp/cgb/utility?request=summary` (`67:632D`).
 * **Browser**: start URL at `4E:4904`; tag table `74:4112`.
 * **Mail application**: bank 54 (12 far-call sites of the mail library).
-
-Because this task could only write the four research files, those helper scripts stayed in the session scratchpad (`.../scratchpad/{align.py,symmap.py,tsyms.py,build_json.py}`, inputs: `baserom.gbc`, `tools/sm83.py`, the Crystal ROM/sym/source paths listed at the top); they should be moved to `tools/` (suggested name `tools/mobile_sdk_map.py`) by whoever owns tooling.
-
-`Function_00_04A0` InstallInterruptVectorStubs, `Function_00_01B7` SerialInterruptHandler, `Function_00_01ED` TimerInterruptHandler (evidence: vector chain, CONFIRMED),
-`Function_00_0602` SwitchCpuSpeed (CONFIRMED), `Function_00_0150` MobileAPI / `Function_00_018D` MobileAPI_Return / `Function_00_0247` MailLibrary_Entry (PROBABLE),
-`Function_75_56D2` MobileSDK_SerialReceiveByte, `Function_75_58EA` MobileSDK_TimerTick, `Function_75_5B2B` MobileSDK_SendNextByte, `Function_75_5B38` MobileSDK_StartByteTransfer, `Function_75_5A4A` MobileSDK_SendIdleByte, `Function_75_5F6C` MobileSDK_AppendPacketFooter (CONFIRMED),
-`Function_75_5F10` MobileSDK_QueuePacket, `Function_75_4030` MobileSDK_APIDispatch, `Function_75_6149` MobileSDK_StateDispatch, `Function_75_5E34` MobileSDK_GetErrorCode (PROBABLE),
-`Data_75_5FFB` packet templates, `Table_75_4070` API table, `Table_75_61A7` state table, `Table_75_6084` timer table, `Table_0F_4169` mail selector table.
-Everything else keeps its `Function_<bank>_<addr>` name until traced.

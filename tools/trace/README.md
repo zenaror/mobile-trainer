@@ -1,7 +1,6 @@
 # tools/trace
 
-Dynamic-analysis harness (headless mGBA + Mobile Adapter emulation). Documentation, scenario format, output formats and
-limitations: [`docs/research/dynamic_tracing.md`](../../docs/research/dynamic_tracing.md) (sections 4, 9 and 11).
+Dynamic-analysis harness (headless mGBA + Mobile Adapter emulation). Results are limited to the listed scenarios; forced and synthetic runs do not establish natural reachability or hardware behavior.
 
 * `run_trace.py`      build (out of tree, `.cache/trace/`) + run all scenarios of `traces/scenarios.tsv` + write `traces/`, `analysis/`
                       (`--only NAME` reruns one scenario and, unless `--reuse-state`, its parents; scenarios flagged `forced` go to `traces/forced/`)
@@ -9,7 +8,7 @@ limitations: [`docs/research/dynamic_tracing.md`](../../docs/research/dynamic_tr
                       `unplug plug reset wipe net sram sramfill cfg cfgfill force ramset`; `--serve` fork-server mode; `--boot-a`, `--model`)
 * `merge_coverage.py` union of `traces/coverage_*.tsv` -> `analysis/coverage_union.tsv` + decoder-consistency validation; forced runs
                       (`traces/forced/`) -> `analysis/coverage_forced.tsv` (kept apart, never in the union)
-* `growth.py`         cumulative coverage per scenario -> `traces/growth.md`
+* `growth.py`         cumulative coverage per scenario
 * `frontier.py`       executed branches/calls ("gates") ranked by the unexecuted code they would open (static CFG over `config/regions`)
 * `explore.py`        coverage-guided input search on top of the fork server (AFL-style: random button suffixes forked from a replayed prefix)
 * `fuzzpack.py`       turns a finished `explore.py` search into an ordinary scenario macro (greedy set cover over exact replay coverage)
@@ -21,8 +20,7 @@ limitations: [`docs/research/dynamic_tracing.md`](../../docs/research/dynamic_tr
 * `contact_sheet.py`  montage of screenshots (Pillow)
 * `apu_probe.c`       sound-driver probe (links libmgba; parks the CPU, calls the ROM's own sound stubs every frame, logs every APU write, command decode, note start, gate expiry,
                       track/channel snapshots and the rendered audio); `build_apu_probe.sh` builds it against `.cache/trace/mgba` (run `run_trace.py` once first)
-* `audio2_*.py`      the measurements of the dynamic verification of the audio pass 2 ([`docs/research/audio2_verify_dynamic.md`](../../docs/research/audio2_verify_dynamic.md));
-                      `analysis/audio2_verify_dyn/reproduce.sh` builds the probe and runs all of them (about 3 minutes; synthetic ROMs only in a scratch directory)
+* `audio2_*.py`      optional dynamic audio verification measurements; `analysis/audio2_verify_dyn/reproduce.sh` builds the probe and runs them (about 3 minutes; synthetic ROMs only in a scratch directory)
 
 `tools/apply_coverage.py` (one level up) compares the union with the region tables, promotes fully executed code regions and (`--split`)
 cuts partly executed regions at the boundaries of the executed runs so that every executed instruction is CONFIRMED.

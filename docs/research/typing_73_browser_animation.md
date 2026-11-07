@@ -1,7 +1,0 @@
-# Original browser five-frame animation
-
-CONFIRMED original consumer73:6265-62AA selects five tile-index rectangles followed by their five BG attribute rectangles. Each frame is5 rows x7 columns (35 bytes); maps occupy447F-452E175 and attributes452E-45DD175. The32 instruction/macro starts are independently decoded from69 ROM bytes and have natural execution evidence; the paired-copy farcall at6290 has1315 hits across19 scenarios.
-
-The source pointer is447F + index35; the attribute pointer adds175, BC0507 and bank73 are explicit. Helper00:16A2 selects ROM73 and WRAM7, preserving dimensions/destination for a second copy0400 bytes higher. Copy00:0904 reads consecutive source bytes and advances destination rows by32. Staging startsD0C1 for tile indices andD4C1 for attributes, buffer rows6-10/column1. Uploader00:082C sends the576-byte map buffers to9800 or9C00 according to caller LCDC bit3, using VRAM banks0/1. These fixed rectangles fit wholly inside that window. The frame byte starts zero within the252-byte screen wipe, increments after drawing and wraps after index4; the draw counter reloads25. No arbitrary damaged-index safety is asserted.
-
-KEEP: unread49E0-4DE01024 remains a PROBABLE tile heuristic without an established consumer; unread animation tail3 and7441 zero bytes at62EF-8000 have no confirmed purpose. Remaining button rectangles and optional unexecuted code are separate passes. This corrects a bounded original asset interpretation, not whole-bank semantic closure, new runtime/hardware evidence or English assets/layout.

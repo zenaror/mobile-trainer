@@ -2,11 +2,9 @@
 
 The sound driver of bank 04 (`audio/engine.asm`, `SoundDrv_*`) plays 70 sound ids from 59 stream headers: 13 songs in bank 04 (ids `$01`-`$0D`), 16 songs in bank 05 (`$0E`-`$1D`), 30 sound effects in bank 05 (`$29`-`$46`), plus ids `$1E`-`$28`, which are eleven copies of the record of song 1.
 
-Status words as in `STYLE.md`.  The earlier description is `naming_g1.md` section 7 (written by one agent from the same code); everything below was re-checked against the driver,
-including by *running the driver code* (section 9), and the differences are listed in section 12.  The first pass (sections 1-4, stream format, song table) and the second pass
-(sections 5-8: what the commands, instrument bytes and tables do to the hardware) are kept in one document.
+Status words follow `STYLE.md`.  The format and command descriptions below distinguish ROM data and driver behavior from effects demonstrated only with synthetic input; synthetic execution does not establish that a command is used by the ROM's normal data.
 
-Status rule used from here on: what the ROM's own data runs is CONFIRMED when a run shows it; a construct that no song or caller uses (`$B5`, `$C0`, `$C6`, `$C9`, `$CD`, note adjust bytes, the `<$80` flags branch, `Param`, the end opcodes) is at most PROBABLE even where the interpreter or a synthetic stream on mGBA showed its effect, written "demonstrated (synthetic)": synthetic and forced execution do not raise a status (`dynamic_tracing.md` section 11).
+Commands demonstrated by the ROM's own sound data are marked CONFIRMED when observed. A command or branch not used by any song or caller in this ROM remains at most PROBABLE, even if synthetic execution demonstrates its effect.
 
 ## 2. Where the data is
 
@@ -252,6 +250,8 @@ times in 62 scenarios; the formula was measured with synthetic wave notes).  The
   (`wSoundDrv_WaveCache`).  The hardware plays the high nibble of each byte first, so the macro `sound_wave_pattern s0 .. s31` takes the 32 samples in playing order (mechanically unpacked from the bytes).  By looking at the samples: pattern 0 is sine-like, 1 a triangle (0 up to F and back), 2 a falling ramp, 3 a falling shape with a plateau, 4-7 are pulse shapes with 4, 8, 12 and 16 high samples out of 32, 8 a sine-like shape with a flat step at the middle level, 9 a five-level stepped bump (0, 4, 8, B, F).  CONFIRMED (effects run: every wave instrument of records `$00`-`$63`, 20 records, writes its
   pattern to `$FF30-$FF3F`).  The real runs (13,326 note starts on mGBA) copy the pattern only when it changes, and the 16 bytes equal the ROM bytes.  Which patterns the data uses: 0, 1, 3, 4, 5, 7, 8, 9.
 
+## 9. Validation scope
+
 **Static, whole ROM** (`tools/audio_to_macros.py`): decodes every track of every header by simulating the control flow of `SoundDrv_ReadNextCommand` (state = address, running status, call    stack; jump taken, call pushes, return pops, `$B5` both ways) starting at every set-0 pointer, then at the set-2 addresses.
 
 Result: 70 records, 59 headers, 11916 commands, 19716 bytes = the two stream ranges    04:574D-7E8C and 05:4000-68C3 completely, no unknown opcode, no overlap, no address decoded two ways, no command of size 0.
@@ -262,7 +262,7 @@ The command addresses the driver starts to decode and the (counter, stream point
 
 **Synthetic streams** (same script): 36 hand-made streams check the constructs the data does not use - adjust bytes, byte order and duplicate classes of notes, `$CE`, `$CF` (with and without pitch), `$B5`    (count 0, 1, 3), `$CD` sub-commands, the ten opcodes without handler, `$80`, `$B4` on an empty stack, running status after `$BE`/`$C1`, opcodes < `$BE` not updating it, and a call depth of 4-7 (limit 5).
 
-**Effects** (same script, function `check_effects`; new in the second pass): `SoundDrv_PlaySfx` and `SoundDrv_FrameTick` run on a synthetic song (placed in ROM bank 6 of an in-memory copy, its record replacing id `$46`), every write to    `$FF10-$FF3F` is recorded per frame, and the values are compared with small models written from the driver code: track volume x note volume -> NR22 (36 combinations); gate time of 7 durations; held note and `$CF` (same /    other pitch / bare); `$C0` (32 values) -> NR51; `$C1` x `$C2` (60 pairs), `$C9` (6), `sound_pitch_add` (4) -> period; vibrato (6 settings x 40 ticks, an exact LFO model); `$C6`; the envelope of 80 pulse/noise records    (first write, sustain write, final silence) and the release write of the records that have one; synthetic instrument records (duty, length, sweep, noise width); the wave pattern copy of the 20 wave records; `$CD` probes; and a    read watch over the track record (`CPU.rd`) that shows +`$1E` is never read.
+**Synthetic effects check:** the sound driver was given streams and instrument records that are absent from the ROM's ordinary songs. This demonstrates selected command effects only; it does not establish natural use.
 
 Limits: the emulation starts from a freshly initialised driver with all other tracks inactive and proves how stream bytes are consumed and what the registers are written with in the cases tried, not what the sound is like.
 The interpreter is only tested by this agreement (and by the exact match of models written from the code: a wrong interpreter would have to be wrong in the same way as the reading).  The wave channel's level and the noise
@@ -298,12 +298,6 @@ The tool writes it only where the decode shows that this opcode is the one the  
 
 The prefix follows what the callers use the ids for (`Sound_PlayMusic*` for `$01`-`$1D`, `Sound_PlaySfx` for `$29`-`$46`): PROBABLE,   no title is known.
 
-* **No byte is left as `db` any more.**  First pass: 15 bytes in 7 commands were cut by pre-existing label boundaries (`Data_05_5B34`, `5BCB`, `5C9E`, `5D69`, `5F09`, `5FF1`, `68BE`).
-
-`tools/audio_to_macros.py` does this itself (`merge_cut_blocks`): a boundary that cuts a command is removed   when the label is unreferenced; a referenced one would be kept and its command written as `db` (none is left).
-
-The two-byte header of effect `$46` (`02 00`, 05:68BD) is now one `sound_stream_header 2, 0`.
-
 ### How to add a song or an effect (a deliberate ROM change)
 
 The hash of the ROM changes, so work on a copy of the tree/branch and keep the reference hash for the unmodified build (STYLE.md section 2).
@@ -333,35 +327,7 @@ The hash of the ROM changes, so work on a copy of the tree/branch and keep the r
   (no literal `$37`) and with `$48` only in the unreferenced `engine/unreferenced/page_list_prototype.asm`; the driver starts nothing for ids >= `$47`.  The literal ids of `Sound_PlayMusic*` cover `$01`-`$1D` except `$19`, which is requested through a table: `Notice_RequestPageSound` (65:4BA8) plays `Notice_PageSoundTable` (65:4BC6, entries `$09`, `$19`, `$13`) with `Sound_PlayMusicOrResume`; the only other computed ids are in the unreferenced sound-test screen.
 * Which songs/effects are which (the sound-test screen and callers give ids, not titles): the new names are by id only.
 
-## 12. Differences from earlier notes
-
-* `naming_g1.md`: "a stream header is `dw ?` (2 bytes) + one stream pointer per track" - the two bytes are `db tracks, db extra_sets` and the header is followed by 0 or 2 further word sets (section 3.2).   "adjust (`$20`-`$23`)" - it adds 0-3 to the note's duration field.
-
-The hypothesis that `$C1` is a pitch offset (flag bit 2 = pitch update) was right and is now CONFIRMED (section 5); the earlier "modifier" byte of a note is the note's volume.
-
-* First-pass statements that the second pass replaced: "the first operand of a note is `duration`, the third `mod`; how they are used when the gate ends is not proven" -> duration is the gate time, the third byte the note volume (section 4.3);   "`sound_cmd_C0` ..
-
-`CA` neutral" -> named by effect except `$CA` (section 5); "the layout of a record of `Table_SoundDrv_Instruments` and of the third byte of `Table_SoundDrv_NoteFreq` entries unknown" -> sections 6 and 8.
-
-* `music_pointers.asm` region header: the record is described as words (`$FFC8`, `0001-0004`); as bytes it is priority `$C8`, flags `$FF`, track count, spare (the driver reads single bytes).
-
-* Track record +`$C`..+`$10` start as `0, 0, 0, FF, FF`, not `0, 0, FF, FF, 0`; the effects `$2A` and `$2B` play their first note with that default record.
-
-* `$CF` compares the given pitch like a note's (it gets the pitch add), releases the first matching channel only, and a following byte `$00`-`$23` hangs the driver.
-
-The flags field has a bit 5 (`$A0` from `StartTrack`).
-
-* `+$27` / `+$28`: the earlier "HYPOTHESIS: a tail after the note" is now PROBABLE with the measured model of section 5.1.
-
-The static reviewer first wrote that the code contradicts it (the age counter "cannot count down to 0"); that conclusion is wrong:     the counter rises by one every 15 ticks, wraps at 256 and reaches 0 after about `(256 - +$28) * 15` ticks, which is the length mGBA shows; it is withdrawn in `audio2_verify_static.md`.
-
-* Attack: the only record in the data with an attack is the wave record `$4B` (effect `$42`); `$68`, which the first text used as evidence, is never selected.
-
-Record 119 of the note table is a rounding, not a clamp; wave pattern 9 is a five-level     stepped bump; ids `$1E`-`$28` are reachable only from the sound-test screen.
-
-* Status words: `$B5`, `$C0`, `$C6`, `$C9`, `$CD`, note adjust bytes, instrument byte 1 and the `Param` entries were "CONFIRMED" from the interpreter's runs; they are PROBABLE now (demonstrated (synthetic)), by the rule at the top.
-
-## 13. Contracts of four named envelope helpers
+## 12. Contracts of four named envelope helpers
 
 | Original neutral definition | Maintained name | Original extent | CPU starts |
 |---|---|---|---|

@@ -653,6 +653,6 @@ Six source producers explicitly store zero;   `51:41D3` stores returned A.
 
 Its two ordinary source routes conditionally yield A=0: the early   call at `51:4069`, OR test at `51:406C` and JP Z at `51:406D` branch only with A=0; ordinary close at `51:41C7` exits   FadeOutToWhite through PalFade_Step with A=0 before Sprite_ResetAll preserves AF.
 
-* CORRECTED: "every SRAM access is bracketed by save/enable/restore/disable" (false, see `sram_layout.md` section 1).   (Unchanged: "only banks 00 and 75 touch rSB/rSC" is limited to reached code but the traces agree,   `traces/detail/*/serialsum.tsv` lists only `00:0207/023C` and bank 75.) * CORRECTED: hard-coded usage numbers in the `hBankSwitchTemp` note (547/548/26 banks) were stale; the appended   `[usage ...]` counts are the computed ones.
 
-* DOWNGRADED: `D000-D004` bank qualifier ("WRAM bank 1") is verified for two callers only; the two thunk claims that the   flags live in WRAM bank 1 are PROBABLE, the instruction sequences are CONFIRMED.
+
+`D000-D004` uses WRAM bank 1 at two verified callers. The two thunk claims that its flags live in WRAM bank 1 are PROBABLE; the instruction sequences are CONFIRMED.

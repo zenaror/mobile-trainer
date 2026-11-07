@@ -1,5 +1,0 @@
-# Typing 26  compare word deltas alias
-
-Only blank 92 becomes a PROBABLE global alias and CALL 867 uses it; neutral 93 remains byteexact. LOC 1,300/2,030 and local scopes are preserved. Exactly two strict vectors change and exact scoped normalization restores them; all 346 other ASM/inc vectors and all 289 TSV bytes remain exact. No emitting code/data directives are added. Existing metadata file:line locators retain their physical lines; neutral-target references remain valid because the neutral definition remains.
-
-The restricted contract remains PROBABLE: compare two modulo-16-bit word deltas, with a conditional word copy and alternate HL return on the unobserved equality path. Natural entry evidence has 49 hits across seven scenarios; the available callgraph subset records 39 calls across four scenarios. Of 72 instruction starts, 52 were observed and 20 on the equality path were not. No natural return at `26:5167` was recorded. WRAM bank 1 is left selected; valid non-aliasing stack and stable bank selection remain preconditions. Counter meanings remain HYPOTHESIS, without a protocol or ACK interpretation.

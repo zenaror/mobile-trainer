@@ -11,6 +11,7 @@ For setup and build instructions, see [INSTALL.md](INSTALL.md).
 
 ## Documentation
 
+- [Changelog](CHANGELOG.md)
 - [Documentation index](docs/README.md)
 - [Development reference](docs/DEVELOPMENT.md)
 - [Editing graphics](docs/EDITING_IMAGES.md)

@@ -99,7 +99,6 @@ python3 tools/apply_play_sfx.py --check        # no eight-line sound idiom is le
 python3 tools/apply_pad_masks.py --check       # no test of the joypad variables is left as a bare number where the proof holds
 ```
 
-`make regen`, `make verify` and `make tree*` refuse to run: the bootstrap generator (`tools/gen_asm.py` + `config/`) that produced the source once is frozen history and must not be run over it
-(`make legacy-check`, which needs the reference ROM, runs it in a temp directory).  `make progress` and `make conventions-check` read the frozen `config/` tables, not the source.  See `README.md`, "History".
+`make regen`, `make verify` and `make tree*` are bootstrap-only targets and refuse to run against the maintained tree. `make legacy-check` runs the frozen generator in a temporary directory. `make progress` and `make conventions-check` read the frozen `config/` tables, so use the maintained source for current code and data.
 
 `rgbgfx` (part of RGBDS 1.0.x; tested with 1.0.3) and Python 3 are required. PNG-sourced graphics are generated during builds; there is no checked-in `.2bpp` fallback.

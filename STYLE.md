@@ -32,7 +32,7 @@ Everything the analysis claims has one of three statuses, written in capitals:
 | `HYPOTHESIS` | unverified; a guess that may guide the next test. |
 
 Rules: never upgrade a status without a cited fact; a name that is not backed by evidence stays neutral (section 4); never invent semantics to make code look tidier;
-never delete earlier analysis without a stated reason.  Record the reasoning in `docs/research/*.md` and cite the note or the addresses in a comment at the code.
+never delete earlier analysis without a stated reason. Record the evidence and uncertainty in the source comment at the relevant code or data.
 
 Where a status is written in the source:
 
@@ -45,10 +45,8 @@ Where a status is written in the source:
 
 * Kinds of block header: `data`, `words` (table of 16-bit values), `ptrtable` (little-endian address table), `text`, `gfx`, `zero`.  A block of code has no header any more
   (its note moved under the label); one leftover `; ---- code` header exists in `data/fonts/jis12x12_rows_25_33.asm`.
-* `[g1]`..`[g8]` and `[sdk]` inside the notes of RAM names name the analysis group whose note (`docs/research/naming_g1.md` .. `naming_g8.md`, `naming_sdk.md`) adopted the name.
 * `grep -rn '\[PROBABLE\]'` / `'\[HYPOTHESIS\]'` over the tree lists what still needs evidence.
-* The evidence trail that is not in the source: per-symbol evidence text in `config/symbols/*.tsv`, region notes in `config/regions/*.tsv`, RAM evidence in `config/ram/*.tsv`,
-  cross-bank operands in `config/xrefs.tsv` (all frozen, see `config/README.md`), the reasoning in `docs/research/*.md`, executed-code evidence in `analysis/` and `traces/`.
+* Source comments and data headers carry the current confidence level and a concise evidence note.
 
 ## 2. Files and sections
 
@@ -68,8 +66,7 @@ Where a status is written in the source:
   palette files (section 8); asset paths resolve because the Makefile passes `-I .`.
 * Directories: `home/` (ROM0), `lib/mobile/` (SDK banks 75 and 0F), `engine/<subsystem>/` (code), `data/` (text, HTML store, fonts, tables), `gfx/<screen>/` (tiles, tilemaps,
   palettes and object tables named after the consumer), `audio/`.  Paths are lowercase, `[a-z0-9_]`, `.asm`.  A graphics block stored in a different bank than the code that loads
-  it is named after the consumer and carries `_bankNN` (`gfx/mail/connect_screen_bank29.asm`); the original legacy `gfx/bankNN.asm` paths have a descriptive migration map in `docs/research/gfx_resource_path_map.tsv`. Other generic resource paths remain naming debt where present. Name resources from demonstrated content or structure, qualify uncertain interpretation, and retain bank/address provenance; do not invent an application role or species.  The reasoning behind the
-  file split is in [`analysis/layout/README.md`](analysis/layout/README.md).
+  it is named after the consumer and carries `_bankNN` (`gfx/mail/connect_screen_bank29.asm`). Other generic resource paths remain naming debt where present. Name resources from demonstrated content or structure, qualify uncertain interpretation, and retain bank/address provenance; do not invent an application role or species.
 * Data that only one routine uses stays in the routine's file, as in pokecrystal.
 * Special files: `ram.asm` + `ram/{sram,wram,hram,banked}.asm` (equates only, no bytes), `consts.asm` (numeric constants), `zero_labels.asm` (labels that point into all-zero padding,
   tiny pinned sections).  `includes.asm`, `ram.asm` and `ram/*.asm` are not objects; every other `.asm` file is one.
@@ -83,7 +80,6 @@ Where a status is written in the source:
   course changes the ROM hash.  Use this for new code; a `farcall` to a floating label works (`BANK(Label)` is resolved by the linker).
 * If you delete a file, delete its two lines (`org`, section name) from `layout.link`.  If you rename a section, rename it there too.
 * `engine/account/comm_panel.asm` is reached by falling through from the end of `engine/account/registration_verify.asm` (`68:733C`); the two sections must stay adjacent.
-  This is the only fall-through between files that the layout check found (`analysis/layout/README.md`, section 1 rule 2).
 * The all-zero space between and after the sections is not in any file; the linker pads it with `$00` (`rgblink -p 0x00`).  A label inside padding lives in `zero_labels.asm`.
 * After a change run `make`: the SHA-256 tells you whether the ROM is still the original.  A *deliberate* change (a patch) of course changes it; work on a copy of the
   tree/branch for that and keep the reference hash for the unmodified build.  Adding a string or an asset byte changes the size of its section, which has to be accommodated in `layout.link`.
@@ -146,7 +142,7 @@ A name without evidence keeps the position it had in the original ROM and is nev
 has to stay global), `Data_BB_AAAA` (data), `Table_BB_AAAA` (word/pointer table), `String_BB_AAAA` (text), `Tiles_BB_AAAA`, `Tilemap_BB_AAAA`, `Attrmap_BB_AAAA`, `Palette_BB_AAAA`, `Font_BB_AAAA`
 (`BB` the bank, `AAAA` the CPU address in upper-case hex).
 
-* When code is moved, the position in the name does not follow; that is acceptable: it is the historic (original ROM) address, useful for cross-reference with `docs/research/`.
+* When code is moved, the position in the name does not follow; that is acceptable: it is the historic (original ROM) address, useful for cross-reference with the original ROM layout.
 * A mapped function should use its evidenced semantic name in maintained source. Retire a historical
   `Function_BB_AAAA` alias only after checking the function contract, every active operand and qualified
   local reference, and preserving the old-to-current address mapping in its research note. A descriptive
@@ -239,7 +235,7 @@ The *consumer* is the first `call`, `farcall` or tail `jp Label` of the straight
 `needs`, name family, proof) says in which bank that routine dereferences the register: `needs` is `-` when the routine selects the bank itself (`Sprite_InitSlot`, the `Tilemap_CopyRectAndAttr` family and the `TextBuf_*`, `Wram3_*` and `TextEntry_*` routines select bank 7 or bank 3), `fixed` when the bank is a property of the code and not of its caller (the 13 rows of the mail library of bank 0F: it runs only under WRAM bank 5, invariant L5 of `python3 tools/invariants_check.py`), `switch` when its caller does, `a` when it takes the bank of the pointer in A (`Gfx_StartHDMA`, `Tilemap_ApplyMaskRect`, `TextEngine_Run`: the constant in A at the call, from `ld a, $NN`
 or `xor a`, must be the bank, and 0 means the bank in force, which the idiom must show, and only for a routine that `wramx_calls.tsv` lists as `keeps if A=0`: `TextTiles_RenderGrid` hands A to `ReadByteFar`, which has no test for 0) and `dest` when the bank is the constant stored in `hTextTiles_DestBank` (`TextTiles_Render*`: the nearest store, scanning back from the call, which may lie between the load and the call).  For `switch` the nearest write of the bank register before the load, at most 60 lines back, must be the idiom `ld a, $07 / ldh [hWRAMBank], a / ldh [rSVBK], a` of that bank (or a call to a routine that sets it);
 the scan ends without a proof at a global label, an unconditional `ret`/`jp`/`jr`, a call to a routine that `analysis/naming2/wramx_calls.tsv` does not list as keeping the bank (`keeps`, or `keeps if A=0` with A = 0 at the call) or setting it, a conditional call, any instruction that names a bank register or its address (`ldh [c], a` and the short and lower-case spellings included), and a local label unless every way into it shows the same bank (the fall-through, each `jr`/`jp` that names it from above, and the back edges of a loop whose body writes no bank register, calls only routines that keep it and has no label that is entered from outside the body; a `call`, a table word or a load of the label's address gives up, as do more than four nested joins); a routine that loads the address of a bank register (`ld de, rSVBK`) anywhere is refused whole.
-`keeps` is a statement about the `hWRAMBank` shadow: the routine writes no bank register, or restores both registers from the shadow it saved, so the real bank after the call is the one before it only while the shadow equals `rSVBK` at entry (`docs/research/naming2_verify_ramop7.md` section 4c).  With `--observed` the replays also prove the bank of a `switch` row, of an `a` row with A = 0 and of a `(direct)` use: every replayed execution of the instruction ran under one bank only
+`keeps` is a statement about the `hWRAMBank` shadow: the routine writes no bank register, or restores both registers from the shadow it saved, so the real bank after the call is the one before it only while the shadow equals `rSVBK` at entry. With `--observed` the replays also prove the bank of a `switch` row, of an `a` row with A = 0 and of a `(direct)` use: every replayed execution of the instruction ran under one bank only
 (`analysis/rambank/observed_banks.tsv`, the source line mapped to its ROM address by `tools/line_addresses.py`) and the idiom, when the scan finds one, agrees.  The name is the innermost object of `ram/banked.asm` for that bank that covers the address and must match the family of the rule (`ld hl, wSpriteSlot3`, `ld de, wTileStage2 + $780`, `ld hl, wAcctPassword`); it states the bank in which the *consumer* dereferences the pointer, and the caller's own bank may be another one.
 The address decides the name, so a name that is true only in some flows is protected: a `DEF` line that says `CAVEAT` (the address has other meanings elsewhere: `wMailComposeMode`, `wEditBodyBuf`, `wEditAddressBuf`, `wMail_ItemListPointer`, `wMail_OutputStream`) is never written by the tool, and neither is a line whose comment starts with `; raw` and gives the reason (a scratch use of a named buffer, a wipe that runs over the neighbours, a dead load, the number -10000); no mode of `apply_ram_operands.py` and not `apply_manual_sites.py` rewrites a `; raw` line (remove the mark to name it).  A `CAVEAT` name is written by hand, with its proof, where the flow is shown (`wEditAddressBuf` in the compose, viewer, address book and profile flows, `wMail_OutputStream`, `wMail_ItemListPointer`, `wMail_ComposeItem`, `wMail_OutputBankVar` in the selectors 4, 8, 9 and 10 of the mail library, `wMailReplyRecord` in the reply flows, `wSoundDrv_ParamDirtyMask` in the parameter handlers of the sound driver).
 A site that no rule can prove but that was proven by reading (a computed destination, a clear loop, a base register, a use of a neutral `wRam_Dxxx` that a dominating bank idiom shows, a word of an address table) goes into a record of `analysis/naming2/` (`ramop9_manual.tsv`, `ramop10_manual.tsv`, `ramop11_manual.tsv`) with its proof and is written by `python3 tools/apply_manual_sites.py`, which checks the context of the line and that the proposed name has the value and the bank of the row (`$D0A3 x2` names a number that occurs twice on a `dw` line).  Everything else stays numeric and is counted by consumer,
@@ -268,7 +264,7 @@ whose value is the bank of the target and that nothing but the call reads, becom
 
 * **Constants** are `UPPER_CASE` (`MAILREC_OFS_TIME`, `ABOOK_SLOT_COUNT`), written `DEF NAME EQU $xxxx ; STATUS note` followed by `EXPORT NAME` in `consts.asm` (so they are in the `.sym` file).
   Hardware registers are `rNAME` and bit masks `NAMEF_*` / `NAMEB_*` (`constants/hardware.inc`).  The sound effect ids are `SFX_<ROLE>` (the role of the *call*, never how the sound sounds), PROBABLE at best, and are
-  written as the argument of `play_sfx` (section 5); an id whose role differs between its live sites, or that has one site, stays a number (`docs/research/naming2_sfx1.md`).
+  written as the argument of `play_sfx` (section 5); an id whose role differs between its live sites, or that has one site, stays a number.
 * Numbers: hexadecimal with `$` and upper-case digits (`$04D8`, `$FF`), decimal only for counts.  Instructions are lowercase with the explicit operand form of the existing code
   (`or a, a`, `ld a, $08`).
 
@@ -411,7 +407,7 @@ sizes, `bank:addr` and evidence status) and the PNG modes are in [`gfx/README.md
 **PNG is the source.** The graphics binaries (`.2bpp`, `.1bpp`, font `.bin`) are built from their PNG (`gfx/png_rules.tsv`, generated `gfx/png.mk`): edit the PNG, not the binary. `.tilemap`, `.attrmap` and `.pal`
 are edited directly or through `tools/screen_png.py import`. After adding or removing assets run `python3 tools/png_rules.py rules` on an unedited tree (`--rebaseline` when a block was retyped, so that the baseline hashes follow the new bytes), then `make png-check`.
 
-**A palette is one block.** Every immediate palette load recorded in `gfx/previews/screen_ops.tsv` lies in ONE palette block covering its bytes, under a header that says what loads it and whether the call ran in the natural scenarios (`docs/research/naming2_retype1.md`); the only exceptions are the independently reviewed BG over-reads at `4D:5510` and `4D:7570`, recorded in `REVIEWED_OVERREADS` in the checker. Each header states the exact excess (`the call takes N bytes past the end of this block`); the tail spans contiguous, non-overlapping regions including non-palette data. A comment alone does not authorize another exception. `make palette-check` fails otherwise.  A header that says "content class unknown" above an exported asset is rewritten by `gfx_export export` (and `check` fails while one is left).
+**A palette is one block.** Every immediate palette load recorded in `gfx/previews/screen_ops.tsv` lies in ONE palette block covering its bytes, under a header that says what loads it and whether the call ran in the natural scenarios; the only exceptions are the independently reviewed BG over-reads at `4D:5510` and `4D:7570`, recorded in `REVIEWED_OVERREADS` in the checker. Each header states the exact excess (`the call takes N bytes past the end of this block`); the tail spans contiguous, non-overlapping regions including non-palette data. A comment alone does not authorize another exception. `make palette-check` fails otherwise. A header that says "content class unknown" above an exported asset is rewritten by `gfx_export export` (and `check` fails while one is left).
 
 ## 9. Words, tables and pointers
 
@@ -446,7 +442,7 @@ are edited directly or through `tools/screen_png.py import`. After adding or rem
 **Applying renames.** Names are changed with `python3 tools/apply_renames.py --manifest FILE` (manifest: TAB-separated `old_name new_name kind status evidence`; HYPOTHESIS rows are never applied).
 It renames the definition (`New:: ; BB:AAAA`; the neutral old name stays below it as an alias without comment) and every reference in all `.asm`/`.inc` files, refuses unsafe rows (collisions,
 non-unique or alias old names, conflicting rows), runs `make`, checks the SHA-256 and `sym_check`, and restores every file on failure.  Use `--dry-run` first, `--annotate` to add a
-`; name evidence:` line.  The manifests that produced the current names are `analysis/naming2/*_renames.tsv` (evidence per row) with notes in `docs/research/naming2_*.md`.  Tests:
+`; name evidence:` line. The manifests that produced the current names are `analysis/naming2/*_renames.tsv` (evidence per row). Tests:
 `python3 tools/test_apply_renames.py`.
 
 **Applying overlay aliases.** Screen-local aliases of overlay variables (section 4, RAM) are added with `python3 tools/apply_overlay_aliases.py --manifest FILE` (manifest: TAB-separated

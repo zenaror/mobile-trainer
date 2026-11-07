@@ -57,7 +57,7 @@ make
   tile.  Edit a cell that uses its tile once, or all sharing cells identically.  Other screens that show the same tile change too (import tells you).
 * Unedited screen PNG -> import is required to preserve bytes; `make png-check` checks this contract for the current catalogue.
 
-The bank41–46 record views are conditional compositions. Eight of their tilemaps currently lack an editing view (KEEP); all eight have existing legacy previews and original bytes. The earlier eleven omissions were reduced by42:4D50,42:4000 and42:67F0. Two selected bank47 maps,47:4B00 and47:65A0, also lack editing rows but have descriptor previews;47:5850 has a partial357/360 view. Their original bytes are present; this is a limitation of editing-view derivation, not proof of missing ROM art. See [catalogue/layout audit](research/assets_original_catalogue_and_layout_audit.md) and [frame/name limits](research/assets_pokemon_frames_and_name_limits.md).
+Some frame records and tilemaps do not have a complete screen-editing view. This is a limit of the preview, not evidence that the corresponding ROM graphics are missing or unused. The [graphics catalogue](../gfx/README.md) lists the available assets and source files.
 
 ## 4. Font sheets
 
@@ -102,5 +102,5 @@ Zero bytes following a record do not by themselves prove padding or unused data.
 
 The table-backed HelpScript pictures use 12×6 tiles (96×48 pixels), 1,152-byte
 backings and four-colour palettes. Their IDs and source ranges are defined by
-the picture table. Preserve dimensions and glyph/tile order. See
-[HelpScript picture resources](research/help_script_picture_assets.md).
+the picture table. Preserve dimensions and glyph/tile order; the graphics
+catalogue lists their source assets.

@@ -125,7 +125,7 @@ Notes:
 | number fetch (relay extension) | 3 s | `mobile.c:139-147` |
 
 Game-side limits worth remembering (Dan Docs): responses to slow commands may take many seconds; the SDK in the Trainer polls for up to
-about 1 s x `$20`..`$60` repeats before giving up (derived, see trainer doc section 7).
+about 1 s x `$20`..`$60` repeats before giving up (derived from the timer model in `mobile_trainer_serial.md` section 6.4).
 
 ## 6. Command table
 
@@ -188,7 +188,7 @@ DISCONNECTED --(12 to ISP number)--> CALL_ISP --(21 PPP_CONNECT)--> INTERNET
 
 * 0x100 bytes are visible to the game; the used area is the first 0xC0 bytes (`config.c:9-10`: `MOBILE_CONFIG_SIZE_INTERNAL 0xC0`); libmobile keeps its own extension at `0x100..0x15F` (`config.c:11-13`).
 * Validity check used by libmobile: bytes `00-01` = `"MA"`, checksum over the 0xC0 image (`config.c:37-49`); the game-side SDK performs the same check on read (Trainer: `75:629C-62BF`).
-* Layout (Dan Docs, cross-checked against the Trainer SDK buffer offsets, see `mobile_trainer_serial.md` section 8):
+* Layout (Dan Docs, cross-checked against the Trainer SDK buffer offsets, see `mobile_trainer_serial.md` section 7):
 
 | offset | content |
 |---|---|
@@ -212,5 +212,3 @@ Startup (Dan Docs "Common startup sequence"; the Trainer SDK reproduces it: `75:
 19 Read config [00,60]  -> 19 Read config [60,60]   (validate "MA" + checksum; SDK error 25 if bad magic, 14 if bad sum)
 17 Telephone Status -> 12 Dial -> 21 ISP Login -> 28 DNS -> 23 TCP connect -> 15 Data ... -> 24 TCP disconnect -> 22 ISP logout -> 13 hang up -> 11 End
 ```
-
-* Corrections made: address `68:4E46` for the test number; Read Config sizes (see section 10 row); checksum-failure wording above.

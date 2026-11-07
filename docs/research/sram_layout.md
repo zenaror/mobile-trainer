@@ -95,7 +95,7 @@ are wiped by `68:42E4-4319` (loop over banks 0..3, `$1000` bytes at `A000` and `
 
 ## 5. Dynamic cross-check (emulator traces, CONFIRMED for the 18 scenarios that were run)
 
-Some scenarios start from a factory-fresh SRAM (`docs/research/dynamic_tracing.md` F8: the first run writes all of bank 0) and some contain bulk wipes (e.g.
+In the recorded emulator scenarios, a factory-fresh SRAM run writes all of bank 0. Other scenarios contain bulk wipes (e.g.
 
 `title_settings` writes `A000-BFFF` of banks 1-3), so wide ranges do not by themselves prove field use.
 
@@ -114,9 +114,8 @@ So the static claim   (checksum stored at `A8D7/A8D8`, written by `22:5077`) res
 | write | 2 |
 | write | 3 |
 
-* DOWNGRADED: the object sizes of the 6 x `$16`, 6 x `$100`, 6 x `$50` arrays are PROBABLE (six-entry address tables with these   strides are confirmed; the object size is only bounded by the stride, and the tiling of the checksummed spans is   consistent with equality); the record-header field meanings (`01 00 00 20 00 MM DD hh mm`, "BCD year") are a   HYPOTHESIS.
+The sizes of the 6 x `$16`, 6 x `$100` and 6 x `$50` arrays are PROBABLE: six-entry address tables with these strides are confirmed, while the object extents are bounded by the stride. The record-header interpretation (`01 00 00 20 00 MM DD hh mm`, "BCD year") remains a HYPOTHESIS.
 
-* CORRECTED: text-to-BCD routine starts at `68:409A`, the bytes at `68:4098-4099` belong to the character table.
 
 ## Inventory: accessors per SRAM bank (recomputed)
 
