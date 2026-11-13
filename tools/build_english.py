@@ -54,7 +54,7 @@ def main():
             or type(m.get('overrides_count')) is not int or m['overrides_count'] < 0
             or len(m['overrides']) != m['overrides_count']):
         raise ValueError('unsupported locale manifest')
-    expected_methods = {'Makefile', 'tools/build_english.py', 'docs/LANGUAGE_BUILDS.md', 'tools/sprite_chain_check.py', 'tools/invariants_check.py', 'tools/data_consumers.py', 'tools/apply_renames.py', 'tools/localize_labels.py', 'tools/audio_to_macros.py', 'tools/retype_palettes.py', 'tools/crystal_match.py'}
+    expected_methods = {'Makefile', 'tools/build_english.py', 'tools/sprite_chain_check.py', 'tools/invariants_check.py', 'tools/data_consumers.py', 'tools/apply_renames.py', 'tools/localize_labels.py', 'tools/audio_to_macros.py', 'tools/retype_palettes.py', 'tools/crystal_match.py'}
     generated_2bpp = m.get('generated_2bpp')
     if not isinstance(generated_2bpp, dict):
         raise ValueError('missing generated .2bpp inventory')
@@ -82,8 +82,11 @@ def main():
     view_inputs = {}
     for name, record in m['fallback_files'].items():
         relative(name)
-        if name.split('/')[0] in ('languages', 'build', '.git', '.cache') or name.endswith(('.gbc', '.zip', '.pyc')):
-            raise ValueError('forbidden fallback input: ' + name)
+        root = name.split('/')[0]
+        if (root in ('languages', 'build', '.git', '.cache', 'analysis', 'config', 'docs', 'traces')
+                or name in ('.gitignore', 'roms.sha256')
+                or name.endswith(('.md', '.gbc', '.zip', '.pyc'))):
+            raise ValueError('non-ROM fallback input: ' + name)
         p = safe(ROOT, name)
         inputs[name] = verified(p, record)
         view_inputs[name] = p
