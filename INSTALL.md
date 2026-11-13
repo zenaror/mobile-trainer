@@ -62,6 +62,19 @@ SHA-256 OK: 6d802e66b54f700aa8c767dd4a3b9df200bae05e07a296fffb16ebf4efc76570
 
 `mobile_trainer.gbc` is the original *Mobile Trainer (Japan)* ROM.  `build/` holds the objects, `mobile_trainer.map` and `mobile_trainer.sym`.
 
+To build the English overlay instead, run:
+
+```bash
+make english
+```
+
+This applies the English overrides listed in `languages/en/manifest.json` and
+uses the pinned Japanese source files for the rest. The English ROM and its
+build files are written under `build/en/`; the default `make` target continues
+to build the Japanese ROM. Run `make english-check` to build the overlay and
+run its source and output checks. Adding an English file requires registering
+it and its source pin in the locale manifest; see [language builds](docs/LANGUAGE_BUILDS.md).
+
 ## The reference ROM (optional, for comparison only)
 
 The original cartridge image is a commercial ROM and is not distributed with the repository.  The build does not read it; the SHA-256 in `roms.sha256` is the reference of truth.
